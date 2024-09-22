@@ -46,7 +46,6 @@ checkstyleTest {
 }
 
 dependencies {
-    implementation 'org.duckdb:duckdb_jdbc:0.2.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-security'
