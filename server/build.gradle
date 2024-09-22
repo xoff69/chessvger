@@ -1,0 +1,167 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'jacoco'
+    id("io.freefair.lombok") version "8.4"
+    id 'checkstyle'
+    id 'pmd'
+    id "com.github.spotbugs" version "6.0.2"
+}
+
+group = "com.xoff"
+version = "1.0.0-SNAPSHOT"
+description = "chessvger"
+
+java {
+    sourceCompatibility = '20'
+}
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-parameters'
+}
+
+repositories {
+    mavenCentral()
+}
+tasks.spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+pmd {
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
+}
+checkstyle {
+    configDirectory = rootProject.file("${rootDir}/config/checkstyle/")
+    configFile = rootProject.file("${rootDir}/config/checkstyle/checkstyle.xml")
+    toolVersion = '10.12.5'
+}
+checkstyleMain {
+    source = 'src/main/java'
+}
+checkstyleTest {
+    source = 'src/test/java'
+}
+
+dependencies {
+    implementation 'org.duckdb:duckdb_jdbc:0.2.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    implementation 'org.mapdb:mapdb:3.1.0'
+    implementation 'commons-io:commons-io:2.15.0'
+    implementation 'com.google.cloud.tools:appengine-plugins-core:0.9.11'
+    implementation 'org.webjars:bootstrap:5.2.3'
+    implementation 'org.webjars:jquery:3.6.4'
+    implementation 'org.webjars:popper.js:2.9.3'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+    implementation 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.22.0'
+    implementation 'net.sourceforge.pmd:pmd-java:7.0.0-rc4'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.jayway.jsonpath:json-path:2.9.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.2')
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+
+}
+
+
+task prepareDirs {
+    doFirst {
+
+        String rundir = RUN_FOLDER
+        delete rundir
+        mkdir rundir
+        mkdir rundir + "/work"
+        mkdir rundir + "/temp"
+        mkdir rundir + "/work/pgn"
+        mkdir rundir + "/work/import"
+        mkdir rundir + "/zip"
+        mkdir rundir + "/reference"
+        mkdir rundir + "/trace"
+        mkdir rundir + "/reject"
+        mkdir rundir + "/common"
+        mkdir rundir + "/db"
+
+    }
+    doLast {
+
+        copy {
+            from "data/reference"
+            include "*"
+            into RUN_FOLDER + "/reference"
+        }
+    }
+}
+
+task CreateDataBase(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    mainClass = 'com.xoff.chessvger.init.CreateDataBase'
+    args = ["C:\\mesapplis/chessvger/big", "test", "test", RUN_FOLDER]
+}
+task LoadPlayer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    mainClass = 'com.xoff.chessvger.init.CreateFidePlayer'
+    args = ["C:\\mesapplis/chessvger/xplayers_list_foa.txt",RUN_FOLDER]
+}
+task loadAllData(type: JavaExec) {
+    dependsOn prepareDirs
+    classpath = sourceSets.main.runtimeClasspath
+
+    mainClass = 'com.xoff.chessvger.init.LoadData'
+    args = [pgnLight, "test", "test", RUN_FOLDER]
+}
+test {
+    useJUnitPlatform()
+    dependsOn(loadAllData)
+}
+task unitTests(type: Test) {
+    useJUnitPlatform {
+        excludeTags 'IT'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+task integrationTests(type: Test) {
+
+
+    useJUnitPlatform {
+        includeTags 'IT'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+task combineJaCoCoReports(type: JacocoReport) {
+    executionData fileTree(project.buildDir.absolutePath).include("jacoco/*.exec")
+    classDirectories.setFrom files(project.sourceSets.main.output)
+    sourceDirectories.setFrom files(project.sourceSets.main.allSource.srcDirs)
+
+}

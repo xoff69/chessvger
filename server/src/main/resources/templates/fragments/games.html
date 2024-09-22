@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="games(bdId)">
+    <div th:replace="~{fragments/modal_search.html :: modal_search(${bdId})}"></div>
+    <div th:replace="~{fragments/modals_game.html :: modal_import(${bdId})}"></div>
+
+    <div th:replace="~{fragments/modals_game.html :: modal_tree(${bdId})}"></div>
+    <div th:replace="~{fragments/modals_game.html :: modal_stat(${bdId})}"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <button class="btn"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}"
+                        th:title="#{game.create}" type="button">
+                    <img src="images/icons/new.png" style="width:20px;height:20px;" th:alt="#{game.create}">
+                </button>
+                <button class="btn " data-bs-toggle="modal"
+                        th:attr="data-bs-target='#statModal' + ${bdId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" type="button">
+                    <img src="images/icons/stats.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn "
+                        data-bs-toggle="modal"
+                        th:attr="data-bs-target='#searchModal' + ${bdId}" type="button">
+                    <img src="images/icons/search.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn " th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}"
+                        type="button"><img src="images/icons/filtre.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn " th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}"
+                        type="button"><img src="images/icons/export.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn"
+                        data-bs-toggle="modal"
+                        th:attr="data-bs-target='#importPgnModal' + ${bdId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('PGN_IMPORT'))}"
+                        type="button">
+                    <img src="images/icons/import.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn"
+                        data-bs-toggle="modal" th:attr="data-bs-target='#treeModal' + ${bdId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}"
+                        type="button">
+                    <img src="images/icons/tree.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn "
+                        th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" type="button">
+                    <img src="images/icons/compact.png" style="width:20px;height:20px;">
+                </button>
+                <button class="btn"
+                        data-placement="top" data-toggle="tooltip"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" title="Tooltip on top"
+                        type="button">
+                    <img src="images/icons/settings.png" style="width:20px;height:20px;">
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+
+                <div class="starter-template">
+                    <button class="btn "
+                            th:id="'buttonTrash_' + ${bdId}"
+                            th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" type="button"
+                    >
+                        <img src="images/icons/trash.png" style="width:20px;height:20px;"></button>
+                    <button class="btn "
+                            th:id="'buttonUndelete_' + ${bdId}"
+                            th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" type="button">
+                        <img src="images/icons/undelete.png" style="width:20px;height:20px;"></button>
+                    <button class="btn "
+                            th:id="'buttonCopy_' + ${bdId}"
+                            th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" type="button">
+                        <img src="images/icons/copy.png" style="width:20px;height:20px;"></button>
+                    <button class="btn "
+                            th:id="'buttonPaste_' + ${bdId}"
+                            th:if="${(navigation.applicationBean.isAllowedFeature('BUTTONS_GAME'))}" type="button">
+                        <img src="images/icons/paste.png" style="width:20px;height:20px;"></button>
+
+                    <table class="table table-striped" th:id="'gamesTable_' + ${bdId}">
+                        <thead>
+                        <tr>
+                            <th><input th:id="'checkboxGames_' + ${bdId}" type="checkbox"/></th>
+                            <!--         <th th:text="#{common.th.id}" width="20%"></th>-->
+                            <th th:text="#{game.th.event}" width="20%"></th>
+                            <th th:text="#{game.th.site}" width="20%"></th>
+                            <th th:text="#{game.th.date}" width="20%"></th>
+                            <th th:text="#{game.th.white}" width="20% "></th>
+                            <th th:text="#{game.th.black}" width="20%"></th>
+                            <th th:text="#{game.th.result}" width="20%"></th>
+                            <th th:text="#{table.header.actions}" width="30%"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div th:id="'gamesPagination_' + ${bdId}"></div>
+                    <script>
+
+                        function updateGames[[${bdId}]](page){
+                            var bdId = [[${bdId}]];
+                            var gamesTableId='gamesTable_'+bdId;
+                            var gamesPaginationId='gamesPagination_'+bdId;
+
+                            $.ajax({
+                            // FIXME constante pour size
+                                url: 'games?bdId='+bdId+'&page='+page+"&size=100",
+                                type: 'get',
+                                dataType: 'JSON',
+                                success: function(response){
+                                        var msg="[[#{pagination.games}]]";
+                                        console.log("Ecrit games");
+                                     ecritGames(bdId,response,msg);
+
+                                    $('.gamescb_'+bdId).click(function () {
+                                            if($(".gamescb_"+bdId).length == $(".gamescb_"+bdId+":checked").length) {
+                                                $('#checkboxGames_' + bdId).prop('checked',true);
+                                            } else {
+                                                $('#checkboxGames_' + bdId).prop('checked',false);
+                                            }
+                                    });
+                                     $("#buttonTrash_"+bdId).click(function(){
+                                            var items =collecCheck("games_"+bdId);
+
+                                           console.log("trash: " + items);
+                                     });
+                                      $("#buttonCopy_"+bdId).click(function(){
+                                            var items =collecCheck("games_"+bdId);
+
+                                           console.log("copied are: " + items);
+                                     });
+                                     $("#buttonUndelete_"+bdId).click(function(){
+                                            var items =collecCheck("games_"+bdId);
+                                           console.log("undelete are: " + items);
+                                     });
+                                     $("#buttonPaste_"+bdId).click(function(){
+                                           console.log("paste");
+                                     });
+
+                                     $("#"+gamesTableId+" > tbody > tr").click(function (e) {
+                                             $(this).addClass("selected").siblings().removeClass("selected");
+
+                                             getGameDetail[[${bdId}]]GA(bdId, $(this).attr('id'));
+                                    });
+
+                                }
+                            });
+                        }
+
+
+                        $(document).ready(function(){
+                            updateGames[[${bdId}]](1);
+
+                             $('#checkboxGames_[[${bdId}]]' ).click(function () {
+                                  if(this.checked){
+                                    $('.gamescb_[[${bdId}]]').each(function(){
+                                        this.checked = true;
+                                    });
+                                }else{
+                                     $('.gamescb_[[${bdId}]]').each(function(){
+                                        this.checked = false;
+                                    });
+                                }
+
+                            });
+                        });
+
+
+                    </script>
+                </div>
+            </div>
+            <div class="col-3" th:if="${(navigation.applicationBean.isAllowedFeature('ENGINE'))}">
+                <div
+                        th:if="${(navigation.applicationBean.isAllowedFeature('BOARD'))}"
+                        th:insert="~{fragments/board.html :: board(${bdId},'GA')}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
