@@ -54,3 +54,5 @@ gradle test -PRUN_FOLDER=runTest
 
 - gradle spotBugsMain
 
+##DB
+docker run -itd -e POSTGRES_USER=chessvger -e POSTGRES_PASSWORD=chessvger -p 5432:5432 -v ./data:/var/lib/postgresql/data --name postgresql postgres

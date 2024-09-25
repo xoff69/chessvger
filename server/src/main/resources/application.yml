@@ -24,6 +24,19 @@ spring:
       max-request-size: 200MB
   messages:
     basename: lang/messages
-
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: chessvger
+    password: chessvger
+    url: jdbc:postgresql://localhost/chessvger
+    platform: postgres
+    initialization-mode: always
+    continue-on-error: true
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    database: POSTGRESQL
 logging:
   file.name: data/logs/chessvger.log
