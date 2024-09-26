@@ -27,7 +27,7 @@ public class ParamConstants {
   public static final String REP_REJET = RUN_FOLDER + "/reject";
   public static final String OPENING_PATH = RUN_FOLDER + "/reference/openings.xml";
   public static final String PLAYERS_FOLDER = RUN_FOLDER + "/reference/";
-  public static final String PLAYERS_PATH = RUN_FOLDER + "/reference/players_list_foa.txt";
+  public static final String PLAYERS_PATH = RUN_FOLDER + "/reference/xplayers_list_foa.txt";
   public static final String SYNONYM_PATH = RUN_FOLDER + "/reference/synonym.txt";
   public static final String REP_TRACE = RUN_FOLDER + "/trace";
   public static final String DATA_FOLDER_COMMON = RUN_FOLDER + "/common/";

@@ -5,20 +5,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PostLoad;
 import jakarta.persistence.Table;
-import java.io.Serializable;
+import jakarta.persistence.Transient;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Persistable;
 
 @Data
 @Entity
 @Table(name = "common_player")
-public class CommonPlayerEntity  {
+public class CommonPlayerEntity  implements Persistable<Long> {
 
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long idnumber;
+  private Long id;
 
   private String name;
   private String nakedName;
@@ -40,8 +41,13 @@ public class CommonPlayerEntity  {
   private String bday;
   private String flag;
 
+  @Override
+  public boolean isNew() {
+    return true;
+  }
+
   public CommonPlayerEntity() {
-    idnumber = 0L;
+    id = 0L;
     name = StringUtils.EMPTY;
     nakedName = StringUtils.EMPTY;
     fex = StringUtils.EMPTY;
@@ -64,7 +70,7 @@ public class CommonPlayerEntity  {
   }
 
   public boolean isFide() {
-    return idnumber < Constants.ID_MIN_NON_FIDE_PLAYER;
+    return id < Constants.ID_MIN_NON_FIDE_PLAYER;
   }
 
 }
