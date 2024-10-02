@@ -1,6 +1,6 @@
 package com.xoff.chessvger.ui.web.controller;
 
-import com.xoff.chessvger.repository.ImportePlayerBatch;
+import com.xoff.chessvger.repository.PlayerParser;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IPlayerService;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
@@ -23,11 +23,12 @@ public class PlayersController {
   IPlayerService iPlayerService;
 
   @Autowired
-  ImportePlayerBatch importePlayerBatch;
+  PlayerParser playerParser;
 
   @GetMapping("/load")
   public ResponseEntity<String> importe(){
-    long c=importePlayerBatch.importeFidePlayer();
+    // long c=importePlayerBatch.importeFidePlayer();
+    long c= playerParser.parse();
     return new ResponseEntity<>("ok "+c,
         HttpStatus.OK);
   }

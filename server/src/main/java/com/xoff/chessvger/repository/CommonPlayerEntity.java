@@ -21,24 +21,24 @@ public class CommonPlayerEntity  implements Persistable<Long> {
   @Id
   private Long id;
 
+  private String fideId;
   private String name;
-  private String nakedName;
-  private String fex;
+  private String country;
   private String sex;
-  private String tit;
-  private String wtit;
-  private String otit;
-  private String foa;
-  private String ssrtng;
-  private String sgm;
-  private String sk;
-  private String rrtng;
-  private String rgm;
-  private String rk;
-  private String brtng;
-  private String bgm;
-  private String bk;
-  private String bday;
+  private String title;
+  private String wTitle;
+  private String oTitle;
+  private String foaTitle;
+  private String rating;
+  private String games;
+  private String k;
+  private String rapidRating;
+  private String rapidGames;
+  private String rapidK;
+  private String blitzRating;
+  private String blitzGames;
+  private String blitzK;
+  private String birthday;
   private String flag;
 
   @Override
@@ -46,28 +46,7 @@ public class CommonPlayerEntity  implements Persistable<Long> {
     return true;
   }
 
-  public CommonPlayerEntity() {
-    id = 0L;
-    name = StringUtils.EMPTY;
-    nakedName = StringUtils.EMPTY;
-    fex = StringUtils.EMPTY;
-    sex = StringUtils.EMPTY;
-    tit = StringUtils.EMPTY;
-    wtit = StringUtils.EMPTY;
-    otit = StringUtils.EMPTY;
-    foa = StringUtils.EMPTY;
-    ssrtng = StringUtils.EMPTY;
-    sgm = StringUtils.EMPTY;
-    sk = StringUtils.EMPTY;
-    rrtng = StringUtils.EMPTY;
-    rgm = StringUtils.EMPTY;
-    rk = StringUtils.EMPTY;
-    brtng = StringUtils.EMPTY;
-    bgm = StringUtils.EMPTY;
-    bk = StringUtils.EMPTY;
-    bday = StringUtils.EMPTY;
-    flag = StringUtils.EMPTY;
-  }
+
 
   public boolean isFide() {
     return id < Constants.ID_MIN_NON_FIDE_PLAYER;
