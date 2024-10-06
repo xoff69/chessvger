@@ -6,6 +6,9 @@ package com.xoff.chessvger.kafka.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.kafka.position.PositionMaterialProducer;
+import com.xoff.chessvger.kafka.position.PositionsUtil;
 import java.io.File;
 import java.util.List;
 import com.xoff.chessvger.kafka.util.CommonKafka;
@@ -31,20 +34,16 @@ public class AppProducerGame {
       try {
         String gameJson = objectMapper.writeValueAsString(game);
         ProducerRecord<String, String> record = new ProducerRecord<>(KafkaConstants.TOPIC_GAME, null, gameJson);
-
+        List<CoupleZobristMaterial> list= PositionsUtil.parseMoves2(game.getMoves());
         producer.send(record);
         producer.flush();
+        PositionMaterialProducer.enqueuePositionMaterial(list);
 
       } catch (JsonProcessingException e) {
         e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
       }
     }
     System.out.println("db insert games done "+games.size());
-
-
-
-
-
   }
 
 }

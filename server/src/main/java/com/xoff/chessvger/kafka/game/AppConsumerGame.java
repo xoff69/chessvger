@@ -21,8 +21,6 @@ public class AppConsumerGame {
       ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
 
       for (ConsumerRecord<String, String> record : records) {
-
-
         try {
           CommonGame game = objectMapper.readValue(record.value(), CommonGame.class);
           commonGameDao.insertCommonGame(game);

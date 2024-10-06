@@ -46,7 +46,7 @@ public class CommonGame implements Serializable {
 
 
   private int nbcoups;
-  private int lastPosition;
+  private long lastPosition;
   private long informationsFaitDeJeu;
   private long lastUpdate;
 
@@ -123,7 +123,7 @@ public class CommonGame implements Serializable {
 
     out.writeUTF(getEventDate());
     out.writeInt(getNbcoups());
-    out.writeInt(getLastPosition());
+    out.writeLong(getLastPosition());
     out.writeLong(getInformationsFaitDeJeu());
     out.writeUTF(getMoves());
 
@@ -159,7 +159,7 @@ public class CommonGame implements Serializable {
     setEventDate(in.readUTF());
 
     setNbcoups(in.readInt());
-    setLastPosition(in.readInt());
+    setLastPosition(in.readLong());
 
     setInformationsFaitDeJeu(in.readLong());
     setMoves(in.readUTF());
