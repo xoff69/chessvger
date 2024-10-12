@@ -3,17 +3,15 @@ package com.xoff.chessvger.kafka.position;
 import com.xoff.chessvger.chess.board.BoardManager;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
 import com.xoff.chessvger.chess.board.Position;
-import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.chess.game.ItemGameTree;
 import com.xoff.chessvger.chess.game.OneGameTree;
 import com.xoff.chessvger.chess.move.ResultInterpretation;
-import com.xoff.chessvger.common.GlobalManager;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class PositionsUtil {
+public class MaterialPositionsUtil {
 
   public static  List<CoupleZobristMaterial> parseMoves2(String moves) {
 

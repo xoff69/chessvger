@@ -1,16 +1,19 @@
 package com.xoff.chessvger.kafka.position;
 
+import com.xoff.chessvger.kafka.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import com.xoff.chessvger.kafka.util.CommonDao;
 
-public class PositionDao {
+public class MaterialDao {
+ // position_games
+  //position_entity_games
 
 
-    private static final String INSERT_SQL = "INSERT INTO position_games (id,position) VALUES (?,?)";
-    private static final String INSERT_LIST_SQL = "INSERT INTO position_entity_games (position_entity_id, games) VALUES (?, ?)";
+
+    private static final String INSERT_SQL = "INSERT INTO ExampleEntity (someLongValue) VALUES (?)";
+    private static final String INSERT_LIST_SQL = "INSERT INTO ExampleEntity_IntegerList (exampleEntity_id, integer_value) VALUES (?, ?)";
 
     public void insertEntity(PositionEntity entity) throws SQLException {
       Connection connection = null;
@@ -20,13 +23,14 @@ public class PositionDao {
       try {
         // 1. Créer la connexion à la base de données
         connection = CommonDao.getInstance().getConnection();
-        connection.setAutoCommit(false);
+        connection.setAutoCommit(false); // Permet de contrôler la transaction manuellement
 
+        // 2. Préparer la requête SQL pour insérer dans ExampleEntity
         insertEntityStmt = connection.prepareStatement(INSERT_SQL, PreparedStatement.RETURN_GENERATED_KEYS);
         insertEntityStmt.setLong(1, entity.getId());
-        insertEntityStmt.setLong(2, entity.getPosition());
         insertEntityStmt.executeUpdate();
 
+        // 3. Récupérer l'ID généré
         try (var generatedKeys = insertEntityStmt.getGeneratedKeys()) {
           if (generatedKeys.next()) {
             long generatedId = generatedKeys.getLong(1);
