@@ -57,7 +57,6 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.apache.commons:commons-lang3:3.15.0'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-    implementation 'org.mapdb:mapdb:3.1.0'
     implementation 'commons-io:commons-io:2.16.1'
     implementation 'com.google.cloud.tools:appengine-plugins-core:0.9.11'
     implementation 'org.webjars:bootstrap:5.2.3'

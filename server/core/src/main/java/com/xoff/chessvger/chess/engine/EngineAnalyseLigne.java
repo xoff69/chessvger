@@ -1,7 +1,7 @@
 package com.xoff.chessvger.chess.engine;
 
 import com.xoff.chessvger.chess.board.Position;
-import com.xoff.chessvger.common.queue.QueueManagerForGame;
+import com.xoff.chessvger.queue.QueueManagerForGame;
 import com.xoff.chessvger.util.PgnUtil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.BufferedReader;
