@@ -1,11 +1,9 @@
 package com.xoff.chessvger.chess.game;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.ui.Pageable;
-import com.xoff.chessvger.ui.web.mapper.GameMapper;
-import com.xoff.chessvger.ui.web.navigation.Page;
-import com.xoff.chessvger.ui.web.view.PageView;
 import com.xoff.chessvger.util.Constants;
+import com.xoff.chessvger.view.PageView;
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,13 +29,7 @@ public class GlobalGameManager implements IGlobalGameManager {
     }
   }
 
-  public static PageView<CommonGame> computePaging(List<CommonGame> commonGames, Pageable paging) {
-    PageView<CommonGame> pageGameView =
-        Page.compute(paging, GameMapper.INSTANCE.mapListEntity2Dto(commonGames));
 
-    return pageGameView;
-
-  }
 
   public void update() {
     //  log.info("update");

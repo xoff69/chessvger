@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.view;
+package com.xoff.chessvger.view;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;

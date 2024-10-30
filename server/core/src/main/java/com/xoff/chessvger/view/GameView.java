@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.view;
+package com.xoff.chessvger.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xoff.chessvger.chess.board.BoardManager;

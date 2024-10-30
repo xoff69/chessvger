@@ -3,7 +3,7 @@ package com.xoff.chessvger.chess.stat;
 import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.game.CommonGame;
-import com.xoff.chessvger.ui.web.view.StatBrowserView;
+import com.xoff.chessvger.view.StatBrowserView;
 import java.util.List;
 
 public interface IBrowserStatManager {

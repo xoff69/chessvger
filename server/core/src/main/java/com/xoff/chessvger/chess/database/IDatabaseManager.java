@@ -13,11 +13,11 @@ import com.xoff.chessvger.chess.player.CommonPlayer;
 import com.xoff.chessvger.chess.player.IPlayerOfDbManager;
 import com.xoff.chessvger.chess.player.IPlayerStatManager;
 import com.xoff.chessvger.chess.stat.IGlobalBrowserStatManager;
-import com.xoff.chessvger.ui.Pageable;
-import com.xoff.chessvger.ui.web.view.JoueurView;
-import com.xoff.chessvger.ui.web.view.StatBrowserView;
-import com.xoff.chessvger.ui.web.view.StatGame;
-import com.xoff.chessvger.ui.web.view.StatJoueurView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.JoueurView;
+import com.xoff.chessvger.view.StatBrowserView;
+import com.xoff.chessvger.view.StatGame;
+import com.xoff.chessvger.view.StatJoueurView;
 import java.util.List;
 
 public interface IDatabaseManager {

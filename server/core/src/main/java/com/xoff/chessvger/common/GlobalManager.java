@@ -30,7 +30,6 @@ import com.xoff.chessvger.chess.user.IUserManager;
 import com.xoff.chessvger.chess.user.UserManager;
 import com.xoff.chessvger.chess.userpack.IUserPackManager;
 import com.xoff.chessvger.chess.userpack.UserPackManager;
-import com.xoff.chessvger.ui.web.view.DBView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -161,72 +160,6 @@ public class GlobalManager {
 
   }
 
-
-  /**
-   * charge les informations de la base de donnees
-   */
-  public List<DBView> loadDBInfo() {
-    //CommonPlayerDB cp= new CommonPlayerDB();
-
-    List<DBView> resultat = new ArrayList<>();
-    /*
-    log.info("globalManager.getProperty(Constants.LISTBD)" + BDS);
-    List<String> bds = StringUtility.stringToList(BDS);
-
-    if (bds != null) {
-        for (String s : bds) {
-            //    log.info("loadDBInfo:" + s);
-            DBView dbinfo = DataBaseHelper.getDatabaseInfo(s, DataBaseHelper.getFolder(s));
-            resultat.addDatabaseManager(dbinfo);
-            //     log.info("loadDBInfo:" + dbinfo);
-        }
-    }*/
-    return resultat;
-
-  }
-
-  public void closeDB(DBView old) {
-        /*
-        try {
-            List<String> l = StringUtility.stringToList(BDS);
-
-            l.remove(old.getName());
-
-           // FIXME propertiesUtil.setProperty(Constants.LISTBD, StringUtility.listToString(l));
-
-        } catch (Exception e) {
-            log.error(e.getMessage());
-
-        }*/
-  }
-
-  /**
-   * met a jour les infos bd
-   */
-  public boolean appendDBInfo(DBView nouvelle) {
-    /*
-    try {
-        List<String> l = StringUtility.stringToList(BDS);
-
-        if (l == null) {
-            l = new ArrayList();
-        }
-        if (l.contains(nouvelle.getName())) {
-            return false;
-        }
-        // dans l on a la liste des bases connues
-        //   log.info("nouvlle!" + nouvelle.getName());
-        l.addDatabaseManager(nouvelle.getName());
-        //  log.info("nouvlle!" + StringUtility.listToString(l));
-   // FIXME     propertiesUtil.setProperty(Constants.LISTBD, StringUtility.listToString(l));
-        return true;
-    } catch (Exception e) {
-        log.error(e.getMessage());
-        return false;
-    }
-    */
-    return false;
-  }
 
 
 }

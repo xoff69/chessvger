@@ -7,15 +7,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.PropertiesUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
 public class CommonGameManager implements ICommonGameManager {
 
   private final MapGame mapGame;
-  @Autowired
-  private PropertiesUtil propertiesUtil;
+
 
 
   public CommonGameManager(DatabaseManager databaseManager, String base) {

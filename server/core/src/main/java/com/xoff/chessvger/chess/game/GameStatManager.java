@@ -1,8 +1,8 @@
 package com.xoff.chessvger.chess.game;
 
 
-import com.xoff.chessvger.ui.web.view.StatGame;
 import com.xoff.chessvger.util.Constants;
+import com.xoff.chessvger.view.StatGame;
 import java.util.List;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

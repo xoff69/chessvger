@@ -3,6 +3,7 @@ package com.xoff.chessvger.chess.game;
 import static com.xoff.chessvger.util.StringUtility.between;
 import static com.xoff.chessvger.util.StringUtility.egaliteChaine;
 import static com.xoff.chessvger.util.StringUtility.egaliteChainePlayer;
+import static com.xoff.chessvger.util.StringUtility.egaliteNombre;
 
 import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.DatabaseManager;

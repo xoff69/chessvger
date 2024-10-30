@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui;
+package com.xoff.chessvger.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

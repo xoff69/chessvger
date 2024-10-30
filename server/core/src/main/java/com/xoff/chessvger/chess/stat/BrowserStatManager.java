@@ -9,10 +9,10 @@ import com.xoff.chessvger.chess.player.ICommonPlayerManager;
 import com.xoff.chessvger.common.DbKeyManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.common.ParamConstants;
-import com.xoff.chessvger.ui.web.view.StatBrowserView;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.util.DateUtils;
 import com.xoff.chessvger.util.PgnUtil;
+import com.xoff.chessvger.view.StatBrowserView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -229,8 +229,8 @@ public class BrowserStatManager implements IBrowserStatManager {
   private List<StatBrowserView> findNStat(String[] listMove) {
 
     ICommonGameManager gameManager =
-        GlobalManager.getInstance().getDatabaseManager(databaseManager.getDatabaseId()).getGlobalGameManager()
-            .get(premier);
+        GlobalManager.getInstance().getDatabaseManager(databaseManager.getDatabaseId())
+            .getGlobalGameManager().get(premier);
 
     List<CommonGame> games = gameManager.getGameByStart(listMove);
     // boucler sur les moves pour avoir le debut de chaine ci dessus

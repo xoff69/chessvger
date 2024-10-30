@@ -6,8 +6,6 @@ import com.xoff.chessvger.ui.service.FeatureService;
 import com.xoff.chessvger.ui.web.navigation.ApplicationBean;
 import com.xoff.chessvger.ui.web.view.FeatureDto;
 import com.xoff.chessvger.ui.web.view.PageView;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
