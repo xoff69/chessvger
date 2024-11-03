@@ -2,10 +2,10 @@ package com.xoff.chessvger.ui.service;
 
 import com.xoff.chessvger.chess.filter.Filter;
 import com.xoff.chessvger.chess.game.CommonGame;
-import com.xoff.chessvger.ui.Pageable;
-import com.xoff.chessvger.ui.web.view.CoupleFenMoveId;
-import com.xoff.chessvger.ui.web.view.CoupleLongView;
-import com.xoff.chessvger.ui.web.view.PageView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.CoupleFenMoveId;
+import com.xoff.chessvger.view.CoupleLongView;
+import com.xoff.chessvger.view.PageView;
 
 public interface IGameService {
 
