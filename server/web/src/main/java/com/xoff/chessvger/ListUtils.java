@@ -17,7 +17,7 @@ public class ListUtils {
     log.info("listutils 2--"+list.subList((pageable.pageNumber-1)*pageable.pageSize,max));
     return list.subList((pageable.pageNumber-1)*pageable.pageSize,max);
   }
-  public static PageView<CommonGame> computePaging(List<CommonGame> commonGames, java.awt.print.Pageable paging) {
+  public static PageView<CommonGame> computePaging(List<CommonGame> commonGames, Pageable paging) {
     PageView<CommonGame> pageGameView =
         Page.compute(paging, GameMapper.INSTANCE.mapListEntity2Dto(commonGames));
 
