@@ -3,10 +3,10 @@ package com.xoff.chessvger.ui.service;
 
 import com.xoff.chessvger.chess.pack.Pack;
 import com.xoff.chessvger.chess.userpack.UserPack;
-import com.xoff.chessvger.ui.Pageable;
-import com.xoff.chessvger.ui.web.view.PackDto;
-import com.xoff.chessvger.ui.web.view.PageView;
-import com.xoff.chessvger.ui.web.view.UserPackDto;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.PackDto;
+import com.xoff.chessvger.view.PageView;
+import com.xoff.chessvger.view.UserPackDto;
 import java.util.List;
 
 public interface PackService {
