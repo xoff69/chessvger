@@ -6,7 +6,7 @@ import com.xoff.chessvger.ui.web.mapper.GameMapper;
 import com.xoff.chessvger.ui.web.navigation.ApplicationBean;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
 import com.xoff.chessvger.ui.web.navigation.Tab;
-import com.xoff.chessvger.ui.web.view.CoupleView;
+import com.xoff.chessvger.view.CoupleView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

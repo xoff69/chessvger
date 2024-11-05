@@ -1,7 +1,7 @@
 package com.xoff.chessvger.ui.web.mapper;
 
 import com.xoff.chessvger.chess.feature.Feature;
-import com.xoff.chessvger.ui.web.view.FeatureDto;
+import com.xoff.chessvger.view.FeatureDto;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

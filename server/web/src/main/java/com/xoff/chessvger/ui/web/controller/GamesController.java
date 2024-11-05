@@ -1,15 +1,15 @@
 package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.Pageable;
 import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;
 import com.xoff.chessvger.ui.web.mapper.FilterMapper;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
-import com.xoff.chessvger.ui.web.view.CoupleFenMoveId;
-import com.xoff.chessvger.ui.web.view.CoupleLongView;
-import com.xoff.chessvger.ui.web.view.GameView;
-import com.xoff.chessvger.ui.web.view.PageView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.CoupleFenMoveId;
+import com.xoff.chessvger.view.CoupleLongView;
+import com.xoff.chessvger.view.GameView;
+import com.xoff.chessvger.view.PageView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,7 +1,7 @@
 package com.xoff.chessvger.ui.web.navigation;
 
-import com.xoff.chessvger.ui.Pageable;
-import com.xoff.chessvger.ui.web.view.PageView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.PageView;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 

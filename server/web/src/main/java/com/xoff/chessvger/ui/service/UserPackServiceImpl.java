@@ -5,7 +5,6 @@ import com.xoff.chessvger.chess.userpack.UserPack;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.exception.CrudException;
 import com.xoff.chessvger.ui.web.form.UserPackForm;
-import com.xoff.chessvger.ui.web.view.UserPackDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

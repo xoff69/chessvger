@@ -1,12 +1,10 @@
 package com.xoff.chessvger.ui.service;
 
-import com.xoff.chessvger.chess.database.Database;
-import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.database.IDatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.ui.Pageable;
 import com.xoff.chessvger.ui.web.navigation.Page;
-import com.xoff.chessvger.ui.web.view.PageView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.PageView;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

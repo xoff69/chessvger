@@ -1,11 +1,11 @@
 package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.chess.engine.Engine;
-import com.xoff.chessvger.chess.engine.EngineAnalyseLigne;
 import com.xoff.chessvger.chess.engine.EngineFactory;
-import com.xoff.chessvger.common.queue.QueueManagerForGame;
+import com.xoff.chessvger.queue.EngineAnalyseLigne;
+import com.xoff.chessvger.queue.QueueManagerForGame;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
-import com.xoff.chessvger.ui.web.view.ChessLineView;
+import com.xoff.chessvger.view.ChessLineView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;

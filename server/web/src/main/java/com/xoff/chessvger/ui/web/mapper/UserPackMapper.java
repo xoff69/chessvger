@@ -2,8 +2,7 @@ package com.xoff.chessvger.ui.web.mapper;
 
 import com.xoff.chessvger.chess.user.User;
 import com.xoff.chessvger.chess.userpack.UserPack;
-import com.xoff.chessvger.ui.web.view.UserDto;
-import com.xoff.chessvger.ui.web.view.UserPackDto;
+import com.xoff.chessvger.view.UserPackDto;
 import java.util.List;
 import org.mapstruct.Mapper;
 

@@ -1,11 +1,11 @@
 package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.Pageable;
 import com.xoff.chessvger.ui.service.FeatureService;
 import com.xoff.chessvger.ui.web.navigation.ApplicationBean;
-import com.xoff.chessvger.ui.web.view.FeatureDto;
-import com.xoff.chessvger.ui.web.view.PageView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.FeatureDto;
+import com.xoff.chessvger.view.PageView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

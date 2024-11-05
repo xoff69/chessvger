@@ -2,7 +2,7 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.ui.service.IBrowseService;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
-import com.xoff.chessvger.ui.web.view.StatBrowserView;
+import com.xoff.chessvger.view.StatBrowserView;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,9 @@ package com.xoff.chessvger.ui.service;
 
 import com.xoff.chessvger.chess.pack.Pack;
 import com.xoff.chessvger.chess.user.User;
-import com.xoff.chessvger.ui.Pageable;
-import com.xoff.chessvger.ui.web.view.PageView;
-import com.xoff.chessvger.ui.web.view.UserDto;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.PageView;
+import com.xoff.chessvger.view.UserDto;
 import java.util.List;
 
 public interface UserService {

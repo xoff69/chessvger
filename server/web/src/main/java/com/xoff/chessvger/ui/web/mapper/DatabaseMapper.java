@@ -2,7 +2,7 @@ package com.xoff.chessvger.ui.web.mapper;
 
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.ui.web.form.DBForm;
-import com.xoff.chessvger.ui.web.view.DBView;
+import com.xoff.chessvger.view.DBView;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
