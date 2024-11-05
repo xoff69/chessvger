@@ -2,8 +2,8 @@ package com.xoff.chessvger.chess.game;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.util.Constants;
+import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.PageView;
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,11 @@ public class GlobalGameManager implements IGlobalGameManager {
   private IGameWhereMapManager gameWhereMapManager;
   private IGameOfAPlayerManager gameOfAPlayerManager;
 
-
+  public static PageView computePaging(List<CommonGame> games, Pageable paging){
+    // FIXME
+    log.error("NOT IMPLEMENTED computePaging");
+    return null;
+  }
   public GlobalGameManager(DatabaseManager databaseManager) {
     routeur = new HashMap();
     this.gameOfAPlayerManager = databaseManager.getGameOfAPlayerManager();

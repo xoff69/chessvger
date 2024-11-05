@@ -1,8 +1,10 @@
 package com.xoff.chessvger;
 
-import com.xoff.chessvger.ui.Pageable;
+import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.ui.web.mapper.GameMapper;
 import com.xoff.chessvger.ui.web.navigation.Page;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.PageView;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 

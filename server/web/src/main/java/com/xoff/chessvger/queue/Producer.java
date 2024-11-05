@@ -1,6 +1,6 @@
 package com.xoff.chessvger.queue;
 
-import com.xoff.chessvger.ui.web.view.ChessLineView;
+import com.xoff.chessvger.view.ChessLineView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 

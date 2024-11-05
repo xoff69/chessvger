@@ -1,7 +1,7 @@
 package com.xoff.chessvger.ui.web.navigation;
 
 import com.xoff.chessvger.ui.service.FeatureService;
-import com.xoff.chessvger.ui.web.view.FeatureDto;
+import com.xoff.chessvger.view.FeatureDto;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
