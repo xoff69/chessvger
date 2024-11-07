@@ -91,53 +91,6 @@ dependencies {
 }
 
 
-task prepareDirs {
-    doFirst {
-
-        String rundir = RUN_FOLDER
-        delete rundir
-        mkdir rundir
-        mkdir rundir + "/work"
-        mkdir rundir + "/temp"
-        mkdir rundir + "/work/pgn"
-        mkdir rundir + "/work/import"
-        mkdir rundir + "/zip"
-        mkdir rundir + "/reference"
-        mkdir rundir + "/trace"
-        mkdir rundir + "/reject"
-        mkdir rundir + "/common"
-        mkdir rundir + "/db"
-
-    }
-    doLast {
-
-        copy {
-            from "data/reference"
-            include "*"
-            into RUN_FOLDER + "/reference"
-        }
-    }
-}
-
-task CreateDataBase(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-
-    mainClass = 'com.xoff.chessvger.init.CreateDataBase'
-    args = ["C:\\mesapplis/chessvger/big", "test", "test", RUN_FOLDER]
-}
-task LoadPlayer(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-
-    mainClass = 'com.xoff.chessvger.init.CreateFidePlayer'
-    args = ["C:\\mesapplis/chessvger/xplayers_list_foa.txt",RUN_FOLDER]
-}
-task loadAllData(type: JavaExec) {
-    dependsOn prepareDirs
-    classpath = sourceSets.main.runtimeClasspath
-
-    mainClass = 'com.xoff.chessvger.init.LoadData'
-    args = [pgnLight, "test", "test", RUN_FOLDER]
-}
 
 
 
