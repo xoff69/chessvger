@@ -92,33 +92,3 @@ dependencies {
 
 
 
-
-
-test {
-    useJUnitPlatform()
-    dependsOn(loadAllData)
-}
-task unitTests(type: Test) {
-    useJUnitPlatform {
-        excludeTags 'IT'
-    }
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-task integrationTests(type: Test) {
-
-
-    useJUnitPlatform {
-        includeTags 'IT'
-    }
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-task combineJaCoCoReports(type: JacocoReport) {
-    executionData fileTree(project.buildDir.absolutePath).include("jacoco/*.exec")
-    classDirectories.setFrom files(project.sourceSets.main.output)
-    sourceDirectories.setFrom files(project.sourceSets.main.allSource.srcDirs)
-
-}
