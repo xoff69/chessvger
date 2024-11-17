@@ -14,11 +14,11 @@ RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.
 ENV PATH="/opt/gradle-${GRADLE_VERSION}/bin:${PATH}"
 
 # Définir le répertoire de travail
-WORKDIR /app
 
-# Cloner le projet GitHub
-ARG GITHUB_URL
+
+
 RUN git clone https://github.com/xoff69/chessvger/
+WORKDIR /app
 # Construire le projet avec Gradle
 RUN gradle build --no-daemon
 

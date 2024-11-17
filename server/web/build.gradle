@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id("io.freefair.lombok") version "8.4"
+
+    id "com.github.spotbugs" version "6.0.2"
+}
+
+group = "com.xoff"
+version = "1.0.0-SNAPSHOT"
+description = "chessvger"
+
+java {
+    sourceCompatibility = '21'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    implementation project(':core')
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.apache.commons:commons-lang3:3.15.0'
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    implementation 'commons-io:commons-io:2.16.1'
+    implementation 'com.google.cloud.tools:appengine-plugins-core:0.9.11'
+    implementation 'org.webjars:bootstrap:5.2.3'
+    implementation 'org.webjars:jquery:3.6.4'
+    implementation 'org.webjars:popper.js:2.9.3'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+    implementation 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.23.1'
+    implementation 'net.sourceforge.pmd:pmd-java:7.0.0'
+// https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.postgresql:postgresql:42.7.3'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    implementation 'org.apache.kafka:kafka-clients:3.8.0'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.jayway.jsonpath:json-path:2.9.0'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.10.3')
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+    testImplementation 'org.mockito:mockito-core:5.11.0'
+
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'
+}
+
+test {
+    useJUnitPlatform()
+}
