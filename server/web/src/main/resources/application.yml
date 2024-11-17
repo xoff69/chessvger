@@ -1,0 +1,42 @@
+chessvger:
+  run_init: true
+  version: Version 1.0.2 - 05/2024
+  contact: <a href="mailto:chessvger@gmail.com">contact</a>
+  language:
+    list: fr\#en
+    default: fr
+    current: fr
+
+spring:
+  security:
+    user:
+      name: chessvger
+      password: chessvger
+  thymeleaf:
+    cache: false
+  main:
+    banner-mode: 'console'
+  banner:
+    location: static/bannerSB.txt
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+  messages:
+    basename: lang/messages
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: chessvger
+    password: chessvger
+    url: jdbc:postgresql://localhost/chessvger
+    platform: postgres
+    initialization-mode: always
+    continue-on-error: true
+  jpa:
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    database: POSTGRESQL
+logging:
+  file.name: data/logs/chessvger.log
