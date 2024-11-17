@@ -17,11 +17,11 @@ ENV PATH="/opt/gradle-${GRADLE_VERSION}/bin:${PATH}"
 
 
 
-RUN git clone https://github.com/xoff69/chessvger/
-WORKDIR /app
+RUN git clone https://github.com/xoff69/chessvger.git
+WORKDIR /chessvger/server/
 # Construire le projet avec Gradle
 RUN gradle build --no-daemon
-
+WORKDIR /app
 # Exposer le port par défaut de l'application Spring Boot
 EXPOSE 8080
 
