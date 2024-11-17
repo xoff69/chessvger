@@ -1,0 +1,16 @@
+docker run -itd -e POSTGRES_USER=chessvger -e POSTGRES_PASSWORD=chessvger -p 5432:5432 -v ./data:/var/lib/postgresql/data --name postgresql postgres
+
+kafka
+docker run -d -p 9092:9092 --name broker apache/kafka:latest
+
+docker network create some-network
+
+docker run --name some-redis -d redis
+
+docker network connect some-network some-redis
+
+docker run -it --network some-network --rm redis redis-cli -h some-redis
+
+# la webapp
+docker build -t chessvger-webapp .
+docker run -p 8080:8080 chessvger-webapp
