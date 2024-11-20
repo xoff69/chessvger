@@ -22,6 +22,6 @@ RUN gradle build --no-daemon -x spotbugsMain -x spotbugsTest     -x test
 WORKDIR /chessvger/server/web
 # Exposer le port par défaut de l'application Spring Boot
 EXPOSE 8080
-
+WORKDIR /chessvger/server/web/build/libs
 # Démarrer l'application Spring Boot
-CMD ["java", "-jar", "build/libs/chessvger-1.0.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "web-1.0.0-SNAPSHOT.jar"]

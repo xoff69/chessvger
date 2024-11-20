@@ -16,9 +16,9 @@ docker build -t chessvger-webapp .
 docker run -p 8080:8080 chessvger-webapp
 
 #construire image de queues
-docker --no-cache build -t queues .
+docker build -t queues . --no-cache
 docker run queues
 
 # web
- docker  --no-cache build -t webapp .
+ docker   build -t webapp . --no-cache
  docker run webapp
