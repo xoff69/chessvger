@@ -3,7 +3,7 @@ package com.xoff.chessvger.ui.web.mapper;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.xoff.chessvger.chess.feature.Feature;
-import com.xoff.chessvger.ui.web.view.FeatureDto;
+import com.xoff.chessvger.view.FeatureDto;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -14,7 +14,7 @@ import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.ui.service.IBrowseService;
-import com.xoff.chessvger.ui.web.view.StatBrowserView;
+import com.xoff.chessvger.view.StatBrowserView;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

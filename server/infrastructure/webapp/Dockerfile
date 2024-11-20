@@ -13,15 +13,13 @@ RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.
     rm gradle-${GRADLE_VERSION}-bin.zip
 ENV PATH="/opt/gradle-${GRADLE_VERSION}/bin:${PATH}"
 
-# Définir le répertoire de travail
-
-
 
 RUN git clone https://github.com/xoff69/chessvger.git
-WORKDIR /chessvger/server/
+WORKDIR /chessvger/server/web
 # Construire le projet avec Gradle
-RUN gradle build --no-daemon
-WORKDIR /app
+RUN gradle build --no-daemon -x spotbugsMain -x spotbugsTest     -x test
+
+WORKDIR /chessvger/server/web
 # Exposer le port par défaut de l'application Spring Boot
 EXPOSE 8080
 

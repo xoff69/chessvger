@@ -20,5 +20,4 @@ WORKDIR /chessvger/server/queues
 RUN gradle build --no-daemon allQueuesFatJar
 WORKDIR /chessvger/server/queues/build/libs
 
-# Démarrer l'application Spring Boot
 CMD ["java", "-jar", "all-in-one-jar-1.0.0-SNAPSHOT.jar"]

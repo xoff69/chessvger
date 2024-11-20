@@ -9,7 +9,7 @@ import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.QuickFilter;
 import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.ui.web.view.StatBrowserView;
+import com.xoff.chessvger.view.StatBrowserView;
 import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

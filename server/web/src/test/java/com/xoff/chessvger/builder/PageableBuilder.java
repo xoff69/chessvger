@@ -1,7 +1,7 @@
 package com.xoff.chessvger.builder;
 
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.Pageable;
+import com.xoff.chessvger.util.Pageable;
 
 public class PageableBuilder {
 

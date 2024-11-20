@@ -14,11 +14,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.chess.feature.Feature;
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.Pageable;
 import com.xoff.chessvger.ui.service.FeatureService;
 import com.xoff.chessvger.ui.web.mapper.FeatureMapper;
-import com.xoff.chessvger.ui.web.view.FeatureDto;
-import com.xoff.chessvger.ui.web.view.PageView;
+import com.xoff.chessvger.util.Pageable;
+import com.xoff.chessvger.view.FeatureDto;
+import com.xoff.chessvger.view.PageView;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
