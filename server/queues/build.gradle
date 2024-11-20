@@ -33,7 +33,9 @@ test {
 }
 
 task allQueuesFatJar(type: Jar) {
-
+    manifest {
+        attributes 'Main-Class': 'com.xoff.chessvger.queues.Main'
+    }
     archiveBaseName = 'all-in-one-jar'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }

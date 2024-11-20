@@ -14,3 +14,7 @@ docker run -it --network some-network --rm redis redis-cli -h some-redis
 # la webapp
 docker build -t chessvger-webapp .
 docker run -p 8080:8080 chessvger-webapp
+
+#construire image de queues
+docker build -t queues .
+docker run queues
