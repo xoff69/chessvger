@@ -1,6 +1,7 @@
 # Utiliser une image officielle avec Java
 FROM openjdk:21-jdk-slim
 
+
 # Installer Git et Gradle
 RUN apt-get update && apt-get install -y git wget unzip && \
     apt-get clean && \
