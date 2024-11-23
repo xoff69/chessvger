@@ -1,8 +1,10 @@
-package com.xoff.chessvger.queues.position;
+package com.xoff.chessvger.queues.materialposition;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.queues.material.MaterialEntity;
+import com.xoff.chessvger.queues.position.PositionEntity;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
 import java.util.List;

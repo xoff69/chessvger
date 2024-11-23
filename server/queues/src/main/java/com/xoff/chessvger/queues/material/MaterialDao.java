@@ -1,5 +1,6 @@
-package com.xoff.chessvger.queues.position;
+package com.xoff.chessvger.queues.material;
 
+import com.xoff.chessvger.queues.position.PositionEntity;
 import com.xoff.chessvger.queues.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

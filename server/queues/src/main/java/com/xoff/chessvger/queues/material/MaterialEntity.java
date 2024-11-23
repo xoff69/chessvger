@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.position;
+package com.xoff.chessvger.queues.material;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
