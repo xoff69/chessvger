@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PlayerParser {
-  public  List<CommonPlayer> parse() {
+  public  List<CommonPlayer> parse(String fileName) {
     try {
-      File inputFile = new File( "data/players_list_xml_foa.xml");
+      File inputFile = new File( fileName);
       //C:\home\developpement\chessvger\server\data\reference\players_list_xml_foa.xml
       //server/data/reference/players_list_xml_foa.xml
       SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -18,13 +20,13 @@ public class PlayerParser {
       PlayersListHandler handler = new PlayersListHandler();
       saxParser.parse(inputFile, handler);
 
-      System.out.println("parse players done");
+     log.info("parse players done");
       List<CommonPlayer> players = handler.getPlayers();
 
       return players;
 
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      log.error(e.getMessage());
     }
     return new ArrayList<>();
   }

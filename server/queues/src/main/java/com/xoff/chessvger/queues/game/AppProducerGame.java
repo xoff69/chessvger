@@ -6,21 +6,58 @@ package com.xoff.chessvger.queues.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.queues.material.MaterialPositionsUtil;
+import com.xoff.chessvger.queues.materialposition.PositionMaterialProducer;
 import java.io.File;
+import java.sql.SQLException;
+import java.time.Duration;
 import java.util.List;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+@Slf4j
 public class AppProducerGame {
-  public static void main(String[] args) {
+  public static void runAppProducerGame()  {
+    log.info("Start AppProducerGame");
+    KafkaConsumer consumer = CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    while (true) {
+      ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+
+      for (ConsumerRecord<String, String> record : records) {
+        try {
+          String filename = objectMapper.readValue(record.value(), String.class);
+          manageFile(filename);
+          log.info("Start to parse:"+filename);
+
+        } catch (JsonProcessingException e) {
+          throw new RuntimeException(e);
+        }
+
+      }
+    }
+  }
+
+  /**
+   *
+   * @param filedir ex /data/twic114
+   */
+  private static void manageFile(String filedir){
 
     Producer<String, String> producer = CommonKafka.getProducer();
     ObjectMapper objectMapper = new ObjectMapper();
 
     Parser parser=new Parser();
-    List<CommonGame> games= parser.parseDir(new File("data/twic1997"));
+    List<CommonGame> games= parser.parseDir(new File(filedir));
     System.out.println("games "+games.size());
     long id=1L;
     for (CommonGame game : games) {
