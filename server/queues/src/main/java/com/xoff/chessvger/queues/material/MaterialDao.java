@@ -16,7 +16,7 @@ public class MaterialDao {
     private static final String INSERT_SQL = "INSERT INTO ExampleEntity (someLongValue) VALUES (?)";
     private static final String INSERT_LIST_SQL = "INSERT INTO ExampleEntity_IntegerList (exampleEntity_id, integer_value) VALUES (?, ?)";
 
-    public void insertEntity(PositionEntity entity) throws SQLException {
+    public void insertEntity(MaterialEntity entity) throws SQLException {
       Connection connection = null;
       PreparedStatement insertEntityStmt = null;
       PreparedStatement insertListStmt = null;

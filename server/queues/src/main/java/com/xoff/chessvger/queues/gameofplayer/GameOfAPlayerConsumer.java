@@ -8,6 +8,6 @@ public class GameOfAPlayerConsumer implements Runner {
 
   @Override
   public void run() {
-
+  log.info("GameOfAPlayerConsumer started");
   }
 }
