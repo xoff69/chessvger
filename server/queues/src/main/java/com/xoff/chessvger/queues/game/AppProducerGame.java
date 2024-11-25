@@ -6,11 +6,8 @@ package com.xoff.chessvger.queues.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
-import com.xoff.chessvger.queues.material.MaterialPositionsUtil;
-import com.xoff.chessvger.queues.materialposition.PositionMaterialProducer;
+import com.xoff.chessvger.queues.util.Runner;
 import java.io.File;
-import java.sql.SQLException;
 import java.time.Duration;
 import java.util.List;
 import com.xoff.chessvger.queues.util.CommonKafka;
@@ -23,8 +20,8 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 @Slf4j
-public class AppProducerGame {
-  public static void runAppProducerGame()  {
+public class AppProducerGame implements Runner {
+  public  void run()  {
     log.info("Start AppProducerGame");
     KafkaConsumer consumer = CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
 

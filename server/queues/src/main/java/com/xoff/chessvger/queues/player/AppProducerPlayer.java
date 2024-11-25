@@ -6,6 +6,7 @@ package com.xoff.chessvger.queues.player;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.queues.util.Runner;
 import java.time.Duration;
 import java.util.List;
 import com.xoff.chessvger.queues.util.CommonKafka;
@@ -17,8 +18,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 @Slf4j
-public class AppProducerPlayer {
-  public static void runAppProducerPlayer() {
+public class AppProducerPlayer implements Runner {
+  public  void run() {
     log.info("Start runAppProducerPlayer");
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERPLAYER, "xoff-parserplayer");
@@ -44,7 +45,7 @@ public class AppProducerPlayer {
      *
      * @param filedir ex "data/players_list_xml_foa.xml"
      */
-    private static void manageFile(String filedir){
+    private  void manageFile(String filedir){
 
       Producer<String, String> producer = CommonKafka.getProducer();
     ObjectMapper objectMapper = new ObjectMapper();

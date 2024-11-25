@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.material;
+package com.xoff.chessvger.queues.materialposition;
 
 import com.xoff.chessvger.chess.board.BoardManager;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;

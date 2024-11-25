@@ -1,24 +1,25 @@
-package com.xoff.chessvger.queues.player;
+package com.xoff.chessvger.queues.material;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.queues.position.PositionDao;
+import com.xoff.chessvger.queues.position.PositionEntity;
+import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
 import com.xoff.chessvger.queues.util.Runner;
 import java.sql.SQLException;
 import java.time.Duration;
-import com.xoff.chessvger.queues.util.CommonKafka;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 @Slf4j
-public class AppConsumerPlayer implements Runner {
-  public  void run() {
-log.info("start AppConsumerPlayer");
-    KafkaConsumer consumer= CommonKafka.getConsumer(KafkaConstants.TOPIC_PLAYER,"xoff-player");
+public class MaterialConsumer implements Runner {
+  public void run() {
 
-    CommonPlayerDao commonPlayerDao=new CommonPlayerDao();
+    KafkaConsumer consumer= CommonKafka.getConsumer(KafkaConstants.TOPIC_POSITION,"xoff-material");
+
+    MaterialDao materialDao=new MaterialDao();
     ObjectMapper objectMapper = new ObjectMapper();
 
     while (true) {
@@ -27,10 +28,10 @@ log.info("start AppConsumerPlayer");
       for (ConsumerRecord<String, String> record : records) {
 
         try {
-          CommonPlayer player = objectMapper.readValue(record.value(), CommonPlayer.class);
-          commonPlayerDao.insertCommonPlayer(player);
+          MaterialEntity materialEntity = objectMapper.readValue(record.value(), MaterialEntity.class);
+          materialDao.insertEntity(materialEntity);
 
-        } catch (JsonProcessingException | ClassNotFoundException | SQLException e) {
+        } catch (JsonProcessingException | SQLException e) {
           throw new RuntimeException(e);
         }
 
