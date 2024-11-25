@@ -15,7 +15,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class AppConsumerGame {
-  public static void main(String[] args) {
+  public static void runAppConsumerGame() {
 
     KafkaConsumer consumer = CommonKafka.getConsumer(KafkaConstants.TOPIC_GAME, "xoff-game");
 

@@ -6,13 +6,15 @@ import com.xoff.chessvger.queues.util.KafkaConstants;
 import java.sql.SQLException;
 import java.time.Duration;
 import com.xoff.chessvger.queues.util.CommonKafka;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-
+@Slf4j
 public class AppConsumerPlayer {
-  public static void main(String[] args) {
-System.out.println("start AppConsumerPlayer");
+  public static void runAppConsumerPlayer() {
+log.info("start AppConsumerPlayer");
     KafkaConsumer consumer= CommonKafka.getConsumer(KafkaConstants.TOPIC_PLAYER,"xoff-player");
 
     CommonPlayerDao commonPlayerDao=new CommonPlayerDao();
