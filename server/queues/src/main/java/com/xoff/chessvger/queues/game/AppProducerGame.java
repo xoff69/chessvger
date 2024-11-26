@@ -6,12 +6,12 @@ package com.xoff.chessvger.queues.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.queues.util.CommonKafka;
+import com.xoff.chessvger.queues.util.KafkaConstants;
 import com.xoff.chessvger.queues.util.Runner;
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
-import com.xoff.chessvger.queues.util.CommonKafka;
-import com.xoff.chessvger.queues.util.KafkaConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -21,9 +21,43 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 @Slf4j
 public class AppProducerGame implements Runner {
-  public  void run()  {
+  /**
+   * @param filedir ex /data/twic114
+   */
+  private static void manageFile(String filedir) {
+
+    Producer<String, String> producer = CommonKafka.getProducer();
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    Parser parser = new Parser();
+    List<CommonGame> games = parser.parseDir(new File(filedir));
+    log.info("games " + games.size());
+    long id = 1L;
+    for (CommonGame game : games) {
+
+      game.setId(id++);
+      // envoyer au productuer
+
+      try {
+        String gameJson = objectMapper.writeValueAsString(game);
+        ProducerRecord<String, String> record =
+            new ProducerRecord<>(KafkaConstants.TOPIC_GAME, null, gameJson);
+
+        producer.send(record);
+        producer.flush();
+
+
+      } catch (JsonProcessingException e) {
+        e.printStackTrace();
+      }
+    }
+    log.info("db insert games done " + games.size());
+  }
+
+  public void run() {
     log.info("Start AppProducerGame");
-    KafkaConsumer consumer = CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
+    KafkaConsumer consumer =
+        CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -34,7 +68,7 @@ public class AppProducerGame implements Runner {
         try {
           String filename = objectMapper.readValue(record.value(), String.class);
           manageFile(filename);
-          log.info("Start to parse:"+filename);
+          log.info("Start to parse:" + filename);
 
         } catch (JsonProcessingException e) {
           throw new RuntimeException(e);
@@ -42,39 +76,6 @@ public class AppProducerGame implements Runner {
 
       }
     }
-  }
-
-  /**
-   *
-   * @param filedir ex /data/twic114
-   */
-  private static void manageFile(String filedir){
-
-    Producer<String, String> producer = CommonKafka.getProducer();
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    Parser parser=new Parser();
-    List<CommonGame> games= parser.parseDir(new File(filedir));
-    System.out.println("games "+games.size());
-    long id=1L;
-    for (CommonGame game : games) {
-
-      game.setId(id++);
-      // envoyer au productuer
-
-      try {
-        String gameJson = objectMapper.writeValueAsString(game);
-        ProducerRecord<String, String> record = new ProducerRecord<>(KafkaConstants.TOPIC_GAME, null, gameJson);
-
-        producer.send(record);
-        producer.flush();
-
-
-      } catch (JsonProcessingException e) {
-        e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
-      }
-    }
-    System.out.println("db insert games done "+games.size());
   }
 
 }

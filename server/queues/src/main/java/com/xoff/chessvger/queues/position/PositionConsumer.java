@@ -11,13 +11,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+
 @Slf4j
 public class PositionConsumer implements Runner {
-public void run() {
+  public void run() {
 
-    KafkaConsumer consumer= CommonKafka.getConsumer(KafkaConstants.TOPIC_POSITION,"xoff-position");
+    KafkaConsumer consumer =
+        CommonKafka.getConsumer(KafkaConstants.TOPIC_POSITION, "xoff-position");
 
-    PositionDao positionDao=new PositionDao();
+    PositionDao positionDao = new PositionDao();
     ObjectMapper objectMapper = new ObjectMapper();
 
     while (true) {
@@ -26,7 +28,8 @@ public void run() {
       for (ConsumerRecord<String, String> record : records) {
 
         try {
-          PositionEntity positionEntity = objectMapper.readValue(record.value(), PositionEntity.class);
+          PositionEntity positionEntity =
+              objectMapper.readValue(record.value(), PositionEntity.class);
           positionDao.insertEntity(positionEntity);
 
         } catch (JsonProcessingException | SQLException e) {

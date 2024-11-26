@@ -7,15 +7,13 @@ import com.xoff.chessvger.queues.player.AppConsumerPlayer;
 import com.xoff.chessvger.queues.player.AppProducerPlayer;
 import com.xoff.chessvger.queues.position.PositionConsumer;
 import com.xoff.chessvger.queues.stat.StatConsumer;
-import java.util.Map;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import redis.clients.jedis.Jedis;
+
 @Slf4j
 public class Main {
   public static void main(String[] args) {
 
-   log.info("Producers and server are starting");
+    log.info("Producers and server are starting");
     Thread.startVirtualThread(() -> {
       new AppProducerGame().run();
     });

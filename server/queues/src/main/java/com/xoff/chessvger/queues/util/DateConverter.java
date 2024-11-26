@@ -9,8 +9,7 @@ import java.util.List;
 public class DateConverter {
 
   // Liste des formats acceptés
-  private static final List<String> DATE_FORMATS = Arrays.asList(
-      "yyyy",            // Format YYYY
+  private static final List<String> DATE_FORMATS = Arrays.asList("yyyy",            // Format YYYY
       "yyyy.MM.dd",      // Format YYYY.MM.DD
       "dd.MM.yyyy"       // Format DD.MM.YYYY
   );

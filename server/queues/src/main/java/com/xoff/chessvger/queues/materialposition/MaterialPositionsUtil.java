@@ -13,9 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MaterialPositionsUtil {
 
-  public static  List<CoupleZobristMaterial> parseMoves2(String moves) {
+  public static List<CoupleZobristMaterial> parseMoves2(String moves) {
 
-    List<CoupleZobristMaterial> result=new ArrayList<>();
+    List<CoupleZobristMaterial> result = new ArrayList<>();
     OneGameTree ogt = new OneGameTree(moves);
 
     //TraceUtils.traceInFile("ogt="+ogt.toString());
@@ -36,7 +36,7 @@ public class MaterialPositionsUtil {
       //game.setInformationsFaitDeJeu(game.getInformationsFaitDeJeu() | rer.getFaitsdejeu());
       CoupleZobristMaterial czm = position.evaluateZobristAndMaterial();
       // FIXME game.setLastPosition(czm.getZobrist());
-      CoupleZobristMaterial couple=new CoupleZobristMaterial(czm.getZobrist(), czm.getMaterial());
+      CoupleZobristMaterial couple = new CoupleZobristMaterial(czm.getZobrist(), czm.getMaterial());
       result.add(couple);
 
 

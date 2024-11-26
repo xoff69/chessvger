@@ -8,6 +8,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class PlayersListHandler extends DefaultHandler {
 
+  boolean isPlayer = false;
   private List<CommonPlayer> players = null;
   private CommonPlayer currentPlayer = null;
   private StringBuilder data = null;
@@ -16,10 +17,9 @@ public class PlayersListHandler extends DefaultHandler {
     return players;
   }
 
-  boolean isPlayer = false;
-
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+  public void startElement(String uri, String localName, String qName, Attributes attributes)
+      throws SAXException {
     if (qName.equalsIgnoreCase("player")) {
       isPlayer = true;
       currentPlayer = new CommonPlayer();

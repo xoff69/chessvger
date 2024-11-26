@@ -8,6 +8,6 @@ public class StatConsumer implements Runner {
 
   @Override
   public void run() {
-log.info("Stat consumer started");
+    log.info("Stat consumer started");
   }
 }

@@ -1,6 +1,7 @@
 package com.xoff.chessvger.queues.util;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -12,8 +13,9 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class CommonKafka {
 
-  private static final String HOST ="localhost:9092";
-  public static KafkaConsumer getConsumer(String topic,String groupId){
+  private static final String HOST = "localhost:9092";
+
+  public static KafkaConsumer getConsumer(String topic, String groupId) {
     Properties properties = new Properties();
     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -27,10 +29,11 @@ public class CommonKafka {
     // create consumer
     KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
     // subscribe consumer to our topic(s)
-    consumer.subscribe(Arrays.asList(topic));
+    consumer.subscribe(Collections.singletonList(topic));
     return consumer;
   }
-  public static Producer getProducer(){
+
+  public static Producer getProducer() {
     Properties properties = new Properties();
     properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

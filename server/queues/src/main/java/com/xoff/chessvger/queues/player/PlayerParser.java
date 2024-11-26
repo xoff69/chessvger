@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class PlayerParser {
-  public  List<CommonPlayer> parse(String fileName) {
+  public List<CommonPlayer> parse(String fileName) {
     try {
-      File inputFile = new File( fileName);
+      File inputFile = new File(fileName);
       //C:\home\developpement\chessvger\server\data\reference\players_list_xml_foa.xml
       //server/data/reference/players_list_xml_foa.xml
       SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -20,7 +20,7 @@ public class PlayerParser {
       PlayersListHandler handler = new PlayersListHandler();
       saxParser.parse(inputFile, handler);
 
-     log.info("parse players done");
+      log.info("parse players done");
       List<CommonPlayer> players = handler.getPlayers();
 
       return players;

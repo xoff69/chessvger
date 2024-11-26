@@ -1,6 +1,7 @@
 package com.xoff.chessvger.queues.game;
 
 
+import com.xoff.chessvger.queues.util.DateConverter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,7 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import com.xoff.chessvger.queues.util.DateConverter;
 
 
 public class Parser {
@@ -17,12 +17,20 @@ public class Parser {
 
   }
 
+  public static int interpreteValue(String s) {
+
+    try {
+      return Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+      return 0;
+    }
+  }
 
   public String readPgnFile(String emplacement) {
     StringBuilder result = new StringBuilder();
     try {
       // FIXME on fait qu un fichier et pas tout le repertoire
-     System.out.println("pgn file: " + emplacement);
+      System.out.println("pgn file: " + emplacement);
       List<String> lines = Files.readAllLines(Paths.get(emplacement), StandardCharsets.ISO_8859_1);
       lines.forEach(ligne -> {
         ligne = ligne.replace("\ufeff", ""); // ajout pour palier bug BOM
@@ -44,21 +52,14 @@ public class Parser {
     }
     return result.toString();
   }
-  public static int interpreteValue(String s) {
 
-    try {
-      return Integer.parseInt(s);
-    } catch (NumberFormatException e) {
-      return 0;
-    }
-  }
-  public List<CommonGame>  parseData(String data,  String fileName) {
+  public List<CommonGame> parseData(String data, String fileName) {
     System.out.println("parse data  " + fileName);
     int etat = 0;
     int len = data.length();
     int compteur = 0;
     int nbgame = 0;
-List<CommonGame> games=new ArrayList<>();
+    List<CommonGame> games = new ArrayList<>();
     CommonGame game = new CommonGame();
     boolean toAdd = true;
     // TODO game.getMetaCommonGame().setSource(fileName);
@@ -220,8 +221,8 @@ List<CommonGame> games=new ArrayList<>();
   }
 
 
-  public  List<CommonGame> parseDir(File dir) {
-    List<CommonGame> games=new ArrayList<>();
+  public List<CommonGame> parseDir(File dir) {
+    List<CommonGame> games = new ArrayList<>();
     System.out.println("parseDir A :" + dir.getAbsolutePath());
     File[] files = dir.listFiles();
     if (files == null) {
@@ -232,10 +233,10 @@ List<CommonGame> games=new ArrayList<>();
       System.out.println("parseDir :" + file.getAbsolutePath());
       if (file.isDirectory()) {
         System.out.println("sous rep:" + file.getAbsolutePath());
-        games.addAll(  parseDir(file));
+        games.addAll(parseDir(file));
       } else {
 
-          games.addAll( parseData(readPgnFile(file.getAbsolutePath()), file.getName()));
+        games.addAll(parseData(readPgnFile(file.getAbsolutePath()), file.getName()));
 
       }
     }

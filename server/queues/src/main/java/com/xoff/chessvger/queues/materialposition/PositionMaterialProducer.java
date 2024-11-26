@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+
 @Slf4j
 public class PositionMaterialProducer {
   public static void enqueuePositionMaterial(long gameId, List<CoupleZobristMaterial> list) {
