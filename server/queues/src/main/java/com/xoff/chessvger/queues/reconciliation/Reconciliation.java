@@ -1,5 +1,6 @@
 package com.xoff.chessvger.queues.reconciliation;
 
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,6 @@ import lombok.Setter;
 public class Reconciliation {
   // une structure qui contient les differents points d entree a checker pour un game
   private long gameId;
-  private boolean positionDone;
-  private boolean materialDone;
-  private boolean gameOfAPlayerDone;
-  private boolean statGameDone;
+  Set<ReconciliationType>   reconciliationTypes;
+
 }

@@ -1,7 +1,7 @@
 package com.xoff.chessvger.queues.reconciliation;
 
 public enum ReconciliationType {
-  POSITION(1), MATERIAL(2), STAT(3), GAMEOFPLAYER(4);
+  GAME(0),POSITION(1), MATERIAL(2), STAT(3), GAMEOFPLAYER(4);
 
   private final int value;
 

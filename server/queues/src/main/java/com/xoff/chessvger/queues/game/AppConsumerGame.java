@@ -6,6 +6,8 @@ import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
 import com.xoff.chessvger.queues.gameofplayer.GameOfAPlayer;
 import com.xoff.chessvger.queues.materialposition.MaterialPositionsUtil;
 import com.xoff.chessvger.queues.materialposition.PositionMaterialProducer;
+import com.xoff.chessvger.queues.reconciliation.ReconciliationManager;
+import com.xoff.chessvger.queues.reconciliation.ReconciliationType;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
 import com.xoff.chessvger.queues.util.Runner;
@@ -46,6 +48,7 @@ public class AppConsumerGame implements Runner {
           PositionMaterialProducer.enqueuePositionMaterial(game.getId(), list);
           enqueueGameOfAPlayer(game.getId(), game.getWhiteFideId());
           enqueueGameOfAPlayer(game.getId(), game.getBlackFideId());
+          ReconciliationManager.update(game.getId(), ReconciliationType.GAME);
 
         } catch (JsonProcessingException | ClassNotFoundException | SQLException e) {
           throw new RuntimeException(e);

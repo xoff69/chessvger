@@ -31,9 +31,9 @@ public class GameOfAPlayerConsumer implements Runner {
 
         try {
           GameOfAPlayer gameOfAPlayer = objectMapper.readValue(record.value(), GameOfAPlayer.class);
-          gameOfAPlayerDao.insertEntity(gameOfAPlayer);
+          //gameOfAPlayerDao.insertEntity(gameOfAPlayer);
 
-        } catch (JsonProcessingException | SQLException e) {
+        } catch (JsonProcessingException e) {
           throw new RuntimeException(e);
         }
 

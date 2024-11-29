@@ -56,6 +56,7 @@ public class AppProducerGame implements Runner {
 
   public void run() {
     log.info("Start AppProducerGame");
+    System.out.println("AppProducerGame World!");
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
 
