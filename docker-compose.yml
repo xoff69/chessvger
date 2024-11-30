@@ -31,6 +31,7 @@ services:
     ports:
       - "9092:9092"
     environment:
+      kafka_server: kafka:9092
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
@@ -45,6 +46,7 @@ services:
   postgres:
     image: postgres:latest
     container_name: postgres_container
+    hostname: db_chessvger
     environment:
       POSTGRES_USER: chessvger
       POSTGRES_PASSWORD: chessvger
@@ -69,5 +71,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - zookeeper
     networks:
       - chessvger_network

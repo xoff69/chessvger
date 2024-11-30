@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	connStr       = "user=chessvger password=chessvger dbname=mydatabase sslmode=disable host=postgres_container port=5432"
+	connStr       = "user=chessvger password=chessvger dbname=mydatabase sslmode=disable host=db_chessvger port=5432"
 	brokerAddress = "kafka:9092" // Remplacez par l'adresse de votre broker Kafka
 )
 
