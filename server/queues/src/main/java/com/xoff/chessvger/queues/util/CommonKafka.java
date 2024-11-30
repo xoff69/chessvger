@@ -13,7 +13,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class CommonKafka {
 
-  private static final String HOST = "localhost:9092";
+  private static final String HOST = "kafka:9092";
 
   public static KafkaConsumer getConsumer(String topic, String groupId) {
     Properties properties = new Properties();
