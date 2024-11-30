@@ -38,5 +38,11 @@ spring:
     hibernate:
       ddl-auto: create
     database: POSTGRESQL
+    properties:
+    jakarta:
+      persistence:
+        create-database-schemas: true
+    hibernate:
+      default_schema: chessvger
 logging:
   file.name: data/logs/chessvger.log

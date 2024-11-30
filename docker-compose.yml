@@ -1,5 +1,4 @@
-version: '3.8'
-
+# docker compose up
 networks:
   chessvger_network:
     driver: bridge
@@ -74,5 +73,25 @@ services:
     depends_on:
       - zookeeper
       - postgres
+    networks:
+      - chessvger_network
+
+  chessvger-webapp:
+    image: chessvger-webapp:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - chessvger-monitor
+    networks:
+      - chessvger_network
+
+  chessvger-queues:
+    image: chessvger-queues:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - chessvger-webapp
     networks:
       - chessvger_network
