@@ -1,4 +1,4 @@
-# docker build -t chessvger-monitor .
+# docker build -t chessvger-monitor . --no-cache
 # docker run  chessvger-monitor 
 # go get github.com/gorilla/mux
 FROM golang:1.23

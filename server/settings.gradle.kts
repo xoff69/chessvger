@@ -13,4 +13,3 @@ rootProject.name = "chessvger"
 include("queues")
 include("core")
 include("web")
-include("backoffice")

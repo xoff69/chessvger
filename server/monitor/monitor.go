@@ -13,13 +13,18 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
+const (
+	connStr       = "user=chessvger password=chessvger dbname=mydatabase sslmode=disable host=postgres_container port=5432"
+	brokerAddress = "kafka:9092" // Remplacez par l'adresse de votre broker Kafka
+)
+
 func checkKafka(ctx context.Context) {
-	brokerAddress := "localhost:9092" // Remplacez par l'adresse de votre broker Kafka
 
 	// Création d'un lecteur Kafka uniquement pour récupérer des métadonnées
 	conn, err := kafka.Dial("tcp", brokerAddress)
 	if err != nil {
-		log.Fatalf("Impossible de se connecter au broker Kafka : %v", err)
+		log.Printf("Impossible de se connecter au broker Kafka : %v", err)
+		return
 	}
 	defer conn.Close()
 
@@ -46,19 +51,20 @@ func checkKafka(ctx context.Context) {
 	}
 }
 func checkDb(ctx context.Context) {
-	connStr := "user=chessvger password=chessvger dbname=mydatabase sslmode=disable host=localhost port=5432"
 
 	// Connexion à la base de données
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatalf("Erreur lors de la connexion à PostgreSQL : %v", err)
+		log.Printf("Erreur lors de la connexion à PostgreSQL : %v", err)
+		return
 	}
 	defer db.Close()
 
 	// Vérifier la connexion
 	err = db.Ping()
 	if err != nil {
-		log.Fatalf("Impossible de se connecter à la base de données : %v", err)
+		log.Printf("Impossible de se connecter à la base de données : %v", err)
+		return
 	}
 	fmt.Println("Connexion réussie à PostgreSQL.")
 
@@ -93,15 +99,16 @@ func checkDb(ctx context.Context) {
 func checkRedis(ctx context.Context) {
 	// Configurer la connexion Redis
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379", // Adresse de votre instance Redis
-		Password: "",               // Mot de passe (si configuré)
-		DB:       0,                // Base de données Redis
+		Addr:     "redis_container:6379", // Adresse de votre instance Redis
+		Password: "",                     // Mot de passe (si configuré)
+		DB:       0,                      // Base de données Redis
 	})
 
 	// Vérifier la connexion
 	_, err := rdb.Ping(ctx).Result()
 	if err != nil {
-		log.Fatalf("Impossible de se connecter à Redis : %v", err)
+		log.Printf("Impossible de se connecter à Redis : %v", err)
+		return
 	}
 
 	// Clé à vérifier
