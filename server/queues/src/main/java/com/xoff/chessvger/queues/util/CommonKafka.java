@@ -16,6 +16,7 @@ public class CommonKafka {
   private static final String HOST = "kafka:9092";
 
   public static KafkaConsumer getConsumer(String topic, String groupId) {
+    System.out.println("consumer kafka "+topic);
     Properties properties = new Properties();
     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -34,6 +35,7 @@ public class CommonKafka {
   }
 
   public static Producer getProducer() {
+    System.out.println("prodicer kafka ");
     Properties properties = new Properties();
     properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

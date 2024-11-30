@@ -1,4 +1,4 @@
-# Utiliser une image officielle avec Java
+# docker build -t chessvger-queues . --no-cache
 FROM openjdk:21-jdk-slim
 
 # Installer Git et Gradle
