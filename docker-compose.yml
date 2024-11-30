@@ -73,5 +73,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - zookeeper
+      - postgres
     networks:
       - chessvger_network

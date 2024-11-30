@@ -49,6 +49,7 @@ func checkKafka(ctx context.Context) {
 	for topic := range topics {
 		fmt.Println(topic)
 	}
+	fmt.Println("Liste des topics Kafka : fin")
 }
 func checkDb(ctx context.Context) {
 
