@@ -32,16 +32,14 @@ spring:
     platform: postgres
     initialization-mode: always
     continue-on-error: true
+    initialize : true
+    schema: chessvger
   jpa:
     show-sql: false
     generate-ddl: true
+    hibernate:
+      ddl-auto: create
     database: POSTGRESQL
-    properties:
-      jakarta:
-        persistence:
-          create-database-schemas: true
-      hibernate:
-        default_schema: chessvger
-        ddl-auto: create
+    
 logging:
   file.name: data/logs/chessvger.log
