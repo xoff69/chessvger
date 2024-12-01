@@ -60,15 +60,15 @@ func testK() {
 	message := "Hello, Kafka avec kafka-go!"
 
 	// Envoyer le message
-	err := writer.WriteMessages(context.Background(),
+	err2 := writer.WriteMessages(context.Background(),
 		kafka.Message{
 			Key:   []byte("clé"), // Facultatif, pour les messages partitionnés
 			Value: []byte(message),
 		},
 	)
 
-	if err != nil {
-		log.Printf("Erreur lors de l'envoi du message : %v", err)
+	if err2 != nil {
+		log.Printf("Erreur lors de l'envoi du message : %v", err2)
 	}
 
 	log.Printf("Message envoyé avec succès : %s\n", message)
@@ -218,7 +218,13 @@ func main() {
 	fmt.Println("Monitor start")
 	ctx := context.Background()
 	testK()
-	checkRedis(ctx)
-	checkDb(ctx)
-	checkKafka(ctx)
+	for {
+		checkRedis(ctx)
+		checkDb(ctx)
+		checkKafka(ctx)
+
+		// Attendre 5 minutes
+		time.Sleep(5 * time.Minute)
+	}
+
 }
