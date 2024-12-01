@@ -18,6 +18,37 @@ const (
 	brokerAddress = "kafka:9092" // Remplacez par l'adresse de votre broker Kafka
 )
 
+func testK() {
+	topic := "mon_topic"
+
+	// Création d'un writer Kafka (Producteur)
+	writer := kafka.Writer{
+		Addr:         kafka.TCP(brokerAddress),
+		Topic:        topic,
+		Balancer:     &kafka.LeastBytes{},
+		RequiredAcks: kafka.RequireAll,
+	}
+
+	defer writer.Close()
+
+	// Message à envoyer
+	message := "Hello, Kafka avec kafka-go!"
+
+	// Envoyer le message
+	err := writer.WriteMessages(context.Background(),
+		kafka.Message{
+			Key:   []byte("clé"), // Facultatif, pour les messages partitionnés
+			Value: []byte(message),
+		},
+	)
+
+	if err != nil {
+		log.Fatalf("Erreur lors de l'envoi du message : %v", err)
+	}
+
+	log.Printf("Message envoyé avec succès : %s\n", message)
+}
+
 func checkKafka(ctx context.Context) {
 
 	// Création d'un lecteur Kafka uniquement pour récupérer des métadonnées
@@ -160,6 +191,7 @@ func checkRedis(ctx context.Context) {
 }
 func main() {
 	ctx := context.Background()
+	testK()
 	checkRedis(ctx)
 	checkDb(ctx)
 	checkKafka(ctx)
