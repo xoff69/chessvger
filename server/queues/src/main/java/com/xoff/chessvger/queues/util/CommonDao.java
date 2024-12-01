@@ -10,12 +10,13 @@ public class CommonDao {
   private CommonDao() {
     try {
       Class.forName("org.postgresql.Driver");
-      connection = DriverManager.getConnection("jdbc:postgresql://db_chessvger/chessvger", "chessvger",
-          "chessvger");
-          System.out.println("connexion ok");
+      connection =
+          DriverManager.getConnection("jdbc:postgresql://db_chessvger/chessvger", "chessvger",
+              "chessvger");
+      System.out.println("connexion ok");
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("connexion DB :"+e);
+      System.out.println("connexion DB :" + e);
     }
   }
 

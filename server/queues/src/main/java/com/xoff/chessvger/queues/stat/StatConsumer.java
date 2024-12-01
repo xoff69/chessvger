@@ -1,13 +1,10 @@
 package com.xoff.chessvger.queues.stat;
 
-import com.xoff.chessvger.queues.util.Runner;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-public class StatConsumer implements Runner {
+public class StatConsumer implements Runnable {
 
   @Override
   public void run() {
-    log.info("Stat consumer started");
+    System.out.println("Stat consumer started");
   }
 }

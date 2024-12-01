@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Reconciliation {
+  Set<ReconciliationType> reconciliationTypes;
   // une structure qui contient les differents points d entree a checker pour un game
   private long gameId;
-  Set<ReconciliationType>   reconciliationTypes;
 
 }

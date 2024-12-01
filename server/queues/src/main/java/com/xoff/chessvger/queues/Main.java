@@ -7,38 +7,21 @@ import com.xoff.chessvger.queues.player.AppConsumerPlayer;
 import com.xoff.chessvger.queues.player.AppProducerPlayer;
 import com.xoff.chessvger.queues.position.PositionConsumer;
 import com.xoff.chessvger.queues.stat.StatConsumer;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class Main {
   public static void main(String[] args) {
 
     System.out.println("Producers and server are starting  V1.0.1");
-    log.info("Producers and server are starting");
-    Thread.startVirtualThread(() -> {
-      System.out.println("AppProducerGame World!");
-      new AppProducerGame().run();
-    });
-    Thread.startVirtualThread(() -> {
-      new AppConsumerGame().run();
-    });
-    Thread.startVirtualThread(() -> {
-      System.out.println("AppProducerPlayer World!");
-      new AppProducerPlayer().run();
-    });
-    Thread.startVirtualThread(() -> {
-      new AppConsumerPlayer().run();
-    });
-    Thread.startVirtualThread(() -> {
-      new StatConsumer().run();
-    });
-    Thread.startVirtualThread(() -> {
-      new PositionConsumer().run();
-    });
-    Thread.startVirtualThread(() -> {
-      new GameOfAPlayerConsumer().run();
-    });
 
+    System.out.println("AppProducerGame World!");
+    Runnable[] runnables = new Runnable[] { new AppProducerGame(),new AppConsumerGame(),new AppProducerPlayer(),
+        new AppConsumerPlayer(),new StatConsumer(),new PositionConsumer(),new GameOfAPlayerConsumer()
+    };
+
+        for (Runnable r : runnables) {
+          Thread thread = new Thread(r);
+          thread.start();
+        }
 
   }
 

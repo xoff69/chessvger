@@ -84,7 +84,7 @@ public class Parser {
             sbtvalue.append(data.charAt(j));
           }
           String value = sbtvalue.toString();
-          //  log.info("value="+value);
+          //  System.out.println("value="+value);
           switch (token) {
             case "Event":
               game.setEvent(value);
@@ -167,7 +167,7 @@ public class Parser {
           if (etat == 2 && data.charAt(compteur + 1) == '.') {
             StringBuilder sbmoves = new StringBuilder();
 
-            //         log.info("resultat=" + resultat);
+            //         System.out.println("resultat=" + resultat);
             for (int debut = compteur; debut < len; debut++) {
               boolean isResultat = true;
               for (int i = 0; i < game.getResult().length(); i++) {
@@ -182,24 +182,24 @@ public class Parser {
               sbmoves.append(data.charAt(debut));
             }
             String coups = sbmoves.toString();
-            // log.info("moves=" + coups);
+            // System.out.println("moves=" + coups);
             // on positionnera le game ID dans le game DB à l'ajout du additonnal
             game.setMoves(coups);
             //game.getMetaCommonGame().setSource(fileName);
             int debut = coups.indexOf("1. ") + 3;
-            //  log.info(fileName+"***moves=" + coups);
-            // log.info(game+"***moves=" + coups);
+            //  System.out.println(fileName+"***moves=" + coups);
+            // System.out.println(game+"***moves=" + coups);
             coups = coups.substring(debut);
             /// dans certains cas on a encore un espace au debut
             coups = coups.replaceAll("^\\s+", "");
             // TODO gerer les commentaires bien sur
             int fin = coups.indexOf(" ");
-            //     log.info("coups.substring(debut)::" + coups);
+            //     System.out.println("coups.substring(debut)::" + coups);
             game.setFirstMove(coups.substring(0, fin));
             int min = 0;
             int delta = game.getResult().length();
             compteur = compteur + min + delta;
-            //log.info("moves=" + coups);
+            //System.out.println("moves=" + coups);
             etat = 0;
             if (toAdd) {
               nbgame++;

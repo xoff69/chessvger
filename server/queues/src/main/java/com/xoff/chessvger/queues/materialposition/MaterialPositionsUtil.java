@@ -8,9 +8,7 @@ import com.xoff.chessvger.chess.game.OneGameTree;
 import com.xoff.chessvger.chess.move.ResultInterpretation;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class MaterialPositionsUtil {
 
   public static List<CoupleZobristMaterial> parseMoves2(String moves) {
@@ -28,7 +26,7 @@ public class MaterialPositionsUtil {
       //  TraceUtils.traceInFile("\n "+(compteur+1)+ " je joue : "+courant.getCurrentMove()+" "+position.toString());
 
       if (rer.isInvalide()) {
-        log.error(moves);
+        System.out.println(moves);
         return result;
       }
       // tres important ce OU, en effet, ce n est qu a la fin du parsin des coups que l information est complete

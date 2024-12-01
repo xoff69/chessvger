@@ -4,22 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
-import com.xoff.chessvger.queues.util.Runner;
-import java.sql.SQLException;
 import java.time.Duration;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-@Slf4j
-public class GameOfAPlayerConsumer implements Runner {
+public class GameOfAPlayerConsumer implements Runnable {
 
   @Override
   public void run() {
-    log.info("GameOfAPlayerConsumer started");
+    System.out.println("GameOfAPlayerConsumer started");
     KafkaConsumer consumer =
-        CommonKafka.getConsumer(KafkaConstants.TOPIC_GAMEOFAPLAYER, "xoff-material");
+        CommonKafka.getConsumer(KafkaConstants.TOPIC_GAMEOFAPLAYER, "xoff-gameofaplayer");
 
     GameOfAPlayerDao gameOfAPlayerDao = new GameOfAPlayerDao();
     ObjectMapper objectMapper = new ObjectMapper();

@@ -1,6 +1,5 @@
 package com.xoff.chessvger.queues.util;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -13,10 +12,10 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class CommonKafka {
 
-  private static final String HOST = "kafka:9092";
+  private static final String HOST = "localhost:9092";
 
   public static KafkaConsumer getConsumer(String topic, String groupId) {
-    System.out.println("consumer kafka "+topic);
+    System.out.println("consumer kafka " + topic);
     Properties properties = new Properties();
     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -41,12 +40,14 @@ public class CommonKafka {
       properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
       properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
       properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-      System.out.println("AppProducerPlayer avant !" );
+      System.out.println("AppProducerPlayer avant !");
       Producer<String, String> producer = new KafkaProducer<>(properties);
       System.out.println("AppProducerPlayer getProducer!" + producer);
       return producer;
+    } catch (Exception e) {
+      System.out.println("erre " + e.getMessage());
+      e.printStackTrace();
     }
-    catch (Exception e) {System.out.println("erre "+e.getMessage());}
-   return null;
+    return null;
   }
 }

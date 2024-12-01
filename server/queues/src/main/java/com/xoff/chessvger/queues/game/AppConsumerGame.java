@@ -10,24 +10,21 @@ import com.xoff.chessvger.queues.reconciliation.ReconciliationManager;
 import com.xoff.chessvger.queues.reconciliation.ReconciliationType;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
-import com.xoff.chessvger.queues.util.Runner;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-@Slf4j
-public class AppConsumerGame implements Runner {
+public class AppConsumerGame implements Runnable {
 
   @Override
   public void run() {
 
-    log.info("runAppConsumerGame starts ");
+    System.out.println("runAppConsumerGame starts ");
     KafkaConsumer consumer = CommonKafka.getConsumer(KafkaConstants.TOPIC_GAME, "xoff-game");
 
     CommonGameDao commonGameDao = new CommonGameDao();

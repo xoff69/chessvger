@@ -8,41 +8,38 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
-import com.xoff.chessvger.queues.util.Runner;
 import java.time.Duration;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.clients.producer.ProducerConfig;
-@Slf4j
-public class AppProducerPlayer implements Runner {
+
+public class AppProducerPlayer implements Runnable {
+  @Override
   public void run() {
-    log.info("Start runAppProducerPlayer");
+
     System.out.println("Start runAppProducerPlayer");
     // TODO : a virer debug
-    Producer<String, String> producer =CommonKafka.getProducer();
-    String topicName = "my_topic"; // Nom du topic Kafka
-        String key = "messageKey";    // Clé (facultatif)
-        String value = "Hello, Kafka!"; // Message à envoyer
-
-        // Création et envoi du message
-        ProducerRecord<String, String> record1 = new ProducerRecord<>(topicName, key, value);
-        try {
-            // Envoi synchrone (attend la confirmation)
-            RecordMetadata metadata = producer.send(record1).get();
-            System.out.printf("Message envoyé avec succès au topic %s, partition %d, offset %d%n",
-                    metadata.topic(), metadata.partition(), metadata.offset());
-        } catch (Exception e) {
-            System.out.printf("Erreur lors de l'envoi du message : %s%n", e.getMessage());
-        } finally {
-            producer.close(); // Libération des ressources
-        }
+    Producer<String, String> producer = CommonKafka.getProducer();
+    String topicName = "mon_topic"; // Nom du topic Kafka
+    String key = "messageKey";    // Clé (facultatif)
+    String value = "Hello, Kafka!"; // Message à envoyer
+    System.out.println("Start runAppProducerPlayer " + producer);
+    // Création et envoi du message
+    ProducerRecord<String, String> record1 = new ProducerRecord<>(topicName, key, value);
+    try {
+      // Envoi synchrone (attend la confirmation)
+      RecordMetadata metadata = producer.send(record1).get();
+      System.out.printf("Message envoyé avec succès au topic %s, partition %d, offset %d%n",
+          metadata.topic(), metadata.partition(), metadata.offset());
+    } catch (Exception e) {
+      System.out.printf("Erreur lors de l'envoi du message : %s%n", e.getMessage());
+    } finally {
+      producer.close(); // Libération des ressources
+    }
     System.out.println("avant le consumer player");
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERPLAYER, "xoff-parserplayer");
@@ -55,7 +52,7 @@ public class AppProducerPlayer implements Runner {
         try {
           String filename = objectMapper.readValue(record.value(), String.class);
           manageFile(filename);
-          log.info("Start to parse:" + filename);
+          System.out.println("Start to parse:" + filename);
 
         } catch (JsonProcessingException e) {
           throw new RuntimeException(e);
@@ -91,7 +88,7 @@ public class AppProducerPlayer implements Runner {
         e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
       }
     }
-    log.info("players in queue: " + players.size());
+    System.out.println("players in queue: " + players.size());
 
 
   }

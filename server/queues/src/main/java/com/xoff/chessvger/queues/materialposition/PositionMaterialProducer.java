@@ -8,11 +8,9 @@ import com.xoff.chessvger.queues.position.PositionEntity;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-@Slf4j
 public class PositionMaterialProducer {
   public static void enqueuePositionMaterial(long gameId, List<CoupleZobristMaterial> list) {
 
@@ -59,6 +57,6 @@ public class PositionMaterialProducer {
       }
 
     }
-    log.info("positions/material in queue: " + list.size());
+    System.out.println("positions/material in queue: " + list.size());
   }
 }

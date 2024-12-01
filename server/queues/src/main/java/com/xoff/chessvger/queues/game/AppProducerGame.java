@@ -8,19 +8,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
-import com.xoff.chessvger.queues.util.Runner;
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-@Slf4j
-public class AppProducerGame implements Runner {
+public class AppProducerGame implements Runnable {
   /**
    * @param filedir ex /data/twic114
    */
@@ -31,7 +28,7 @@ public class AppProducerGame implements Runner {
 
     Parser parser = new Parser();
     List<CommonGame> games = parser.parseDir(new File(filedir));
-    log.info("games " + games.size());
+    System.out.println("games " + games.size());
     long id = 1L;
     for (CommonGame game : games) {
 
@@ -51,11 +48,11 @@ public class AppProducerGame implements Runner {
         e.printStackTrace();
       }
     }
-    log.info("db insert games done " + games.size());
+    System.out.println("db insert games done " + games.size());
   }
-
+  @Override
   public void run() {
-    log.info("Start AppProducerGame");
+    System.out.println("Start AppProducerGame");
     System.out.println("AppProducerGame World!");
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
@@ -69,7 +66,7 @@ public class AppProducerGame implements Runner {
         try {
           String filename = objectMapper.readValue(record.value(), String.class);
           manageFile(filename);
-          log.info("Start to parse:" + filename);
+          System.out.println("Start to parse:" + filename);
 
         } catch (JsonProcessingException e) {
           throw new RuntimeException(e);

@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+
 public class PlayerParser {
   public List<CommonPlayer> parse(String fileName) {
     try {
@@ -20,13 +19,13 @@ public class PlayerParser {
       PlayersListHandler handler = new PlayersListHandler();
       saxParser.parse(inputFile, handler);
 
-      log.info("parse players done");
+      System.out.println("parse players done");
       List<CommonPlayer> players = handler.getPlayers();
 
       return players;
 
     } catch (Exception e) {
-      log.error(e.getMessage());
+      System.out.println(e.getMessage());
     }
     return new ArrayList<>();
   }
