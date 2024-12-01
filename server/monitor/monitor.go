@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"net"
 	"strconv"
 	"time"
 
@@ -20,6 +21,30 @@ const (
 
 func testK() {
 	topic := "mon_topic"
+
+	conn, err := kafka.Dial("tcp", brokerAddress)
+	if err != nil {
+		panic(err.Error())
+	}
+	defer conn.Close()
+
+	controller, err := conn.Controller()
+	if err != nil {
+		panic(err.Error())
+	}
+	controllerConn, err := kafka.Dial("tcp", net.JoinHostPort(controller.Host, strconv.Itoa(controller.Port)))
+	if err != nil {
+		panic(err.Error())
+	}
+	defer controllerConn.Close()
+
+	topicConfigs := []kafka.TopicConfig{{Topic: topic, NumPartitions: 1, ReplicationFactor: 1}}
+
+	err = controllerConn.CreateTopics(topicConfigs...)
+	if err != nil {
+		panic(err.Error())
+	}
+
 	log.Printf("topic envoyé avec succès : %s\n", topic)
 	// Création d'un writer Kafka (Producteur)
 	writer := kafka.Writer{
@@ -43,7 +68,7 @@ func testK() {
 	)
 
 	if err != nil {
-		log.Fatalf("Erreur lors de l'envoi du message : %v", err)
+		log.Printf("Erreur lors de l'envoi du message : %v", err)
 	}
 
 	log.Printf("Message envoyé avec succès : %s\n", message)
