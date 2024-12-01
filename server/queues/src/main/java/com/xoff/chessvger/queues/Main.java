@@ -23,6 +23,7 @@ public class Main {
       new AppConsumerGame().run();
     });
     Thread.startVirtualThread(() -> {
+      System.out.println("AppProducerPlayer World!");
       new AppProducerPlayer().run();
     });
     Thread.startVirtualThread(() -> {

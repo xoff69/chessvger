@@ -42,6 +42,7 @@ public class CommonKafka {
     properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
     Producer<String, String> producer = new KafkaProducer<>(properties);
+    System.out.println("AppProducerPlayer getProducer!" +producer);
     return producer;
   }
 }

@@ -24,6 +24,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 public class AppProducerPlayer implements Runner {
   public void run() {
     log.info("Start runAppProducerPlayer");
+
     // TODO : a virer debug
     Producer<String, String> producer =CommonKafka.getProducer();
     String topicName = "my_topic"; // Nom du topic Kafka
@@ -42,7 +43,7 @@ public class AppProducerPlayer implements Runner {
         } finally {
             producer.close(); // Libération des ressources
         }
-
+    System.out.println("avant le consumer player");
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERPLAYER, "xoff-parserplayer");
 
