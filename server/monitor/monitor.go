@@ -20,7 +20,7 @@ const (
 
 func testK() {
 	topic := "mon_topic"
-
+	log.Printf("topic envoyé avec succès : %s\n", topic)
 	// Création d'un writer Kafka (Producteur)
 	writer := kafka.Writer{
 		Addr:         kafka.TCP(brokerAddress),
@@ -190,6 +190,7 @@ func checkRedis(ctx context.Context) {
 	}
 }
 func main() {
+	fmt.Println("Monitor start")
 	ctx := context.Background()
 	testK()
 	checkRedis(ctx)
