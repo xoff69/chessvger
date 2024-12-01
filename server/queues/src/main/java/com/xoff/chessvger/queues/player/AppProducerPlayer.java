@@ -30,7 +30,7 @@ public class AppProducerPlayer implements Runnable {
     ObjectMapper objectMapper = new ObjectMapper();
     while (true) {
       ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-
+      //System.out.println("AppProducerPlayer::Start to parse:" + records.count());
       for (ConsumerRecord<String, String> record : records) {
         try {
           String filename = objectMapper.readValue(record.value(), String.class);

@@ -20,7 +20,7 @@ const (
 )
 
 func testK() {
-	topic := "xoff-parserplayer"
+	topic := "topic-runparserplayer"
 
 	conn, err := kafka.Dial("tcp", brokerAddress)
 	if err != nil {
