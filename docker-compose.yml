@@ -4,6 +4,7 @@ networks:
     driver: bridge
 
 services:
+
   redis:
     image: redis:latest
     container_name: redis_container
@@ -12,7 +13,6 @@ services:
     networks:
       - chessvger_network
 
-   
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper_container
@@ -75,6 +75,8 @@ services:
       - postgres
     networks:
       - chessvger_network
+    volumes:
+      - ./data:/app/data   #local:conteneur
 
   chessvger-webapp:
     image: chessvger-webapp:latest
@@ -85,6 +87,8 @@ services:
       - chessvger-monitor
     networks:
       - chessvger_network
+    volumes:
+      - ./data:/app/data   #local:conteneur
 
   chessvger-queues:
     image: chessvger-queues:latest
@@ -95,3 +99,8 @@ services:
       - chessvger-webapp
     networks:
       - chessvger_network
+    volumes:
+      - ./data:/app/data   #local:conteneur
+volumes:
+  data:
+    driver: local

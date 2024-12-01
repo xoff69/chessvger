@@ -20,7 +20,7 @@ const (
 )
 
 func testK() {
-	topic := "mon_topic"
+	topic := "xoff-parserplayer"
 
 	conn, err := kafka.Dial("tcp", brokerAddress)
 	if err != nil {
@@ -57,7 +57,7 @@ func testK() {
 	defer writer.Close()
 
 	// Message à envoyer
-	message := "Hello, Kafka avec kafka-go!"
+	message := "/data/players_list_xml_foa.xml"
 
 	// Envoyer le message
 	err2 := writer.WriteMessages(context.Background(),
