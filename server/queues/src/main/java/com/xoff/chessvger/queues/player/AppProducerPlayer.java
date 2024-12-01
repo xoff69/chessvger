@@ -39,7 +39,7 @@ public class AppProducerPlayer implements Runner {
             System.out.printf("Message envoyé avec succès au topic %s, partition %d, offset %d%n",
                     metadata.topic(), metadata.partition(), metadata.offset());
         } catch (Exception e) {
-            System.err.printf("Erreur lors de l'envoi du message : %s%n", e.getMessage());
+            System.out.printf("Erreur lors de l'envoi du message : %s%n", e.getMessage());
         } finally {
             producer.close(); // Libération des ressources
         }
