@@ -6,3 +6,4 @@ build
 data/players_list_xml_foa.xml
 data/openings.xml
 server/monitor/monitor.exe
+data/**.* 
