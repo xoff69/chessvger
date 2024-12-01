@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	connStr       = "user=chessvger password=chessvger dbname=chessvger sslmode=disable host=db_chessvger port=5432"
+	connStr       = "user=chessvger password=chessvger dbname=postgres sslmode=disable host=db_chessvger port=5432"
 	brokerAddress = "kafka:9092" // Remplacez par l'adresse de votre broker Kafka
 )
 
@@ -64,10 +64,18 @@ func checkDb(ctx context.Context) {
 	// Vérifier la connexion
 	err = db.Ping()
 	if err != nil {
-		log.Printf("Impossible de se connecter à la base de données : %v", err)
+		log.Printf("aaa Impossible de se connecter à la base de données : %v", err)
 		return
 	}
 	fmt.Println("Connexion réussie à PostgreSQL.")
+	// Créer une nouvelle base de données
+	dbName := "chessvger"
+	_, err = db.Exec(fmt.Sprintf("CREATE schema if not exists  %s", dbName))
+	if err != nil {
+		log.Printf("Le schema %s existe  déjà : %v", dbName, err)
+	} else {
+		log.Printf("schemas '%s' créée avec succès.", dbName)
+	}
 
 	// Requête pour lister les schémas
 	query := `
