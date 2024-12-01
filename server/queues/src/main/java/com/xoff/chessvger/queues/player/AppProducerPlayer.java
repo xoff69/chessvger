@@ -17,24 +17,27 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.ProducerConfig;
 @Slf4j
 public class AppProducerPlayer implements Runner {
   public void run() {
     log.info("Start runAppProducerPlayer");
-    KafkaProducer<String, String> producer =CommonKafka.getProducer();
+    // TODO : a virer debug
+    Producer<String, String> producer =CommonKafka.getProducer();
     String topicName = "my_topic"; // Nom du topic Kafka
         String key = "messageKey";    // Clé (facultatif)
         String value = "Hello, Kafka!"; // Message à envoyer
 
         // Création et envoi du message
-        ProducerRecord<String, String> record = new ProducerRecord<>(topicName, key, value);
+        ProducerRecord<String, String> record1 = new ProducerRecord<>(topicName, key, value);
         try {
             // Envoi synchrone (attend la confirmation)
-            RecordMetadata metadata = producer.send(record).get();
+            RecordMetadata metadata = producer.send(record1).get();
             System.out.printf("Message envoyé avec succès au topic %s, partition %d, offset %d%n",
                     metadata.topic(), metadata.partition(), metadata.offset());
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (Exception e) {
             System.err.printf("Erreur lors de l'envoi du message : %s%n", e.getMessage());
         } finally {
             producer.close(); // Libération des ressources
