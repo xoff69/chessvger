@@ -57,7 +57,7 @@ func testK() {
 	defer writer.Close()
 
 	// Message à envoyer
-	message := "/data/players_list_xml_foa.xml"
+	message := "./data/players_list_xml_foa.xml"
 
 	// Envoyer le message
 	err2 := writer.WriteMessages(context.Background(),
