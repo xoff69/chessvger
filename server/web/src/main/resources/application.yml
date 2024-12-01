@@ -29,17 +29,17 @@ spring:
     username: chessvger
     password: chessvger
     url: jdbc:postgresql://db_chessvger/postgres?currentSchema=chessvger
-    platform: postgres
-    initialization-mode: always
-    continue-on-error: true
-    initialize : true
-    schema: chessvger
   jpa:
     show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: create
     database: POSTGRESQL
-    
+
+  sql:
+    init:
+      mode: always
+      platform: postgres
+      continue-on-error: true
 logging:
   file.name: data/logs/chessvger.log
