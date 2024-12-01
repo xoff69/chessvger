@@ -35,13 +35,13 @@ public class CommonKafka {
   }
 
   public static Producer getProducer() {
-    System.out.println("prodicer kafka ");
+    System.out.println("getProducer kafka ");
     try {
       Properties properties = new Properties();
       properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
       properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
       properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-
+      System.out.println("AppProducerPlayer avant !" );
       Producer<String, String> producer = new KafkaProducer<>(properties);
       System.out.println("AppProducerPlayer getProducer!" + producer);
       return producer;

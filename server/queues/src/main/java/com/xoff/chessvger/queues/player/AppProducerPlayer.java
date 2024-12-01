@@ -24,7 +24,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 public class AppProducerPlayer implements Runner {
   public void run() {
     log.info("Start runAppProducerPlayer");
-
+    System.out.println("Start runAppProducerPlayer");
     // TODO : a virer debug
     Producer<String, String> producer =CommonKafka.getProducer();
     String topicName = "my_topic"; // Nom du topic Kafka
