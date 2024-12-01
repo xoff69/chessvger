@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Main {
   public static void main(String[] args) {
 
-    System.out.println("Hello World!");
+    System.out.println("Producers and server are starting  V1.0.0");
     log.info("Producers and server are starting");
     Thread.startVirtualThread(() -> {
       System.out.println("AppProducerGame World!");
