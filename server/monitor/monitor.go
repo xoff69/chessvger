@@ -68,7 +68,8 @@ func checkDb(ctx context.Context) {
 		return
 	}
 	fmt.Println("Connexion réussie à PostgreSQL.")
-	// Créer une nouvelle base de données
+	// Créer 1 nouveau schema
+	// TODO CREER une nouvelle + un nouveau schema
 	dbName := "chessvger"
 	_, err = db.Exec(fmt.Sprintf("CREATE schema if not exists  %s", dbName))
 	if err != nil {

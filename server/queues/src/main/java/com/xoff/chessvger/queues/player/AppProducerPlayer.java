@@ -22,6 +22,24 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 public class AppProducerPlayer implements Runner {
   public void run() {
     log.info("Start runAppProducerPlayer");
+    KafkaProducer<String, String> producer =CommonKafka.getProducer();
+    String topicName = "my_topic"; // Nom du topic Kafka
+        String key = "messageKey";    // Clé (facultatif)
+        String value = "Hello, Kafka!"; // Message à envoyer
+
+        // Création et envoi du message
+        ProducerRecord<String, String> record = new ProducerRecord<>(topicName, key, value);
+        try {
+            // Envoi synchrone (attend la confirmation)
+            RecordMetadata metadata = producer.send(record).get();
+            System.out.printf("Message envoyé avec succès au topic %s, partition %d, offset %d%n",
+                    metadata.topic(), metadata.partition(), metadata.offset());
+        } catch (ExecutionException | InterruptedException e) {
+            System.err.printf("Erreur lors de l'envoi du message : %s%n", e.getMessage());
+        } finally {
+            producer.close(); // Libération des ressources
+        }
+
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERPLAYER, "xoff-parserplayer");
 

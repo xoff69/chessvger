@@ -1,4 +1,5 @@
 # Utiliser une image officielle avec Java
+# docker build -t chessvger-webapp . --no-cache
 FROM openjdk:21-jdk-slim
 
 
