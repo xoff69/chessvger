@@ -23,6 +23,10 @@ public class ChessVgerApplication implements WebMvcConfigurer {
 
   private DeleteDbUtil deleteDbUtil;
 
+  /**
+   * @deprecated TODO remove
+   * @param args
+   */
   private static void checkOption(String[] args) {
     for (String arg : args) {
       log.info("parameter " + arg);
