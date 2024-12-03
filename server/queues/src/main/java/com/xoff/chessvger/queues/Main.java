@@ -21,12 +21,13 @@ public class Main {
 
   public static void main(String[] args) {
 
-    System.out.println("Producers and server are starting  V1.0.2 "+args.length);
-    if (args.length >1){
+    System.out.println("Producers and server are starting  V1.0.3 "+args.length);
+    if (args.length >0){
+      System.out.println("Main!" + args[0]);
       kafkahost="broker:9092";
       dbhost="db_chessvger";
     }
-    System.out.println("AppProducerGame World!");
+    System.out.println("Main!" +kafkahost+"-"+getKafkaHost());
     Runnable[] runnables =
         new Runnable[] {new AppProducerGame(), new AppConsumerGame(), new AppProducerPlayer(),
             new AppConsumerPlayer(), new StatConsumer(), new PositionConsumer(),
