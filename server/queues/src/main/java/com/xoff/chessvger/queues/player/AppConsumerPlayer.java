@@ -12,7 +12,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class AppConsumerPlayer implements Runnable {
   public void run() {
-    System.out.println("start AppConsumerPlayer");
+
     KafkaConsumer consumer = CommonKafka.getConsumer(KafkaConstants.TOPIC_PLAYER, "xoff-player");
 
     CommonPlayerDao commonPlayerDao = new CommonPlayerDao();

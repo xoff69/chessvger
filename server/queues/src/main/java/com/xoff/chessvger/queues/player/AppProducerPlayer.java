@@ -78,7 +78,6 @@ System.out.println("managerFile "+filedir);
 
   }
   private void send() {
-    System.out.println(">send");
     Producer<String, String> producer = CommonKafka.getProducer();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -95,7 +94,6 @@ System.out.println("managerFile "+filedir);
         e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
       }
 
-    System.out.println("send<");
 
 
   }
