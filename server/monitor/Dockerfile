@@ -1,20 +1,20 @@
 # docker build -t chessvger-monitor . --no-cache
 # docker run  chessvger-monitor 
 # go get github.com/gorilla/mux
+# go mod tidy nettoyage
 FROM golang:1.23
-
-# Définir le répertoire de travail à l'intérieur du conteneur
 WORKDIR /app
 
-# Copier les fichiers de configuration Go (go.mod et go.sum) pour installer les dépendances
-COPY go.mod  ./
-
-# Télécharger les dépendances (utilisation de cache si possible)
+COPY go.mod go.sum ./
+RUN go mod tidy
 RUN go mod download
 
-# Copier le reste du code source dans le conteneur
-COPY . .
+COPY *.go ./
+RUN  go get github.com/go-redis/redis/v8
+RUN  go get github.com/lib/pq
+RUN  go get github.com/segmentio/kafka-go
 
-RUN go build -o monitor .
+RUN go build -o /monitor
 
-CMD ["ls", "-la"]
+
+CMD [ "/monitor" ,"cluster"]

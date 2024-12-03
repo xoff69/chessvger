@@ -54,7 +54,7 @@ send();
 
     Producer<String, String> producer = CommonKafka.getProducer();
     ObjectMapper objectMapper = new ObjectMapper();
-
+System.out.println("managerFile "+filedir);
     PlayerParser playerParser = new PlayerParser();
     List<CommonPlayer> players = playerParser.parse(filedir);
     long id = 1L;
@@ -95,7 +95,7 @@ send();
         e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
       }
 
-    System.out.println("send");
+    System.out.println("send<");
 
 
   }
