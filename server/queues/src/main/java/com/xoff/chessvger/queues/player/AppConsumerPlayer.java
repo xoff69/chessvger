@@ -25,7 +25,7 @@ public class AppConsumerPlayer implements Runnable {
 
         try {
           CommonPlayer player = objectMapper.readValue(record.value(), CommonPlayer.class);
-          System.out.println("Insert player "+player);
+
           commonPlayerDao.insertCommonPlayer(player);
 
         } catch (JsonProcessingException | ClassNotFoundException | SQLException e) {

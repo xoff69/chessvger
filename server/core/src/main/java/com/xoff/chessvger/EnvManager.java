@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EnvManager {
   public static final String RUN_FOLDER_PARAM = "RUN_FOLDER";
-  private static final String RUN_FOLDER_DEFAULT = "../run";
+  private static final String RUN_FOLDER_DEFAULT = "run";
 
   @SuppressFBWarnings(value = {"MS_EXPOSE_REP"}, justification = "We want that")
   private static EnvManager _instance;

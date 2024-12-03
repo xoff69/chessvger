@@ -1,3 +1,3 @@
 # generate global jar
-gradle allQueuesFatJar
+gradle clean build allQueuesFatJar
 docker build -t chessvger-queues . --no-cache
