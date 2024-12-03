@@ -22,7 +22,7 @@ public class AppProducerPlayer implements Runnable {
   public void run() {
 
     System.out.println("Start runAppProducerPlayer");
-
+send();
     System.out.println("avant le consumer player");
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERPLAYER, "xoff-parserplayer");
@@ -39,6 +39,7 @@ public class AppProducerPlayer implements Runnable {
 
 
         } catch (JsonProcessingException e) {
+          e.printStackTrace();
           throw new RuntimeException(e);
         }
 
@@ -76,5 +77,26 @@ public class AppProducerPlayer implements Runnable {
 
 
   }
+  private void send() {
+    System.out.println(">send");
+    Producer<String, String> producer = CommonKafka.getProducer();
+    ObjectMapper objectMapper = new ObjectMapper();
 
+
+      try {
+        String jsonSent = objectMapper.writeValueAsString("./data/players_list_xml_foa.xml");
+        ProducerRecord<String, String> record =
+            new ProducerRecord<>(KafkaConstants.TOPIC_RUN_PARSERPLAYER, null, jsonSent);
+
+        producer.send(record);
+        producer.flush();
+
+      } catch (JsonProcessingException e) {
+        e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
+      }
+
+    System.out.println("send");
+
+
+  }
 }

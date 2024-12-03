@@ -12,7 +12,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class CommonKafka {
 
-  private static final String HOST = "localhost:9092";
+  private static final String HOST = "localhost:9092,kafka:9092";
 
   public static KafkaConsumer getConsumer(String topic, String groupId) {
     System.out.println("consumer kafka " + topic);
@@ -30,6 +30,7 @@ public class CommonKafka {
     KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
     // subscribe consumer to our topic(s)
     consumer.subscribe(Collections.singletonList(topic));
+    System.out.println("<<<consumer kafka " + topic);
     return consumer;
   }
 

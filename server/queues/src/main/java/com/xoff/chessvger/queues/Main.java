@@ -14,14 +14,15 @@ public class Main {
     System.out.println("Producers and server are starting  V1.0.1");
 
     System.out.println("AppProducerGame World!");
-    Runnable[] runnables = new Runnable[] { new AppProducerGame(),new AppConsumerGame(),new AppProducerPlayer(),
-        new AppConsumerPlayer(),new StatConsumer(),new PositionConsumer(),new GameOfAPlayerConsumer()
-    };
+    Runnable[] runnables =
+        new Runnable[] {new AppProducerGame(), new AppConsumerGame(), new AppProducerPlayer(),
+            new AppConsumerPlayer(), new StatConsumer(), new PositionConsumer(),
+            new GameOfAPlayerConsumer()};
 
-        for (Runnable r : runnables) {
-          Thread thread = new Thread(r);
-          thread.start();
-        }
+    for (Runnable r : runnables) {
+      Thread thread = new Thread(r);
+      thread.start();
+    }
 
   }
 

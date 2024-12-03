@@ -17,4 +17,4 @@ COPY *.go ./
 RUN go build -o /monitor
 
 # Run
-CMD ["/monitor"]
+CMD ["/monitor ","cluster"]
