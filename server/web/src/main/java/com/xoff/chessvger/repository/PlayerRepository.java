@@ -6,4 +6,6 @@ public interface  PlayerRepository  extends CrudRepository<CommonPlayerEntity, L
 
 
   CommonPlayerEntity findById(long id);
+
+  List<CommonPlayerEntity> findAll();
 }

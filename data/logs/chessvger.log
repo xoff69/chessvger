@@ -4701,3 +4701,274 @@ java.io.FileNotFoundException: /app/data/run/reference/openings.xml (No such fil
 2024-12-03T17:07:22.648Z  INFO 1 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-12-03T17:07:22.662Z  INFO 1 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-12-03T17:07:22.715Z  INFO 1 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-12-03T17:12:34.124Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : Starting ChessVgerApplication v1.0.0-SNAPSHOT using Java 21 with PID 1 (/app/web-1.0.0-SNAPSHOT.jar started by root in /app)
+2024-12-03T17:12:34.130Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : The following 1 profile is active: "cluster"
+2024-12-03T17:12:35.977Z  INFO 1 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-03T17:12:36.111Z  INFO 1 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 119 ms. Found 1 JPA repository interface.
+2024-12-03T17:12:37.656Z  INFO 1 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-12-03T17:12:37.693Z  INFO 1 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-03T17:12:37.696Z  INFO 1 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-12-03T17:12:37.784Z  INFO 1 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-03T17:12:37.786Z  INFO 1 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3523 ms
+2024-12-03T17:12:37.357Z  INFO 1 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-03T17:12:37.439Z  INFO 1 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-12-03T17:12:37.471Z  INFO 1 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-12-03T17:12:37.815Z  INFO 1 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-03T17:12:37.857Z  INFO 1 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-03T17:12:38.057Z  INFO 1 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@337cb81d
+2024-12-03T17:12:38.061Z  INFO 1 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-03T17:12:38.109Z  WARN 1 --- [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-12-03T17:12:40.185Z  INFO 1 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-03T17:12:40.303Z  INFO 1 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-03T17:12:42.107Z  INFO 1 --- [main] c.xoff.chessvger.common.GlobalManager    : Globalmanager getInstance
+2024-12-03T17:12:42.112Z  INFO 1 --- [main] c.xoff.chessvger.common.GlobalManager    : >Globalmanager new
+2024-12-03T17:12:42.118Z  INFO 1 --- [main] com.xoff.chessvger.EnvManager            : addDatabaseManager value RUN_FOLDER-/app/data/run
+2024-12-03T17:12:43.536Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : >>> DEbut :CommonPlayerMap
+2024-12-03T17:12:43.544Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       :   0
+2024-12-03T17:12:43.545Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : Fin:CommonPlayerMap
+2024-12-03T17:12:43.546Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : >>listNames
+2024-12-03T17:12:43.547Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       :   0
+2024-12-03T17:12:43.547Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : <<<listNames=0
+2024-12-03T17:12:43.923Z  INFO 1 --- [main] c.x.c.chess.player.SynonymPlayerManager  : load synonyms
+2024-12-03T17:12:43.925Z ERROR 1 --- [main] c.x.c.chess.player.SynonymPlayerManager  : synonym.txt
+2024-12-03T17:12:44.260Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerManager   : importe fide
+2024-12-03T17:12:44.262Z ERROR 1 --- [main] c.x.c.chess.player.CommonPlayerDb        : /app/data/run/reference/xplayers_list_foa.txt
+2024-12-03T17:12:44.687Z  INFO 1 --- [main] c.x.c.chess.engine.EngineFactory         : create default engine Engine(id=1, description=StockFish 11, name=StockFish 11, path=C:/mesapplis/stockfish_15_win_x64_avx2/stockfish_15_win_x64_avx2/stockfish_15_x64_avx2.exe, prof=20, pv=3, fen=null)
+2024-12-03T17:12:45.345Z  INFO 1 --- [main] c.x.c.chess.opening.OpeningManager       : >>load openings
+2024-12-03T17:12:46.020Z  INFO 1 --- [main] c.x.c.chess.opening.OpeningManager       : <<load openings
+2024-12-03T17:12:48.690Z  INFO 1 --- [main] c.xoff.chessvger.common.GlobalManager    : <Globalmanager new
+2024-12-03T17:12:48.691Z  INFO 1 --- [main] c.x.c.ui.web.navigation.ApplicationBean  : init ApplicatiobBean 0
+2024-12-03T17:12:48.969Z  INFO 1 --- [main] com.xoff.chessvger.WebSocketConfig       : broker
+2024-12-03T17:12:49.205Z  WARN 1 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-03T17:12:49.419Z  INFO 1 --- [main] com.xoff.chessvger.WebSocketConfig       : broker2
+2024-12-03T17:12:49.497Z  INFO 1 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-12-03T17:12:49.861Z  INFO 1 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-12-03T17:12:49.950Z  INFO 1 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@38ff82ff, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6f1c19d, org.springframework.security.web.context.SecurityContextHolderFilter@42046dbf, org.springframework.security.web.header.HeaderWriterFilter@5f850405, org.springframework.web.filter.CorsFilter@5f69bf81, org.springframework.security.web.authentication.logout.LogoutFilter@3d972b37, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4436b8b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b80dc62, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@473f308d, org.springframework.security.web.access.ExceptionTranslationFilter@34b5278f, org.springframework.security.web.access.intercept.AuthorizationFilter@311d3cab]
+2024-12-03T17:12:50.811Z  INFO 1 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-12-03T17:12:50.817Z  INFO 1 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-12-03T17:12:50.818Z  INFO 1 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@28a9f772]]
+2024-12-03T17:12:50.820Z  INFO 1 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-12-03T17:12:50.860Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : Started ChessVgerApplication in 18.02 seconds (process running for 20.409)
+2024-12-03T17:12:51.024Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : initializeAfterStartup
+2024-12-03T17:12:55.371Z  INFO 1 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-03T17:12:55.372Z  INFO 1 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-03T17:12:55.376Z  INFO 1 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-12-03T17:12:55.470Z  INFO 1 --- [http-nio-8080-exec-1] c.x.c.ui.web.controller.IndexController  : fin index controller
+2024-12-03T17:12:55.892Z  INFO 1 --- [http-nio-8080-exec-1] c.x.c.ui.web.navigation.Navigation       : new naviggation
+2024-12-03T17:12:55.913Z  INFO 1 --- [http-nio-8080-exec-1] c.x.c.ui.web.navigation.ApplicationBean  : ApplicatiobBean isAllowedFeature CONNEXION
+2024-12-03T17:12:55.953Z  INFO 1 --- [http-nio-8080-exec-1] c.x.c.ui.web.navigation.ApplicationBean  : ApplicatiobBean isAllowedFeature FOOTER
+2024-12-03T17:12:55.958Z  INFO 1 --- [http-nio-8080-exec-1] c.x.c.ui.web.navigation.ApplicationBean  : ApplicatiobBean isAllowedFeature STATUS
+2024-12-03T17:12:56.211Z  INFO 1 --- [http-nio-8080-exec-2] c.x.c.ui.web.controller.IndexController  : chooseTab cas 0 : 2--Accueil--ok=0--
+2024-12-03T17:13:14.609Z  INFO 1 --- [http-nio-8080-exec-5] c.x.c.ui.web.controller.IndexController  : chooseTab cas 0 : 2--Accueil--ok=0--
+2024-12-03T17:13:18.677Z  INFO 1 --- [http-nio-8080-exec-7] c.x.c.ui.web.controller.IndexController  : closeAll
+2024-12-03T17:13:18.681Z  INFO 1 --- [http-nio-8080-exec-4] c.x.c.ui.web.controller.BDController     : list des bds null 1
+2024-12-03T17:13:18.708Z ERROR 1 --- [http-nio-8080-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "com.xoff.chessvger.view.UserDto.getId()" because the return value of "com.xoff.chessvger.ui.web.navigation.Navigation.getUserDto()" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "com.xoff.chessvger.view.UserDto.getId()" because the return value of "com.xoff.chessvger.ui.web.navigation.Navigation.getUserDto()" is null
+	at com.xoff.chessvger.ui.web.controller.BDController.getAllBds(BDController.java:40) ~[!/:1.0.0-SNAPSHOT]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:261) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:189) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.2.1.jar!/:6.2.1]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195) ~[spring-webmvc-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:225) ~[spring-security-config-6.2.1.jar!/:6.2.1]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.3.jar!/:6.1.3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.18.jar!/:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2024-12-03T17:13:18.749Z ERROR 1 --- [http-nio-8080-exec-4] c.x.c.u.w.controller.MyErrorController   :  ----> error manager SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.core.ApplicationHttpRequest@2c51aa53]]
+2024-12-03T17:13:18.750Z ERROR 1 --- [http-nio-8080-exec-4] c.x.c.u.w.controller.MyErrorController   :  error manager 
+2024-12-03T17:13:18.753Z ERROR 1 --- [http-nio-8080-exec-4] c.x.c.u.w.controller.MyErrorController   :  error manager url /bds
+2024-12-03T17:13:18.755Z ERROR 1 --- [http-nio-8080-exec-4] c.x.c.u.w.controller.MyErrorController   :  2) error manager 500
+2024-12-03T17:13:18.962Z ERROR 1 --- [http-nio-8080-exec-8] c.x.c.u.w.controller.MyErrorController   :  ----> error manager SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.core.ApplicationHttpRequest@1f2cf64b]]
+2024-12-03T17:13:18.964Z ERROR 1 --- [http-nio-8080-exec-8] c.x.c.u.w.controller.MyErrorController   :  error manager 
+2024-12-03T17:13:18.965Z ERROR 1 --- [http-nio-8080-exec-8] c.x.c.u.w.controller.MyErrorController   :  error manager url /favicon.ico
+2024-12-03T17:13:18.966Z ERROR 1 --- [http-nio-8080-exec-8] c.x.c.u.w.controller.MyErrorController   :  2) error manager 404
+2024-12-03T17:13:29.372Z  INFO 1 --- [http-nio-8080-exec-9] c.x.c.ui.web.controller.IndexController  : fin index controller
+2024-12-03T17:13:29.382Z  INFO 1 --- [http-nio-8080-exec-9] c.x.c.ui.web.navigation.ApplicationBean  : ApplicatiobBean isAllowedFeature CONNEXION
+2024-12-03T17:13:29.415Z  INFO 1 --- [http-nio-8080-exec-9] c.x.c.ui.web.navigation.ApplicationBean  : ApplicatiobBean isAllowedFeature FOOTER
+2024-12-03T17:13:29.425Z  INFO 1 --- [http-nio-8080-exec-9] c.x.c.ui.web.navigation.ApplicationBean  : ApplicatiobBean isAllowedFeature STATUS
+2024-12-03T17:13:29.576Z  INFO 1 --- [http-nio-8080-exec-9] c.x.c.ui.web.controller.IndexController  : chooseTab cas 0 : 2--Accueil--ok=0--
+2024-12-03T17:13:35.104Z  WARN 1 --- [http-nio-8080-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'bdId' for method parameter type long is not present]
+2024-12-03T17:13:35.107Z  INFO 1 --- [http-nio-8080-exec-3] c.x.c.ui.web.controller.IndexController  : closeAll
+2024-12-03T17:13:35.113Z ERROR 1 --- [http-nio-8080-exec-5] c.x.c.u.w.controller.MyErrorController   :  ----> error manager SecurityContextHolderAwareRequestWrapper[ FirewalledRequest[ org.apache.catalina.core.ApplicationHttpRequest@66c6d66a]]
+2024-12-03T17:13:35.114Z ERROR 1 --- [http-nio-8080-exec-5] c.x.c.u.w.controller.MyErrorController   :  error manager 
+2024-12-03T17:13:35.115Z ERROR 1 --- [http-nio-8080-exec-5] c.x.c.u.w.controller.MyErrorController   :  error manager url /players
+2024-12-03T17:13:35.120Z ERROR 1 --- [http-nio-8080-exec-5] c.x.c.u.w.controller.MyErrorController   :  2) error manager 400
+2024-12-03T17:13:48.677Z  INFO 1 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-12-03T17:14:45.618Z  INFO 1 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-12-03T17:14:45.620Z  INFO 1 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@28a9f772]]
+2024-12-03T17:14:45.620Z  INFO 1 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-12-03T17:14:45.636Z  INFO 1 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-03T17:14:45.641Z  INFO 1 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-03T17:14:45.650Z  INFO 1 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-12-03T20:22:18.475Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : Starting ChessVgerApplication v1.0.0-SNAPSHOT using Java 21 with PID 1 (/app/web-1.0.0-SNAPSHOT.jar started by root in /app)
+2024-12-03T20:22:18.493Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : The following 1 profile is active: "cluster"
+2024-12-03T20:22:20.718Z  INFO 1 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-03T20:22:20.815Z  INFO 1 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85 ms. Found 1 JPA repository interface.
+2024-12-03T20:22:22.202Z  INFO 1 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-12-03T20:22:22.222Z  INFO 1 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-03T20:22:22.224Z  INFO 1 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-12-03T20:22:22.281Z  INFO 1 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-03T20:22:22.282Z  INFO 1 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3625 ms
+2024-12-03T20:22:22.782Z  INFO 1 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-03T20:22:22.849Z  INFO 1 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-12-03T20:22:22.895Z  INFO 1 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-12-03T20:22:23.210Z  INFO 1 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-03T20:22:23.247Z  INFO 1 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-03T20:22:23.477Z  INFO 1 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7c02b3cb
+2024-12-03T20:22:23.480Z  INFO 1 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-03T20:22:23.527Z  WARN 1 --- [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-12-03T20:22:25.086Z  INFO 1 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-03T20:22:25.166Z  INFO 1 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-03T20:22:25.736Z  INFO 1 --- [main] c.xoff.chessvger.common.GlobalManager    : Globalmanager getInstance
+2024-12-03T20:22:25.738Z  INFO 1 --- [main] c.xoff.chessvger.common.GlobalManager    : >Globalmanager new
+2024-12-03T20:22:25.742Z  INFO 1 --- [main] com.xoff.chessvger.EnvManager            : addDatabaseManager value RUN_FOLDER-/app/data/run
+2024-12-03T20:22:26.843Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : >>> DEbut :CommonPlayerMap
+2024-12-03T20:22:26.887Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       :   0
+2024-12-03T20:22:26.889Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : Fin:CommonPlayerMap
+2024-12-03T20:22:26.911Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : >>listNames
+2024-12-03T20:22:26.932Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       :   0
+2024-12-03T20:22:26.947Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerMap       : <<<listNames=0
+2024-12-03T20:22:27.044Z  INFO 1 --- [main] c.x.c.chess.player.SynonymPlayerManager  : load synonyms
+2024-12-03T20:22:27.049Z ERROR 1 --- [main] c.x.c.chess.player.SynonymPlayerManager  : synonym.txt
+2024-12-03T20:22:27.087Z  INFO 1 --- [main] c.x.c.chess.player.CommonPlayerManager   : importe fide
+2024-12-03T20:22:27.090Z ERROR 1 --- [main] c.x.c.chess.player.CommonPlayerDb        : /app/data/run/reference/xplayers_list_foa.txt
+2024-12-03T20:22:27.412Z  INFO 1 --- [main] c.x.c.chess.opening.OpeningManager       : <<load openings
+2024-12-03T20:22:27.785Z  INFO 1 --- [main] c.xoff.chessvger.common.GlobalManager    : <Globalmanager new
+2024-12-03T20:22:27.787Z  INFO 1 --- [main] c.x.c.ui.web.navigation.ApplicationBean  : init ApplicatiobBean 0
+2024-12-03T20:22:28.139Z  INFO 1 --- [main] com.xoff.chessvger.WebSocketConfig       : broker
+2024-12-03T20:22:28.307Z  WARN 1 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-03T20:22:27.353Z  INFO 1 --- [main] com.xoff.chessvger.WebSocketConfig       : broker2
+2024-12-03T20:22:27.441Z  INFO 1 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-12-03T20:22:27.844Z  INFO 1 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-12-03T20:22:27.939Z  INFO 1 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ba55a6b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b20024b, org.springframework.security.web.context.SecurityContextHolderFilter@5ac3d009, org.springframework.security.web.header.HeaderWriterFilter@7f5a5ef3, org.springframework.web.filter.CorsFilter@2f8ede54, org.springframework.security.web.authentication.logout.LogoutFilter@5d28ac23, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29617475, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6d17cd8b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e0383d3, org.springframework.security.web.access.ExceptionTranslationFilter@6f66ab8f, org.springframework.security.web.access.intercept.AuthorizationFilter@54d3b4fe]
+2024-12-03T20:22:28.954Z  INFO 1 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-12-03T20:22:28.968Z  INFO 1 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-12-03T20:22:28.970Z  INFO 1 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@efa6a81]]
+2024-12-03T20:22:28.971Z  INFO 1 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-12-03T20:22:28.996Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : Started ChessVgerApplication in 11.996 seconds (process running for 14.469)
+2024-12-03T20:22:29.089Z  INFO 1 --- [main] c.xoff.chessvger.ChessVgerApplication    : initializeAfterStartup
+2024-12-03T20:23:26.305Z  INFO 1 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-12-03T20:26:17.332Z  INFO 1 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-03T20:26:17.334Z  INFO 1 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-12-03T20:26:17.338Z  INFO 1 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-12-03T20:27:44.540Z  INFO 1 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-12-03T20:27:44.541Z  INFO 1 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@efa6a81]]
+2024-12-03T20:27:44.542Z  INFO 1 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-12-03T20:27:44.555Z  INFO 1 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-03T20:27:44.560Z  INFO 1 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-03T20:27:44.572Z  INFO 1 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
