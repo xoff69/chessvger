@@ -28,7 +28,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: chessvger
     password: chessvger
-    url: jdbc:postgresql://postgres/chessvger?currentSchema=chessvger
+    url: jdbc:postgresql://db_chessvger/chessvger?currentSchema=chessvger
   jpa:
     show-sql: true
     generate-ddl: true
