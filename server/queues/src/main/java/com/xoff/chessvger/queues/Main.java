@@ -10,17 +10,22 @@ import com.xoff.chessvger.queues.stat.StatConsumer;
 
 public class Main {
 
+  private static String kafkahost="localhost:19092"; // "broker:9092"
   // localhost:19092,
-  public static final String getKafkaHost(){ return "broker:9092";}
+  public static final String getKafkaHost(){ return kafkahost;}
   // localhost
+  private static String dbhost="localhost:19092"; //"db_chessvger"
   public static String getDBHost(){
-    return "db_chessvger";
+    return dbhost ;
   }
 
   public static void main(String[] args) {
 
-    System.out.println("Producers and server are starting  V1.0.1");
-
+    System.out.println("Producers and server are starting  V1.0.2 "+args.length);
+    if (args.length >1){
+      kafkahost="broker:9092";
+      dbhost="db_chessvger";
+    }
     System.out.println("AppProducerGame World!");
     Runnable[] runnables =
         new Runnable[] {new AppProducerGame(), new AppConsumerGame(), new AppProducerPlayer(),

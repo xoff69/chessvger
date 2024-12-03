@@ -3,14 +3,18 @@
 # go get github.com/gorilla/mux
 FROM golang:1.23
 
+# Définir le répertoire de travail à l'intérieur du conteneur
 WORKDIR /app
 
-# Download Go modules
-COPY . .
+# Copier les fichiers de configuration Go (go.mod et go.sum) pour installer les dépendances
+COPY go.mod  ./
+
+# Télécharger les dépendances (utilisation de cache si possible)
 RUN go mod download
 
-# Build
-RUN go build -o monitor
+# Copier le reste du code source dans le conteneur
+COPY . .
 
-# Run
-CMD ["./monitor ","cluster"]
+RUN go build -o monitor .
+
+CMD ["ls", "-la"]

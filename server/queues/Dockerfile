@@ -20,4 +20,4 @@ WORKDIR /chessvger/server/queues
 RUN gradle build --no-daemon allQueuesFatJar
 WORKDIR /chessvger/server/queues/build/libs
 
-CMD ["java", "-jar", "all-in-one-jar-1.0.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "all-in-one-jar-1.0.0-SNAPSHOT.jar","cluster"]
