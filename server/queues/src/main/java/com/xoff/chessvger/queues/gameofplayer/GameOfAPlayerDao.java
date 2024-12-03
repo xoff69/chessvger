@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class GameOfAPlayerDao {
   private static final String INSERT_SQL =
-      "INSERT INTO game_of_a_player (igameId, playerId) " + "VALUES ( ?,?)";
+      "INSERT INTO chessvger.game_of_a_player (igameId, playerId) " + "VALUES ( ?,?)";
 
   public void insertEntity(GameOfAPlayer player) throws SQLException, ClassNotFoundException {
 

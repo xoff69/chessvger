@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class CommonPlayerDao {
 
   private static final String INSERT_SQL =
-      "INSERT INTO common_player (id, fide_id, name, country, sex, title, w_title, o_title, " +
+      "INSERT INTO chessvger.common_player (id, fide_id, name, country, sex, title, w_title, o_title, " +
           "foa_title, rating, games, k, rapid_rating, rapid_games, rapidk, blitz_rating, " +
           "blitz_games, blitzk, birthday, flag) " +
           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -48,7 +48,7 @@ public class CommonPlayerDao {
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new SQLException("Error while inserting player into common_player table.", e);
+      throw new SQLException("Error while inserting player into chessvger.common_player table.", e);
     }
   }
 }
