@@ -24,6 +24,8 @@ services:
       - "2181:2181"
     networks:
       - chessvger_network
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper
 
   broker:
     image: confluentinc/cp-kafka:latest
@@ -40,6 +42,8 @@ services:
       - zookeeper
     networks:
       - chessvger_network
+    volumes:
+      - kafka_data:/var/lib/kafka/data
 
   postgres:
     image: postgres:latest
@@ -104,4 +108,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  zookeeper_data:
+    driver: local
+  kafka_data:
     driver: local

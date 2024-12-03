@@ -10,29 +10,22 @@ import (
 
 const topic = "quickstart-events-25"
 
-func creer(ctx context.Context, broker string) {
-	// Adresse du broker Kafka
+func createKafkaTestQueue(ctx context.Context, broker string) {
+
 	brokerAddress := broker
-
-	// Nom du topic à créer
 	topic := topic
-
-	// Nombre de partitions et facteur de réplication
 	numPartitions := 3
 	replicationFactor := 1
 
-	// Connexion au broker Kafka
 	conn, err := kafka.Dial("tcp", brokerAddress)
 	if err != nil {
 		log.Fatalf("Erreur lors de la connexion au broker Kafka : %v", err)
 	}
 	defer conn.Close()
 
-	// Contexte avec délai pour éviter les blocages
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// Création du topic
 	err = conn.CreateTopics(kafka.TopicConfig{
 		Topic:             topic,
 		NumPartitions:     numPartitions,
@@ -76,7 +69,7 @@ func checkKafka(ctx context.Context, broker string) {
 		fmt.Println(topic)
 	}
 }
-func envoie(broker string) {
+func sendTestMessageToKafka(broker string) {
 	// Adresse du broker Kafka
 	brokers := []string{broker}
 
@@ -107,7 +100,7 @@ func envoie(broker string) {
 		log.Fatalf("Erreur lors de la fermeture du writer : %v", err)
 	}
 }
-func recoitBoucleInfinie(broker string) {
+func receiveTestMessage(broker string) {
 	// Adresse du broker Kafka
 	brokers := []string{broker}
 
@@ -126,7 +119,6 @@ func recoitBoucleInfinie(broker string) {
 
 	fmt.Println("Consommateur Kafka démarré...")
 
-	// Boucle pour lire les messages
 	for {
 		msg, err := reader.ReadMessage(context.Background())
 		if err != nil {

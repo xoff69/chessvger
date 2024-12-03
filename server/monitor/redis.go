@@ -47,15 +47,4 @@ func checkRedis(ctx context.Context, redisServer string) {
 		fmt.Printf("La clé '%s' existe avec la valeur : %s\n", key, value)
 	}
 
-	// Récupérer toutes les clés
-	keys, err := rdb.Keys(ctx, "*").Result()
-	if err != nil {
-		log.Println("Erreur lors de la récupération des clés : %v", err)
-	}
-
-	// Afficher les clés
-	fmt.Println("Clés disponibles :")
-	for _, key := range keys {
-		fmt.Println(key + ":" + rdb.Get(ctx, key).String())
-	}
 }

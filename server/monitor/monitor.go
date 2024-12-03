@@ -26,14 +26,9 @@ func main() {
 			broker = "broker:9092"
 		}
 	}
-
 	execSQLTTT(dbserver)
-
 	checkRedis(ctx, redisServer)
-
-	creer(ctx, broker)
+	createKafkaTestQueue(ctx, broker)
 	checkKafka(ctx, broker)
-	envoie(broker)
-	recoitBoucleInfinie(broker)
 
 }
