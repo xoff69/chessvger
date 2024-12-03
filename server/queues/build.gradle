@@ -16,11 +16,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.3'
     implementation 'org.apache.kafka:kafka-clients:3.9.0'
     implementation 'redis.clients:jedis:2.8.0'
-
-
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'
-// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     annotationProcessor 'org.projectlombok:lombok'

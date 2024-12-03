@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+const topic = "quickstart-events-25"
+
 func creer(ctx context.Context, broker string) {
 	// Adresse du broker Kafka
 	brokerAddress := broker

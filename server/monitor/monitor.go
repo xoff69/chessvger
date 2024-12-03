@@ -7,21 +7,24 @@ import (
 	"os"
 )
 
-const topic = "quickstart-events-25"
-
+/**
+* go run monitor.go toto
+ */
 func main() {
 	ctx := context.Background()
 
 	dbserver := "localhost:5432"
 	redisServer := "localhost:6379"
 	broker := "localhost:19092"
+	if len(os.Args) > 1 {
 
-	env := os.Args[0]
-	fmt.Println(env)
-	if env == "cluster" {
-		dbserver = "postgres:5432"
-		redisServer = "redis:6379"
-		broker = "broker:9092"
+		env := os.Args[1]
+		fmt.Println("env=" + env)
+		if env == "cluster" {
+			dbserver = "postgres:5432"
+			redisServer = "redis:6379"
+			broker = "broker:9092"
+		}
 	}
 
 	execSQLTTT(dbserver)

@@ -9,6 +9,14 @@ import com.xoff.chessvger.queues.position.PositionConsumer;
 import com.xoff.chessvger.queues.stat.StatConsumer;
 
 public class Main {
+
+  // localhost:19092,
+  public static final String getKafkaHost(){ return "broker:9092";}
+  // localhost
+  public static String getDBHost(){
+    return "db_chessvger";
+  }
+
   public static void main(String[] args) {
 
     System.out.println("Producers and server are starting  V1.0.1");

@@ -1,5 +1,6 @@
 package com.xoff.chessvger.queues.util;
 
+import com.xoff.chessvger.queues.Main;
 import java.util.Collections;
 import java.util.Properties;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -12,14 +13,14 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class CommonKafka {
 
-  private static final String HOST = "localhost:9092,kafka:9092";
+
 
   public static KafkaConsumer getConsumer(String topic, String groupId) {
     System.out.println("consumer kafka " + topic);
     Properties properties = new Properties();
     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-    properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
+    properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Main.getKafkaHost());
     properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
         StringDeserializer.class.getName());
     properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
@@ -38,7 +39,7 @@ public class CommonKafka {
     System.out.println("getProducer kafka ");
     try {
       Properties properties = new Properties();
-      properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, HOST);
+      properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Main.getKafkaHost());
       properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
       properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
       System.out.println("AppProducerPlayer avant !");
