@@ -35,6 +35,9 @@ spring:
     hibernate:
       ddl-auto: create
     database: POSTGRESQL
+    properties:
+      hibernate:
+        default_schema: chessvger
   sql:
     init:
       mode: always

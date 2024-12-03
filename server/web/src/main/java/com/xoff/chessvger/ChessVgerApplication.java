@@ -16,7 +16,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @Slf4j
 @EntityScan("com.xoff.chessvger.repository")
 public class ChessVgerApplication implements WebMvcConfigurer {
@@ -31,14 +30,13 @@ public class ChessVgerApplication implements WebMvcConfigurer {
         String[] param = arg.split("=");
         log.info("option " + param[1]);
         EnvManager.getInstance().addValue(EnvManager.RUN_FOLDER_PARAM, param[1]);
-
       }
 
     }
   }
 
   public static void main(String[] args) {
-    System.out.println("version 1.0.1");
+    System.out.println("version 1.0.2");
     checkOption(args);
     SpringApplication.run(ChessVgerApplication.class, args);
   }

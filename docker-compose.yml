@@ -48,11 +48,14 @@ services:
     environment:
       POSTGRES_USER: chessvger
       POSTGRES_PASSWORD: chessvger
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: chessvger
     ports:
       - "5432:5432"
     networks:
       - chessvger_network
+    volumes:
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - postgres_data:/var/lib/postgresql/data
       
   # dockfish:
   #   image: registry.gitlab.com/ce72/dockfish:latest 
@@ -97,4 +100,8 @@ services:
     networks:
       - chessvger_network
     volumes:
-      - ./data:/app/data   #local:conteneur
+      - ./data:/app/data  
+
+volumes:
+  postgres_data:
+    driver: local
