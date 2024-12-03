@@ -93,8 +93,10 @@ services:
     networks:
       - chessvger_network
     volumes:
-      - ./data:/app/data   #local:conteneur
-
+      - ./data:/app/data   
+    ports:
+      - "8080:8080"
+      
   chessvger-queues:
     image: chessvger-queues:latest
     build:
