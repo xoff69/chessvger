@@ -1,5 +1,5 @@
 package com.xoff.chessvger.ui.service;
-
+import org.springframework.data.domain.Limit;
 import com.xoff.chessvger.chess.database.IDatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.repository.CommonPlayerEntity;
@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 @Slf4j
 @Service
@@ -20,7 +21,8 @@ public class PlayerServiceImpl implements IPlayerService {
   private PlayerRepository playerRepository;
 
   public List<CommonPlayerEntity> findAll(){
-    return playerRepository.findAllLimitedTo(100);
+    // @TODO limiter les resultats
+    return (List<CommonPlayerEntity>) playerRepository.findAll();
   }
   public PageView managePage(Pageable paging, long bdId) {
 

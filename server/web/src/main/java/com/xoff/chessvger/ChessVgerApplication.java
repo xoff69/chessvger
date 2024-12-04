@@ -13,6 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
@@ -55,7 +56,10 @@ public class ChessVgerApplication implements WebMvcConfigurer {
     messageSource.setUseCodeAsDefaultMessage(true);
     return messageSource;
   }
-
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**");
+  }
   @EventListener(ApplicationReadyEvent.class)
   public void initializeAfterStartup() {
     log.info("initializeAfterStartup");

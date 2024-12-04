@@ -6,7 +6,6 @@ networks:
     driver: bridge
 
 services:
-
   redis:
     image: redis:latest
     container_name: redis_container
@@ -97,7 +96,7 @@ services:
     ports:
       - "8080:8080"
 
-   chessvger-client:
+  chessvger-client:
     image: chessvger-client:latest
     build:
       context: .

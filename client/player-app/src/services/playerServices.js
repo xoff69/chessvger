@@ -9,6 +9,7 @@ const apiClient = axios.create({
 
 export default {
   getPlayers() {
+    console.log("get players");
     return apiClient.get('/allplayers');
   },
 };
