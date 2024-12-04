@@ -27,7 +27,7 @@ public class PlayersController {
   @Autowired
   PlayerParser playerParser;
 
-  @GetMapping("/allplayers")
+  @GetMapping("/api/allplayers")
   public ResponseEntity<List<CommonPlayerEntity>> all(){
     return new ResponseEntity<>(iPlayerService.findAll(),
         HttpStatus.OK);

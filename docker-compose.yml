@@ -96,6 +96,18 @@ services:
       - ./data:/app/data   
     ports:
       - "8080:8080"
+
+   chessvger-client:
+    image: chessvger-client:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - chessvger-webapp
+    networks:
+      - chessvger_network
+    ports:
+      - "3000:3000"
       
   chessvger-queues:
     image: chessvger-queues:latest

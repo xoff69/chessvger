@@ -20,7 +20,7 @@ public class PlayerServiceImpl implements IPlayerService {
   private PlayerRepository playerRepository;
 
   public List<CommonPlayerEntity> findAll(){
-    return playerRepository.findAll();
+    return playerRepository.findAllLimitedTo(100);
   }
   public PageView managePage(Pageable paging, long bdId) {
 
