@@ -21,8 +21,9 @@ public class PlayerServiceImpl implements IPlayerService {
   private PlayerRepository playerRepository;
 
   public List<CommonPlayerEntity> findAll(){
-    // @TODO limiter les resultats
-    return (List<CommonPlayerEntity>) playerRepository.findAll();
+    org.springframework.data.domain.Page<CommonPlayerEntity> page=playerRepository.findAll(
+        org.springframework.data.domain.Pageable.ofSize(5));
+    return  page.stream().toList();
   }
   public PageView managePage(Pageable paging, long bdId) {
 
