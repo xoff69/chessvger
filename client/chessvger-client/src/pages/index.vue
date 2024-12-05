@@ -3,7 +3,6 @@
     <v-main>
       <v-container>
         <h1>Liste des players</h1>
-        <!-- Tableau Vuetify -->
         <v-data-table
           :headers="headers"
           :items="players"
@@ -29,9 +28,7 @@ export default {
   name: "App",
   data() {
     return {
-      // Données de la table
       players: [],
-      // En-têtes du tableau
       headers: [
         { text: "Nom", value: "name" },
         { text: "fideId", value: "fideId" },
@@ -40,7 +37,6 @@ export default {
     };
   },
   methods: {
-    // Fonction pour appeler l'API
     async fetchPlayers() {
       try {
         const response = await axios.get("http://localhost:8080/api/allplayers");

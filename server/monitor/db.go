@@ -25,4 +25,10 @@ func execSQLTTT(dbserver string) {
 		log.Fatalf("Erreur lors de la lecture du nombre d'enregistrements : %v", err)
 	}
 	fmt.Printf("Nombre total d'enregistrements dans chessvger.common_player: %d\n", count)
+
+	err = db.QueryRow("SELECT COUNT(*) FROM chessvger.common_game").Scan(&count)
+	if err != nil {
+		log.Fatalf("Erreur lors de la lecture du nombre d'enregistrements : %v", err)
+	}
+	fmt.Printf("Nombre total d'enregistrements dans chessvger.common_game: %d\n", count)
 }

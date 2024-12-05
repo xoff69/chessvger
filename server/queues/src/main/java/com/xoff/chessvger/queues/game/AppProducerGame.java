@@ -22,7 +22,7 @@ public class AppProducerGame implements Runnable {
    * @param filedir ex /data/twic114
    */
   private static void manageFile(String filedir) {
-
+    System.out.println("games " + filedir);
     Producer<String, String> producer = CommonKafka.getProducer();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -53,7 +53,7 @@ public class AppProducerGame implements Runnable {
   @Override
   public void run() {
     System.out.println("Start AppProducerGame");
-    System.out.println("AppProducerGame World!");
+    send();
     KafkaConsumer consumer =
         CommonKafka.getConsumer(KafkaConstants.TOPIC_RUN_PARSERGAME, "xoff-parsergame");
 
@@ -75,5 +75,24 @@ public class AppProducerGame implements Runnable {
       }
     }
   }
+  private void send() {
+    Producer<String, String> producer = CommonKafka.getProducer();
+    ObjectMapper objectMapper = new ObjectMapper();
 
+
+    try {
+      String jsonSent = objectMapper.writeValueAsString("./data/twic");
+      ProducerRecord<String, String> record =
+          new ProducerRecord<>(KafkaConstants.TOPIC_RUN_PARSERGAME, null, jsonSent);
+
+      producer.send(record);
+      producer.flush();
+
+    } catch (JsonProcessingException e) {
+      e.printStackTrace(); // Gestion de l'erreur en cas de problème de conversion
+    }
+
+
+
+  }
 }
