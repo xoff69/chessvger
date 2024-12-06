@@ -2,50 +2,49 @@
   <v-app>
     <v-card>
       <v-tabs v-model="tab" bg-color="primary">
-        <v-tab v-for="(t, index) in visibleTabs" :key="t.name">
+        <v-tab v-for="(t, index) in visibleTabs" :key="t">
           {{ t.name }}
-          <v-icon x-small class="ml-2" @click="cacherOnglet(t)">mdi-close</v-icon>
+          <v-icon x-small class="ml-2" @click="hideTab(t)">mdi-close</v-icon>
         </v-tab>
       </v-tabs>
 
       <v-card-text>
         <v-window v-model="tab">
-          <v-window-item v-for="(t, index) in visibleTabs" :key="t.name">
-            <div v-if="tab === 0">Contenu du premier onglet</div>
-            <div v-if="tab === 1">
-              <!-- Affichage de la liste des players dans le deuxième onglet -->
-              <v-container>
-                <h1>Liste des players</h1>
-                <v-data-table
-                  :headers="headers"
-                  :items="players"
-                  :items-per-page="5"
-                  class="elevation-1"
-                >
-                  <template v-slot:top>
-                    <v-toolbar flat>
-                      <v-toolbar-title>players</v-toolbar-title>
-                      <v-spacer></v-spacer>
-                    </v-toolbar>
-                  </template>
-                </v-data-table>
-              </v-container>
-            </div>
-            <div v-if="tab === 2">Contenu du troisième onglet</div>
+          <v-window-item v-for="(t, index) in visibleTabs" :key="t">
+            {{ t.name }}
           </v-window-item>
         </v-window>
       </v-card-text>
     </v-card>
 
-    <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn>
+    <v-btn @click="selectedTabFirstTab">Select first tab</v-btn>
+
+    <v-main>
+      <v-container>
+        <h1>Liste des players</h1>
+        <v-data-table
+          :headers="headers"
+          :items="players"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+          <template v-slot:top>
+            <v-toolbar flat>
+              <v-toolbar-title>players</v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+          </template>
+        </v-data-table>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 import axios from "axios";
 import { ref, computed } from 'vue';
-
 export default {
+  name: "App",
   name: 'ComposantOnglets',
   setup() {
     const tab = ref(0);
@@ -57,7 +56,7 @@ export default {
 
     const visibleTabs = computed(() => allTabs.value.filter((onglet) => onglet.visible));
 
-    function cacherOnglet(onglet) {
+    function cacherOnglet(onglet: { name: string; visible: boolean }) {
       onglet.visible = false;
       // Si le dernier onglet est fermé, on sélectionne le premier onglet
       if (onglet.name === 'Onglet3') {
