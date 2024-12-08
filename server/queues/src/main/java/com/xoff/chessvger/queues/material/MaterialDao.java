@@ -1,6 +1,5 @@
 package com.xoff.chessvger.queues.material;
 
-import com.xoff.chessvger.queues.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

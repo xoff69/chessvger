@@ -1,7 +1,6 @@
 package com.xoff.chessvger.queues.game;
 
 
-import com.xoff.chessvger.queues.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,7 +20,6 @@ public class CommonGameDao {
     // TODO faire un upsert
     Connection connection = CommonDao.getInstance().getConnection();
 
-    // Setup the connection (replace with your actual database connection details)
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);
 
@@ -60,7 +58,7 @@ public class CommonGameDao {
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new SQLException("Error while inserting player into common_player table.", e);
+      throw new SQLException("Error while inserting commonGame into commonGame table."+commonGame, e);
     }
   }
 }

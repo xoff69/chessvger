@@ -28,9 +28,9 @@ public class PositionConsumer implements Runnable {
         try {
           PositionEntity positionEntity =
               objectMapper.readValue(record.value(), PositionEntity.class);
-          positionDao.insertEntity(positionEntity);
+       //   positionDao.insertEntity(positionEntity);
 
-        } catch (JsonProcessingException | SQLException e) {
+        } catch (JsonProcessingException  e) {
           throw new RuntimeException(e);
         }
 

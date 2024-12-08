@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-card>
+      <!-- Onglets principaux -->
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab v-for="(t, index) in visibleTabs" :key="t.name">
           {{ t.name }}
@@ -9,29 +10,42 @@
       </v-tabs>
 
       <v-card-text>
+        <!-- Contenu des onglets -->
         <v-window v-model="tab">
           <v-window-item v-for="(t, index) in visibleTabs" :key="t.name">
+            <!-- Onglet 1 -->
             <div v-if="tab === 0">Contenu du premier onglet</div>
+
+            <!-- Onglet 2 (Players) -->
             <div v-if="tab === 1">
               <!-- Affichage de la liste des players dans le deuxième onglet -->
-              <v-container>
-                <h1>Liste des players</h1>
-                <v-data-table
-                  :headers="headers"
-                  :items="players"
-                  :items-per-page="5"
-                  class="elevation-1"
-                >
-                  <template v-slot:top>
-                    <v-toolbar flat>
-                      <v-toolbar-title>players</v-toolbar-title>
-                      <v-spacer></v-spacer>
-                    </v-toolbar>
-                  </template>
-                </v-data-table>
-              </v-container>
+              <PlayersList />
             </div>
-            <div v-if="tab === 2">Contenu du troisième onglet</div>
+
+            <!-- Onglet 3 (Admin) avec sous-onglets -->
+            <div v-if="tab === 2">
+              <v-tabs v-model="subTab" align-tabs="start" fixed-tabs>
+                <v-tab>Gérer les utilisateurs</v-tab>
+                <v-tab>Paramètres</v-tab>
+                <v-tab>Logs</v-tab>
+              </v-tabs>
+
+              <v-tab-item v-if="subTab === 0">
+                <v-card flat>
+                  <v-card-text>Gestion des utilisateurs</v-card-text>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item v-if="subTab === 1">
+                <v-card flat>
+                  <v-card-text>Paramètres de l'application</v-card-text>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item v-if="subTab === 2">
+                <v-card flat>
+                  <v-card-text>Affichage des logs</v-card-text>
+                </v-card>
+              </v-tab-item>
+            </div>
           </v-window-item>
         </v-window>
       </v-card-text>
@@ -42,17 +56,21 @@
 </template>
 
 <script>
-import axios from "axios";
 import { ref, computed } from 'vue';
+import PlayersList from '../components/PlayersList.vue';  // Import du composant PlayersList
 
 export default {
   name: 'ComposantOnglets',
+  components: {
+    PlayersList,  // Déclare le composant pour qu'il puisse être utilisé dans le template
+  },
   setup() {
-    const tab = ref(0);
+    const tab = ref(0);  // Onglet principal
+    const subTab = ref(0); // Sous-onglet pour Admin
     const allTabs = ref([
-      { name: 'Onglet1', visible: true },
-      { name: 'Onglet2', visible: true },
-      { name: 'Onglet3', visible: true },
+      { name: 'Liste des bd', visible: true },
+      { name: 'Players', visible: true },
+      { name: 'Admin', visible: true },
     ]);
 
     const visibleTabs = computed(() => allTabs.value.filter((onglet) => onglet.visible));
@@ -60,7 +78,7 @@ export default {
     function cacherOnglet(onglet) {
       onglet.visible = false;
       // Si le dernier onglet est fermé, on sélectionne le premier onglet
-      if (onglet.name === 'Onglet3') {
+      if (onglet.name === 'Admin') {
         tab.value = 0;
       }
     }
@@ -71,39 +89,16 @@ export default {
 
     return {
       tab,
+      subTab,  // Variable pour suivre l'onglet sélectionné dans les sous-onglets Admin
       allTabs,
       visibleTabs,
       cacherOnglet,
       selectionnerPremierOnglet,
     };
   },
-  data() {
-    return {
-      players: [],
-      headers: [
-        { text: "Nom", value: "name" },
-        { text: "fideId", value: "fideId" },
-        { text: "country", value: "country" },
-      ],
-    };
-  },
-  methods: {
-    async fetchPlayers() {
-      try {
-        const response = await axios.get("http://localhost:8080/api/allplayers");
-        this.players = response.data;
-      } catch (error) {
-        console.error("Erreur lors de la récupération des utilisateurs :", error);
-      }
-    },
-  },
-  mounted() {
-    // Appel de l'API dès que le composant est monté
-    this.fetchPlayers();
-  },
 };
 </script>
 
-<style>
-/* Optionnel : styles pour ajuster la présentation */
+<style scoped>
+/* Ajoutez ici des styles spécifiques à ce composant si nécessaire */
 </style>

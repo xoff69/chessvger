@@ -27,9 +27,9 @@ public class MaterialConsumer implements Runnable {
         try {
           MaterialEntity materialEntity =
               objectMapper.readValue(record.value(), MaterialEntity.class);
-          materialDao.insertEntity(materialEntity);
+       //   materialDao.insertEntity(materialEntity);
 
-        } catch (JsonProcessingException | SQLException e) {
+        } catch (JsonProcessingException e) {
           throw new RuntimeException(e);
         }
 

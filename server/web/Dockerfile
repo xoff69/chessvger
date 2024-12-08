@@ -1,4 +1,5 @@
 # docker build -t chessvger-webapp . --no-cache
+# gradle build --no-daemon -x spotbugsMain -x spotbugsTest -x test
 FROM openjdk:21-jdk-slim
 WORKDIR /app
 COPY build/libs/. .

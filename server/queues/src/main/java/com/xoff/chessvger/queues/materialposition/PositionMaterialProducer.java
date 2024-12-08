@@ -7,6 +7,7 @@ import com.xoff.chessvger.queues.material.MaterialEntity;
 import com.xoff.chessvger.queues.position.PositionEntity;
 import com.xoff.chessvger.queues.util.CommonKafka;
 import com.xoff.chessvger.queues.util.KafkaConstants;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -28,6 +29,8 @@ public class PositionMaterialProducer {
       materialEntity.setId(id);
       positionEntity.setPosition(coupleZobristMaterial.getZobrist());
       materialEntity.setMaterial(coupleZobristMaterial.getMaterial());
+      positionEntity.setGames(new ArrayList<>());
+      materialEntity.setGames(new ArrayList<>());
       positionEntity.getGames().add(gameId);
       materialEntity.getGames().add(gameId);
 
