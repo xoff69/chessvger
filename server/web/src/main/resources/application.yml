@@ -8,6 +8,7 @@ chessvger:
     current: fr
 
 spring:
+
   security:
     user:
       name: chessvger
@@ -40,5 +41,10 @@ spring:
       mode: always
       platform: postgres
       continue-on-error: true
+  # Redis configuration
+  data:
+    redis:
+      host:redis
+      port:6379
 logging:
   file.name: data/logs/chessvger.log

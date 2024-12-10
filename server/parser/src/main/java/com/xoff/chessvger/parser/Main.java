@@ -3,6 +3,8 @@ package com.xoff.chessvger.parser;
 
 import com.xoff.chessvger.parser.game.RunGameParser;
 import com.xoff.chessvger.parser.player.RunPlayerParser;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPubSub;
 
 public class Main {
 
@@ -20,6 +22,19 @@ public class Main {
       System.out.println("Main!" + args[0]);
       dbhost = "db_chessvger";
     }
+
+    try (Jedis jedis = new Jedis("redis", 6379)) {
+      // Define a new JedisPubSub instance to handle messages
+      JedisPubSub pubSub = new JedisPubSub() {
+        @Override
+        public void onMessage(String channel, String message) {
+          System.out.println("Received message from channel " + channel + ": " + message);
+        }
+      };
+      // Subscribe to the "my-channel" channel
+      jedis.subscribe(pubSub, "pubsub:queue");
+    }
+
     Runnable[] runnables = new Runnable[] {new RunGameParser(), new RunPlayerParser()};
 
     for (Runnable r : runnables) {

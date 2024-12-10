@@ -1,13 +1,19 @@
 package com.xoff.chessvger.parser.reconciliation;
 
 import redis.clients.jedis.Jedis;
-
+// https://www.baeldung.com/spring-data-redis-pub-sub
+// https://apurvsheth.medium.com/spring-boot-redis-connectivity-with-docker-kubernetes-9ab0965f32b0
 public class ReconciliationManager {
   private static ReconciliationManager _instance = null;
   private final Jedis jedis;
 
+  public static void main(final String[] args) {
+    getInstance().getJedis().set("key", "value");
+System.out.println(getInstance().getJedis().get("key"));
+  }
+
   private ReconciliationManager() {
-    jedis = new Jedis();
+    jedis = new Jedis("localhost");
   }
 
   public static ReconciliationManager getInstance() {
