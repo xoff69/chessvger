@@ -15,7 +15,6 @@ func main() {
 
 	dbserver := "localhost:5432"
 	redisServer := "localhost:6379"
-	broker := "localhost:19092"
 	if len(os.Args) > 1 {
 
 		env := os.Args[1]
@@ -23,12 +22,10 @@ func main() {
 		if env == "cluster" {
 			dbserver = "postgres:5432"
 			redisServer = "redis:6379"
-			broker = "broker:9092"
 		}
 	}
 	execSQLTTT(dbserver)
 	checkRedis(ctx, redisServer)
-	createKafkaTestQueue(ctx, broker)
 	checkKafka(ctx, broker)
 
 }

@@ -1,5 +1,5 @@
-# docker build -t chessvger-queues . --no-cache
-# gradle clean build allQueuesFatJar
+# docker build -t chessvger-parser . --no-cache
+# gradle clean build allParserFatJar
 FROM openjdk:21-jdk-slim
 
 WORKDIR /app

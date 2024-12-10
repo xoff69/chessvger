@@ -10,9 +10,7 @@ import com.xoff.chessvger.queues.stat.StatConsumer;
 
 public class Main {
 
-  private static String kafkahost="localhost:19092"; // "broker:9092"
-  // localhost:19092,
-  public static final String getKafkaHost(){ return kafkahost;}
+
   // localhost
   private static String dbhost="localhost:19092"; //"db_chessvger"
   public static String getDBHost(){
@@ -21,10 +19,8 @@ public class Main {
 
   public static void main(String[] args) {
 
-    System.out.println("Producers and server are starting  V1.0.3 "+args.length);
     if (args.length >0){
       System.out.println("Main!" + args[0]);
-      kafkahost="broker:9092";
       dbhost="db_chessvger";
     }
     System.out.println("Main!" +kafkahost+"-"+getKafkaHost());
