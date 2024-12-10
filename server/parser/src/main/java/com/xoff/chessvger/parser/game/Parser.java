@@ -1,7 +1,7 @@
-package com.xoff.chessvger.queues.game;
+package com.xoff.chessvger.parser.game;
 
 
-import com.xoff.chessvger.queues.util.DateConverter;
+import com.xoff.chessvger.parser.util.DateConverter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

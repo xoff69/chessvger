@@ -1,33 +1,26 @@
-package com.xoff.chessvger.queues;
+package com.xoff.chessvger.parser;
 
-import com.xoff.chessvger.queues.game.AppConsumerGame;
-import com.xoff.chessvger.queues.game.AppProducerGame;
-import com.xoff.chessvger.queues.gameofplayer.GameOfAPlayerConsumer;
-import com.xoff.chessvger.queues.player.AppConsumerPlayer;
-import com.xoff.chessvger.queues.player.AppProducerPlayer;
-import com.xoff.chessvger.queues.position.PositionConsumer;
-import com.xoff.chessvger.queues.stat.StatConsumer;
+
+import com.xoff.chessvger.parser.game.RunGameParser;
+import com.xoff.chessvger.parser.player.RunPlayerParser;
 
 public class Main {
 
 
   // localhost
-  private static String dbhost="localhost:19092"; //"db_chessvger"
-  public static String getDBHost(){
-    return dbhost ;
+  private static String dbhost = "localhost:19092"; //"db_chessvger"
+
+  public static String getDBHost() {
+    return dbhost;
   }
 
   public static void main(String[] args) {
 
-    if (args.length >0){
+    if (args.length > 0) {
       System.out.println("Main!" + args[0]);
-      dbhost="db_chessvger";
+      dbhost = "db_chessvger";
     }
-    System.out.println("Main!" +kafkahost+"-"+getKafkaHost());
-    Runnable[] runnables =
-        new Runnable[] {new AppProducerGame(), new AppConsumerGame(), new AppProducerPlayer(),
-            new AppConsumerPlayer(), new StatConsumer(), new PositionConsumer(),
-            new GameOfAPlayerConsumer()};
+    Runnable[] runnables = new Runnable[] {new RunGameParser(), new RunPlayerParser()};
 
     for (Runnable r : runnables) {
       Thread thread = new Thread(r);

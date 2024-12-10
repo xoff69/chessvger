@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.util;
+package com.xoff.chessvger.parser.util;
 
 import java.sql.Date;
 import java.text.ParseException;

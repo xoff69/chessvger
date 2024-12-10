@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.player;
+package com.xoff.chessvger.parser.player;
 
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.gameofplayer;
+package com.xoff.chessvger.parser.gameofplayer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

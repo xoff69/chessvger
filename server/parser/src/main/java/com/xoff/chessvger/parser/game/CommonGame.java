@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.game;
+package com.xoff.chessvger.parser.game;
 
 import java.sql.Date;
 import lombok.AllArgsConstructor;

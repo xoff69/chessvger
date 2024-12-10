@@ -1,6 +1,6 @@
-package com.xoff.chessvger.queues.position;
+package com.xoff.chessvger.parser.position;
 
-import com.xoff.chessvger.queues.util.CommonDao;
+import com.xoff.chessvger.parser.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

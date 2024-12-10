@@ -1,13 +1,10 @@
-package com.xoff.chessvger.queues.material;
+package com.xoff.chessvger.parser.material;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Singular;
 
 @Data
 @Builder

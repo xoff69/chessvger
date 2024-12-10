@@ -1,4 +1,4 @@
-package com.xoff.chessvger.queues.reconciliation;
+package com.xoff.chessvger.parser.reconciliation;
 
 import java.util.Set;
 import lombok.Getter;

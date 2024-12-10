@@ -1,7 +1,7 @@
-package com.xoff.chessvger.queues.game;
+package com.xoff.chessvger.parser.game;
 
 
-import com.xoff.chessvger.queues.util.CommonDao;
+import com.xoff.chessvger.parser.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -59,7 +59,8 @@ public class CommonGameDao {
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
-      throw new SQLException("Error while inserting commonGame into commonGame table."+commonGame, e);
+      throw new SQLException("Error while inserting commonGame into commonGame table." + commonGame,
+          e);
     }
   }
 }

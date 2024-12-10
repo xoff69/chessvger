@@ -1,6 +1,6 @@
-package com.xoff.chessvger.queues.util;
+package com.xoff.chessvger.parser.util;
 
-import com.xoff.chessvger.queues.Main;
+import com.xoff.chessvger.parser.Main;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.apache.commons.dbcp.BasicDataSource;
