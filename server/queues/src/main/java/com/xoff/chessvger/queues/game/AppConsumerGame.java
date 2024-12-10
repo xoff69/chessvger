@@ -41,11 +41,11 @@ public class AppConsumerGame implements Runnable {
           // mettre a jour le reconciliation manager
           // envoyer sur les stats browser
           // envoyer game of player
-          List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
-          PositionMaterialProducer.enqueuePositionMaterial(game.getId(), list);
-          enqueueGameOfAPlayer(game.getId(), game.getWhiteFideId());
-          enqueueGameOfAPlayer(game.getId(), game.getBlackFideId());
-          ReconciliationManager.update(game.getId(), ReconciliationType.GAME);
+         // List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
+         // PositionMaterialProducer.enqueuePositionMaterial(game.getId(), list);
+          //enqueueGameOfAPlayer(game.getId(), game.getWhiteFideId());
+          //enqueueGameOfAPlayer(game.getId(), game.getBlackFideId());
+          //ReconciliationManager.update(game.getId(), ReconciliationType.GAME);
 
         } catch (JsonProcessingException | ClassNotFoundException | SQLException e) {
           throw new RuntimeException(e);

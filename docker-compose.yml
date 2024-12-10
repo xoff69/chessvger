@@ -26,7 +26,8 @@ services:
       - chessvger_network
     volumes:
       - zookeeper_data:/var/lib/zookeeper
-
+# https://nasriadzlani.medium.com/install-kafka-cluster-3-node-in-docker-compose-with-ui-ubuntu-264af0566290 
+# https://github.com/grumpy-docker/docker-kafka/blob/master/README.md
   broker:
     image: confluentinc/cp-kafka:latest
     container_name: broker
@@ -38,6 +39,9 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,CONNECTIONS_FROM_HOST://localhost:19092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONTROLLER_SOCKET_TIMEOUT_MS: 90000
+      KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS: 90000
+
     depends_on:
       - zookeeper
     networks:

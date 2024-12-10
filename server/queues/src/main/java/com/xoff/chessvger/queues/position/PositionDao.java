@@ -1,5 +1,6 @@
 package com.xoff.chessvger.queues.position;
 
+import com.xoff.chessvger.queues.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,7 +20,7 @@ public class PositionDao {
 
     try {
       // 1. Créer la connexion à la base de données
-      connection = CommonDao.getInstance().getConnection();
+      connection = CommonDao.getConnection();
       connection.setAutoCommit(false);
 
       insertEntityStmt =

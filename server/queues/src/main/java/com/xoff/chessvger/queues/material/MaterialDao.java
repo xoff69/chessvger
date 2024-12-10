@@ -1,5 +1,6 @@
 package com.xoff.chessvger.queues.material;
 
+import com.xoff.chessvger.queues.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class MaterialDao {
 
     try {
       // 1. Créer la connexion à la base de données
-      connection = CommonDao.getInstance().getConnection();
+      connection = CommonDao.getConnection();
       connection.setAutoCommit(false); // Permet de contrôler la transaction manuellement
 
       // 2. Préparer la requête SQL pour insérer dans ExampleEntity

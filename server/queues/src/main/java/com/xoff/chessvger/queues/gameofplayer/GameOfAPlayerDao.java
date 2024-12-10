@@ -1,5 +1,6 @@
 package com.xoff.chessvger.queues.gameofplayer;
 
+import com.xoff.chessvger.queues.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ public class GameOfAPlayerDao {
   public void insertEntity(GameOfAPlayer player) throws SQLException, ClassNotFoundException {
 
     // TODO faire un upsert
-    Connection connection = CommonDao.getInstance().getConnection();
+    Connection connection = CommonDao.getConnection();
 
     // Setup the connection (replace with your actual database connection details)
     try {
