@@ -50,11 +50,13 @@ public class RunPlayerParser implements Runnable {
     for (CommonPlayer player : players) {
 
       player.setId(id++);
+      if (id%5000==0){
+        System.out.println("players inserted: " + id);
+      }
       try {
         commonPlayerDao.insertCommonPlayer(player);
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      } catch (ClassNotFoundException e) {
+      } catch (SQLException|ClassNotFoundException e) {
+        System.out.println("players insertion out: " + players.size());
         throw new RuntimeException(e);
       }
     }
