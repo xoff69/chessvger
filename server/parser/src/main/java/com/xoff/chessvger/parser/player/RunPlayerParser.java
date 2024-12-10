@@ -4,8 +4,11 @@
 
 package com.xoff.chessvger.parser.player;
 
+import com.xoff.chessvger.util.Topic;
 import java.sql.SQLException;
 import java.util.List;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPubSub;
 
 
 public class RunPlayerParser implements Runnable {
@@ -13,12 +16,24 @@ public class RunPlayerParser implements Runnable {
   public void run() {
 
     System.out.println("Start runAppProducerPlayer");
+    try (Jedis jedis = new Jedis("redis", 6379)) {
+      // Define a new JedisPubSub instance to handle messages
+      JedisPubSub pubSub = new JedisPubSub() {
+        @Override
+        public void onMessage(String channel, String message) {
+          System.out.println("Received message from channel " + channel + ": " + message);
 
-    System.out.println("avant le consumer player");
-    String filename = "./data/players_list_xml_foa.xml";
+          System.out.println("avant le consumer player");
+          String filename = "./data/players_list_xml_foa.xml";
 
-    System.out.println("AppProducerPlayer::Start to parse:" + filename);
-    manageFile(filename);
+          System.out.println("AppProducerPlayer::Start to parse:" + filename);
+          manageFile(filename);
+        }
+      };
+
+      jedis.subscribe(pubSub, Topic.TOPIC_PLAYER);
+    }
+    ;
 
   }
 

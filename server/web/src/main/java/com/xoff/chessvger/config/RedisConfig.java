@@ -1,17 +1,16 @@
 package com.xoff.chessvger.config;
 
 
+import com.xoff.chessvger.util.Topic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 
@@ -44,17 +43,26 @@ public class RedisConfig {
   RedisMessageListenerContainer redisContainer() {
     final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
     container.setConnectionFactory(jedisConnectionFactory());
-    //container.addMessageListener(messageListener(), topic());
+    //container.addMessageListener(messageListener(), topicPlayer());
     return container;
   }
 
   @Bean
-  MessagePublisher redisPublisher() {
-    return new RedisMessagePublisher(redisTemplate(), topic());
+  MessagePublisher redisPublisherPlayer() {
+    return new RedisMessagePublisherPlayer(redisTemplate(), topicPlayer());
   }
 
   @Bean
-  ChannelTopic topic() {
-    return new ChannelTopic("pubsub:queue");
+  ChannelTopic topicPlayer() {
+    return new ChannelTopic(Topic.TOPIC_PLAYER);
+  }
+  @Bean
+  MessagePublisher redisPublisherGame() {
+    return new RedisMessagePublisherPlayer(redisTemplate(), topicGame());
+  }
+
+  @Bean
+  ChannelTopic topicGame() {
+    return new ChannelTopic(Topic.TOPIC_GAME);
   }
 }
