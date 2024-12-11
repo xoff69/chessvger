@@ -31,6 +31,7 @@ RedisMessagePublisherPlayer redisMessagePublisher;
   @GetMapping("/jobGame")
   String jobGame() {
     log.info("jobGame");
+    // TODO preciser le schema de la bd
     String message = "Message " + UUID.randomUUID();
     redisMessagePublisherGame.publish(message);
     return "ok";

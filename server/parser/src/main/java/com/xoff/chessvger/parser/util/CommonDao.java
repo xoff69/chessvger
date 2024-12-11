@@ -1,12 +1,14 @@
 package com.xoff.chessvger.parser.util;
 
 import com.xoff.chessvger.parser.Main;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.commons.dbcp.BasicDataSource;
 
 public class CommonDao {
-  private static BasicDataSource ds = new BasicDataSource();
+  private static HikariConfig config = new HikariConfig();
+  private static HikariDataSource ds;
 
 
   static {
@@ -16,13 +18,16 @@ public class CommonDao {
       e.printStackTrace();
       System.out.println("connexion DB :" + e);
     }
-    ds.setUrl("jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
-    ds.setUsername("chessvger");
-    ds.setPassword("chessvger");
-    ds.setMinIdle(5);
-    ds.setMaxIdle(10);
-    ds.setMaxOpenPreparedStatements(100);
-  }
+    System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
+
+    config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
+    config.setUsername("chessvger");
+    config.setPassword("chessvger");
+    config.addDataSourceProperty( "cachePrepStmts" , "true" );
+    config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+    config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+    ds = new HikariDataSource( config );
+ }
 
   private CommonDao() {
   }

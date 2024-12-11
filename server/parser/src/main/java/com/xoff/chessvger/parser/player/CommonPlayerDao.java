@@ -18,8 +18,7 @@ public class CommonPlayerDao {
 
     // TODO faire un upsert
     Connection connection = CommonDao.getConnection();
-
-    // Setup the connection (replace with your actual database connection details)
+System.out.println("Inserting common player"+player);
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);
 

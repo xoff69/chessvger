@@ -21,7 +21,7 @@ public class PlayerParser {
 
       System.out.println("parse players done");
       List<CommonPlayer> players = handler.getPlayers();
-
+      System.out.println("handler parse players done");
       return players;
 
     } catch (Exception e) {

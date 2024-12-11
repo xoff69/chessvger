@@ -46,6 +46,7 @@ public class RunPlayerParser implements Runnable {
     System.out.println("managerFile " + filedir);
     PlayerParser playerParser = new PlayerParser();
     List<CommonPlayer> players = playerParser.parse(filedir);
+    System.out.println("after parse players done: "+players.size());
     long id = 1L;
     for (CommonPlayer player : players) {
 
