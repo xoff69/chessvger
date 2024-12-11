@@ -26,6 +26,7 @@ public class CommonDao {
     config.addDataSourceProperty( "cachePrepStmts" , "true" );
     config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
     config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+    config.setAutoCommit(true);
     ds = new HikariDataSource( config );
  }
 

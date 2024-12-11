@@ -15,7 +15,7 @@ dependencies {
     implementation project(':core')
     implementation 'org.postgresql:postgresql:42.7.3'
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
-    implementation 'com.zaxxer:HikariCP:2.3.2'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
 
 
     implementation 'redis.clients:jedis:2.8.0'

@@ -17,11 +17,13 @@ public class CommonPlayerDao {
   public void insertCommonPlayer(CommonPlayer player) throws SQLException, ClassNotFoundException {
 
     // TODO faire un upsert
-    Connection connection = CommonDao.getConnection();
-System.out.println("Inserting common player"+player);
-    try {
-      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);
 
+System.out.println("Inserting common player"+player);
+// TODO a faire partout
+    try (
+      Connection connection = CommonDao.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);)
+      {
       preparedStatement.setLong(1, player.getId());
       preparedStatement.setString(2, player.getFideId());
       preparedStatement.setString(3, player.getName());
@@ -48,6 +50,8 @@ System.out.println("Inserting common player"+player);
     } catch (SQLException e) {
       e.printStackTrace();
       throw new SQLException("Error while inserting player into chessvger.common_player table.", e);
+    }
+
     }
   }
 }
