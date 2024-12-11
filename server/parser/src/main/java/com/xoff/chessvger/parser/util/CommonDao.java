@@ -18,7 +18,7 @@ public class CommonDao {
       e.printStackTrace();
       System.out.println("connexion DB :" + e);
     }
-    System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
+   // System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
 
     config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
     config.setUsername("chessvger");

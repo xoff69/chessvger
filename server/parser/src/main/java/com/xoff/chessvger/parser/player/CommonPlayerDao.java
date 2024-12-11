@@ -18,7 +18,7 @@ public class CommonPlayerDao {
 
     // TODO faire un upsert
 
-System.out.println("Inserting common player"+player);
+//System.out.println("Inserting common player"+player);
 // TODO a faire partout
     try (
       Connection connection = CommonDao.getConnection();
@@ -54,4 +54,4 @@ System.out.println("Inserting common player"+player);
 
     }
   }
-}
+
