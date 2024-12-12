@@ -51,7 +51,7 @@ RedisMessageReceiver redisMessageReceiver;
     log.info("jobGame");
 
     MessageToParser messageGame=new MessageToParser();
-    messageGame.setFolderToParse("./data/twic");
+    messageGame.setFolderToParse("./data/twic_big");
     messageGame.setSchema("common");
     messageGame.setActionQueue(ActionQueue.PARSEGAME);
 
