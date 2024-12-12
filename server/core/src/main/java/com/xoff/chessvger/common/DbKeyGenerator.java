@@ -30,7 +30,7 @@ public class DbKeyGenerator extends AdbCommon<Long, Long> {
     long val = get(KEY);
     val++;
     add(KEY, val);
-    return  val;
+    return val;
   }
 
 

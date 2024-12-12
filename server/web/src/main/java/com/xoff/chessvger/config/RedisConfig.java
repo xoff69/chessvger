@@ -1,7 +1,7 @@
 package com.xoff.chessvger.config;
 
 
-import com.xoff.chessvger.util.Topic;
+import com.xoff.chessvger.topic.Topic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,26 +43,27 @@ public class RedisConfig {
   RedisMessageListenerContainer redisContainer() {
     final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
     container.setConnectionFactory(jedisConnectionFactory());
-    //container.addMessageListener(messageListener(), topicPlayer());
+    container.addMessageListener(messageListener(), topicFromQueue());
     return container;
   }
 
   @Bean
-  MessagePublisher redisPublisherPlayer() {
-    return new RedisMessagePublisherPlayer(redisTemplate(), topicPlayer());
+  MessagePublisher redisMessageReceiverFromParser() {
+    return new RedisMessageReceiver(redisTemplate(), topicFromQueue());
   }
 
   @Bean
-  ChannelTopic topicPlayer() {
-    return new ChannelTopic(Topic.TOPIC_PLAYER);
-  }
-  @Bean
-  MessagePublisher redisPublisherGame() {
-    return new RedisMessagePublisherPlayer(redisTemplate(), topicGame());
+  ChannelTopic topicFromQueue() {
+    return new ChannelTopic(Topic.TOPIC_FROM_QUEUE);
   }
 
   @Bean
-  ChannelTopic topicGame() {
-    return new ChannelTopic(Topic.TOPIC_GAME);
+  MessagePublisher redisMessagePublisherToParser() {
+    return new RedisMessageReceiver(redisTemplate(), topicToQueue());
+  }
+
+  @Bean
+  ChannelTopic topicToQueue() {
+    return new ChannelTopic(Topic.TOPIC_TO_QUEUE);
   }
 }

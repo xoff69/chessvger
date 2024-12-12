@@ -8,16 +8,15 @@ import java.util.List;
 
 public interface IBrowserStatManager {
 
-  public List<CommonGame> getGames(Position p);
+  List<CommonGame> getGames(Position p);
 
 
-  public void clear();
+  void clear();
 
 
-  public void finish();
+  void finish();
 
-  public void browseFirstMove(List<CommonGame> liste);
+  void browseFirstMove(List<CommonGame> liste);
 
-  public List<StatBrowserView> getBrowseData(DatabaseManager databaseManager,
-                                             List<String> pastMoves);
+  List<StatBrowserView> getBrowseData(DatabaseManager databaseManager, List<String> pastMoves);
 }

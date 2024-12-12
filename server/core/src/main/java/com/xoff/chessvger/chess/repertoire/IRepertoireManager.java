@@ -6,7 +6,7 @@ import java.util.List;
 public interface IRepertoireManager extends ICommonManager<Long, Repertoire> {
 
 
-  public List<Repertoire> findRepertoire(long userId);
+  List<Repertoire> findRepertoire(long userId);
 
 
 }

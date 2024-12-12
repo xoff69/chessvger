@@ -17,11 +17,6 @@ public class GlobalGameManager implements IGlobalGameManager {
   private IGameWhereMapManager gameWhereMapManager;
   private IGameOfAPlayerManager gameOfAPlayerManager;
 
-  public static PageView computePaging(List<CommonGame> games, Pageable paging){
-    // FIXME
-    log.error("NOT IMPLEMENTED computePaging");
-    return null;
-  }
   public GlobalGameManager(DatabaseManager databaseManager) {
     routeur = new HashMap();
     this.gameOfAPlayerManager = databaseManager.getGameOfAPlayerManager();
@@ -33,7 +28,11 @@ public class GlobalGameManager implements IGlobalGameManager {
     }
   }
 
-
+  public static PageView computePaging(List<CommonGame> games, Pageable paging) {
+    // FIXME
+    log.error("NOT IMPLEMENTED computePaging");
+    return null;
+  }
 
   public void update() {
     //  log.info("update");

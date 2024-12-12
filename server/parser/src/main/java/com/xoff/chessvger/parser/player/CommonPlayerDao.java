@@ -20,10 +20,8 @@ public class CommonPlayerDao {
 
 //System.out.println("Inserting common player"+player);
 // TODO a faire partout
-    try (
-      Connection connection = CommonDao.getConnection();
-      PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);)
-      {
+    try (Connection connection = CommonDao.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
       preparedStatement.setLong(1, player.getId());
       preparedStatement.setString(2, player.getFideId());
       preparedStatement.setString(3, player.getName());
@@ -52,6 +50,6 @@ public class CommonPlayerDao {
       throw new SQLException("Error while inserting player into chessvger.common_player table.", e);
     }
 
-    }
   }
+}
 

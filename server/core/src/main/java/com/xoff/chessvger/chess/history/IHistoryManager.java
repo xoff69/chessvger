@@ -6,13 +6,13 @@ import java.util.List;
 public interface IHistoryManager {
 
 
-  public List<CommonGame> listHistory();
+  List<CommonGame> listHistory();
 
-  public void clear();
+  void clear();
 
-  public void add(Long value);
+  void add(Long value);
 
 
-  public void finish();
+  void finish();
 
 }

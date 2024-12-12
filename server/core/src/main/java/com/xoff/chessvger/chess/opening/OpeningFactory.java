@@ -47,7 +47,7 @@ public class OpeningFactory {
 
     try (InputStream dis = new FileInputStream(
         FilenameUtils.getFullPath(ParamConstants.OPENING_PATH) +
-            FilenameUtils.getName(ParamConstants.OPENING_PATH));) {
+            FilenameUtils.getName(ParamConstants.OPENING_PATH))) {
 
       factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       factory.setFeature("http://xml.org/sax/features/external-general-entities", false);

@@ -26,6 +26,5 @@ func main() {
 	}
 	execSQLTTT(dbserver)
 	checkRedis(ctx, redisServer)
-	checkKafka(ctx, broker)
 
 }

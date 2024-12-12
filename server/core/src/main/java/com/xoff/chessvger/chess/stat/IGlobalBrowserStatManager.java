@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface IGlobalBrowserStatManager {
 
-  public void put(String first, IBrowserStatManager b);
+  void put(String first, IBrowserStatManager b);
 
-  public IBrowserStatManager get(String first);
+  IBrowserStatManager get(String first);
 
-  public void clear();
+  void clear();
 
-  public void finish();
+  void finish();
 
-  public List<CommonGame> gameOfASB(QuickFilter qf);
+  List<CommonGame> gameOfASB(QuickFilter qf);
 
-  public List<StatBrowserView> getListSBForFilter(QuickFilter qf);
+  List<StatBrowserView> getListSBForFilter(QuickFilter qf);
 
-  public List<StatBrowserView> buildTreeFromGame(List<CommonGame> games);
+  List<StatBrowserView> buildTreeFromGame(List<CommonGame> games);
 }

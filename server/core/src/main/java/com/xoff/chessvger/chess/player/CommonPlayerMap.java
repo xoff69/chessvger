@@ -35,18 +35,20 @@ public class CommonPlayerMap extends AdbCommonKeyLong<CommonPlayer> {
     }
     log.info("Fin:CommonPlayerMap");
   }
+
   public List<CommonPlayer> list() {
-      List<CommonPlayer> result=new ArrayList<>();
+    List<CommonPlayer> result = new ArrayList<>();
     mapById.forEach((key, value) -> {
       result.add(value);
     });
-      return result;
+    return result;
   }
+
   public void commit() {
 
     mapById.forEach((key, value) -> {
-        super.add(key,value);
-      });
+      super.add(key, value);
+    });
 
 
     super.commit();
@@ -58,9 +60,10 @@ public class CommonPlayerMap extends AdbCommonKeyLong<CommonPlayer> {
     mapByName.clear();
     super.clear();
   }
-public CommonPlayer findById(long id){
+
+  public CommonPlayer findById(long id) {
     return mapById.get(id);
-}
+  }
 
   public CommonPlayer findByName(String name) {
 
@@ -72,7 +75,7 @@ public CommonPlayer findById(long id){
     super.add(key, va);
     mapByName.put(va.getName(), va);
     names.add(va.getName());
-    mapById.put(key,va);
+    mapById.put(key, va);
   }
 
   @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")

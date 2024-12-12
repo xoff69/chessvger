@@ -10,14 +10,14 @@ import org.mapdb.DBMaker;
 @Slf4j
 // semble moins performant car on fait une ecrtiure disque a chaque fois
 public class DbKeyGenerator2 {
-  private DB db;
-  private Atomic.Integer atomicInteger;
+  private final DB db;
+  private final Atomic.Integer atomicInteger;
 
   public DbKeyGenerator2() {
 
-    db= DBMaker.fileDB(ParamConstants.DATA_FOLDER_COMMON + "KEYGEN" + Constants.KEY_SFX).checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown()
-        .fileMmapEnable().make();
-    atomicInteger = db.atomicInteger( "KEYGEN").createOrOpen();
+    db = DBMaker.fileDB(ParamConstants.DATA_FOLDER_COMMON + "KEYGEN" + Constants.KEY_SFX)
+        .checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown().fileMmapEnable().make();
+    atomicInteger = db.atomicInteger("KEYGEN").createOrOpen();
   }
 
   public long getNext() {

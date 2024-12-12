@@ -16,22 +16,23 @@ public class MetaCommonGame {
   private String source;
   private String commentateurPrincipal;
 
-  public MetaCommonGame(){
-    metaCommentaireMove="[]";
-    flipBoard=false;
-    lastSeen=0;
-    commentairePartie="[]";
-    source="";
-    commentateurPrincipal="";
+  public MetaCommonGame() {
+    metaCommentaireMove = "[]";
+    flipBoard = false;
+    lastSeen = 0;
+    commentairePartie = "[]";
+    source = "";
+    commentateurPrincipal = "";
   }
+
   public MetaCommonGame duplicate() {
-    MetaCommonGame other=new MetaCommonGame();
-    other.metaCommentaireMove=new String(metaCommentaireMove);
-    other.commentairePartie=new String(commentairePartie);
-    other.lastSeen=lastSeen;
-    other.flipBoard=flipBoard;
-    other.setSource(new String(source));
-    other.setCommentateurPrincipal(new String(commentateurPrincipal));
+    MetaCommonGame other = new MetaCommonGame();
+    other.metaCommentaireMove = metaCommentaireMove;
+    other.commentairePartie = commentairePartie;
+    other.lastSeen = lastSeen;
+    other.flipBoard = flipBoard;
+    other.setSource(source);
+    other.setCommentateurPrincipal(commentateurPrincipal);
     return other;
 
   }

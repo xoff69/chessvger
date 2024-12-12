@@ -6,23 +6,23 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RedisMessagePublisherGame implements MessagePublisher {
+public class RedisMessageReceiver implements MessagePublisher {
 
   @Autowired
   private RedisTemplate<String, Object> redisTemplate;
   @Autowired
-  private ChannelTopic topicGame;
+  private ChannelTopic topicPlayer;
 
-  public RedisMessagePublisherGame() {
+  public RedisMessageReceiver() {
   }
 
-  public RedisMessagePublisherGame(
+  public RedisMessageReceiver(
       RedisTemplate<String, Object> redisTemplate, ChannelTopic topic) {
     this.redisTemplate = redisTemplate;
-    this.topicGame = topic;
+    this.topicPlayer = topic;
   }
 
   public void publish(String message) {
-    redisTemplate.convertAndSend(topicGame.getTopic(), message);
+    redisTemplate.convertAndSend(topicPlayer.getTopic(), message);
   }
 }

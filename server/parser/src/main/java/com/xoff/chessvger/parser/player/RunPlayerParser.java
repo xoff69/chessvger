@@ -4,38 +4,23 @@
 
 package com.xoff.chessvger.parser.player;
 
-import com.xoff.chessvger.util.Topic;
 import java.sql.SQLException;
 import java.util.List;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPubSub;
 
 
 public class RunPlayerParser implements Runnable {
+  private final String folder;
+
+  public RunPlayerParser(String folder) {
+    this.folder = folder;
+  }
+
   @Override
   public void run() {
 
-    System.out.println("Start runAppProducerPlayer");
-    try (Jedis jedis = new Jedis("redis", 6379)) {
-      // Define a new JedisPubSub instance to handle messages
-      JedisPubSub pubSub = new JedisPubSub() {
-        @Override
-        public void onMessage(String channel, String message) {
-          System.out.println("Received message from channel " + channel + ": " + message);
-
-          System.out.println("avant le consumer player");
-          String filename = "./data/players_list_xml_foa.xml";
-
-          System.out.println("AppProducerPlayer::Start to parse:" + filename);
-          manageFile(filename);
-        }
-      };
-
-      jedis.subscribe(pubSub, Topic.TOPIC_PLAYER);
-    }
-    ;
-
+    manageFile(folder);
   }
+
 
   /**
    * @param filedir ex "data/players_list_xml_foa.xml"
@@ -45,23 +30,26 @@ public class RunPlayerParser implements Runnable {
     CommonPlayerDao commonPlayerDao = new CommonPlayerDao();
     System.out.println("managerFile " + filedir);
     PlayerParser playerParser = new PlayerParser();
+    long start = System.currentTimeMillis();
     List<CommonPlayer> players = playerParser.parse(filedir);
-    System.out.println("after parse players done: "+players.size());
+    long finish1 = System.currentTimeMillis();
+    long timeElapsed = (finish1 - start) / 1000;
+    System.out.println("after parse players done: " + players.size() + ":" + timeElapsed + " s");
     long id = 1L;
     for (CommonPlayer player : players) {
 
       player.setId(id++);
-      if (id%5000==0){
-        System.out.println("players inserted: " + id);
-      }
+
       try {
         commonPlayerDao.insertCommonPlayer(player);
-      } catch (SQLException|ClassNotFoundException e) {
+      } catch (SQLException | ClassNotFoundException e) {
         System.out.println("players insertion out: " + players.size());
         throw new RuntimeException(e);
       }
     }
-    System.out.println("players inserted: " + players.size());
+    long finish2 = System.currentTimeMillis();
+    timeElapsed = (finish2 - finish1) / 1000;
+    System.out.println("END: players inserted: " + players.size() + ":" + timeElapsed + " s");
 
   }
 

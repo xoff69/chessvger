@@ -19,10 +19,8 @@ public class CommonGameDao {
   public void insertCommonGame(CommonGame commonGame) throws SQLException, ClassNotFoundException {
 
     // TODO faire un upsert
-    try (
-        Connection connection = CommonDao.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL);)
-    {
+    try (Connection connection = CommonDao.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SQL)) {
 
       preparedStatement.setString(1, commonGame.getEvent());
       preparedStatement.setString(2, commonGame.getSite());

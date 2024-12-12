@@ -4,24 +4,33 @@
 
 package com.xoff.chessvger.parser.game;
 
-import com.xoff.chessvger.util.Topic;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPubSub;
 
 public class RunGameParser implements Runnable {
+
+  private final String folder;
+
+  public RunGameParser(String folder) {
+    this.folder = folder;
+  }
+
   /**
    * @param filedir ex /data/twic114
    */
   private static void manageFile(String filedir) {
     System.out.println("games " + filedir);
     CommonGameDao commonGameDao = new CommonGameDao();
-
     Parser parser = new Parser();
+    long start = System.currentTimeMillis();
     List<CommonGame> games = parser.parseDir(new File(filedir));
-    System.out.println("games " + games.size());
+
+    long finish1 = System.currentTimeMillis();
+    long timeElapsed = (finish1 - start) / 1000;
+    System.out.println("after parse games done: " + games.size() + ":" + timeElapsed + " s");
+
+
     long id = 1L;
     for (CommonGame game : games) {
 
@@ -43,31 +52,15 @@ public class RunGameParser implements Runnable {
       //enqueueGameOfAPlayer(game.getId(), game.getBlackFideId());
       //ReconciliationManager.update(game.getId(), ReconciliationType.GAME);
     }
-    System.out.println("db insert games done " + games.size());
+    long finish2 = System.currentTimeMillis();
+    timeElapsed = (finish2 - finish1) / 1000;
+    System.out.println("db insert games done " + games.size() + ":" + timeElapsed + " s");
   }
 
   @Override
   public void run() {
 
-
-    System.out.println("Start parse");
-    try (Jedis jedis = new Jedis("redis", 6379)) {
-      // Define a new JedisPubSub instance to handle messages
-      JedisPubSub pubSub = new JedisPubSub() {
-        @Override
-        public void onMessage(String channel, String message) {
-          System.out.println("Received message from channel " + channel + ": " + message);
-          String filename = "./data/twic";
-          manageFile(filename);
-          System.out.println("finish to parse:" + filename);
-        }
-      };
-
-      jedis.subscribe(pubSub, Topic.TOPIC_GAME);
-    }
-
-
-
+    manageFile(folder);
   }
 
 

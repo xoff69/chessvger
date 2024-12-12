@@ -3,12 +3,12 @@ package com.xoff.chessvger.chess.player;
 import java.util.List;
 
 public interface IPlayerOfDbManager {
-  public List<Long> listIdsOfPlayer();
+  List<Long> listIdsOfPlayer();
 
-  public void clear();
+  void clear();
 
 
-  public void finish();
+  void finish();
 
-  public void add( long idplayer);
+  void add(long idplayer);
 }

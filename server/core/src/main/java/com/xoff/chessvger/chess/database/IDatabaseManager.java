@@ -22,76 +22,77 @@ import java.util.List;
 
 public interface IDatabaseManager {
 
-  public long getDatabaseId();
+  long getDatabaseId();
 
-  public String getDatabaseName();
-  public IPlayerOfDbManager getPlayerOfDbManager();
+  String getDatabaseName();
 
-  public void finish();
+  IPlayerOfDbManager getPlayerOfDbManager();
 
-  public long duplicate(long userId);
+  void finish();
 
-  public void clear();
+  long duplicate(long userId);
 
-  public String createName();
+  void clear();
 
-  public boolean parseMoves2(CommonGame game);
+  String createName();
 
-  public String exportePgn();
+  boolean parseMoves2(CommonGame game);
 
-  public int importePgn(String emplacement);
+  String exportePgn();
 
-  public List<CommonGame> search(Filter filter);
+  int importePgn(String emplacement);
 
-
-  public CommonGame getGameById(long id);
+  List<CommonGame> search(Filter filter);
 
 
-  public List<JoueurView> getPlayersWithGames(String param, Pageable paging);
-
-  public void postUpdateGameAndStat(CommonGame game);
+  CommonGame getGameById(long id);
 
 
-  public int postUpdateGameAndStat();
+  List<JoueurView> getPlayersWithGames(String param, Pageable paging);
+
+  void postUpdateGameAndStat(CommonGame game);
 
 
-  public long getLastUpdate();
+  int postUpdateGameAndStat();
 
 
-  public CommonGame upsert(CommonGame item, DBOperation operation);
-
-  public boolean optimiser(boolean withDeleted, boolean deleteDoublon);
-
-  public void delete();
+  long getLastUpdate();
 
 
-  public List<StatBrowserView> getBrowseData(List<String> movesAlreadyPlayed);
+  CommonGame upsert(CommonGame item, DBOperation operation);
+
+  boolean optimiser(boolean withDeleted, boolean deleteDoublon);
+
+  void delete();
 
 
-  public StatJoueurView getStatJoueur(CommonPlayer player);
+  List<StatBrowserView> getBrowseData(List<String> movesAlreadyPlayed);
 
 
-  public StatGame getStatGame(List<CommonGame> games);
-
-  public IGlobalGameManager getGlobalGameManager();
-
-  public IPositionManager getPositionManager();
+  StatJoueurView getStatJoueur(CommonPlayer player);
 
 
-  public IMaterialManager getMaterialManager();
+  StatGame getStatGame(List<CommonGame> games);
 
-  public IGlobalBrowserStatManager getGlobalBrowserStatManager();
+  IGlobalGameManager getGlobalGameManager();
 
-
-  public IPlayerStatManager getPlayerStatManager();
-
-  public IGameStatManager getGameStatManager();
-
-  public IGameWhereMapManager getGameWhereMapManager();
-
-  public IGameOfAPlayerManager getGameOfAPlayerManager();
+  IPositionManager getPositionManager();
 
 
-  public IHistoryManager getHistoryManager();
+  IMaterialManager getMaterialManager();
+
+  IGlobalBrowserStatManager getGlobalBrowserStatManager();
+
+
+  IPlayerStatManager getPlayerStatManager();
+
+  IGameStatManager getGameStatManager();
+
+  IGameWhereMapManager getGameWhereMapManager();
+
+  IGameOfAPlayerManager getGameOfAPlayerManager();
+
+
+  IHistoryManager getHistoryManager();
 
 }

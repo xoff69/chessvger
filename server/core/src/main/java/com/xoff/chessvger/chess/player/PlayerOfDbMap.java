@@ -18,29 +18,33 @@ import org.mapdb.Serializer;
 
 @Slf4j
 public class PlayerOfDbMap {
-// TODO mutualiser avec HistoryMap
-  private DB db;
-  private Set<Long> setToSave;
+  // TODO mutualiser avec HistoryMap
+  private final DB db;
+  private final Set<Long> setToSave;
   private List<Long> workList;
+
   public PlayerOfDbMap(String dbName) {
     super();
 
-    db= DBMaker.fileDB(DatabaseManager.getFolder(dbName) + dbName + "PlayerOfDbMap" + Constants.MAP_SFX).checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown()
-        .fileMmapEnable().make();
+    db = DBMaker.fileDB(
+            DatabaseManager.getFolder(dbName) + dbName + "PlayerOfDbMap" + Constants.MAP_SFX)
+        .checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown().fileMmapEnable().make();
     setToSave = db.treeSet("PlayerOfDbMap", Serializer.LONG).createOrOpen();
-    workList=new ArrayList<>(setToSave);
+    workList = new ArrayList<>(setToSave);
   }
+
   public void clear() {
     workList.clear();
     setToSave.clear();
     db.commit();
 
   }
+
   public void commit() {
     setToSave.clear();
-    log.info("PlayerOfDbMap.commit:"+workList.size());
+    log.info("PlayerOfDbMap.commit:" + workList.size());
     setToSave.addAll(workList);
-    log.info("PlayerOfDbMap.commit after:"+setToSave.size());
+    log.info("PlayerOfDbMap.commit after:" + setToSave.size());
     db.commit();
   }
 
@@ -49,13 +53,13 @@ public class PlayerOfDbMap {
   }
 
   public List<Long> list() {
-    workList=setToSave.stream().toList();
+    workList = setToSave.stream().toList();
     return workList;
 
   }
 
   public void add(Long value) {
-    workList.add (value);
+    workList.add(value);
 
   }
 

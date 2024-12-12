@@ -14,7 +14,6 @@ public class CommonGameManager implements ICommonGameManager {
   private final MapGame mapGame;
 
 
-
   public CommonGameManager(DatabaseManager databaseManager, String base) {
     mapGame = new MapGame(databaseManager, base + "G");
   }
@@ -78,7 +77,7 @@ public class CommonGameManager implements ICommonGameManager {
   }
 
   public CommonGame get(long id) {
-    return (CommonGame) mapGame.get(id);
+    return mapGame.get(id);
   }
 
 

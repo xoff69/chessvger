@@ -43,7 +43,7 @@ public class HistoryManager implements IHistoryManager {
     map.clear();
   }
 
-  public void add( Long value) {
+  public void add(Long value) {
     map.add(value);
   }
 

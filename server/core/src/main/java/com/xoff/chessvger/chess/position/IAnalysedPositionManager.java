@@ -2,15 +2,15 @@ package com.xoff.chessvger.chess.position;
 
 public interface IAnalysedPositionManager {
 
-  public void add(AnalyzedPosition f);
+  void add(AnalyzedPosition f);
 
-  public void del(AnalyzedPosition f);
+  void del(AnalyzedPosition f);
 
-  public AnalyzedPosition get(long id);
-
-
-  public void finish();
+  AnalyzedPosition get(long id);
 
 
-  public void clear();
+  void finish();
+
+
+  void clear();
 }

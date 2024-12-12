@@ -12,7 +12,6 @@ RUN go mod download
 COPY *.go ./
 RUN  go get github.com/go-redis/redis/v8
 RUN  go get github.com/lib/pq
-RUN  go get github.com/segmentio/kafka-go
 
 RUN go build -o /monitor
 

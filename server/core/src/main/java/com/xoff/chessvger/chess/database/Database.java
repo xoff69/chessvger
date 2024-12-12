@@ -23,7 +23,7 @@ public class Database implements Serializable {
   private long lastUpdate;
 
   // virtual folder+ icon
-  private String view= StringUtils.EMPTY;
+  private String view = StringUtils.EMPTY;
 
   @Serial
   private void writeObject(ObjectOutputStream out) throws IOException {

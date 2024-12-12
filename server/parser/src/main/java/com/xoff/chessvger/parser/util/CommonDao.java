@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class CommonDao {
-  private static HikariConfig config = new HikariConfig();
-  private static HikariDataSource ds;
+  private static final HikariConfig config = new HikariConfig();
+  private static final HikariDataSource ds;
 
 
   static {
@@ -18,17 +18,17 @@ public class CommonDao {
       e.printStackTrace();
       System.out.println("connexion DB :" + e);
     }
-   // System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
+    // System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
 
     config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
     config.setUsername("chessvger");
     config.setPassword("chessvger");
-    config.addDataSourceProperty( "cachePrepStmts" , "true" );
-    config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
-    config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+    config.addDataSourceProperty("cachePrepStmts", "true");
+    config.addDataSourceProperty("prepStmtCacheSize", "250");
+    config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
     config.setAutoCommit(true);
-    ds = new HikariDataSource( config );
- }
+    ds = new HikariDataSource(config);
+  }
 
   private CommonDao() {
   }

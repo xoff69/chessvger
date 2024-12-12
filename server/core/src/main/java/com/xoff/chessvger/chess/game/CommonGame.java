@@ -67,7 +67,7 @@ public class CommonGame implements Serializable {
     site = StringUtils.EMPTY;
     date = StringUtils.EMPTY;
     round = StringUtils.EMPTY;
-    result =StringUtils.EMPTY;
+    result = StringUtils.EMPTY;
     whiteTitle = StringUtils.EMPTY;
     blackTitle = StringUtils.EMPTY;
     whiteElo = 0;
@@ -84,7 +84,7 @@ public class CommonGame implements Serializable {
     moves = " ";
 
 
-    metaCommonGame=new MetaCommonGame();
+    metaCommonGame = new MetaCommonGame();
     partieAnalysee = false;
 
     interet = Constants.NON_SIGNIFICATIVE_INT;
@@ -164,9 +164,10 @@ public class CommonGame implements Serializable {
     setInteret(in.readInt());
     setTheorique(in.readBoolean());
     setFavori(in.readBoolean());
-    String json=in.readUTF();
-    MetaCommonGame metaCommonGame1 = GlobalManager.getInstance().getObjectMapper().readValue(json, MetaCommonGame.class);
-  setMetaCommonGame(metaCommonGame1);
+    String json = in.readUTF();
+    MetaCommonGame metaCommonGame1 =
+        GlobalManager.getInstance().getObjectMapper().readValue(json, MetaCommonGame.class);
+    setMetaCommonGame(metaCommonGame1);
   }
 
   @Override
@@ -191,6 +192,7 @@ public class CommonGame implements Serializable {
   public int hashCode() {
     return new HashCodeBuilder(17, 37).append(id).append(getMoves()).toHashCode();
   }
+
   @Override
   public String toString() {
 
@@ -199,8 +201,9 @@ public class CommonGame implements Serializable {
         getRound() + ",date=" + getDate() + ",event=" + getEvent() + ",eco=" + getEco() +
         ",result=" + getResult() + ",blanc=" + getWhiteFideId() + "/" + getNomBlanc() + ",/=" +
         getWhiteTitle() + ",noir=" + getBlackFideId() + "/" + getNomNoir() + ",/=" +
-        getBlackTitle()  + ",isd=" + isDeleted() + "{}" + "{ai=" + moves  + "{filtresSupplementaires=" + getInteret() + "," + isTheorique() + "," + isFavori() +
-        "}" + "{getMetaCommonGame=" + getMetaCommonGame() + "}";
+        getBlackTitle() + ",isd=" + isDeleted() + "{}" + "{ai=" + moves +
+        "{filtresSupplementaires=" + getInteret() + "," + isTheorique() + "," + isFavori() + "}" +
+        "{getMetaCommonGame=" + getMetaCommonGame() + "}";
     return sb;
   }
 
@@ -288,7 +291,7 @@ public class CommonGame implements Serializable {
   }
 
 
-@JsonIgnore
+  @JsonIgnore
   public String getNomBlanc() {
     //@FIXME
     ICommonPlayerManager commonPlayerManager = GlobalManager.getInstance().getCommonPlayerManager();
@@ -311,7 +314,6 @@ public class CommonGame implements Serializable {
     }
     return "*";
   }
-
 
 
 }

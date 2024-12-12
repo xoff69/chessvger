@@ -22,7 +22,7 @@ public class Zobrist {
   /**
    * tableau contenant tous les codes aleatoires de Zobrist
    */
-  private static int[][][] tAlea;
+  private static final int[][][] tAlea;
 
   static {
     tAlea = new int[8][2][64];

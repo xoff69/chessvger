@@ -10,14 +10,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.mapdb.DB;
 import org.mapdb.Serializer;
 import org.mapdb.serializer.SerializerArrayTuple;
+
 @Slf4j
 public class AdbCommonKeyLongSet2 {
   private final NavigableSet<Object[]> map;
   protected DB db;
-  private String filename;
+  private final String filename;
 
   public AdbCommonKeyLongSet2(String filename) {
-    this.filename=filename;
+    this.filename = filename;
     db = AdbCommon.makeIt(filename);
     map = makeMap();
   }
@@ -65,8 +66,9 @@ public class AdbCommonKeyLongSet2 {
 
   public void commit() {
 
-    if (size()>0)
-      log.info(" AdbCommonKeyLongSet2 commit:"+filename+":"+size());
+    if (size() > 0) {
+      log.info(" AdbCommonKeyLongSet2 commit:" + filename + ":" + size());
+    }
     db.commit();
   }
 

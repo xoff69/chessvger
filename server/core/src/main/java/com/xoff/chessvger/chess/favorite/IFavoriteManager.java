@@ -6,14 +6,14 @@ import java.util.List;
 public interface IFavoriteManager {
 
 
-  public List<CommonGame> listFavorite(long userId);
+  List<CommonGame> listFavorite(long userId);
 
-  public void clear();
+  void clear();
 
-  public void add(long key, Favorite value);
+  void add(long key, Favorite value);
 
 
-  public void finish();
+  void finish();
 
-  public Favorite get(long key);
+  Favorite get(long key);
 }
