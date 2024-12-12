@@ -39,7 +39,7 @@ public class ChessVgerApplication implements WebMvcConfigurer {
   }
 
   public static void main(String[] args) {
-    System.out.println("version 1.0.2");
+    System.out.println("version 1.0.5");
     checkOption(args);
     SpringApplication.run(ChessVgerApplication.class, args);
   }

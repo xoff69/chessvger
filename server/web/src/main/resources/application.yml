@@ -36,12 +36,7 @@ spring:
     hibernate:
       ddl-auto: update
     database: POSTGRESQL
-  sql:
-    init:
-      mode: always
-      platform: postgres
-      continue-on-error: true
-  # Redis configuration
+
   data:
     redis:
       host:redis
