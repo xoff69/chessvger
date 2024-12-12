@@ -11,7 +11,7 @@ public class RedisMessageReceiver implements MessagePublisher {
   @Autowired
   private RedisTemplate<String, Object> redisTemplate;
   @Autowired
-  private ChannelTopic topicPlayer;
+  private ChannelTopic topicFromQueue;
 
   public RedisMessageReceiver() {
   }
@@ -19,10 +19,10 @@ public class RedisMessageReceiver implements MessagePublisher {
   public RedisMessageReceiver(
       RedisTemplate<String, Object> redisTemplate, ChannelTopic topic) {
     this.redisTemplate = redisTemplate;
-    this.topicPlayer = topic;
+    this.topicFromQueue = topic;
   }
 
   public void publish(String message) {
-    redisTemplate.convertAndSend(topicPlayer.getTopic(), message);
+    redisTemplate.convertAndSend(topicFromQueue.getTopic(), message);
   }
 }

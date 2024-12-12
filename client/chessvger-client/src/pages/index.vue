@@ -15,15 +15,15 @@
           <v-window-item v-for="(t, index) in visibleTabs" :key="t.name">
             <!-- Onglet 1 -->
             <div v-if="tab === 0">Contenu du premier onglet</div>
-
-            <!-- Onglet 2 (Players) -->
             <div v-if="tab === 1">
-              <!-- Affichage de la liste des players dans le deuxième onglet -->
+              <GamesList />
+            </div>
+            <div v-if="tab === 2">
               <PlayersList />
             </div>
 
             <!-- Onglet 3 (Admin) avec sous-onglets -->
-            <div v-if="tab === 2">
+            <div v-if="tab === 3">
               <v-tabs v-model="subTab" align-tabs="start" fixed-tabs>
                 <v-tab>Gérer les utilisateurs</v-tab>
                 <v-tab>Paramètres</v-tab>
@@ -57,18 +57,19 @@
 
 <script>
 import { ref, computed } from 'vue';
-import PlayersList from '../components/PlayersList.vue';  // Import du composant PlayersList
-
+import PlayersList from '../components/PlayersList.vue';
+import GamesList from '../components/GamesList.vue';
 export default {
   name: 'ComposantOnglets',
   components: {
-    PlayersList,  // Déclare le composant pour qu'il puisse être utilisé dans le template
+    PlayersList,GamesList
   },
   setup() {
     const tab = ref(0);  // Onglet principal
     const subTab = ref(0); // Sous-onglet pour Admin
     const allTabs = ref([
       { name: 'Liste des bd', visible: true },
+      { name: 'Games', visible: true },
       { name: 'Players', visible: true },
       { name: 'Admin', visible: true },
     ]);

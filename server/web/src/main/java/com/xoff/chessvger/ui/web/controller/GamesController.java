@@ -64,7 +64,7 @@ public class GamesController {
   }
 
 
-  @GetMapping("/api/allGames")
+  @GetMapping("/api/allgames")
   public ResponseEntity<List<CommonGameEntity>> all(){
     return new ResponseEntity<>(iGameService.findAll(),
         HttpStatus.OK);

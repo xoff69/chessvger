@@ -4,7 +4,7 @@
     <h1>Liste des games</h1>
     <v-data-table
       :headers="headers"
-      :items="players"
+      :items="games"
       :items-per-page="5"
       class="elevation-1"
     >

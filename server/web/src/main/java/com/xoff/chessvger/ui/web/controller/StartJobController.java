@@ -2,11 +2,10 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.config.RedisMessagePublisherToParser;
+import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.config.RedisMessageReceiver;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class StartJobController {
 @Autowired
-RedisMessageReceiver redisMessagePublisher;
+RedisMessageReceiver redisMessageReceiver;
 
 
 
   @Autowired
-  RedisMessagePublisherToParser redisMessagePublisherToParser;
+  RedisMessagePublisher redisMessagePublisher;
 
   @GetMapping("/jobPlayer")
     // TODO signature, try catch
@@ -34,7 +33,7 @@ RedisMessageReceiver redisMessagePublisher;
 
     ObjectMapper objectMapper=new ObjectMapper();
 
-    redisMessagePublisherToParser.publish(objectMapper.writeValueAsString(message));
+   redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
     return "ok";
   }
   @GetMapping("/jobDatabase")
@@ -58,7 +57,7 @@ RedisMessageReceiver redisMessagePublisher;
 
     ObjectMapper objectMapper=new ObjectMapper();
 
-    redisMessagePublisherToParser.publish(objectMapper.writeValueAsString(messageGame));
+    redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
     return "ok";
   }
 
