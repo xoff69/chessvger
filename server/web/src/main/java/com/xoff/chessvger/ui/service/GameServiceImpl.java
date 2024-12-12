@@ -11,6 +11,10 @@ import com.xoff.chessvger.chess.game.ItemGameTree;
 import com.xoff.chessvger.chess.game.OneGameTree;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.exception.WebException;
+import com.xoff.chessvger.repository.CommonGameEntity;
+import com.xoff.chessvger.repository.CommonPlayerEntity;
+import com.xoff.chessvger.repository.GameRepository;
+import com.xoff.chessvger.repository.PlayerRepository;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.ui.web.mapper.GameMapper;
 import com.xoff.chessvger.ui.web.navigation.DBOpened;
@@ -34,6 +38,16 @@ public class GameServiceImpl implements IGameService {
   Navigation navigation;
   @Autowired
   GameMapper gameMapper;
+
+  @Autowired
+  private GameRepository gameRepository;
+
+  public List<CommonGameEntity> findAll(){
+    org.springframework.data.domain.Page<CommonGameEntity> page=gameRepository.findAll(
+        org.springframework.data.domain.Pageable.ofSize(5));
+    return  page.stream().toList();
+  }
+
   public boolean gameFlip(long bdId, long gameId){
     IDatabaseManager dm = GlobalManager.getInstance().getDatabaseManager(bdId);
     String w = dm.getGameWhereMapManager().get(gameId);

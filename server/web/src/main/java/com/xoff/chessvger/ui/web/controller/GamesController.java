@@ -1,5 +1,7 @@
 package com.xoff.chessvger.ui.web.controller;
 
+import com.xoff.chessvger.repository.CommonGameEntity;
+import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;
@@ -10,8 +12,10 @@ import com.xoff.chessvger.view.CoupleFenMoveId;
 import com.xoff.chessvger.view.CoupleLongView;
 import com.xoff.chessvger.view.GameView;
 import com.xoff.chessvger.view.PageView;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -60,6 +64,11 @@ public class GamesController {
   }
 
 
+  @GetMapping("/api/allGames")
+  public ResponseEntity<List<CommonGameEntity>> all(){
+    return new ResponseEntity<>(iGameService.findAll(),
+        HttpStatus.OK);
+  }
   @GetMapping("/games")
   public ResponseEntity<PageView> getAllGames(@RequestParam(name = "bdId") long bdId,
                                               @RequestParam(defaultValue = "1", name = "page")
