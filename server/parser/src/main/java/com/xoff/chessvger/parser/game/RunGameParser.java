@@ -4,9 +4,12 @@
 
 package com.xoff.chessvger.parser.game;
 
+import com.xoff.chessvger.topic.Topic;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import redis.clients.jedis.Jedis;
 
 public class RunGameParser implements Runnable {
 
@@ -16,10 +19,8 @@ public class RunGameParser implements Runnable {
     this.folder = folder;
   }
 
-  /**
-   * @param filedir ex /data/twic114
-   */
-  private static void manageFile(String filedir) {
+
+  private static void manageFile(String filedir) throws IOException,SQLException {
     System.out.println("games " + filedir);
     CommonGameDao commonGameDao = new CommonGameDao();
     Parser parser = new Parser();
@@ -31,7 +32,7 @@ public class RunGameParser implements Runnable {
     System.out.println("after parse games done: " + games.size() + ":" + timeElapsed + " s");
 
 
-    long id = 1L;
+    long id = commonGameDao.count()+1;
     for (CommonGame game : games) {
 
       game.setId(id++);
@@ -55,12 +56,23 @@ public class RunGameParser implements Runnable {
     long finish2 = System.currentTimeMillis();
     timeElapsed = (finish2 - finish1) / 1000;
     System.out.println("db insert games done " + games.size() + ":" + timeElapsed + " s");
+    try (Jedis jedis = new Jedis("redis", 6379)) {
+      // TODO a externaliser
+      jedis.publish(Topic.TOPIC_FROM_QUEUE, games.size() + ":" + timeElapsed + " s");
+    }
+    System.out.println("Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");
   }
 
   @Override
   public void run() {
 
-    manageFile(folder);
+    try {
+      manageFile(folder);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 

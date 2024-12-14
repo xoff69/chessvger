@@ -4,6 +4,7 @@ package com.xoff.chessvger.parser.game;
 import com.xoff.chessvger.parser.util.CommonDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CommonGameDao {
@@ -15,6 +16,22 @@ public class CommonGameDao {
           "interet, theorique, favori,id,white_player,black_player) " +
           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
 
+  public int count() throws SQLException {
+    try (Connection connection = CommonDao.getConnection()) {
+      ;
+
+      String sqlQuery = "SELECT COUNT(*) FROM common_game";
+      PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+      ;
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          int count = resultSet.getInt(1);
+          return count;
+        }
+      }
+    }
+    return 0;
+  }
 
   public void insertCommonGame(CommonGame commonGame) throws SQLException, ClassNotFoundException {
 

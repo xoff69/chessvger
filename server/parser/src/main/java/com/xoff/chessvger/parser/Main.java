@@ -55,8 +55,6 @@ public class Main {
 
           }
         }
-
-
       };
       jedis.subscribe(pubSub, Topic.TOPIC_TO_QUEUE);
     }
