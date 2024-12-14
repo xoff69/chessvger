@@ -63,7 +63,7 @@
 import { ref, computed } from 'vue';
 import PlayersList from '../components/PlayersList.vue';
 import GamesList from '../components/GamesList.vue';
-import WebSocketChat from "@/components/WebSocketChat";
+import WebSocketChat from "../components/WebSocketChat.vue";
 
 export default {
   name: 'ComposantOnglets',
