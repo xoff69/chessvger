@@ -53,16 +53,22 @@
 
     <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn>
   </v-app>
+
+  <div id="app">
+    <WebSocketChat />
+  </div>
 </template>
 
 <script>
 import { ref, computed } from 'vue';
 import PlayersList from '../components/PlayersList.vue';
 import GamesList from '../components/GamesList.vue';
+import WebSocketChat from "@/components/WebSocketChat";
+
 export default {
   name: 'ComposantOnglets',
   components: {
-    PlayersList,GamesList
+    PlayersList,GamesList, WebSocketChat
   },
   setup() {
     const tab = ref(0);  // Onglet principal
