@@ -1,6 +1,6 @@
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
-
+var global = window;
 const websocketService = {
     stompClient: null,
 
