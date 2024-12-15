@@ -43,6 +43,9 @@
               <v-tab-item v-if="subTab === 2">
                 <v-card flat>
                   <v-card-text>Affichage des logs</v-card-text>
+
+    <WebSocketChat />
+
                 </v-card>
               </v-tab-item>
             </div>
@@ -54,9 +57,7 @@
     <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn>
   </v-app>
 
-  <div id="app">
-    <WebSocketChat />
-  </div>
+
 </template>
 
 <script>
