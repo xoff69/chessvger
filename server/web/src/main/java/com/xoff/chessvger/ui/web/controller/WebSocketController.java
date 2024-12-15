@@ -10,6 +10,7 @@ public class WebSocketController {
   @MessageMapping("/send")
   @SendTo("/topic/messages")
   public String handleMessage(String message) {
+    System.out.println("WebSocketController:+"+message);
     return message; // Renvoie le message à tous les abonnés
   }
 }
