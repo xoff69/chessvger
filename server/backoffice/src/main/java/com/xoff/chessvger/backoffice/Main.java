@@ -39,8 +39,9 @@ public class Main {
             MessageToParser messageToParser =
                 objectMapper.readValue(message, MessageToParser.class);
 
-            if (messageToParser.getActionQueue() == ActionQueue.CREATEDATABASE) {
+            if (messageToParser.getActionQueue() == ActionQueue.CREATE_ENVIRONMENT) {
               // TODO
+              System.out.println("Creating environment");
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
               Thread thread = new Thread(new RunGameParser(messageToParser.getFolderToParse()));
               thread.start();

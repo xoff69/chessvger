@@ -1,5 +1,5 @@
 package com.xoff.chessvger.topic;
 
 public enum ActionQueue {
-  PARSEGAME, PARSEPLAYER, CREATEDATABASE
+  PARSEGAME, PARSEPLAYER, CREATE_ENVIRONMENT
 }
