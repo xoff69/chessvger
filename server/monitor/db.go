@@ -32,9 +32,9 @@ func execSQLTTT(dbserver string) {
 	}
 	fmt.Printf("Nombre total d'enregistrements dans tenant_admin.common_game: %d\n", count)
 
-	err = db.QueryRow("SELECT COUNT(*) FROM tenant_admin.databases").Scan(&count)
-    	if err != nil {
-    		log.Fatalf("Erreur lors de la lecture du nombre d'enregistrements : %v", err)
-    	}
-    	fmt.Printf("Nombre total d'enregistrements dans tenant_admin.databases: %d\n", count)
+	err = db.QueryRow("SELECT COUNT(*) FROM tenant_admin.database").Scan(&count)
+	if err != nil {
+		log.Fatalf("Erreur lors de la lecture du nombre d'enregistrements : %v", err)
+	}
+	fmt.Printf("Nombre total d'enregistrements dans tenant_admin.databases: %d\n", count)
 }

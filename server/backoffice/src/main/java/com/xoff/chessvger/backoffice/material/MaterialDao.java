@@ -10,10 +10,11 @@ public class MaterialDao {
   // position_games
   //position_entity_games
 
+  private static String SCHEMA = "tenant_admin";
 
-  private static final String INSERT_SQL = "INSERT INTO material_games (id,position) VALUES (?,?)";
+  private static final String INSERT_SQL = "INSERT INTO  "+SCHEMA+".material_games (id,position) VALUES (?,?)";
   private static final String INSERT_LIST_SQL =
-      "INSERT INTO material_entity_games (material_entity_id, games) VALUES (?, ?)";
+      "INSERT INTO  "+SCHEMA+".material_entity_games (material_entity_id, games) VALUES (?, ?)";
 
   public void insertEntity(MaterialEntity entity) throws SQLException {
     Connection connection = null;

@@ -8,10 +8,10 @@ import java.util.List;
 
 public class PositionDao {
 
-
-  private static final String INSERT_SQL = "INSERT INTO position_games (id,position) VALUES (?,?)";
+  private static String SCHEMA = "tenant_admin";
+  private static final String INSERT_SQL = "INSERT INTO "+SCHEMA+".position_games (id,position) VALUES (?,?)";
   private static final String INSERT_LIST_SQL =
-      "INSERT INTO position_entity_games (position_entity_id, games) VALUES (?, ?)";
+      "INSERT INTO "+SCHEMA+".position_entity_games (position_entity_id, games) VALUES (?, ?)";
 
   public void insertEntity(PositionEntity entity) throws SQLException {
     Connection connection = null;

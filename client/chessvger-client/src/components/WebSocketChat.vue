@@ -18,6 +18,7 @@
         {{ message }}
       </li>
     </ul>
+
   </div>
 </template>
 

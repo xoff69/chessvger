@@ -15,7 +15,7 @@ import org.springframework.data.domain.Persistable;
 import java.util.List;
 @Data
 @Entity
-@Table(name = "position_games")
+@Table(name = "position_games",schema = "tenant_admin")
 public class PositionEntity  implements Persistable<Long> {
   @Override
   public boolean isNew() {
