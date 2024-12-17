@@ -1,5 +1,6 @@
 package com.xoff.chessvger.repository;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -27,6 +28,7 @@ public class PositionEntity  implements Persistable<Long> {
   private long position;
 
   @ElementCollection
+  @CollectionTable(schema = "tenant_admin")
   private List<Long> games;
 
 }
