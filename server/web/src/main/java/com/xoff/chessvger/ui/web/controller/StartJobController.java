@@ -36,12 +36,17 @@ RedisMessageReceiver redisMessageReceiver;
    redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
     return "ok";
   }
-  @GetMapping("/jobDatabase")
-  String jobDatabase() {
+  @GetMapping("/jobCreateEnv")
+  String jobCreateEnv() {
     log.info("jobDatabase");
     // TODO envoi message cree la db
     //String message = "Message " + UUID.randomUUID();
     //redisMessagePublisherPlayer.publish(message);
+    /* TODO
+         creer env pour un user : tenant user test
+                    creer le schema: nom
+                            table db
+     */
     return "ok";
   }
 

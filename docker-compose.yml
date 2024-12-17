@@ -28,7 +28,7 @@ services:
     networks:
       - chessvger_network
     volumes:
-      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./reference/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./data/postgres_data:/var/lib/postgresql/data
       
   # dockfish:
@@ -77,8 +77,8 @@ services:
     ports:
       - "3000:3000"
       
-  chessvger-parser:
-    image: chessvger-parser:latest
+  chessvger-backoffice:
+    image: chessvger-backoffice:latest
     build:
       context: .
       dockerfile: Dockerfile
