@@ -3,6 +3,8 @@ package com.xoff.chessvger.backoffice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.backoffice.environnement.RunInitSystem;
+import com.xoff.chessvger.backoffice.environnement.RunInitTenant;
 import com.xoff.chessvger.backoffice.game.RunGameParser;
 import com.xoff.chessvger.backoffice.player.RunPlayerParser;
 import com.xoff.chessvger.topic.ActionQueue;
@@ -55,7 +57,11 @@ public class Main {
             Thread thread = new Thread(new RunInitSystem());
             thread.start();
           }
+            else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
 
+              Thread thread = new Thread(new RunInitTenant());
+              thread.start();
+            }
           } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
 

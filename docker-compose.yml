@@ -41,16 +41,6 @@ services:
   #   - chessvger_network
 
 
-  chessvger-monitor:
-    image: chessvger-monitor:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    networks:
-      - chessvger_network
-
   chessvger-webapp:
     image: chessvger-webapp:latest
     build:
