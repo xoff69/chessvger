@@ -1,7 +1,6 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.toclean;
 
 import com.xoff.chessvger.repository.CommonGameEntity;
-import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;

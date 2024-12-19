@@ -38,6 +38,12 @@
               <v-tab-item v-if="subTab === 1">
                 <v-card flat>
                   <v-card-text>Paramètres de l'application</v-card-text>
+                  <div>
+    <h1>Welcome to the Dashboard</h1>
+    <p>Your ID: {{ user.id }}</p>
+    <p>Your Name: {{ user.name }}</p>
+    <p>Your Role: {{ user.role }}</p>
+  </div>
                 </v-card>
               </v-tab-item>
               <v-tab-item v-if="subTab === 2">
@@ -65,11 +71,19 @@ import { ref, computed } from 'vue';
 import PlayersList from '../components/PlayersList.vue';
 import GamesList from '../components/GamesList.vue';
 import WebSocketChat from "../components/WebSocketChat.vue";
-
+import { getUser } from '../services/authService';
 export default {
   name: 'ComposantOnglets',
   components: {
     PlayersList,GamesList, WebSocketChat
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  created() {
+    this.user = getUser();
   },
   setup() {
     const tab = ref(0);  // Onglet principal

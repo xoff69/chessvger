@@ -39,7 +39,7 @@ public class Main {
             MessageToParser messageToParser =
                 objectMapper.readValue(message, MessageToParser.class);
 
-            if (messageToParser.getActionQueue() == ActionQueue.CREATE_ENVIRONMENT) {
+            if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
               // TODO
               System.out.println("Creating environment");
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
@@ -50,6 +50,11 @@ public class Main {
               Thread thread = new Thread(new RunPlayerParser(messageToParser.getFolderToParse()));
               thread.start();
             }
+           else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
+
+            Thread thread = new Thread(new RunInitSystem());
+            thread.start();
+          }
 
           } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

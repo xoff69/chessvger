@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.old;
 
 
 import jakarta.servlet.RequestDispatcher;

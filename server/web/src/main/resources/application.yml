@@ -6,7 +6,9 @@ chessvger:
     list: fr\#en
     default: fr
     current: fr
-
+jwt:
+  secret: chessvger
+  expiration: 3600000
 spring:
 
   security:

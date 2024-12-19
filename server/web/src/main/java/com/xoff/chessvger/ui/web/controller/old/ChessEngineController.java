@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.old;
 
 import com.xoff.chessvger.chess.engine.Engine;
 import com.xoff.chessvger.chess.engine.EngineFactory;

@@ -1,6 +1,5 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.old;
 
-import com.xoff.chessvger.ui.service.FeatureService;
 import com.xoff.chessvger.ui.service.IAdminStatService;
 import com.xoff.chessvger.ui.web.navigation.ApplicationBean;
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
