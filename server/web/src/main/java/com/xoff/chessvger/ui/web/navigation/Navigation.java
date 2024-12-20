@@ -6,7 +6,7 @@ import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.ui.web.form.FilterForm;
 import com.xoff.chessvger.util.SessionKeyGenerator;
 import com.xoff.chessvger.view.GameView;
-import com.xoff.chessvger.view.UserDto;
+import com.xoff.chessvger.common.UserTenant;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class Navigation {
 
   private HashMap<Long, FilterForm> bdFilters;
   @Setter
-  private UserDto userDto;
+  private UserTenant userDto;
 
   @Setter
   private String serverMessage;

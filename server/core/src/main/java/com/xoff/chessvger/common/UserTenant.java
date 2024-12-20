@@ -1,12 +1,13 @@
-package com.xoff.chessvger.view;
+package com.xoff.chessvger.common;
 
+import com.xoff.chessvger.view.PackDto;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserDto {
+public class UserTenant {
   private Long id;
   private String login;
   private String name;
@@ -14,5 +15,4 @@ public class UserDto {
 
   private Boolean isAdmin;
 
-  private List<PackDto> packDtoList;
 }

@@ -9,7 +9,7 @@ import com.xoff.chessvger.ui.web.mapper.UserMapper;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.PageView;
-import com.xoff.chessvger.view.UserDto;
+import com.xoff.chessvger.common.UserTenant;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class UserController {
 
   @PostMapping(path = "/login")
   public String login(LoginForm form) {
-    UserDto userDto = userService.findByLoginAndPassword(form.getLogin(), form.getPassword());
+    UserTenant userDto = userService.findByLoginAndPassword(form.getLogin(), form.getPassword());
     if (userDto == null) {
       log.info("not found " + form);
       return "error";
@@ -76,33 +76,33 @@ public class UserController {
   }
 
   @PostMapping("/users/")
-  public ResponseEntity<UserDto> create(@RequestBody UserDto dto) {
+  public ResponseEntity<UserTenant> create(@RequestBody UserTenant dto) {
 
     // does not exist
     dto.setId(Long.valueOf(DbKeyManager.getInstance().getDbKeyGenerator().getNext()));
-    UserDto dtoSaved = userMapper.entity2Dto(userService.create(dto));
+    UserTenant dtoSaved = userMapper.entity2Dto(userService.create(dto));
     log.info("dto saved " + dtoSaved);
-    return new ResponseEntity<UserDto>(dtoSaved, HttpStatus.CREATED);
+    return new ResponseEntity<UserTenant>(dtoSaved, HttpStatus.CREATED);
 
   }
 
   @PutMapping(value = "/users/{id}")
-  public ResponseEntity<UserDto> update(@RequestBody UserDto dto,
-                                        @PathVariable(name = "id") Long id) {
-    UserDto userDtoUpdated = userService.update(id, dto);
+  public ResponseEntity<UserTenant> update(@RequestBody UserTenant dto,
+                                           @PathVariable(name = "id") Long id) {
+    UserTenant userDtoUpdated = userService.update(id, dto);
     if (userDtoUpdated != null) {
       return new ResponseEntity<>(userDtoUpdated, HttpStatus.OK);
     } else {
-      return new ResponseEntity<>(new UserDto(), HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(new UserTenant(), HttpStatus.NOT_FOUND);
     }
   }
 
   @GetMapping(value = "/users/{id}")
-  public ResponseEntity<UserDto> findById(@PathVariable(value = "id", name = "id") Long id) {
+  public ResponseEntity<UserTenant> findById(@PathVariable(value = "id", name = "id") Long id) {
 
-    UserDto dtoFound = userService.findById(id);
+    UserTenant dtoFound = userService.findById(id);
     if (dtoFound != null) {
-      return new ResponseEntity<UserDto>(dtoFound, HttpStatus.OK);
+      return new ResponseEntity<UserTenant>(dtoFound, HttpStatus.OK);
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

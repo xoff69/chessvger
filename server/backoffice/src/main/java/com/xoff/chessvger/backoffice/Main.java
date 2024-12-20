@@ -7,6 +7,7 @@ import com.xoff.chessvger.backoffice.environnement.RunInitSystem;
 import com.xoff.chessvger.backoffice.environnement.RunInitTenant;
 import com.xoff.chessvger.backoffice.game.RunGameParser;
 import com.xoff.chessvger.backoffice.player.RunPlayerParser;
+import com.xoff.chessvger.common.UserTenant;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.Topic;
@@ -58,8 +59,9 @@ public class Main {
             thread.start();
           }
             else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
-
-              Thread thread = new Thread(new RunInitTenant());
+              UserTenant userTenant=new UserTenant();
+              // todo
+              Thread thread = new Thread(new RunInitTenant(userTenant));
               thread.start();
             }
           } catch (JsonProcessingException e) {

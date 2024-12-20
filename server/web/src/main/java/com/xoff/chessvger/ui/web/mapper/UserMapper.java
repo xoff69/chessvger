@@ -1,7 +1,7 @@
 package com.xoff.chessvger.ui.web.mapper;
 
 import com.xoff.chessvger.chess.user.User;
-import com.xoff.chessvger.view.UserDto;
+import com.xoff.chessvger.common.UserTenant;
 import java.util.List;
 import org.mapstruct.Mapper;
 
@@ -9,11 +9,11 @@ import org.mapstruct.Mapper;
 public abstract class UserMapper {
 
 
-  public abstract UserDto entity2Dto(User user);
+  public abstract UserTenant entity2Dto(User user);
 
-  public abstract List<User> map(List<UserDto> dtos);
+  public abstract List<User> map(List<UserTenant> dtos);
 
-  public abstract User dto2entity(UserDto dto);
+  public abstract User dto2entity(UserTenant dto);
 
-  public abstract List<UserDto> mapListEntity2Dto(List<User> users);
+  public abstract List<UserTenant> mapListEntity2Dto(List<User> users);
 }
