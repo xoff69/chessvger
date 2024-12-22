@@ -2,7 +2,7 @@
 
 # frontend
 echo "build frontend"
-docker build -t  chessvger-client  ./client/chessvger-client --no-cache
+echo "TODO"
 #
 echo "build core"
 cd server
@@ -22,5 +22,6 @@ cd ..
 cd ..
 # images
 echo "build images"
+docker build -t  chessvger-client  ./client/chessvger-client --no-cache
 docker build -t chessvger-web ./server/web --no-cache
 docker build -t chessvger-backoffice ./server/backoffice --no-cache
