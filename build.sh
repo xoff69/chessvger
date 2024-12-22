@@ -2,7 +2,11 @@
 
 # frontend
 echo "build frontend"
-echo "TODO"
+cd client
+cd chessvger-client
+npm run build
+cd ..
+cd ..
 #
 echo "build core"
 cd server

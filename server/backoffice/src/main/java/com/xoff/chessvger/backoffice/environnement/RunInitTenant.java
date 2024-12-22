@@ -1,7 +1,9 @@
 package com.xoff.chessvger.backoffice.environnement;
 
-import com.xoff.chessvger.backoffice.util.CommonDao;
-import com.xoff.chessvger.backoffice.util.DatabaseManager;
+import com.xoff.chessvger.backoffice.dao.CommonDao;
+import com.xoff.chessvger.backoffice.dao.ContractDao;
+import com.xoff.chessvger.backoffice.dao.DatabaseDao;
+import com.xoff.chessvger.backoffice.dao.UserDao;
 import com.xoff.chessvger.common.UserTenant;
 import java.sql.Connection;
 
@@ -16,13 +18,13 @@ public class RunInitTenant implements Runnable {
   public void run() {
 
     try (Connection connection= CommonDao.getConnection()){
-      DatabaseManager.createUser(connection,userTenant.getLogin(),userTenant.getName(),userTenant.getPassword(),false); // admin
+      UserDao.createUser(connection,userTenant.getLogin(),userTenant.getName(),userTenant.getPassword(),false); // admin
 
-      DatabaseManager.linkUserToContract(userTenant,DatabaseManager.getDefaultContract());
-      String schemaName = String.format(DatabaseManager.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
+      ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
+      String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
 
-      if (DatabaseManager.createSchemaIfNotExists(connection,schemaName)){
-        DatabaseManager.createDatabase(schemaName);
+      if (CommonDao.createSchemaIfNotExists(connection,schemaName)){
+        DatabaseDao.createDatabase(schemaName);
         // TODO : lui copier la database par defaut liee au contrat
       }
 

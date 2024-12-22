@@ -1,7 +1,11 @@
 package com.xoff.chessvger.backoffice.environnement;
 
-import com.xoff.chessvger.backoffice.util.CommonDao;
-import com.xoff.chessvger.backoffice.util.DatabaseManager;
+import com.xoff.chessvger.backoffice.dao.CommonDao;
+import com.xoff.chessvger.backoffice.dao.ContractDao;
+import com.xoff.chessvger.backoffice.dao.DatabaseDao;
+import com.xoff.chessvger.backoffice.dao.FeatureFlagDao;
+import com.xoff.chessvger.backoffice.dao.PlayerDao;
+import com.xoff.chessvger.backoffice.dao.UserDao;
 import java.sql.Connection;
 
 
@@ -11,17 +15,18 @@ public class RunInitSystem  implements Runnable {
   @Override
   public void run() {
     try (Connection connection=CommonDao.getConnection()){
-      if (DatabaseManager.createSchemaIfNotExists(connection,DatabaseManager.COMMON_SCHEMA)){
-        DatabaseManager.createTable(connection,DatabaseManager.TABLE_PLAYER);
+      if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)){
+        CommonDao.createTable(connection, PlayerDao.TABLE_PLAYER);
       }
 
-      if (DatabaseManager.createSchemaIfNotExists(connection,DatabaseManager.ADMIN_SCHEMA)){
-        DatabaseManager.createTable(connection,DatabaseManager.TABLE_USER);
-        DatabaseManager.createUser(connection,"admin","admin name","admin",true);
-
-        DatabaseManager.createTable(connection,DatabaseManager.TABLE_CONTRACT);
-        DatabaseManager.insertDefautContract(connection);
-        DatabaseManager.createTable(connection,DatabaseManager.FEATURE_FLAG);
+      if (CommonDao.createSchemaIfNotExists(connection, CommonDao.ADMIN_SCHEMA)){
+        CommonDao.createTable(connection, UserDao.TABLE_USER);
+        UserDao.createUser(connection,"admin","admin name","admin",true);
+        CommonDao.createTable(connection, DatabaseDao.TABLE_DATABASE, CommonDao.ADMIN_SCHEMA);
+        DatabaseDao.insertDefaultDatabase(connection, CommonDao.ADMIN_SCHEMA);
+        CommonDao.createTable(connection, ContractDao.TABLE_CONTRACT);
+        ContractDao.insertDefautContract(connection);
+        CommonDao.createTable(connection, FeatureFlagDao.TABLE_FEATURE_FLAG);
 
       }
 
