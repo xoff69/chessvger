@@ -11,7 +11,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.Instant;
 // pgadmin a lancer aussi
-
+// todo gestion des exceptions
 public class DatabaseManager {
   public static final String COMMON_SCHEMA="common";
   public static final String ADMIN_SCHEMA="admin";
@@ -52,8 +52,8 @@ public class DatabaseManager {
    */
   public static final String TABLE_POSITION_ENTITY_GAMES=
       "  create table %s.position_entity_games (games bigint, position_entity_id bigint not null);";
-  public static final String TABLE_CONTRACT = ;
-  public static final String FEATURE_FLAG = ;
+
+
 
 
   private static final String CHECK_SCHEMA_EXISTS_SQL =
@@ -70,29 +70,20 @@ public class DatabaseManager {
           "                             date_update TIMESTAMP,\n" + "\n" +
           "                             profil BOOLEAN DEFAULT FALSE -- Profil: admin (TRUE) ou utilisateur normal (FALSE)\n" +
           "\n" + ");";
-  private static final String INSERT_USER="INSERT INTO \"+ADMIN_SCHEMA+\".users (login, description, password, profil)\n" +
-  "VALUES     ('admin', 'Administrator account', 'admin', TRUE);";
+  private static final String INSERT_USER="INSERT INTO "+ADMIN_SCHEMA+".users (login, description, password, profil)\n" +
+  "VALUES     (?, ?, ?, ?);";
 
-public static Contract getDefaultContract(){
-  // TODO
-  return new Contract();
-}
-public static void createDatabase(UserTenant userTenant) {
 
-  // TODO
-}
-public static void linkUserToContract(UserTenant userTenant,Contract contract){}
   public static void createUser(Connection connection,
                                 String login, String description, String password, boolean profil) throws Exception {
-    String sql = String.format(INSERT_USER, schemaName, tableName);
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+    try (PreparedStatement stmt = connection.prepareStatement(INSERT_USER)) {
       stmt.setString(1, login);
       stmt.setString(2, description);
       stmt.setString(3, password);
-      stmt.setTimestamp(4, Instant.now()); // Peut être null
       stmt.setBoolean(5, profil);
       stmt.executeUpdate();
-      System.out.println("Row inserted: " + login);
+      System.out.println("createUser: " + login);
     }
   }
 
@@ -128,10 +119,43 @@ public static void linkUserToContract(UserTenant userTenant,Contract contract){}
     try (Statement stmt = connection.createStatement()) {
       stmt.execute(query);
       System.out.println("Table created: " + query);
+    } catch (Exception e) {
+      System.out.println("Error RunInitTenant");
+      throw new RuntimeException(e);
     }
   }
 
 
+  public static void createDatabase(String schemaName) {
+    try (Connection connection= CommonDao.getConnection()){
+
+      String sql = String.format(TABLE_DATABASE, schemaName);
+
+      createTable(connection,sql);
+    } catch (Exception e) {
+      System.out.println("Error RunInitTenant");
+      throw new RuntimeException(e);
+    }
+  }
+
+  public static final String TABLE_CONTRACT="CREATE TABLE "+ADMIN_SCHEMA+".contract (\n" +
+      "    id SERIAL PRIMARY KEY,\n" + "    price BIGINT NOT NULL,\n" +
+      "    durationDay INT NOT NULL,\n" + "    startDate TIMESTAMP NOT NULL,\n" +
+      "    endDate TIMESTAMP NOT NULL,\n" + "    databaseId BIGINT NOT NULL\n" + ");";
+
+
+  public static final String INSERT_CONTRACT="INSERT INTO \"+ADMIN_SCHEMA+\".contract (price, durationDay, startDate, endDate, databaseId)\n" +
+      "VALUES (100000, 30, '2024-01-01T00:00:00Z', '2024-01-31T00:00:00Z', 1);";"
+
+
+
+  public static Contract getDefaultContract(){
+    // TODO
+    return new Contract();
+  }
+  public static void linkUserToContract(UserTenant userTenant,Contract contract){}
   public static void insertDefautContract(Connection connection) {// TODO
   }
+
+  // feature flag
 }

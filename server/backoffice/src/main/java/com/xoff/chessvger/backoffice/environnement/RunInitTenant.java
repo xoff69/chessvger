@@ -22,7 +22,7 @@ public class RunInitTenant implements Runnable {
       String schemaName = String.format(DatabaseManager.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
 
       if (DatabaseManager.createSchemaIfNotExists(connection,schemaName)){
-        DatabaseManager.createDatabase(userTenant);
+        DatabaseManager.createDatabase(schemaName);
         // TODO : lui copier la database par defaut liee au contrat
       }
 
