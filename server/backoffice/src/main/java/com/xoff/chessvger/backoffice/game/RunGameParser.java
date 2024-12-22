@@ -4,6 +4,7 @@
 
 package com.xoff.chessvger.backoffice.game;
 
+import com.xoff.chessvger.backoffice.dao.CommonGameDao;
 import com.xoff.chessvger.topic.Topic;
 import java.io.File;
 import java.io.IOException;

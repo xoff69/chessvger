@@ -28,6 +28,8 @@ public class RunInitSystem  implements Runnable {
         ContractDao.insertDefautContract(connection);
         CommonDao.createTable(connection, FeatureFlagDao.TABLE_FEATURE_FLAG);
 
+        // toutes les tables game of a player ... mais dont le nom est dynamique, a reflechir
+
       }
 
     } catch (Exception e) {

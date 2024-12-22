@@ -1,6 +1,6 @@
-package com.xoff.chessvger.backoffice.position;
+package com.xoff.chessvger.backoffice.dao;
 
-import com.xoff.chessvger.backoffice.dao.CommonDao;
+import com.xoff.chessvger.backoffice.position.PositionEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

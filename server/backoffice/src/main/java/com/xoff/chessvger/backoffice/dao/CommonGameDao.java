@@ -1,7 +1,7 @@
-package com.xoff.chessvger.backoffice.game;
+package com.xoff.chessvger.backoffice.dao;
 
 
-import com.xoff.chessvger.backoffice.dao.CommonDao;
+import com.xoff.chessvger.backoffice.game.CommonGame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
