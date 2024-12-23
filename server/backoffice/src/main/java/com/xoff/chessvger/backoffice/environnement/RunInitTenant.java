@@ -22,9 +22,9 @@ public class RunInitTenant implements Runnable {
 
       ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
       String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
-
+// tenantDao va initialiser
       if (CommonDao.createSchemaIfNotExists(connection,schemaName)){
-        DatabaseDao.createDatabase(schemaName,DatabaseDao.DEFAULT_DATABASE_NAME);
+        DatabaseDao.createChessvgerDatabase(schemaName,DatabaseDao.DEFAULT_DATABASE_NAME);
         DatabaseDao.duplicate(CommonDao.COMMON_SCHEMA, DatabaseDao.DEFAULT_DATABASE_NAME, schemaName,DatabaseDao.DEFAULT_DATABASE_NAME);
       }
 

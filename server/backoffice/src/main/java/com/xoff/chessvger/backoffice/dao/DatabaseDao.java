@@ -18,9 +18,9 @@ public class DatabaseDao {
    * create dababase en subtable: games, ...
    *
    */
-  public static void createDatabase(String schemaName,String databaseName) {
+  public static void createChessvgerDatabase(String schemaName, String databaseName) {
     try (Connection connection= CommonDao.getConnection()){
-
+  // cree un schema
       String sql = String.format(TABLE_DATABASE, schemaName);
 
       CommonDao.createTable(connection,sql);
@@ -40,7 +40,7 @@ public class DatabaseDao {
     }
   }
 
-  public static void insertDefaultDatabase(Connection connection, String adminSchema) {
+  public static void insertDefaultChessvgerDatabase(Connection connection, String adminSchema) {
     throw new UnsupportedOperationException("Not yet implemented");
     // create dabase avec un certain nom DEFAULT_DATABASE_NAME
   }

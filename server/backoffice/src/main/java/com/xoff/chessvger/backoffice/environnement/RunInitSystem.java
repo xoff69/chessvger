@@ -18,12 +18,12 @@ public class RunInitSystem  implements Runnable {
       if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)){
         CommonDao.createTable(connection, PlayerDao.TABLE_PLAYER);
       }
-
+// creer le tenant admin
       if (CommonDao.createSchemaIfNotExists(connection, CommonDao.ADMIN_SCHEMA)){
         CommonDao.createTable(connection, UserDao.TABLE_USER);
         UserDao.createUser(connection,"admin","admin name","admin",true);
         CommonDao.createTable(connection, DatabaseDao.TABLE_DATABASE, CommonDao.ADMIN_SCHEMA);
-        DatabaseDao.insertDefaultDatabase(connection, CommonDao.ADMIN_SCHEMA);
+        DatabaseDao.insertDefaultChessvgerDatabase(connection, CommonDao.ADMIN_SCHEMA);
         CommonDao.createTable(connection, ContractDao.TABLE_CONTRACT);
         ContractDao.insertDefautContract(connection);
         CommonDao.createTable(connection, FeatureFlagDao.TABLE_FEATURE_FLAG);
