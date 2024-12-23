@@ -16,9 +16,9 @@ public class DatabaseDao {
 
   /**
    * create dababase en subtable: games, ...
-   * @param schemaName
+   *
    */
-  public static void createDatabase(String schemaName,String name) {
+  public static void createDatabase(String schemaName,String databaseName) {
     try (Connection connection= CommonDao.getConnection()){
 
       String sql = String.format(TABLE_DATABASE, schemaName);
@@ -29,6 +29,11 @@ public class DatabaseDao {
       // table game of player
       // table position + subtable
       // table material+ subtable
+      // filiation
+      // favorite
+      // filter
+      // history
+      // statisque + meilleurs joueurs stat
     } catch (Exception e) {
       System.out.println("Error RunInitTenant");
       throw new RuntimeException(e);
