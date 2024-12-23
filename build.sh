@@ -4,6 +4,8 @@
 echo "build frontend"
 cd client
 cd chessvger-client
+npm install
+npm update
 npm run build
 cd ..
 cd ..
