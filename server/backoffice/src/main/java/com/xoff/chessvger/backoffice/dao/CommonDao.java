@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 // TODO gestion des exceptions
+// TODO gestion des databases: comment on switche
 public class CommonDao {
   public static final String COMMON_SCHEMA="common";
-  public static final String ADMIN_SCHEMA="admin";
   public static final String SCHEMA_TENANT_PATTERN="tenant_%s";
   private static final HikariConfig config = new HikariConfig();
   private static final HikariDataSource ds;
