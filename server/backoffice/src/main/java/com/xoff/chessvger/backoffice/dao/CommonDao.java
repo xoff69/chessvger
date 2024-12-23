@@ -4,6 +4,7 @@ import com.xoff.chessvger.backoffice.Main;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,4 +94,40 @@ public class CommonDao {
     createTable(connection,sql);
 
   }
+  public static void createDatabasePg(Connection connection, String schemaName) throws Exception {
+
+
+
+        // Nom de la nouvelle base de données
+        String newDatabase = "nouvelle_base";
+
+        Connection connection = null;
+        Statement statement = null;
+
+        try {
+          // Connexion à la base de données existante
+          connection = DriverManager.getConnection(url, user, password);
+
+          // Création de l'objet Statement
+          statement = connection.createStatement();
+
+          // Requête SQL pour créer une nouvelle base de données
+          String sql = "CREATE DATABASE " + newDatabase;
+
+          // Exécution de la requête
+          statement.executeUpdate(sql);
+          System.out.println("Base de données créée avec succès : " + newDatabase);
+
+        } catch (SQLException e) {
+          System.out.println("Erreur lors de la création de la base de données : " + e.getMessage());
+        } finally {
+          try {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+
 }
