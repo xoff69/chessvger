@@ -24,8 +24,8 @@ public class RunInitTenant implements Runnable {
       String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
 
       if (CommonDao.createSchemaIfNotExists(connection,schemaName)){
-        DatabaseDao.createDatabase(schemaName);
-        // TODO : lui copier la database par defaut liee au contrat
+        DatabaseDao.createDatabase(schemaName,DatabaseDao.DEFAULT_DATABASE_NAME);
+        DatabaseDao.duplicate(CommonDao.COMMON_SCHEMA, DatabaseDao.DEFAULT_DATABASE_NAME, schemaName,DatabaseDao.DEFAULT_DATABASE_NAME);
       }
 
 
