@@ -4,6 +4,7 @@
 
 package com.xoff.chessvger.backoffice.player;
 
+import com.xoff.chessvger.backoffice.dao.PlayerDao;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class RunPlayerParser implements Runnable {
    */
   private void manageFile(String filedir) {
 
-    CommonPlayerDao commonPlayerDao = new CommonPlayerDao();
+    PlayerDao commonPlayerDao = new PlayerDao();
     System.out.println("managerFile " + filedir);
     PlayerParser playerParser = new PlayerParser();
     long start = System.currentTimeMillis();

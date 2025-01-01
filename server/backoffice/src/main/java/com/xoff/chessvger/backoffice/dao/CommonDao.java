@@ -3,6 +3,9 @@ package com.xoff.chessvger.backoffice.dao;
 import com.xoff.chessvger.backoffice.Main;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +18,7 @@ import java.sql.Statement;
 public class CommonDao {
   public static final String COMMON_SCHEMA="common";
   public static final String SCHEMA_TENANT_PATTERN="tenant_%s";
+  public static final String ADMIN_SCHEMA = "admin";
   private static final HikariConfig config = new HikariConfig();
   private static final HikariDataSource ds;
   private static final String CHECK_SCHEMA_EXISTS_SQL =
@@ -41,6 +45,20 @@ public class CommonDao {
     config.setAutoCommit(true);
 
     ds = new HikariDataSource(config);
+  }
+
+  public static String readQuery(String where){
+    StringBuilder sqlQuery = new StringBuilder();
+    try (BufferedReader br = new BufferedReader(new FileReader(where))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        sqlQuery.append(line).append("\n");
+      }
+      return  sqlQuery.toString();
+    } catch (IOException e) {
+      System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
+      return "";
+    }
   }
 
   private CommonDao() {

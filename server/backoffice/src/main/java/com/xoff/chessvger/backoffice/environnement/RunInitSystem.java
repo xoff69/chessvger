@@ -15,6 +15,8 @@ public class RunInitSystem  implements Runnable {
 
   @Override
   public void run() {
+    String query=CommonDao.readQuery("./data/query/usertable.sql");
+    System.out.println("query "+query);
     try (Connection connection=CommonDao.getConnection()){
       // creer le schema common pour les players dans le bd pg  chessvger
       if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)){

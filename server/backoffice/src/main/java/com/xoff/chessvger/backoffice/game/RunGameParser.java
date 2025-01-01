@@ -4,6 +4,7 @@
 
 package com.xoff.chessvger.backoffice.game;
 
+import com.xoff.chessvger.backoffice.dao.GameDao;
 import com.xoff.chessvger.topic.Topic;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class RunGameParser implements Runnable {
 
   private static void manageFile(String filedir) throws IOException,SQLException {
     System.out.println("games " + filedir);
-    CommonGameDao commonGameDao = new CommonGameDao();
+    GameDao commonGameDao = new GameDao();
     Parser parser = new Parser();
     long start = System.currentTimeMillis();
     List<CommonGame> games = parser.parseDir(new File(filedir));
@@ -32,13 +33,13 @@ public class RunGameParser implements Runnable {
     System.out.println("after parse games done: " + games.size() + ":" + timeElapsed + " s");
 
 
-    long id = commonGameDao.count()+1;
+    long id = commonGameDao.count("TODO SCHEMA")+1;
     for (CommonGame game : games) {
 
       game.setId(id++);
 
       try {
-        commonGameDao.insertCommonGame(game);
+        commonGameDao.insertCommonGame(game,"TODO SCHEMA");
       } catch (SQLException e) {
         throw new RuntimeException(e);
       } catch (ClassNotFoundException e) {
