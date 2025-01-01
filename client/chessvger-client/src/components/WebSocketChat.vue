@@ -20,11 +20,18 @@
     </ul>
 
   </div>
+  bbb
+  <div>
+    <h1>Feature Flags</h1>
+    <div v-for="event in events" :key="event.timestamp">
+      {{ event.message }} (Reçu à {{ event.timestamp }})
+    </div>
+  </div>
 </template>
 
 <script>
 import websocketService from "@/services/websocketService";
-
+import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
 export default {
   data() {
     return {
@@ -46,10 +53,20 @@ export default {
     websocketService.connect((message) => {
       this.messages.push(message); // Ajoute les messages reçus à la liste
     });
+    this.socket = io("http://localhost:3000/");
+    this.socket.on("featureUpdate", (data) => {
+      this.events.push({
+        message: data.message,
+        timestamp: new Date().toLocaleTimeString(),
+      });
   },
+
   beforeDestroy() {
     // Déconnecte du WebSocket avant de détruire le composant
     websocketService.disconnect();
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   },
 };
 </script>
