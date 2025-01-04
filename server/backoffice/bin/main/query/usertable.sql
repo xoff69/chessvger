@@ -1,4 +1,4 @@
-CREATE TABLE admin.users
+CREATE TABLE common.users
   (
      id           SERIAL PRIMARY KEY,
      login        VARCHAR(50) NOT NULL UNIQUE,

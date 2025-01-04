@@ -99,7 +99,7 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
       stmt.execute(query);
       System.out.println("Query executed: " + query);
     } catch (Exception e) {
-      System.out.println("Error executeQuery "+query);
+      System.out.println("Error executeQuery "+query+ " "+e.getMessage());
 
     }
   }
@@ -109,7 +109,7 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
     try (Statement statement = connection.createStatement()) {
 
       // Requête SQL pour créer une nouvelle base de données
-      String sql = "CREATE DATABASE " + databaseName;
+      String sql = "CREATE DATABASE chessvger_" + databaseName+"_database";
 
       // Exécution de la requête
       statement.executeUpdate(sql);

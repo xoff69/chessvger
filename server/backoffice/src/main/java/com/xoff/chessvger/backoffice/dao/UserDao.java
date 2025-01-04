@@ -4,16 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class UserDao {
-  public static final String TABLE_USER =
-      "CREATE TABLE "+ CommonDao.COMMON_SCHEMA+".users (\n" + "\n" +
-          "                             id SERIAL PRIMARY KEY,\n" +
-          "                             login VARCHAR(50) NOT NULL UNIQUE,\n" +
-          "                             description TEXT,\n" +
-          "                             password VARCHAR(255) NOT NULL,\n" + "\n" +
-          "                             date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n" +
-          "                             date_update TIMESTAMP,\n" + "\n" +
-          "                             profil BOOLEAN DEFAULT FALSE -- Profil: admin (TRUE) ou utilisateur normal (FALSE)\n" +
-          "\n" + ");";
+
   private static final String INSERT_USER="INSERT INTO "+ CommonDao.COMMON_SCHEMA+".users (login, description, password, profil)\n" +
   "VALUES     (?, ?, ?, ?);";
 
@@ -27,6 +18,9 @@ public class UserDao {
       stmt.setBoolean(4, profil);
       stmt.executeUpdate();
       System.out.println("createUser: " + login);
+    }
+    catch (Exception e){
+      System.out.println("Error createUser: " + login+" "+e.getMessage());
     }
   }
 }

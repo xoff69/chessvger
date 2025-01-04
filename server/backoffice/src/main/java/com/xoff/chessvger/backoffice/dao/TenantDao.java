@@ -1,18 +1,22 @@
 package com.xoff.chessvger.backoffice.dao;
 
+import com.xoff.chessvger.backoffice.util.FileUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 public class TenantDao {
   public static void createTenantEnvironnement(String tenantName) {
-    // cree une database pg
+
     try (Connection connection = CommonDao.getConnection()) {
 
       CommonDao.createDatabasePg(connection, tenantName);
-      try (Connection connectionTenant = CommonDao.getConnection(tenantName)) {
+      String name="chessvger_"+tenantName+"_database";
+      try (Connection connectionTenant = CommonDao.getConnection(name)) {
         // schema common
         CommonDao.createSchemaIfNotExists(connectionTenant, CommonDao.COMMON_SCHEMA);
         // puis un schema par bd
-        CommonDao.executeQuery(connectionTenant, TABLE_DATABASE);
+        String queryDatabaseTable= FileUtils.read("query/databasetable.sql");
+        System.out.println("queryDatabaseTable "+queryDatabaseTable);
+        CommonDao.executeQuery(connectionTenant, queryDatabaseTable);
         String schemaName="main_"+tenantName;
         CommonDao.createSchemaIfNotExists(connectionTenant, schemaName);
         createChessvgerDatabase(connectionTenant,schemaName);
@@ -30,9 +34,13 @@ public class TenantDao {
    */
   private static void createChessvgerDatabase(Connection connection,String schemaNameString) {
 
+    String queryGameTable= FileUtils.read("query/gametable.sql");
 
-    //CommonDao.executeQuery(connection,sql);
-    // table des games de la db
+    System.out.println("queryGameTable "+queryGameTable);
+    String sql = String.format(queryGameTable, schemaNameString);
+    System.out.println("sql "+sql);
+    CommonDao.executeQuery(connection, sql);
+
     // table des stats
     // table game of player
     // table position + subtable
@@ -46,14 +54,6 @@ public class TenantDao {
   }
 
   public static final String DEFAULT_DATABASE_NAME = "Main 2025";
-
-  public static final String TABLE_DATABASE=   "CREATE TABLE %s.database (\n" +
-      " id BIGINT PRIMARY KEY AUTO_INCREMENT,\n" +
-      "   name VARCHAR(255) NOT NULL,\n" +
-      "description TEXT,\n" +
-      "date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n" +
-      "date_update TIMESTAMP,\n" +
-      ");";
 
 
 

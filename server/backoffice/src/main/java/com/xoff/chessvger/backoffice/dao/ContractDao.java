@@ -15,10 +15,10 @@ public class ContractDao {
   }
 
   public static void linkUserToContract(UserTenant userTenant, Contract contract){
-    throw new UnsupportedOperationException("Not yet implemented");
+  //  throw new UnsupportedOperationException("Not yet implemented");
   }
 
   public static void insertDefautContract(Connection connection) {// TODO
-    throw new UnsupportedOperationException("Not yet implemented");
+   // throw new UnsupportedOperationException("Not yet implemented");
   }
 }
