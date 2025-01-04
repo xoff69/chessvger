@@ -19,14 +19,14 @@ public class RunInitTenant implements Runnable {
     try (Connection connection= CommonDao.getConnection()){
       UserDao.createUser(connection,userTenant.getLogin(),userTenant.getName(),userTenant.getPassword(),false); // admin
 
-      ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
+      // TODO ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
       String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
 
       TenantDao.createTenantEnvironnement(userTenant.getLogin());
 
 // tenantDao initialise une nouvelle bd pg, et en plus on cree un schema dans cette nouvelle bd
       // et on fait une copie
-      TenantDao.duplicate(CommonDao.COMMON_SCHEMA, TenantDao.DEFAULT_DATABASE_NAME, schemaName,TenantDao.DEFAULT_DATABASE_NAME);
+     // TODO  TenantDao.duplicate(CommonDao.COMMON_SCHEMA, TenantDao.DEFAULT_DATABASE_NAME, schemaName,TenantDao.DEFAULT_DATABASE_NAME);
 
 
 

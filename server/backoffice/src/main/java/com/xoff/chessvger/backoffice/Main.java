@@ -30,7 +30,13 @@ public class Main {
       System.out.println("Main!" + args[0]);
       dbhost = "localhost";
       // for test
-      Thread thread = new Thread(new RunInitSystem());
+      UserTenant userTenant = new UserTenant();
+      userTenant.setName("xoff");
+      userTenant.setPassword("xoff");
+      userTenant.setIsAdmin(false);
+      userTenant.setId(5L);
+      userTenant.setLogin("xoff");
+      Thread thread = new Thread(new RunInitTenant(userTenant));
       thread.start();
     }
     System.out.println("Start main");

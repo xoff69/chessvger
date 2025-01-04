@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <META CONTENT="no-cache" HTTP-EQUIV="Pragma">
+    <META CONTENT="-1" HTTP-EQUIV="Expires">
+    <title>ChessVger 2024</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="images/favicon.ico" rel="icon"/>
+    <link rel="stylesheet" th:href="@{/css/chessboard-1.0.0.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chessvger.css}"/>
+
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jqueryserializeJSON.js" type="text/javascript"></script>
+
+    <script th:src="@{/js/chessboard-1.0.0.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/chess.js}" type="text/javascript"></script>
+    <script th:src="@{/js/cv.js}" type="text/javascript"></script>
+
+    <script src="/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<script>
+function callClose(){
+   $.ajax({
+            url: '/closeAll'        ,
+            type: 'get',
+            dataType: 'JSON',
+            success: function(response){
+            }
+        });
+}
+    window.addEventListener('beforeunload', (event) => {
+
+            callClose();
+
+             return;
+ });
+</script>
+<body>
+<div th:insert="~{fragments/menu.html :: menu}"></div>
+<div class="tabbable boxed parentTabs p-4">
+    <ul class="nav nav-tabs">
+        <li class="nav-item"
+            th:each="tab : ${navigation.tabs.list}"
+            th:id="'li_menu_' + ${tab.id}"
+        >
+            <a th:attr="class='nav-link'" th:href="'#set' + ${tab.id}"
+               th:id="'tab' + ${tab.id}"
+            ><span th:text="${tab.label}"></span>
+                <th:block th:if="${#strings.equals(tab.tabType.name(),'BD')}">
+                    <img src="images/icons/close.png" style="width:20px;height:20px;"
+                         th:alt="#{bd.close}"
+                         th:id="'closeBd' + ${tab.objectKey}">
+                    <script>
+                        $('#closeBd[[${tab.objectKey}]]').click(function(){
+                           var bdId=[[${tab.objectKey}]];
+                           closeBd(bdId);
+                        });
+
+
+                    </script>
+                </th:block>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div th:attr="class='tab-pane fade  in'" th:each="tab : ${navigation.tabs.list}"
+             th:id="'set' + ${tab.id}">
+
+            <div th:if="${tab.fils.empty&&#strings.equals(tab.tabType.name(),'BDS')}">
+                <div th:replace="~{fragments/bd.html :: all}"></div>
+            </div>
+            <div th:if="${tab.fils.empty&&#strings.equals(tab.tabType.name(),'HOMEPAGE')}">
+                <div th:replace="~{fragments/homepage.html :: all}"></div>
+            </div>
+            <div class="tabbable" th:if="${!tab.fils.empty}">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" role="presentation"
+                        th:each="subtab : ${tab.fils}"
+                        th:id="'li_menu_' + ${subtab.id}"
+                        th:if="${subtab.visible}"
+                    >
+                        <a
+                                th:attr="class=' nav-link'"
+                                th:href="'#sub' + ${subtab.id}" th:id="'tab' + ${subtab.id}">
+                        <span th:text="${subtab.label}">
+                        </span>
+                            <th:block th:if="${#strings.equals(subtab.tabType.name(),'GAME')}">
+                                <img src="images/icons/close.png" style="width:20px;height:20px;"
+                                     th:alt="#{game.close}"
+                                     th:id="'closeGame' + ${tab.objectKey}+'_'+${subtab.objectKey}">
+                                <script>
+                                    $('#closeGame[[${tab.objectKey}]]_[[${subtab.objectKey}]]').click(function(){
+
+                                       var bdId=[[${tab.objectKey}]];
+                                       var gameId=[[${subtab.objectKey}]];
+                                       closeGame(bdId,gameId);
+                                    });
+
+
+                                </script>
+                            </th:block>
+
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade" th:each="subtab : ${tab.fils}" th:id="'sub' + ${subtab.id}">
+
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'GAMES')}">
+                            <div th:replace="~{fragments/games.html :: games(${tab.objectKey})}"></div>
+                        </th:block>
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'PLAYERS')}">
+                            <div th:replace="~{fragments/players.html :: players(${tab.objectKey})}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'BROWSE')}">
+                            <div th:replace="~{fragments/browse.html :: browse(${tab.objectKey})}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'GAME')}">
+                            <div th:replace="~{fragments/game.html :: game(${tab.objectKey},${subtab.objectKey})}"></div>
+                        </th:block>
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'HISTORIC')}">
+                            <div th:replace="~{fragments/historics.html :: historics(${tab.objectKey})}"></div>
+                        </th:block>
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'USERS')}">
+                            <div th:replace="~{fragments/users.html :: users}"></div>
+                        </th:block>
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'FEATURES')}">
+                            <div th:replace="~{fragments/features.html :: features}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'FAVORITES')}">
+                            <div th:replace="~{fragments/favorites.html :: favorites(${tab.objectKey})}"></div>
+                        </th:block>
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'ADMINSTAT')}">
+                            <div th:replace="~{fragments/adminstat.html :: adminstat}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'PACK')}">
+                            <div th:replace="~{fragments/pack.html :: adminpack}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'USERPACK')}">
+                            <div th:replace="~{fragments/pack.html :: adminuserpack}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'MYPACK')}">
+                            <div th:replace="~{fragments/pack.html :: pack}"></div>
+                        </th:block>
+
+
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'ADMINENGINE')}">
+                            <div th:replace="~{fragments/adminengine.html :: adminengine}"></div>
+                        </th:block>
+                        <th:block th:if="${#strings.equals(subtab.tabType.name(),'ADMINFIDEPLAYER')}">
+                            <div th:replace="~{fragments/adminfideplayer.html :: adminfideplayer}"></div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    __currentFils=0;
+    function updateTab(tabId){
+        console.log("update tab "+tabId);
+        // si on est sur un suronglet il faut cliquer sur le sous onglet
+        $.ajax({
+            url: '/chooseTab?tabId='+tabId        ,
+            type: 'get',
+            dataType: 'JSON',
+            success: function(response){
+                console.log("status "+tabId+" current ="+response.child);
+                $("#status_info").html("update onglet ok:"+response);
+                __currentFils=response.child
+                var cur2="#tab"+response.child;
+                $(cur2).trigger("click");
+
+            }
+        });
+    }
+
+    $("ul.nav-tabs a").click(function (e) {
+            console.log("ul.nav-tabs a ");
+            e.preventDefault();
+            $(this).tab('show');
+            loc=$(this).attr('id');
+            updateTab(loc);
+    });
+    function selectMainTabAndSubTab(){
+        console.log("update selectMainTabAndSubTab ");
+        // default active tab [[${gameId}]];
+        var cur1="#tab"+[[${navigation.level1Tab}]];
+        $(cur1).trigger("click");
+        var cur2="#tab"+[[${navigation.level2Tab}]];
+        __currentFils=[[${navigation.level2Tab}]];
+        $(cur2).trigger("click");
+    }
+    $(document).ready(function () {
+      selectMainTabAndSubTab();
+      makeAllSortable();
+    });
+
+
+</script>
+
+<div th:insert="~{fragments/general.html :: footer}"></div>
+<div th:insert="~{fragments/general.html :: status}"></div>
+</body>
+</html>

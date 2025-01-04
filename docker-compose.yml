@@ -52,6 +52,18 @@ services:
     ports:
       - "8080:8080"
 
+  chessvger-webapp-admin:
+    image: chessvger-webapp-admin:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - chessvger_network
+    volumes:
+      - ./data:/app/data   
+    ports:
+      - "8082:8082"
+
   chessvger-client:
     image: chessvger-client:latest
     build:
@@ -63,7 +75,19 @@ services:
       - chessvger_network
     ports:
       - "3000:3000"
-      
+
+  chessvger-admin:
+    image: chessvger-admin:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - chessvger-webapp
+    networks:
+      - chessvger_network
+    ports:
+      - "3002:3002"
+           
   chessvger-backoffice:
     image: chessvger-backoffice:latest
     build:

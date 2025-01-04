@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="users">
+    <a id="createUserLink">lien creer user</a>
+    <div id="createUserDiv">
+        <form id="formCreateUser" name="formCreateUser">
+            <input class="form-control" name="id" type="hidden" value="0">
+            <div class="form-group">
+                <label for="login">login:</label>
+                <input class="form-control" name="name" type="text">
+            </div>
+            <div class="form-group">
+                <label for="password">password:</label>
+                <input class="form-control" name="password" type="text">
+            </div>
+
+        </form>
+        <button class="btn btn-success " id="submitformUser" type="submit">Submit</button>
+    </div>
+    <h1 th:text="#{users.title}"></h1>
+    <table class="table table-striped" id="userTable">
+
+        <thead>
+        <tr>
+            <th th:text="#{common.th.id}" width="20%"></th>
+            <th th:text="#{user.th.name}" width="20%"></th>
+            <th th:text="#{table.header.actions}" width="30%"></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="usersPagination"></div>
+
+    <script>
+        $("#createUserLink").click(function (e) {
+                $("#createUserDiv").show();
+        });
+      $(document).ready(function () {
+
+          $("#submitformUser").click(function (e) {
+              var MyForm = JSON.stringify($("#formCreateUser").serializeJSON());
+              console.log(MyForm);
+              $.ajax(
+                  {   contentType: "application/json;charset=utf-8",
+                      url: "/users",
+                      type: "POST",
+                      data: MyForm,
+                      success: function (data) {
+                        console.log("ok "+data);
+                        displayUsers();
+                      },
+                      error: function (error) {
+                       console.log(error)
+                      }, }
+                  );
+              e.preventDefault(); //STOP default action
+          });
+      });
+
+        function displayUsers(){
+
+         $("#createUserDiv").hide();
+
+        $.ajax({
+            url: '/users',
+            type: 'get',
+            dataType: 'JSON',
+            success: function(response){
+                $("#userTable > tbody").html("");
+                var d=response.items;
+                var len = d.length;
+                for(var i=0; i<len; i++){
+
+                    var id = d[i].id;
+                    var login = d[i].login;
+                    var tr_str = "<tr>" +
+                        "<td align='center'>" +id + "</td>" +
+                        "<td align='center'>" + login + "</td>" +
+
+                        "</tr>";
+
+                    $("#userTable tbody").append(tr_str);
+                }
+                page=buildPagination(response,displayUsers);
+                $("#usersPagination").html(page);
+
+            }
+        });
+        }
+    $(document).ready(function(){
+        displayUsers();
+    });
+
+
+    </script>
+</div>
+
+</body>
+</html>

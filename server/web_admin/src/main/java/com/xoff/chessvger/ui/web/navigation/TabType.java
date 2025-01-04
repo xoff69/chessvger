@@ -1,0 +1,13 @@
+package com.xoff.chessvger.ui.web.navigation;
+
+public enum TabType {
+
+  BDS, BD, GAMES, PLAYERS, BROWSE, HISTORIC,
+  GAME, MYFEATURES, ADMIN, USERS, FEATURES,
+  FAVORITES, HOMEPAGE, PACK, USERPACK,
+  MYPACK,ADMINSTAT
+  ,ADMINENGINE,ADMINFIDEPLAYER;
+
+  TabType() {
+  }
+}

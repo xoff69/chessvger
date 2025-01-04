@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="board(bdid,name)">
+    <div style="width: 100px" th:id="'board_'+ ${name} + ${bdId}"></div>
+    BOARD,HTML
+    <div th:id="'boardMoves_'+ ${name} + ${bdId}"></div>
+    <script>
+
+        var board[[${name}]][[${bdId}]] = Chessboard('board_'+"[[${name}]]"+[[${bdId}]], {
+         draggable: true,
+         dropOffBoard: 'trash',
+         sparePieces: true
+       })
+
+
+    $(document).ready(function(){
+
+   });
+
+
+   function playBrowse[[${bdId}]][[${name}]](bdId,id,move,cb){
+
+            $.ajax({
+               url: '/browseOne?bdId='+bdId+'&browseId='+id,
+               type: 'get',
+               dataType: 'JSON',
+               success: function(response){
+                   console.log("retour browse");
+                   cb(response);
+               }
+           });
+
+           var ruyLopez = 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R';
+           board[[${name}]][[${bdId}]].position(ruyLopez, false);
+           console.log("je joue " +move);
+   }
+
+   function cb[[${bdId}]][[${name}]](data){
+       var bdId = [[${bdId}]];
+       var n= "[[${name}]]";
+
+       var boardMovesId='boardMoves_'+n+bdId;
+       console.log("call back "+data.moves);
+       console.log("#"+boardMovesId);
+       $("#"+boardMovesId).html(data.moves);
+   }
+   function getGameDetail[[${bdId}]][[${name}]](bdId,gameId){
+       console.log("LM");
+       getGameDetail(bdId,gameId,cb[[${bdId}]][[${name}]]);
+   }
+
+
+    </script>
+</div>
+</body>
+</html>
