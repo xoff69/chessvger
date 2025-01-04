@@ -12,15 +12,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
+// TODO gestion des exceptions
+// TODO gestion des databases: comment on switche
 // TODO gestion des exceptions
 // TODO gestion des databases: comment on switche
 public class CommonDao {
   public static final String COMMON_SCHEMA="common";
   public static final String SCHEMA_TENANT_PATTERN="tenant_%s";
-  public static final String ADMIN_SCHEMA = "admin";
-  private static final HikariConfig config = new HikariConfig();
-  private static final HikariDataSource ds;
+
   private static final String CHECK_SCHEMA_EXISTS_SQL =
       "SELECT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = ?)";
   private static final String CREATE_SCHEMA_SQL =
@@ -36,38 +38,32 @@ public class CommonDao {
     }
     // System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
 
-    config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
-    config.setUsername("chessvger");
-    config.setPassword("chessvger");
-    config.addDataSourceProperty("cachePrepStmts", "true");
-    config.addDataSourceProperty("prepStmtCacheSize", "250");
-    config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-    config.setAutoCommit(true);
 
-    ds = new HikariDataSource(config);
   }
 
-  public static String readQuery(String where){
-    StringBuilder sqlQuery = new StringBuilder();
-    try (BufferedReader br = new BufferedReader(new FileReader(where))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        sqlQuery.append(line).append("\n");
-      }
-      return  sqlQuery.toString();
-    } catch (IOException e) {
-      System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-      return "";
-    }
-  }
+private static Map<String,HikariDataSource> mapDatasource = new HashMap();
 
   private CommonDao() {
   }
 
   public static Connection getConnection() throws SQLException {
-    return ds.getConnection();
+    return getConnection("chessvger");
   }
+  public static Connection getConnection(String name) throws SQLException {
+    if (!mapDatasource.containsKey(name)) {
+      HikariConfig config = new HikariConfig();
+      config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/"+name);
+      config.setUsername("chessvger");
+      config.setPassword("chessvger");
+      config.addDataSourceProperty("cachePrepStmts", "true");
+      config.addDataSourceProperty("prepStmtCacheSize", "250");
+      config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+      config.setAutoCommit(true);
 
+      mapDatasource.put(name,new HikariDataSource(config));
+    }
+    return mapDatasource.get(name).getConnection();
+  }
   public static boolean createSchemaIfNotExists(Connection connection, String schemaName)
       throws Exception {
     if (!schemaExists(connection, schemaName)) {
@@ -97,37 +93,31 @@ public class CommonDao {
   }
 
   // Méthode pour créer une table
-  public static void createTable(Connection connection, String query) throws Exception {
+  public static void executeQuery(Connection connection, String query)  {
 
     try (Statement stmt = connection.createStatement()) {
       stmt.execute(query);
-      System.out.println("Table created: " + query);
+      System.out.println("Query executed: " + query);
     } catch (Exception e) {
-      System.out.println("Error RunInitTenant");
-      throw new RuntimeException(e);
+      System.out.println("Error executeQuery "+query);
+
     }
-  }
-
-  public static void createTable(Connection connection, String query, String schemaName) throws Exception {
-    String sql = String.format(DatabaseDao.TABLE_DATABASE, schemaName);
-    createTable(connection,sql);
-
   }
   public static void createDatabasePg(Connection connection, String databaseName) throws Exception {
 
 
     try (Statement statement = connection.createStatement()) {
 
-          // Requête SQL pour créer une nouvelle base de données
-          String sql = "CREATE DATABASE " + databaseName;
+      // Requête SQL pour créer une nouvelle base de données
+      String sql = "CREATE DATABASE " + databaseName;
 
-          // Exécution de la requête
-          statement.executeUpdate(sql);
-          System.out.println("Base de données créée avec succès : " + databaseName);
+      // Exécution de la requête
+      statement.executeUpdate(sql);
+      System.out.println("Base de données créée avec succès : " + databaseName);
 
-        } catch (SQLException e) {
-          System.out.println("Erreur lors de la création de la base de données : " + e.getMessage());
-        }
-      }
+    } catch (SQLException e) {
+      System.out.println("Erreur lors de la création de la base de données : " + e.getMessage());
+    }
+  }
 
 }

@@ -28,7 +28,10 @@ public class Main {
 
     if (args.length > 0) {
       System.out.println("Main!" + args[0]);
-      dbhost = "db_chessvger";
+      dbhost = "localhost";
+      // for test
+      Thread thread = new Thread(new RunInitSystem());
+      thread.start();
     }
     System.out.println("Start main");
     ObjectMapper objectMapper = new ObjectMapper();
