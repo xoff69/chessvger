@@ -1,0 +1,476 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="modal_search(bdId)">
+    <form th:id="'searchGameForm_' + ${bdId}" th:name="'searchGameForm_' + ${bdId}">
+        <input class="form-control" name="bdId" th:value="${bdId}" type="hidden">
+        <input class="form-control" name="id" type="hidden" value="0">
+        <!-- Modal search TODO indexer sur la bd -->
+        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" tabindex="-1"
+             th:id="'searchModal' + ${bdId}">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" th:text="#{search.title}"></h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="m-4">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#games"
+                                       th:text="#{search.games}"
+                                    ></a>
+                                </li>
+                                <li class="nav-item"
+                                    th:if="${(navigation.applicationBean.isAllowedFeature('SEARCH_POSITION'))}">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#positions"
+                                       th:text="#{search.positions}"
+                                    ></a>
+                                </li>
+                                <li class="nav-item"
+                                    th:if="${(navigation.applicationBean.isAllowedFeature('SEARCH_OTHERS'))}">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#others"
+                                       th:text="#{search.others}"
+                                    ></a>
+                                </li>
+                                <li class="nav-item"
+                                    th:if="${(navigation.applicationBean.isAllowedFeature('SEARCH_FILTERS'))}">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#filters"
+                                       th:text="#{search.filters}"
+                                    ></a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="games">
+                                    <div class="row g-3">
+                                        <div class="col-md-1 ">
+                                            <label for="event" th:text="#{search.evenement}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <input class="form-control" name="event"
+                                                   th:value="${navigation.bdFilters.get(bdId).event}"
+                                                   type="text"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="site" th:text="#{search.site}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <input class="form-control" name="site"
+                                                   th:value="${navigation.bdFilters.get(bdId).site}"
+                                                   type="text"
+                                            >
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            <label for="round" th:text="#{search.round}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <input class="form-control" name="round"
+                                                   th:value="${navigation.bdFilters.get(bdId).round}"
+                                                   type="text"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <!-- line 2 -->
+                                        <div class="col-md-1">
+                                            <label for="date1" th:text="#{search.date}"></label>
+                                        </div>
+                                        <div class="col-md-1">
+
+                                            <select class="form-control" name="selectedModeDate"
+                                                    th:id="'selectSearchDate_'+ ${bdId}">
+                                                <option th:each="interval : ${navigation.bdFilters.get(bdId).listeInterval}"
+                                                        th:selected="(${interval.equals( navigation.bdFilters.get(bdId).selectedModeDate)})"
+                                                        th:text="${interval}"
+                                                        th:value="${interval}">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1 ">
+                                            <input class="form-control" max="2100"
+                                                   min="1800" name="date1"
+                                                   th:value="${navigation.bdFilters.get(bdId).date1}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <img src="images/icons/go.png" style="width:20px;height:20px;"
+                                                 th:id="'AsearchDate_'+ ${bdId}">
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input class="form-control" max="2100"
+                                                   min="1800"
+                                                   name="date2" th:id="'BsearchDate_'+ ${bdId}"
+                                                   th:value="${navigation.bdFilters.get(bdId).date2}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input name="includeDateNull"
+                                                   th:value="${navigation.bdFilters.get(bdId).includeDateNull}"
+                                                   type="checkbox"
+                                            >
+                                            <label for="includeDateNull" th:text="#{search.date.checkinfo}"></label>
+                                        </div>
+
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <!-- line 3 -->
+                                        <div class="col-md-1">
+                                            <label for="white" th:text="#{search.whiteplayer}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <input class="form-control" name="white"
+                                                   th:value="${navigation.bdFilters.get(bdId).white}"
+                                                   type="text"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="whiteFideId" th:text="#{search.fideid}"></label>
+                                        </div>
+                                        <div class="col-md-1 ">
+                                            <input class="form-control" max="10000000"
+                                                   min="1"
+                                                   name="whiteFideId"
+                                                   th:value="${navigation.bdFilters.get(bdId).whiteFideId}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="whiteElo" th:text="#{search.elo}"></label>
+                                        </div>
+                                        <div class="col-md-1 ">
+                                            <input class="form-control" max="5000"
+                                                   min="1"
+                                                   name="whiteElo" th:value="${navigation.bdFilters.get(bdId).whiteElo}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="whiteTitle" th:text="#{search.playertitle}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <select name="whiteTitle">
+                                                <option th:each="title : ${navigation.bdFilters.get(bdId).titles}"
+                                                        th:selected="(${title.equals( navigation.bdFilters.get(bdId).whiteTitle)})"
+                                                        th:text="${title}"
+                                                        th:value="${title}">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <!-- line 4 -->
+                                        <div class="col-md-1">
+                                            <label for="black" th:text="#{search.blackplayer}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <input class="form-control" name="black"
+                                                   th:value="${navigation.bdFilters.get(bdId).black}"
+                                                   type="text"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="blackFideId" th:text="#{search.fideid}"></label>
+                                        </div>
+                                        <div class="col-md-1 ">
+                                            <input class="form-control" max="10000000"
+                                                   min="1"
+                                                   name="blackFideId"
+                                                   th:value="${navigation.bdFilters.get(bdId).blackFideId}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="blackElo" th:text="#{search.elo}"></label>
+                                        </div>
+                                        <div class="col-md-1 ">
+                                            <input class="form-control" max="5000"
+                                                   min="1"
+                                                   name="blackElo" th:value="${navigation.bdFilters.get(bdId).blackElo}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label for="blackTitle" th:text="#{search.playertitle}"></label>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <select name="blackTitle">
+                                                <option th:each="title : ${navigation.bdFilters.get(bdId).titles}"
+                                                        th:selected="(${title.equals( navigation.bdFilters.get(bdId).blackTitle)})"
+                                                        th:text="${title}"
+                                                        th:value="${title}">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <!-- line 5 -->
+                                        <div class="col-md-5">
+                                            <input name="modeApproximatif"
+                                                   th:value="${navigation.bdFilters.get(bdId).modeApproximatif}"
+                                                   type="checkbox"
+                                            >
+                                            <label for="modeApproximatif" th:text="#{search.player.approx}"></label>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input name="campIndifferent"
+                                                   th:value="${navigation.bdFilters.get(bdId).campIndifferent}"
+                                                   type="checkbox"
+                                            >
+                                            <label for="campIndifferent" th:text="#{search.player.campindif}"></label>
+
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <!-- line 6 -->
+                                        <div class="col-md-1">
+                                            <label for="resultat10" th:text="#{search.resultat}"></label>
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input name="resultat10"
+                                                   th:value="${navigation.bdFilters.get(bdId).resultat10}"
+                                                   type="checkbox"
+                                            > 1-0
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input name="resultat12"
+                                                   th:value="${navigation.bdFilters.get(bdId).resultat12}"
+                                                   type="checkbox"
+                                            > 1/2-1/2
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input name="resultat01"
+                                                   th:value="${navigation.bdFilters.get(bdId).resultat01}"
+                                                   type="checkbox"
+                                            > 0-1
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="nbJourSinceUpdate"
+                                                   th:text="#{search.nbJourSinceUpdate}"></label>
+                                        </div>
+                                        <div class="col-md-1 ">
+                                            <input class="form-control" max="5000"
+                                                   min="1"
+                                                   name="nbJourSinceUpdate"
+                                                   th:value="${navigation.bdFilters.get(bdId).nbJourSinceUpdate}"
+                                                   type="number"
+                                            >
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            <label for="nbJourSinceUpdate"
+                                                   th:text="#{search.nbJourSinceUpdate.j}"></label>
+
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                        <!-- line 7 -->
+                                        <div class="col-md-1">
+                                            <label for="eco1" th:text="#{search.eco}"></label>
+                                        </div>
+                                        <div class="col-md-1">
+
+                                            <select name="selectedModeEco" th:id="'selectSearchEco_'+ ${bdId}">
+                                                <option th:each="interval : ${navigation.bdFilters.get(bdId).listeInterval}"
+                                                        th:selected="(${interval.equals( navigation.bdFilters.get(bdId).selectedModeEco)})"
+                                                        th:text="${interval}"
+                                                        th:value="${interval}">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input class="form-control" name="eco1" placeholder="A00"
+                                                   th:value="${navigation.bdFilters.get(bdId).eco1}"
+                                                   type="text"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <img src="images/icons/go.png" style="width:20px;height:20px;"
+                                                 th:id="'AsearchEco_'+ ${bdId}">
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input class="form-control" name="eco2" placeholder="E99"
+                                                   th:id="'BsearchEco_'+ ${bdId}"
+                                                   th:value="${navigation.bdFilters.get(bdId).eco2}"
+                                                   type="text"
+                                            >
+                                        </div>
+
+                                        <div class="col-md-1">
+                                            <label for="nbcoup1" th:text="#{search.nbcoup}"></label>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <select name="selectedModeCoups" th:id="'selectSearchMove_'+ ${bdId}">
+                                                <option th:each="interval : ${navigation.bdFilters.get(bdId).listeInterval}"
+                                                        th:selected="(${interval.equals( navigation.bdFilters.get(bdId).selectedModeCoups)})"
+                                                        th:text="${interval}"
+                                                        th:value="${interval}">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input class="form-control" max="500"
+                                                   min="1"
+                                                   name="nbcoup1" th:value="${navigation.bdFilters.get(bdId).nbcoup1}"
+                                                   type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <img src="images/icons/go.png" style="width:20px;height:20px;"
+                                                 th:id="'AsearchMove_'+ ${bdId}">
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input class="form-control" max="500"
+                                                   min="1"
+                                                   name="nbcoup2"
+                                                   th:id="'BsearchMove_'+ ${bdId}"
+                                                   th:value="${navigation.bdFilters.get(bdId).nbcoup2}" type="number"
+                                            >
+                                        </div>
+                                        <div class="col-md-2">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="positions">
+                                    <h4 class="mt-2">Profile tab content</h4>
+                                    <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna,
+                                        ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu
+                                        viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum
+                                        id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc
+                                        facilisis leo at faucibus adipiscing.</p>
+                                    <img src="images/maquettes/b.png">
+                                </div>
+                                <div class="tab-pane fade" id="others">
+                                    <h4 class="mt-2">Messages tab content</h4>
+                                    <p>Donec vel placerat quam, ut euismod risus. Sed a mi suscipit, elementum sem a,
+                                        hendrerit velit. Donec at erat magna. Sed dignissim orci nec eleifend egestas.
+                                        Donec eget mi consequat massa vestibulum laoreet. Mauris et ultrices nulla,
+                                        malesuada volutpat ante. Fusce ut orci lorem. Donec molestie libero in tempus
+                                        imperdiet. Cum sociis natoque penatibus et magnis.</p>
+                                    <img src="images/maquettes/c.png">
+                                </div>
+                                <div class="tab-pane fade" id="filters">
+                                    <h4 class="mt-2">Messages tab content</h4>
+                                    c <img src="images/maquettes/d.png">
+                                    <p>Donec vel placerat quam, ut euismod risus. Sed a mi suscipit, elementum sem a,
+                                        hendrerit velit. Donec at erat magna. Sed dignissim orci nec eleifend egestas.
+                                        Donec eget mi consequat massa vestibulum laoreet. Mauris et ultrices nulla,
+                                        malesuada volutpat ante. Fusce ut orci lorem. Donec molestie libero in tempus
+                                        imperdiet. Cum sociis natoque penatibus et magnis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{common.button.close}"
+                                type="button">Close
+                        </button>
+
+                        <button class="btn btn-success "
+                                th:id="'searchGameFormButton_' + ${bdId}" th:text="#{search.button}"
+                                type="button">Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        var BETWEEN_S="..";
+        $(document).ready(function () {
+
+                $("#AsearchDate_"+ [[${bdId}]]).hide();
+                $("#BsearchDate_"+ [[${bdId}]]).hide();
+                   $("#AsearchMove_"+ [[${bdId}]]).hide();
+                $("#BsearchMove_"+ [[${bdId}]]).hide();
+                   $("#AsearchEco_"+ [[${bdId}]]).hide();
+                $("#BsearchEco_"+ [[${bdId}]]).hide();
+
+             $('#selectSearchDate_'+ [[${bdId}]]).on('change', function() {
+                   var v=( $(this).find(":selected").val() );
+                   if (v===BETWEEN_S){
+                    $("#AsearchDate_"+ [[${bdId}]]).show();
+                     $("#BsearchDate_"+ [[${bdId}]]).show();
+                   }
+                   else{
+                    $("#AsearchDate_"+ [[${bdId}]]).hide();
+                     $("#BsearchDate_"+ [[${bdId}]]).hide();
+                   }
+               });
+
+             $('#selectSearchMove_'+ [[${bdId}]]).on('change', function() {
+                  var v=( $(this).find(":selected").val() );
+                   if (v===BETWEEN_S){
+                    $("#AsearchMove_"+ [[${bdId}]]).show();
+                     $("#BsearchMove_"+ [[${bdId}]]).show();
+                   }
+                   else{
+                    $("#AsearchMove_"+ [[${bdId}]]).hide();
+                     $("#BsearchMove_"+ [[${bdId}]]).hide();
+                   }
+               });
+
+             $('#selectSearchEco_'+ [[${bdId}]]).on('change', function() {
+                   var v=( $(this).find(":selected").val() );
+                   if (v===BETWEEN_S){
+                    $("#AsearchEco_"+ [[${bdId}]]).show();
+                     $("#BsearchEco_"+ [[${bdId}]]).show();
+                   }
+                   else{
+                    $("#AsearchEco_"+ [[${bdId}]]).hide();
+                     $("#BsearchEco_"+ [[${bdId}]]).hide();
+                   }
+               });
+
+             $("#searchGameFormButton_"+ [[${bdId}]]).click(function (e) {
+             console.log("#searchGameForm_"+ [[${bdId}]]);
+               var MyForm = JSON.stringify($("#searchGameForm_"+ [[${bdId}]]).serializeJSON());
+                 console.log(MyForm);
+
+                   $.ajax(
+                     {   contentType: "application/json;charset=utf-8",
+                         url: "/searchGame",
+                         type: "POST",
+                         data: MyForm,
+                         success: function (data) {
+                             console.log("ok search"+data);
+                             // fermer la modale
+                             // appeler la fonction de refresh de games avec la reponse
+                             $('#searchModal' + [[${bdId}]]).modal('hide');
+                               var msg="[[#{pagination.games}]]";
+                             ecritGames([[${bdId}]],data,msg);
+                           },
+                           error: function (error) {
+                       console.log(error)
+                        }, }
+                        );
+
+                 e.preventDefault(); //STOP default action
+             });
+         });
+
+
+    </script>
+</div>
+</body>
+</html>

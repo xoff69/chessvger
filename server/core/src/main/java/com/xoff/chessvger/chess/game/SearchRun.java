@@ -43,8 +43,8 @@ public class SearchRun implements Runnable {
     //  for (String s : Constants.ALL_FIRST_MOVE) {
     // FIXME le position DB nous est donnee par le filter
     ICommonGameManager gameManager =
-        GlobalManager.getInstance().getDatabaseManager(databaseManager.getDatabaseId()).getGlobalGameManager()
-            .get(first);
+        GlobalManager.getInstance().getDatabaseManager(databaseManager.getDatabaseId())
+            .getGlobalGameManager().get(first);
     //  log.info("recherche +" + gameManager.getGames().size());
 
     if (gameManager == null) {

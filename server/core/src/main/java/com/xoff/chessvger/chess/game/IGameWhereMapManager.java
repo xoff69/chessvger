@@ -2,12 +2,12 @@ package com.xoff.chessvger.chess.game;
 
 public interface IGameWhereMapManager {
 
-  public void clear();
+  void clear();
 
-  public void add(long key, String value);
+  void add(long key, String value);
 
 
-  public void finish();
+  void finish();
 
-  public String get(long key);
+  String get(long key);
 }

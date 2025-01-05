@@ -1,5 +1,8 @@
 <template>
   <v-footer height="40" app>
+    <v-alert text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus..."></v-alert>
+
+
     <a
       v-for="item in items"
       :key="item.title"

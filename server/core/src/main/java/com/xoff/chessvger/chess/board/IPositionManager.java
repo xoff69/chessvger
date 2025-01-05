@@ -6,13 +6,13 @@ import java.util.List;
 public interface IPositionManager {
 
 
-  public List<Long> search(Filter filter);
+  List<Long> search(Filter filter);
 
 
-  public void clear();
+  void clear();
 
-  public void add(long key, long value);
+  void add(long key, long value);
 
 
-  public void finish();
+  void finish();
 }

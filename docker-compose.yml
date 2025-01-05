@@ -1,4 +1,4 @@
-# docker compose up
+# docker compose up -d 
 # docker system prune
 # docker-compose down --volumes
 networks:
@@ -14,41 +14,6 @@ services:
     networks:
       - chessvger_network
 
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper_container
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - "2181:2181"
-    networks:
-      - chessvger_network
-    volumes:
-      - zookeeper_data:/var/lib/zookeeper
-# https://nasriadzlani.medium.com/install-kafka-cluster-3-node-in-docker-compose-with-ui-ubuntu-264af0566290 
-# https://github.com/grumpy-docker/docker-kafka/blob/master/README.md
-  broker:
-    image: confluentinc/cp-kafka:latest
-    container_name: broker
-    ports:
-      - "19092:19092"
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,CONNECTIONS_FROM_HOST://localhost:19092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CONTROLLER_SOCKET_TIMEOUT_MS: 90000
-      KAFKA_GROUP_MAX_SESSION_TIMEOUT_MS: 90000
-
-    depends_on:
-      - zookeeper
-    networks:
-      - chessvger_network
-    volumes:
-      - kafka_data:/var/lib/kafka/data
-
   postgres:
     image: postgres:latest
     container_name: postgres_container
@@ -62,8 +27,8 @@ services:
     networks:
       - chessvger_network
     volumes:
-      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-      - postgres_data:/var/lib/postgresql/data
+      - ./reference/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./data/postgres_data:/var/lib/postgresql/data
       
   # dockfish:
   #   image: registry.gitlab.com/ce72/dockfish:latest 
@@ -75,24 +40,11 @@ services:
   #   - chessvger_network
 
 
-  chessvger-monitor:
-    image: chessvger-monitor:latest
+  chessvger-serverapp:
+    image: chessvger-serverapp:latest
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - zookeeper
-      - postgres
-    networks:
-      - chessvger_network
-
-  chessvger-webapp:
-    image: chessvger-webapp:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - chessvger-monitor
     networks:
       - chessvger_network
     volumes:
@@ -100,34 +52,45 @@ services:
     ports:
       - "8080:8080"
 
+  chessvger-serverapp-admin:
+    image: chessvger-serverapp-admin:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - chessvger_network
+    volumes:
+      - ./data:/app/data   
+    ports:
+      - "8082:8082"
+
   chessvger-client:
     image: chessvger-client:latest
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - chessvger-webapp
     networks:
       - chessvger_network
     ports:
       - "3000:3000"
-      
-  chessvger-queues:
-    image: chessvger-queues:latest
+
+  chessvger-client-admin:
+    image: chessvger-client-admin:latest
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - chessvger-webapp
+    networks:
+      - chessvger_network
+    ports:
+      - "3002:3002"
+           
+  chessvger-backoffice:
+    image: chessvger-backoffice:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     networks:
       - chessvger_network
     volumes:
       - ./data:/app/data  
 
-volumes:
-  postgres_data:
-    driver: local
-  zookeeper_data:
-    driver: local
-  kafka_data:
-    driver: local

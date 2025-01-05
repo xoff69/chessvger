@@ -3,9 +3,7 @@ package com.xoff.chessvger;
 
 import com.xoff.chessvger.util.DeleteDbUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -41,7 +39,7 @@ public class ChessVgerApplication implements WebMvcConfigurer {
   }
 
   public static void main(String[] args) {
-    System.out.println("version 1.0.2");
+    System.out.println("version 1.0.5");
     checkOption(args);
     SpringApplication.run(ChessVgerApplication.class, args);
   }
@@ -65,4 +63,5 @@ public class ChessVgerApplication implements WebMvcConfigurer {
     log.info("initializeAfterStartup");
    // FIXME deleteDbUtil.execute();
   }
+
 }

@@ -21,7 +21,7 @@ public class Pack extends CommonModel {
   private long endDate;
   private double price;
 
-  private List<PackDatabase> packBds=new ArrayList<>();
+  private List<PackDatabase> packBds = new ArrayList<>();
 
 
   private void writeObject(ObjectOutputStream out) throws IOException {

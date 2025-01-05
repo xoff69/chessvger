@@ -15,15 +15,15 @@
           <v-window-item v-for="(t, index) in visibleTabs" :key="t.name">
             <!-- Onglet 1 -->
             <div v-if="tab === 0">Contenu du premier onglet</div>
-
-            <!-- Onglet 2 (Players) -->
             <div v-if="tab === 1">
-              <!-- Affichage de la liste des players dans le deuxième onglet -->
+              <GamesList />
+            </div>
+            <div v-if="tab === 2">
               <PlayersList />
             </div>
 
             <!-- Onglet 3 (Admin) avec sous-onglets -->
-            <div v-if="tab === 2">
+            <div v-if="tab === 3">
               <v-tabs v-model="subTab" align-tabs="start" fixed-tabs>
                 <v-tab>Gérer les utilisateurs</v-tab>
                 <v-tab>Paramètres</v-tab>
@@ -38,11 +38,20 @@
               <v-tab-item v-if="subTab === 1">
                 <v-card flat>
                   <v-card-text>Paramètres de l'application</v-card-text>
+                  <div>
+    <h1>Welcome to the Dashboard</h1>
+    <p>Your ID: {{ user.id }}</p>
+    <p>Your Name: {{ user.name }}</p>
+    <p>Your Role: {{ user.role }}</p>
+  </div>
                 </v-card>
               </v-tab-item>
               <v-tab-item v-if="subTab === 2">
                 <v-card flat>
                   <v-card-text>Affichage des logs</v-card-text>
+
+    <WebSocketChat />
+
                 </v-card>
               </v-tab-item>
             </div>
@@ -53,22 +62,35 @@
 
     <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn>
   </v-app>
+
+
 </template>
 
 <script>
 import { ref, computed } from 'vue';
-import PlayersList from '../components/PlayersList.vue';  // Import du composant PlayersList
-
+import PlayersList from '../components/PlayersList.vue';
+import GamesList from '../components/GamesList.vue';
+import WebSocketChat from "../components/WebSocketChat.vue";
+import { getUser } from '../services/authService';
 export default {
   name: 'ComposantOnglets',
   components: {
-    PlayersList,  // Déclare le composant pour qu'il puisse être utilisé dans le template
+    PlayersList,GamesList, WebSocketChat
+  },
+  data() {
+    return {
+      user: null,
+    };
+  },
+  created() {
+    this.user = getUser();
   },
   setup() {
     const tab = ref(0);  // Onglet principal
     const subTab = ref(0); // Sous-onglet pour Admin
     const allTabs = ref([
       { name: 'Liste des bd', visible: true },
+      { name: 'Games', visible: true },
       { name: 'Players', visible: true },
       { name: 'Admin', visible: true },
     ]);

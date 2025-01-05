@@ -7,7 +7,7 @@ import java.util.List;
 public abstract class ACommonManager<K extends Serializable, T extends CommonModel>
     implements ICommonManager<K, T> {
 
-  private AdbCommonKeyLong map;
+  private final AdbCommonKeyLong map;
 
   public ACommonManager(String filename) {
     this.map = new AdbCommonKeyLong<T>(filename);

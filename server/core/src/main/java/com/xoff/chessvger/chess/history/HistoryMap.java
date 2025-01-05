@@ -17,18 +17,20 @@ import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
 
 @Slf4j
-public class HistoryMap  {
+public class HistoryMap {
 
-  private DB db;
-  private Set<Long> list;
+  private final DB db;
+  private final Set<Long> list;
 
   public HistoryMap(String dbName) {
     super();
 
-    db= DBMaker.fileDB(DatabaseManager.getFolder(dbName) + dbName + "HistoryMap" + Constants.MAP_SFX).checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown()
-        .fileMmapEnable().make();
+    db = DBMaker.fileDB(
+            DatabaseManager.getFolder(dbName) + dbName + "HistoryMap" + Constants.MAP_SFX)
+        .checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown().fileMmapEnable().make();
     list = db.treeSet("HistoryMap", Serializer.LONG).createOrOpen();
   }
+
   public void clear() {
     list.clear();
     db.commit();
@@ -50,7 +52,7 @@ public class HistoryMap  {
   }
 
   public void add(Long value) {
-    list.add (value);
+    list.add(value);
 
   }
 

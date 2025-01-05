@@ -10,6 +10,7 @@ pluginManagement {
 }
 
 rootProject.name = "chessvger"
-include("queues")
+include("backoffice")
 include("core")
 include("web")
+include("web_admin")

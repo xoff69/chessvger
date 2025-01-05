@@ -18,7 +18,7 @@ import com.xoff.chessvger.ui.service.UserService;
 import com.xoff.chessvger.ui.web.mapper.UserMapper;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.PageView;
-import com.xoff.chessvger.view.UserDto;
+import com.xoff.chessvger.common.UserTenant;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -62,7 +62,7 @@ class UserControllerTest {
     item.setId(1L);
     item.setName("findUsr");
     item.setIsAdmin(true);
-    UserDto rightDto = mapper.entity2Dto(item);
+    UserTenant rightDto = mapper.entity2Dto(item);
 
 
     when(userService.findById(1L)).thenReturn(rightDto);
@@ -100,7 +100,7 @@ class UserControllerTest {
   @Test
   @DisplayName("right put update")
   public void expect_result_rightPut() throws Exception {
-    UserDto form = new UserDto();
+    UserTenant form = new UserTenant();
     form.setName("test UserDto");
     when(userService.update(Mockito.any(), Mockito.any())).thenReturn(form);
     String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/users/5";
@@ -118,7 +118,7 @@ class UserControllerTest {
   @Test
   @DisplayName("UserDto post delete")
   public void expect_result_rightdelete() throws Exception {
-    UserDto form = new UserDto();
+    UserTenant form = new UserTenant();
     form.setName("test UserDto");
     when(userService.delete(Mockito.any())).thenReturn(true);
     String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/users/5";
@@ -138,8 +138,8 @@ class UserControllerTest {
     int pageNumber = 1;
     int pageSize = 100;
     Pageable paging = PageRequest.of(pageNumber, pageSize);
-    PageView<UserDto> pageView = new PageView<UserDto>();
-    List<UserDto> users = new ArrayList<>();
+    PageView<UserTenant> pageView = new PageView<UserTenant>();
+    List<UserTenant> users = new ArrayList<>();
     for (long i = 0; i < 3; i++) {
       User r = new User();
       r.setId(i);

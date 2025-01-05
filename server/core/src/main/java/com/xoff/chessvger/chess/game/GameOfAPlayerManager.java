@@ -13,11 +13,10 @@ public class GameOfAPlayerManager implements IGameOfAPlayerManager {
   private final GameOfAPlayerMap map;
 
 
-
   public GameOfAPlayerManager(DatabaseManager databaseManager) {
 
     String name =
-        databaseManager.getFolder(databaseManager.createName()) + "_GameOfAPlayerMap_GOP_" +
+        DatabaseManager.getFolder(databaseManager.createName()) + "_GameOfAPlayerMap_GOP_" +
             Constants.MAP_SFX;
     map = new GameOfAPlayerMap(name);
 

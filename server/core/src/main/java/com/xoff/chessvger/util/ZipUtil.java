@@ -41,7 +41,7 @@ public class ZipUtil {
     while (zipEntry != null) {
       File newFile = newFile(destDir, zipEntry);
       // log.info("unzip:" + newFile.getName());
-      try (FileOutputStream fos = new FileOutputStream(newFile);) {
+      try (FileOutputStream fos = new FileOutputStream(newFile)) {
         int len;
         while ((len = zis.read(buffer)) > 0) {
           fos.write(buffer, 0, len);

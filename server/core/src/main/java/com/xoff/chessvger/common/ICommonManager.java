@@ -5,19 +5,19 @@ import java.util.List;
 
 public interface ICommonManager<K extends Serializable, T extends CommonModel> {
 
-  public List<T> findAll();
+  List<T> findAll();
 
-  public void clear();
+  void clear();
 
-  public void deleteById(K key);
+  void deleteById(K key);
 
-  public void finish();
+  void finish();
 
-  public T get(K key);
+  T get(K key);
 
-  public T create(T value);
+  T create(T value);
 
-  public void update(T value);
+  void update(T value);
 
-  public List<T> saveAll(List<T> list);
+  List<T> saveAll(List<T> list);
 }

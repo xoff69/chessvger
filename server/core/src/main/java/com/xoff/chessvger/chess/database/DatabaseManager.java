@@ -47,7 +47,6 @@ import com.xoff.chessvger.view.StatBrowserView;
 import com.xoff.chessvger.view.StatGame;
 import com.xoff.chessvger.view.StatJoueurView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -122,8 +121,8 @@ public class DatabaseManager implements IDatabaseManager {
     databaseManager.postUpdateGameAndStat();
     log.info("duplicate postUpdateGameAndStat PGN" + games.size());
     // duplicate gameOfBbPlayer
-    List<Long> playersIds=getPlayerOfDbManager().listIdsOfPlayer();
-    for (Long l:playersIds){
+    List<Long> playersIds = getPlayerOfDbManager().listIdsOfPlayer();
+    for (Long l : playersIds) {
       databaseManager.getPlayerOfDbManager().add(l);
     }
 
@@ -150,7 +149,7 @@ public class DatabaseManager implements IDatabaseManager {
     // il faut un routeur pour les ajouts et donc des maps
     // on boucle sur les premiers coups possibles
     // dailleurs on doit pouvoir modifier aussi le statBrowserDB
-    positionManager = new PositionManager(this.getFolder(dbName) + dbName);
+    positionManager = new PositionManager(getFolder(dbName) + dbName);
     materialManager = new MaterialManager(dbName);
 
     globalBrowserStatManager = new GlobalBrowserStatManager(this);
@@ -370,7 +369,7 @@ public class DatabaseManager implements IDatabaseManager {
     log.info(">getPlayersWithGames ");
     List<JoueurView> playersView = new ArrayList<>();
     List<Long> playersId = getPlayerOfDbManager().listIdsOfPlayer();
-    log.info(">getPlayersWithGames  playersId "+playersId.size());
+    log.info(">getPlayersWithGames  playersId " + playersId.size());
     int cpt = 0;
     // FIXME on ne ramene que les n premiers
     // FIXNE avec le param
@@ -385,11 +384,11 @@ public class DatabaseManager implements IDatabaseManager {
       jv.setNbgames(nb);
       playersView.add(jv);
     }
-    log.info(">getPlayersWithGames  playersView "+playersView.size());
+    log.info(">getPlayersWithGames  playersView " + playersView.size());
     Collections.sort(playersView, new Comparator<JoueurView>() {
       @Override
       public int compare(JoueurView o1, JoueurView o2) {
-        return o2.getNbgames()-o1.getNbgames();
+        return o2.getNbgames() - o1.getNbgames();
       }
     });
     log.info("<getPlayersWithGames " + playersView.size());

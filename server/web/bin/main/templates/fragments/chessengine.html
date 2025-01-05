@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="chessengine(bdId,gameId)">
+    xxxxxxxxxxxxxxxxxxxxxxx
+    <textarea cols="80" rows="10" th:id="'outputbrain_' + ${bdId}+'_'+${gameId}">
+    coucou cerveau
+  </textarea>
+
+    <div class="container" id="main-content">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+
+                        <button class="btn btn-default" disabled="disabled" id="disconnect" type="submit">Disconnect
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        var stompClient_[[${bdId}]]_[[${gameId}]] = null;
+
+    function setConnected(connected) {
+      //  $("#connect").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+
+    }
+
+    function connect_[[${bdId}]]_[[${gameId}]]() {
+        var socket = new SockJS('/gs-guide-websocket');
+        stompClient_[[${bdId}]]_[[${gameId}]] = Stomp.over(socket);
+        stompClient_[[${bdId}]]_[[${gameId}]].connect({}, function (frame) {
+            setConnected(true);
+            console.log('Connected: ' + frame);
+            stompClient_[[${bdId}]]_[[${gameId}]].subscribe('/topic/greetings', function (data) {
+                showAnalyze(JSON.parse(data.body).content,'#outputbrain_[[${bdId}]]_[[${gameId}]]');
+            });
+            sendName();
+        });
+    }
+
+    function disconnect() {
+        if (stompClient_[[${bdId}]]_[[${gameId}]] !== null) {
+            stompClient_[[${bdId}]]_[[${gameId}]].disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
+    }
+
+    function sendName() {
+      console.log('send name');
+        stompClient_[[${bdId}]]_[[${gameId}]].send("/app/runAnalyse", {});
+    }
+
+
+
+    $(function () {
+        $("form").on('submit', function (e) {
+            e.preventDefault();
+        });
+
+       // $( "#disconnect" ).click(function() { disconnect(); });
+       // $( "#send" ).click(function() { sendName(); });
+    });
+
+
+    </script>
+
+</div>
+
+</body>
+</html>

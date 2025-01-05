@@ -252,7 +252,7 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
             int critres = filter.getResult();
             boolean isScore = false;
             if (critres > 99) { // 01
-              isScore = (  Constants.RESULT_0_1.equals(game.getResult()));
+              isScore = (Constants.RESULT_0_1.equals(game.getResult()));
 
               critres = critres - 100;
             }

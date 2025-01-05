@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="adminpack">
+
+    liste de tous les packs
+    definir un peu plus un peu plus un pack
+    = des bd, un prix, une duree?
+
+   <div class="container">
+
+       <div class="row">
+           <div class="col-9">
+               <div class="starter-template">
+                   <table class="table table-striped" th:id="'adminpacksTable' ">
+                       <thead>
+                       <tr>
+                           <th th:text="#{common.th.id}" width="20%"></th>
+                           <th th:text="#{pack.th.name}" width="20%"></th>
+                           <th th:text="#{pack.th.startdate}" width="20%"></th>
+                           <th th:text="#{pack.th.enddate}" width="20%"></th>
+                           <th th:text="#{pack.th.price}" width="20%"></th>
+                       </tr>
+                       </thead>
+                       <tbody></tbody>
+                   </table>
+                   <div th:id="'adminpacksPagination' "></div>
+                   <script>
+
+
+                       function updateAdminPack(page){
+                           var tableId='adminpacksTable';
+                           var paginationId='adminpacksPagination';
+
+                           $.ajax({
+                               url: '/adminpacks?page='+page+"&size=5",
+                               type: 'get',
+                               dataType: 'JSON',
+                               success: function(response){
+                                 var msg="[[#{pagination.packs}]]";
+                                 console.log(" packs "+response);
+                                   writePacks(response,tableId,paginationId);
+                               }
+                           });
+                       }
+                       $(document).ready(function(){
+                           updateAdminPack(0);
+                       });
+
+
+                    </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div th:fragment="pack">
+
+    contenu pack
+    nom du pack, duree , prix
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-9">
+                <div class="starter-template">
+                    <table class="table table-striped" th:id="'userpacksTable' ">
+                        <thead>
+                        <tr>
+                            <th th:text="#{common.th.id}" width="20%"></th>
+                            <th th:text="#{pack.th.name}" width="20%"></th>
+                            <th th:text="#{pack.th.startdate}" width="20%"></th>
+                            <th th:text="#{pack.th.enddate}" width="20%"></th>
+                            <th th:text="#{pack.th.price}" width="20%"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div th:id="'userpacksPagination' "></div>
+                    <script>
+
+
+                        function updateUserPack(page){
+                            var tableId='userpacksTable';
+                            var paginationId='userpacksPagination';
+
+                            $.ajax({
+                                url: '/mypacks?page='+page+"&size=5",
+                                type: 'get',
+                                dataType: 'JSON',
+                                success: function(response){
+                                  var msg="[[#{pagination.packs}]]";
+                                  console.log(" packs "+response);
+                                    writePacks(response,tableId,paginationId);
+                                }
+                            });
+
+
+                          }
+                        $(document).ready(function(){
+                            updateUserPack(0);
+
+                        });
+
+
+                    </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div th:fragment="adminuserpack">
+
+    liste de tous les user packs= tous les abonnements en cours
+    on affiche le user + son pack
+
+    <a id="createUserPackLink">lien creer user</a>
+    <div id="createUserPackDiv">
+        <form id="formCreateUserPack" name="formCreateUserPack">
+            <input class="form-control" name="id" type="hidden" value="0">
+            <div class="form-group">
+                <label for="packId">Pack:</label>
+                <select name="packId" class="span12" id="packId" ></select>
+            </div>
+            <div class="form-group">
+                <label for="userId">User:</label>
+                <select name="userId" class="span12" id="userId" ></select>
+            </div>
+
+        </form>
+        <button class="btn btn-success " id="submitformUserPack" type="submit">Associate</button>
+    </div>
+
+    <script>
+        $("#createUserPackLink").click(function (e) {
+
+               $("#createUserPackDiv").show();
+               });
+
+     $(document).ready(function () {
+
+                // pack list
+                              $.ajax({
+                                url:'/packall',
+                                type:'GET',
+                                dataType: 'json',
+                                success: function( data ) {
+
+                                 var s = '';
+                                for (var i = 0; i < data.length; i++) {
+                                    s += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                                }
+                                 $('#packId').append(s);
+                                }  });
+
+                // users
+                   $.ajax({
+                                url:'/userall',
+                                type:'GET',
+                                dataType: 'json',
+                                success: function( data ) {
+
+                                 var s = '';
+                                for (var i = 0; i < data.length; i++) {
+                                    s += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                                }
+                                 $('#userId').append(s);
+                                }  });
+
+         $("#submitformUserPack").click(function (e) {
+             var MyForm = JSON.stringify($("#formCreateUserPack").serializeJSON());
+             console.log(MyForm);
+             $.ajax(
+                 {   contentType: "application/json;charset=utf-8",
+                     url: "/userpack",
+                     type: "POST",
+                     data: MyForm,
+                     success: function (data) {
+                       console.log("ok "+data);
+                       updateAdminPack(0);
+                     },
+                     error: function (error) {
+                      console.log(error)
+                     }, }
+                 );
+             e.preventDefault(); //STOP default action
+         });
+     });
+    </script>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-9">
+                <div class="starter-template">
+                    <table class="table table-striped" th:id="'adminuserpacksTable' ">
+                        <thead>
+                        <tr>
+                            <th th:text="#{common.th.id}" width="20%"></th>
+                            <th th:text="#{userpack.th.packname}" width="20%"></th>
+                            <th th:text="#{userpack.th.username}" width="20%"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div th:id="'adminuserpacksPagination' "></div>
+                    <script>
+
+
+                        function updateAdminUserPack(page){
+                            var tableId='adminuserpacksTable';
+                            var paginationId='adminuserpacksPagination';
+
+                            $.ajax({
+                                url: '/adminuserspacks?page='+page+"&size=5",
+                                type: 'get',
+                                dataType: 'JSON',
+                                success: function(response){
+                                  console.log(" packs "+response);
+                                    writeUserPacks(response,tableId,paginationId);
+                                }
+                            });
+                        }
+                        $(document).ready(function(){
+                            updateAdminUserPack(0);
+                        });
+
+
+                    </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

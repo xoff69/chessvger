@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="all">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <button class="btn" id="createBDLink" type="button">
+                    <img src="images/icons/new.png" style="width:20px;height:20px;" th:alt="#{bd.create}">
+                </button>
+                <div id="createBDDiv">
+                    <h3 th:text="#{bd.create}"></h3>
+                    <form id="formCreateBd" name="formCreateBd">
+                        <input class="form-control" name="id" type="hidden" value="0">
+                        <div class="form-group">
+                            <label for="name" th:text="#{bd.name}"></label>
+                            <input class="form-control" name="name" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" th:text="#{bd.description}"></label>
+                            <input class="form-control" name="description" type="text">
+                        </div>
+
+                    </form>
+                    <button class="btn btn-success " id="submitformCloseCreateBD" th:text="#{common.button.close}"
+                            type="button"></button>
+
+                    <button class="btn btn-success " id="submitformCreateBD" th:text="#{common.button.submit}"
+                            type="button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="bdTable">
+
+        <thead>
+        <tr>
+            <th style="width:20%;text-align: center;" th:text="#{bd.th.name}"></th>
+            <th style="width:20%;text-align: center;" th:text="#{bd.th.description}"></th>
+            <th style="width:20%;text-align: center;" th:text="#{bd.th.nbgames}"></th>
+            <th style="width:20%;text-align: center;" th:text="#{bd.th.lastUpdate}"></th>
+
+            <th sortable="false" style="width:20%;text-align: center;" th:text="#{table.header.actions}"></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="bdsPagination"></div>
+
+    <script>
+        $("#createBDLink").click(function (e) {
+
+                $("#createBDDiv").show();
+        });
+
+      $(document).ready(function () {
+            $("#submitformCloseCreateBD").click(function (e) {
+            displayBds();
+        });
+
+          $("#submitformCreateBD").click(function (e) {
+              var MyForm = JSON.stringify($("#formCreateBd").serializeJSON());
+              console.log(MyForm);
+              $.ajax(
+                  {   contentType: "application/json;charset=utf-8",
+                      url: "bdCreate",
+                      type: "POST",
+                      data: MyForm,
+                      success: function (data) {
+                        console.log("ok "+data);
+                        displayBds();
+                      },
+                      error: function (error) {
+                       console.log(error)
+                      }, }
+                  );
+              e.preventDefault(); //STOP default action
+          });
+      });
+
+     function displayBds(){
+
+         $("#createBDDiv").hide();
+
+        $.ajax({
+            url: 'bds',
+            type: 'get',
+            dataType: 'JSON',
+            success: function(response){
+                $("#bdTable > tbody").html("");
+                var d=response.items;
+                var len = d.length;
+                console.log("affichage des bds ");
+                for(var i=0; i<len; i++){
+                    var id = d[i].id;
+                    var name = d[i].name;
+                    var description = d[i].description;
+                    var nbgames = d[i].nbgames;
+                    var lastUpdate = d[i].lastUpdate;
+
+                    var url="<a href='bdOpen?bdId=" + id +"'>"+buildImage("open")+"</a>";
+
+                    var tr_str = "<tr>" +
+                        "<td align='center'>" + name + "</td>" +
+                        "<td align='center'>" + description + "</td>" +
+                        "<td align='center'>" + nbgames + "</td>" +
+                        "<td align='center'>" + lastUpdate + "</td>" +
+                        "<td align='center'>"+url+"</td>" +
+                        "</tr>";
+
+                    $("#bdTable tbody").append(tr_str);
+                }
+                 var msg="[[#{pagination.bds}]]";
+                page=buildPagination(response,"displayBds",msg);
+                $("#bdsPagination").html(page);
+
+            }
+        });
+        }
+    $(document).ready(function(){
+        displayBds();
+    });
+
+
+    </script>
+</div>
+</body>
+</html>

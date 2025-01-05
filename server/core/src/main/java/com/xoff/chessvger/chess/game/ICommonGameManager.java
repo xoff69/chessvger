@@ -7,23 +7,23 @@ import java.util.List;
 public interface ICommonGameManager {
 
 
-  public void update();
+  void update();
 
-  public void clear();
-
-
-  public void finish();
+  void clear();
 
 
-  public List<CommonGame> getGameByStart(String[] previousMoves);
+  void finish();
 
-  public void upsert(CommonGame g, DBOperation operation);
 
-  public int nbgames();
+  List<CommonGame> getGameByStart(String[] previousMoves);
 
-  public List<CommonGame> getGames();
+  void upsert(CommonGame g, DBOperation operation);
 
-  public CommonGame get(long id);
+  int nbgames();
 
-  public List<CommonGame> search(Filter filter);
+  List<CommonGame> getGames();
+
+  CommonGame get(long id);
+
+  List<CommonGame> search(Filter filter);
 }

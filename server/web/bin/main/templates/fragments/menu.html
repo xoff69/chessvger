@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="menu">
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="float-start">
+                <a class="navbar-brand" href="/">
+                    <img alt="ChessVger" class="d-inline-block align-text-top" height="24" src="images/monlogo.png"
+                         width="30">
+                    Chessvger
+                </a>
+
+            </div>
+            <div class="float-end"
+                 th:if="${(navigation.applicationBean.isAllowedFeature('CONNEXION'))}">
+
+                <th:block th:if="${(navigation.userDto==null)}">
+                    <div th:insert="~{fragments/login.html :: login}"></div>
+                </th:block>
+
+                <div class="dropdown " th:if="${(navigation.userDto!=null)}">
+                    <button aria-expanded="false" class="btn btn-secondary dropdown-toggle"
+                            data-bs-toggle="dropdown" th:if="${(navigation.userDto!=null)}" type="button">
+                        <div th:insert="~{fragments/login.html :: welcome}"></div>
+                    </button>
+                    <ul class="dropdown-menu" th:if="${(navigation.userDto!=null)}">
+
+
+
+                        <li class="dropdown-item"
+                            th:if="${(navigation.userDto!=null)}">
+
+                            <button class="btn" id="boutonDisconnectId" th:text="#{login.disconnect}"
+                                    type="button">
+
+                            </button>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+    <script>
+        $("#boutonDisconnectId").click(function (e) {
+
+             window.location = "/disconnect";
+        });
+           $("#boutonCreerBdTestId").click(function (e) {
+
+               window.location = "/createDBInit";
+        });
+
+
+    </script>
+
+</div>
+</body>
+</html>

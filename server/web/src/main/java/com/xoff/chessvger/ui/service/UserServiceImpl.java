@@ -6,7 +6,7 @@ import com.xoff.chessvger.ui.web.mapper.UserMapper;
 import com.xoff.chessvger.ui.web.navigation.Page;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.PageView;
-import com.xoff.chessvger.view.UserDto;
+import com.xoff.chessvger.common.UserTenant;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
   private UserMapper userMapper;
 
   @Override
-  public UserDto findByLoginAndPassword(String name, String password) {
+  public UserTenant findByLoginAndPassword(String name, String password) {
 // FIXME Constantes
 
     GlobalManager.getInstance().getCallStatManager().appendStat("CONNEXION");
@@ -30,20 +30,20 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<UserDto> saveAll(List<UserDto> list) {
+  public List<UserTenant> saveAll(List<UserTenant> list) {
     return userMapper.mapListEntity2Dto(
         GlobalManager.getInstance().getUserManager().saveAll(userMapper.map(list)));
   }
 
   @Override
-  public UserDto findById(Long id) {
+  public UserTenant findById(Long id) {
     User found = GlobalManager.getInstance().getUserManager().get(id);
 
     if (found == null) {
       return null;
     } else {
 
-      UserDto userDto = userMapper.entity2Dto(found);
+      UserTenant userDto = userMapper.entity2Dto(found);
       // TODO populate user pack
       return userDto;
     }
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public boolean delete(Long id) {
 
-    UserDto dto = findById(id);
+    UserTenant dto = findById(id);
     if (dto != null) {
       GlobalManager.getInstance().getUserManager().deleteById(id);
       return true;
@@ -64,15 +64,15 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public User create(UserDto dto) {
+  public User create(UserTenant dto) {
     User toSave = userMapper.dto2entity(dto);
     return GlobalManager.getInstance().getUserManager().create(toSave);
   }
 
 
   @Override
-  public UserDto update(Long id, UserDto dto) {
-    UserDto toUpdate = findById(id);
+  public UserTenant update(Long id, UserTenant dto) {
+    UserTenant toUpdate = findById(id);
     if (toUpdate == null) {
       return null;
     }
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
   }
 
-  public PageView<UserDto> findAll(Pageable paging) {
+  public PageView<UserTenant> findAll(Pageable paging) {
     List<User> items = GlobalManager.getInstance().getUserManager().findAll();
     return Page.compute(paging, userMapper.mapListEntity2Dto(items));
   }

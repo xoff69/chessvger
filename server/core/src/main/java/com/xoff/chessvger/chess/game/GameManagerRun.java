@@ -21,7 +21,7 @@ public class GameManagerRun implements Runnable {
 
   public GameManagerRun(String dbName, String first, DatabaseManager databaseManager) {
 
-    this.emplacement = databaseManager.getFolder(databaseManager.getDatabaseName());
+    this.emplacement = DatabaseManager.getFolder(databaseManager.getDatabaseName());
     this.databaseManager = databaseManager;
     this.first = first;
     this.dbName = dbName;

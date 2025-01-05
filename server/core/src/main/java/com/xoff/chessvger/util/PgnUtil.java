@@ -350,9 +350,9 @@ public class PgnUtil {
   }
 
   public static boolean isScore(String s) {
-    return Constants.RESULT_1_0.equals(s) || Constants.RESULT_0_1.equals(s) || Constants.RESULT_1_2.equals(s);
+    return Constants.RESULT_1_0.equals(s) || Constants.RESULT_0_1.equals(s) ||
+        Constants.RESULT_1_2.equals(s);
   }
-
 
 
   private static boolean isPonctuation(char c) {

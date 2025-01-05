@@ -14,7 +14,7 @@ import org.springframework.data.domain.Persistable;
 
 @Data
 @Entity
-@Table(name = "common_player")
+@Table(name = "common_player",schema = "common")
 public class CommonPlayerEntity  implements Persistable<Long> {
 
 

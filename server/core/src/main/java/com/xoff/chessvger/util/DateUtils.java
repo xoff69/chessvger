@@ -23,7 +23,7 @@ public class DateUtils {
     try {
       y = Integer.parseInt(dateEntree.substring(0, 4));
     } catch (NumberFormatException e) {
-      log.error("Error date "+dateEntree);
+      log.error("Error date " + dateEntree);
     }
     return y;
   }

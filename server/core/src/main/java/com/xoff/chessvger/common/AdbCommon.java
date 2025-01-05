@@ -65,8 +65,9 @@ public abstract class AdbCommon<K extends Serializable, T extends Serializable> 
 
 
   public void commit() {
-    if (size()>0)
-    log.info(" AdbCommon commit:"+filename+":"+size());
+    if (size() > 0) {
+      log.info(" AdbCommon commit:" + filename + ":" + size());
+    }
     db.commit();
   }
 

@@ -19,15 +19,15 @@ public class RepertoireManager extends ACommonManager<Long, Repertoire>
 
   public List<Repertoire> findRepertoire(long userId) {
     List<Repertoire> repertoires = findAll();
-    log.info("user="+userId+ " findRepertoire repertoires nombre: "+repertoires.size());
+    log.info("user=" + userId + " findRepertoire repertoires nombre: " + repertoires.size());
     List<Repertoire> result = new ArrayList<>();
     for (Repertoire repertoire : repertoires) {
-      log.info("findRepertoire repertoire "+repertoire);
+      log.info("findRepertoire repertoire " + repertoire);
       if (repertoire.getUserId() == userId) {
         result.add(repertoire);
       }
     }
-    log.info("findRepertoire "+result.size());
+    log.info("findRepertoire " + result.size());
     return result;
 
   }

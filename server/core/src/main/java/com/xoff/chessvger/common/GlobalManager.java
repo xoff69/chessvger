@@ -70,28 +70,28 @@ public class GlobalManager {
   private final long debutSession;
   private final List<DatabaseManager> openedDatabase;
   @Getter
-  private IFavoriteManager favoriteManager;
+  private final IFavoriteManager favoriteManager;
   @Getter
-  private IRepertoireManager repertoireManager;
+  private final IRepertoireManager repertoireManager;
   @Getter
-  private IFeatureManager featureManager;
+  private final IFeatureManager featureManager;
   @Getter
-  private ICallStatManager callStatManager;
+  private final ICallStatManager callStatManager;
   @Getter
-  private IUserManager userManager;
+  private final IUserManager userManager;
   @Getter
-  private IPackManager packManager;
+  private final IPackManager packManager;
   @Getter
-  private IUserPackManager userPackManager;
+  private final IUserPackManager userPackManager;
 
   @Getter
-  private ObjectMapper objectMapper;
+  private final ObjectMapper objectMapper;
 
   private GlobalManager() {
     log.info(">Globalmanager new");
     objectMapper = new ObjectMapper();
     databaseMap = new DatabaseMap();
-    filiationMap=new FiliationMap();
+    filiationMap = new FiliationMap();
     openedDatabase = new ArrayList<>();
     debutSession = System.currentTimeMillis();
 
@@ -159,7 +159,6 @@ public class GlobalManager {
     //log.info("<<<<<<<<<<globalManager.anager.commit");
 
   }
-
 
 
 }
