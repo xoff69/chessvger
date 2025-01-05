@@ -1,6 +1,6 @@
 chessvger:
   run_init: true
-  version: Version 1.0.2 - 05/2024
+  version: Version 1.0.0 - 01/2025
   contact: <a href="mailto:chessvger@gmail.com">contact</a>
   language:
     list: fr\#en
@@ -15,8 +15,6 @@ spring:
     user:
       name: chessvger
       password: chessvger
-  thymeleaf:
-    cache: false
   main:
     banner-mode: 'console'
   banner:
@@ -31,7 +29,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: chessvger
     password: chessvger
-    url: jdbc:postgresql://db_chessvger/chessvger?currentSchema=chessvger
+    url: jdbc:postgresql://db_chessvger/chessvger?currentSchema=common
   jpa:
     show-sql: true
     generate-ddl: true

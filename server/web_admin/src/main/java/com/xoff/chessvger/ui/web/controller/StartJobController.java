@@ -2,8 +2,6 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.config.RedisMessagePublisher;
-import com.xoff.chessvger.config.RedisMessageReceiver;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
 import lombok.extern.slf4j.Slf4j;
