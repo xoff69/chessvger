@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY . .
 
-RUN npm install
+RUN npm install --force
 
 FROM node:16 AS production-stage
 

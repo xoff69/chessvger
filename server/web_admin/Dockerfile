@@ -4,4 +4,4 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 COPY build/libs/. .
 EXPOSE 8082
-CMD ["java", "-jar","-Dspring.profiles.active=cluster", "web-1.0.0-SNAPSHOT.jar"]
+CMD ["java", "-jar","-Dspring.profiles.active=cluster", "web_admin-1.0.0-SNAPSHOT.jar"]
