@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="all">
+
+    contenu homepage
+    <div class="modal-body">
+
+        <p class="lead" th:text="#{about.content}"></p>
+        <p style="text-align:right" th:text="${navigation.applicationBean.version}"></p>
+        <p style="text-align:right" th:utext="${navigation.applicationBean.contact}"></p>
+    </div>
+
+    <div class="container">
+        <h1>Bootstrap Dynamic Tabs</h1>
+        <div class="well">
+            <button onclick="f232()">Change to Blue</button>
+
+            <br><br>
+            <ul class="nav nav-tabs" id="tabs123">
+                <li class="active"><a href="#tab1" data-toggle="tab">Tab 1</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">Hello tab #1 content...</div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function f232(){
+            console.log("add tabbb");
+            var nextTab = 23;
+
+            // create the tab
+             $('<li><a href="#tab'+nextTab+'" data-toggle="tab">Tab '+nextTab+'</a></li>').appendTo('#tabs123');
+
+             // create the tab content
+                 $('<div class="tab-pane" id="tab'+nextTab+'">tab' +nextTab+' content</div>').appendTo('.tab-content');
+
+            // make the new tab active
+            $('#tabs123 a:last').tab('show');
+        };
+    </script>
+</div>
+</body>
+</html>

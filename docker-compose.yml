@@ -39,7 +39,7 @@ services:
   #   networks:
   #   - chessvger_network
 
-
+#server
   chessvger-webapp:
     image: chessvger-webapp:latest
     build:
@@ -51,7 +51,7 @@ services:
       - ./data:/app/data   
     ports:
       - "8080:8080"
-
+#server
   chessvger-webapp-admin:
     image: chessvger-webapp-admin:latest
     build:
@@ -63,7 +63,7 @@ services:
       - ./data:/app/data   
     ports:
       - "8082:8082"
-
+#client
   chessvger-client:
     image: chessvger-client:latest
     build:
@@ -75,7 +75,7 @@ services:
       - chessvger_network
     ports:
       - "3000:3000"
-
+# client admin
   chessvger-admin:
     image: chessvger-admin:latest
     build:

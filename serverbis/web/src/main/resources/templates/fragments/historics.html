@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:fragment="historics(bdId)">
+    BDID= <p th:text="${bdId}"></p>,
+    historic
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-9">
+
+                <div class="starter-template">
+
+
+                    <table class="table table-striped" th:id="'gamesTableHistory_' + ${bdId}">
+                        <thead>
+                        <tr>
+
+                            <th th:text="#{common.th.id}" width="20%"></th>
+                            <th th:text="#{game.th.event}" width="20%"></th>
+                            <th th:text="#{game.th.site}" width="20%"></th>
+                            <th th:text="#{game.th.date}" width="20%"></th>
+                            <th th:text="#{game.th.white}" width="20% "></th>
+                            <th th:text="#{game.th.black}" width="20%"></th>
+                            <th th:text="#{game.th.result}" width="20%"></th>
+                            <th th:text="#{game.th.last}" width="20%"></th>
+                            <th th:text="#{table.header.actions}" width="30%"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div th:id="'gamesPaginationHistory_' + ${bdId}"></div>
+                    <script>
+
+                        function updateGamesHistory[[${bdId}]](page){
+                            var bdId = [[${bdId}]];
+                            var gamesTableId='gamesTableHistory_'+bdId;
+                            var gamesPaginationId='gamesPaginationHistory_'+bdId;
+                            console.log('/gamesHistory?bdId='+bdId+'&page='+page+"&size=5")
+                            $.ajax({
+                                url: '/gamesHistory?bdId='+bdId+'&page='+page+"&size=5",
+                                type: 'get',
+                                dataType: 'JSON',
+                                success: function(response){
+                                  var msg="[[#{pagination.games}]]";
+                                     writeGamesHistory(bdId,response,msg);
+                                }
+                            });
+                        }
+                        $(document).ready(function(){
+                            updateGamesHistory[[${bdId}]](0);
+                        });
+
+
+                    </script>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

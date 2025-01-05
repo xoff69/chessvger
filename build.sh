@@ -34,6 +34,7 @@ cd ..
 # images
 echo "build images"
 docker build -t  chessvger-client  ./client/chessvger-client --no-cache
-docker build -t chessvger-web ./server/web --no-cache
-docker build -t chessvger-web-admin ./server/web_admin --no-cache
+docker build -t  chessvger-admin  ./client/chessvger-admin --no-cache
+docker build -t chessvger-webapp ./server/web --no-cache
+docker build -t chessvger-webapp-admin ./server/web_admin --no-cache
 docker build -t chessvger-backoffice ./server/backoffice --no-cache

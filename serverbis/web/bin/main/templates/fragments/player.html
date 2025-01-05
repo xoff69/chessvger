@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:fragment="playerInfo(bdId,playerId)">
+    BDID= <p th:text="${bdId}"></p>, gameId= <p th:text="${playerId}"></p>
+    info
+
+</div>
+<div th:fragment="playerStat(bdId,playerId)">
+    BDID= <p th:text="${bdId}"></p>, gameId= <p th:text="${playerId}"></p>
+
+    stat
+</div>
+</body>
+</html>

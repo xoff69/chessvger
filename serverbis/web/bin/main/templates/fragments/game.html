@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="game(bdId,gameId)">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <!--  GAME.HTML -->
+                <div style="width: 400px" th:id="'board_' + ${bdId}+'_'+${gameId}"></div>
+                <button th:id="'flipboard_' + ${bdId}+'_'+${gameId}"><img src="images/icons/rotate.png"
+                                                                          style="width:20px;height:20px;"
+                                                                          th:alt="#{board.flip}"></button>
+
+                <button th:id="'flipboard_' + ${bdId}+'_'+${gameId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('EDIT_GAME'))}"><img
+                        src="images/icons/edit.png"
+                        style="width:20px;height:20px;"
+                        th:alt="#{board.flip}"></button>
+                <button th:id="'flipboard_' + ${bdId}+'_'+${gameId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('EDIT_GAME'))}"><img
+                        src="images/icons/save.png"
+                        style="width:20px;height:20px;"
+                        th:alt="#{board.flip}"></button>
+                <button th:id="'brain_' + ${bdId}+'_'+${gameId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('ENGINE'))}"><img
+                        src="images/icons/brain.png"
+                        style="width:20px;height:20px;"
+                        th:alt="#{board.flip}"></button>
+
+                <button
+                        th:id="'fen_' + ${bdId}+'_'+${gameId}"
+                        th:if="${(navigation.applicationBean.isAllowedFeature('FEN_GAME'))}"> fen
+                </button>
+                &nbsp;<button th:id="'gotofav_' + ${bdId}+'_'+${gameId}"> love<</button>
+                <button th:id="'gotostart_' + ${bdId}+'_'+${gameId}"> |<</button>
+                <button th:id="'gotoprev_' + ${bdId}+'_'+${gameId}"> &lt;</button>
+                <button th:id="'gotonext_' + ${bdId}+'_'+${gameId}">&gt;</button>
+                <button th:id="'gotoend_' + ${bdId}+'_'+${gameId}"> |></button>
+                <div th:id="'divbrain_' + ${bdId}+'_'+${gameId}"
+                     th:if="${(navigation.applicationBean.isAllowedFeature('ENGINE'))}">
+                    <div th:insert="~{fragments/chessengine.html :: chessengine(${bdId},${gameId})}"></div>
+                </div>
+                <div th:id="'divfen_' + ${bdId}+'_'+${gameId}"></div>
+                <script>
+                    var board_[[${bdId}]]_[[${gameId}]]= Chessboard('board_[[${bdId}]]_[[${gameId}]]', 'start');
+                    var currentMoveId_[[${bdId}]]_[[${gameId}]]='0';
+
+                    $('#flipboard_[[${bdId}]]_[[${gameId}]]').on('click',
+                             function() {
+                                    board_[[${bdId}]]_[[${gameId}]].flip();
+
+                                     var gameId = [[${gameId}]];
+                                    var bdId = [[${bdId}]];
+                                    var boardId='board_'+bdId+'_'+gameId;
+                                    $.ajax({
+                                            url: '/game/flip/'+bdId+'/'+gameId,
+                                            type: 'patch',
+                                            dataType: 'JSON',
+                                            success: function(response){
+                                            console.log("flip ok");
+                                            }
+                                        });
+
+                                      }
+                                    );
+
+                     $('#gotofav_[[${bdId}]]_[[${gameId}]]').on('click',
+                       function() {
+                            var userId = [[${navigation.userDto.id}]];
+
+                            addFavorite([[${bdId}]],[[${gameId}]],userId);
+                    }
+                    );
+
+                    $('#gotostart_[[${bdId}]]_[[${gameId}]]').on('click',
+                       function() {
+                       updateBoardFromNavig([[${bdId}]],[[${gameId}]],
+                            currentMoveId_[[${bdId}]]_[[${gameId}]],board_[[${bdId}]]_[[${gameId}]],0);
+                    }
+                    );
+
+                    $('#gotoend_[[${bdId}]]_[[${gameId}]]').on('click',function() {
+                            updateBoardFromNavig([[${bdId}]],[[${gameId}]],
+                            currentMoveId_[[${bdId}]]_[[${gameId}]],board_[[${bdId}]]_[[${gameId}]],2);
+                    }
+                    );
+                    $('#gotoprev_[[${bdId}]]_[[${gameId}]]').on('click',function() {
+                    updateBoardFromNavig([[${bdId}]],[[${gameId}]],
+                            currentMoveId_[[${bdId}]]_[[${gameId}]],board_[[${bdId}]]_[[${gameId}]],-1);
+                    }
+                    );
+                    $('#gotonext_[[${bdId}]]_[[${gameId}]]').on('click',function() {
+                    updateBoardFromNavig([[${bdId}]],[[${gameId}]],
+                            currentMoveId_[[${bdId}]]_[[${gameId}]],board_[[${bdId}]]_[[${gameId}]],1);
+                    }
+                    );
+                    $('#brain_[[${bdId}]]_[[${gameId}]]').on('click',
+                       function() {
+                           $('#divbrain_[[${bdId}]]_[[${gameId}]]').show();
+                           connect_[[${bdId}]]_[[${gameId}]]();
+                    }
+                    );
+                    $('#fen_[[${bdId}]]_[[${gameId}]]').on('click',
+                       function() {
+                           $('#divfen_[[${bdId}]]_[[${gameId}]]').html("fen active");
+                           $('#divfen_[[${bdId}]]_[[${gameId}]]').show();
+                    }
+                    );
+                    function clickMove[[${bdId}]]_[[${gameId}]](moveId,fen){
+
+                            var gameId = [[${gameId}]];
+                            var bdId = [[${bdId}]];
+                            board_[[${bdId}]]_[[${gameId}]].position(fen);
+                            $("#link_"+currentMoveId_[[${bdId}]]_[[${gameId}]]).css({ "font-weight": "normal" });
+                            currentMoveId_[[${bdId}]]_[[${gameId}]]=moveId;
+                            $("#link_"+moveId).css({ "font-weight": "bold" });
+                    }
+
+                    function updateGame[[${bdId}]]_[[${gameId}]](){
+                        var gameId = [[${gameId}]];
+                        var bdId = [[${bdId}]];
+                        var boardId='board_'+bdId+'_'+gameId;
+                        var gameDetailMovesId='#gameDetailMoves_'+bdId+'_'+gameId;
+                        var gameDetailHeaderId='#gameDetailHeader_'+bdId+'_'+gameId;
+                        $.ajax({
+                                url: '/game?bdId='+bdId+'&gameId='+gameId,
+                                type: 'get',
+                                dataType: 'JSON',
+                                success: function(response){
+                                     buildHeaderGame(response,bdId+'_'+gameId);
+                                     console.log("response.flipBoard "+response.flipBoard)
+                                    if (response.flipBoard) board_[[${bdId}]]_[[${gameId}]].flip();
+                                    var gameDetailMoves=response.movesHtml;
+                                    $(gameDetailMovesId).html(gameDetailMoves);
+                                }
+                            });
+                    }
+
+                        $(document).ready(function(){
+                            updateGame[[${bdId}]]_[[${gameId}]]();
+                            $('#divbrain_[[${bdId}]]_[[${gameId}]]').hide();
+                            $('#divfen_[[${bdId}]]_[[${gameId}]]').hide();
+                        });
+
+
+                </script>
+            </div>
+            <div class="col-8">
+
+                <div class="row g-3">
+                    <div class="col-md-2 ">
+                        <span style="font-weight:bold" th:text="#{search.evenement}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderEvent_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{search.site}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderSite_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{search.round}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderRound_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+
+                    <!-- line 2-->
+                    <div class="col-md-2 ">
+                        <span style="font-weight:bold" th:text="#{search.whiteplayer}"></span>
+                    </div>
+                    <div class="col-md-3 ">
+                        <span th:id="'gameDetailHeaderPlayerWhite_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{search.blackplayer}"></span>
+                    </div>
+                    <div class="col-md-3 ">
+                        <span th:id="'gameDetailHeaderPlayerBlack_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+
+
+                    <div class="col-md-2">
+
+                    </div>
+                    <!-- line -->
+                    <div class="col-md-2 ">
+                        <span style="font-weight:bold" th:text="#{game.date}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderDate_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.eventDate}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderEventDate_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.lastUpdate}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderLastUpdate_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+
+
+                    <!-- line -->
+                    <div class="col-md-2 ">
+                        <span style="font-weight:bold" th:text="#{game.eco}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderEco_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.opening}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderOpening_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                    </div>
+
+                    <!-- line -->
+                    <div class="col-md-2 ">
+                        <span style="font-weight:bold" th:text="#{game.source}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderSource_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.commentateurPrincipal}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderCommentateurPrincipal_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.commentairePartie}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderCommentairePartie_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+
+                    <!-- line -->
+                    <div class="col-md-2 ">
+                        <span style="font-weight:bold" th:text="#{game.favori}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderFavori_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.theorique}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderTheorique_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span style="font-weight:bold" th:text="#{game.interet}"></span>
+                    </div>
+                    <div class="col-md-2 ">
+                        <span th:id="'gameDetailHeaderInteret_' + ${bdId}+'_'+${gameId}"></span>
+                    </div>
+                    <!-- line -->
+                    <div class="col-md-12 ">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div style="border-width:1px;
+                border-style:solid;
+                border-color:black;" th:id="'gameDetailMoves_' + ${bdId}+'_'+${gameId}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

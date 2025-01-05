@@ -1,0 +1,7 @@
+profile:
+  property:
+    value: This the the application.yaml file unit test
+chessvger:
+  run_init: false
+logging:
+  file.name: data/logs/chessvger-ut.log

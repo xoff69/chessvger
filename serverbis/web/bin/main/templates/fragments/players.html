@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="players(bdId)">
+    BDID= <p th:text="${bdId}"></p>
+    players
+    se preparer contre
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+
+                recherche<br/>
+
+                les joueurs:
+
+                <table class="table table-striped" th:id="'playersTable_' + ${bdId}">
+                    <thead>
+                    <tr>
+                        <th width="5%">id</th>
+                        <th th:text="#{player.th.name}" width="20%"></th>
+                        <th th:text="#{player.th.nbgames}" width="30%"></th>
+                        <th sortable="false" th:text="#{table.header.actions}" width="30%"></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div th:id="'playersPagination_' + ${bdId}"></div>
+                <script>
+
+
+                    function displayPlayers[[${bdId}]](){
+
+                        var playersTableId="playersTable_[[${bdId}]]";
+                        var bdId = [[${bdId}]];
+                        console.log("display player");
+                        $.ajax({
+                                url: '/players?bdId='+bdId+'&page=1&size=20',
+                                type: 'get',
+                                dataType: 'JSON',
+                                success: function(response){
+                                    var d=response.items;
+                                    var len = d.length;
+
+                                    for(var i=0; i<len; i++){
+
+                                        var id = d[i].joueur.idnumber;
+                                        var player = d[i].joueur.name;
+                                        var nb = d[i].nbgames;
+                                        var url="voir";
+                                       var tr_str = "<tr id=" +id+" data-player=\""+player+"\">"+
+                                            "<td align='center'>" + id + "</td>" +
+                                            "<td align='center'>" + player + "</td>" +
+                                            "<td align='center'>" + nb + "</td>" +
+                                            "<td align='center'>" + url + "</td>" +
+                                            "</tr>";
+
+                                        $("#"+playersTableId+" tbody").append(tr_str);
+                                    }
+                                    var playersPaginationId='playersPagination_'+bdId;
+                                    var msg="[[#{pagination.players}]]";
+
+                                    var name="displayPlayers"+[[${bdId}]];
+                                    pageGame=buildPagination(response,name, msg);
+                                     $("#"+playersPaginationId).html(pageGame);
+
+                                    $("#"+playersTableId+" > tbody > tr").click(function (e) {
+                                            $(this).addClass("selected").siblings().removeClass("selected");
+                                            console.log(" id joueur="+ $(this).attr('id'));
+                                            console.log(" id joueur="+ $(this).attr('data-player'));
+                                    });
+                    }
+                });
+            }
+            $(document).ready(function(){
+               displayPlayers[[${bdId}]]();
+            });
+
+
+                </script>
+
+
+            </div>
+            <div class="col-2">
+
+                <!-- Tabs navs -->
+                <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a
+                                aria-controls="ex1-tabs-1"
+                                aria-selected="true"
+                                class="nav-link active"
+                                data-mdb-toggle="tab"
+                                href="#ex1-tabs-1"
+                                id="ex1-tab-1"
+                                role="tab"
+                        >Tab 1</a
+                        >
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a
+                                aria-controls="ex1-tabs-2"
+                                aria-selected="false"
+                                class="nav-link"
+                                data-mdb-toggle="tab"
+                                href="#ex1-tabs-2"
+                                id="ex1-tab-2"
+                                role="tab"
+                        >Tab 2</a
+                        >
+                    </li>
+
+                </ul>
+                <!-- Tabs navs -->
+
+                <!-- Tabs content -->
+                <div class="tab-content" id="ex1-content">
+                    <div
+                            aria-labelledby="ex1-tab-1"
+                            class="tab-pane fade show active"
+                            id="ex1-tabs-1"
+                            role="tabpanel"
+                    >
+                        partie droite
+                        onglet information joueur<br/>
+                        <div th:insert="~{fragments/player.html :: playerInfo(${bdId},33)}"></div>
+                    </div>
+                    <div aria-labelledby="ex1-tab-2" class="tab-pane fade" id="ex1-tabs-2" role="tabpanel">
+                        onglet statistique joueur
+                        <div th:insert="~{fragments/player.html :: playerStat(${bdId},33)}"></div>
+                    </div>
+
+                </div>
+                <!-- Tabs content -->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
