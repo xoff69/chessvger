@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-
+/*
   @Value("${jwt.secret}")
   private String SECRET_KEY;
 
@@ -50,8 +50,8 @@ public class JwtUtil {
   private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = Jwts.parser()
         .setSigningKey(SECRET_KEY)
-        .parseClaimsJws(token)
+       .parseClaimsJws(token)
         .getBody();
     return claimsResolver.apply(claims);
-  }
+  }*/
 }
