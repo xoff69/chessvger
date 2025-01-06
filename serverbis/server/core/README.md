@@ -1,1 +1,0 @@
-gradle build --no-daemon -x spotbugsMain -x spotbugsTest -x test
