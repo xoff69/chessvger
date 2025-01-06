@@ -19,7 +19,7 @@ fi
 mkdir -p "$DEST_DIR"
 
 # Copie les fichiers en excluant '.git' et 'node_modules'
-find "$SOURCE_DIR" -type d \( -name '.git' -o -name 'node_modules' \) -prune -o -print | while read FILE; do
+find "$SOURCE_DIR" -type d \( -name '.git' -o -name 'node_modules' -o -name 'build' -o -name 'bin' \) -prune -o -print | while read FILE; do
     if [ -d "$FILE" ]; then
         mkdir -p "$DEST_DIR/${FILE#$SOURCE_DIR/}"
     else

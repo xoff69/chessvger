@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'checkstyle'
+    id 'pmd'
+    id "com.github.spotbugs" version "6.0.2"
+}
+
+group = "com.xoff"
+version = "1.0.0-SNAPSHOT"
+description = "chessvger"
+
+
+repositories {
+    mavenCentral()
+}
+tasks.spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+pmd {
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
+}
+checkstyle {
+    configDirectory = rootProject.file("${rootDir}/config/checkstyle/")
+    configFile = rootProject.file("${rootDir}/config/checkstyle/checkstyle.xml")
+    toolVersion = '10.12.5'
+}
+checkstyleMain {
+    source = 'src/main/java'
+}
+checkstyleTest {
+    source = 'src/test/java'
+}
+
+
+

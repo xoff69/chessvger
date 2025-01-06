@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="modal_import(bdId)">
+    <!-- Modal importPgn -->
+    <div aria-hidden="true" aria-labelledby="importPgn" class="modal fade"
+         tabindex="-1"
+         th:id="'importPgnModal' + ${bdId}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:text="#{importPgn}">Modal title</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="/uploadPgn" enctype="multipart/form-data" method="POST">
+                        <input name="bdId" th:value="${bdId}" type="hidden"/>
+                        <table>
+                            <tr>
+                                <td><label for="file" th:text="#{importPgn.chooseFile}"></label></td>
+                                <td><input name="file" type="file"/></td>
+                            </tr>
+
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{common.button.close}"
+                            type="button">Close
+                    </button>
+                    <button class="btn btn-primary" th:text="#{upload.button}" type="submit"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:fragment="modal_tree(bdId)">
+    <!-- Modal tree -->
+    <div aria-hidden="true" aria-labelledby="tree" class="modal fade" tabindex="-1" th:id="'treeModal' + ${bdId}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabelTree">Modal title</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    ... tree
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="modal_stat(bdId)">
+    <!-- Modal stat -->
+    <div aria-hidden="true" aria-labelledby="tree" class="modal fade" tabindex="-1" th:id="'statModal' + ${bdId}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelModalStat">Modal title</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    ... stat
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+
+    id("io.freefair.lombok") version "8.4"
+}
+
+group = 'com.xoff'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    implementation 'org.postgresql:postgresql:42.7.3'
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+
+
+    implementation 'redis.clients:jedis:2.8.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task allBackOfficeFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.xoff.chessvger.backoffice.Main'
+    }
+    archiveBaseName = 'all-in-one-jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

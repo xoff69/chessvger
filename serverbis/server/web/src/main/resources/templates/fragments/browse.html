@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="browse(bdId)">
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <table class="table table-striped" th:id="'browsersTable_' + ${bdId}">
+                    <thead>
+                    <tr>
+                        <th th:text="#{common.th.id}" width="20%"></th>
+                        <th width="20%">level</th>
+                        <th width="20%">coup</th>
+                        <th width="20%">blanc</th>
+                        <th width="30%">noir</th>
+                        <th width="30%">nul</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <script>
+                    function ecritTableBrowse[[${bdId}]](data){
+
+                        var browsersTableId='browsersTable_[[${bdId}]]';
+                        var d=data;
+                        var len = d.length;
+                        $("#"+browsersTableId+"   tbody tr").remove();
+                        for(var i=0; i<len; i++){
+                            var id = d[i].id;
+                             var coup = d[i].coup;
+                             var level = d[i].level;
+                            var blanc = d[i].blanc;
+                            var noir = d[i].noir;
+                            var nul = d[i].nul;
+                            var tr_str = "<tr id=" +id+" data-move=\""+coup+"\">"+
+                                "<td align='center'>" + id + "</td>" +
+                                "<td align='center'>" + level + "</td>" +
+                                "<td align='center'>" + coup + "</td>" +
+                                "<td align='center'>" + blanc + "</td>" +
+                                 "<td align='center'>" + noir + "</td>" +
+                                  "<td align='center'>" + nul + "</td>" +
+                                "</tr>";
+
+                             $("#"+browsersTableId+" tbody").append(tr_str);
+                        }  // for
+
+                        listenerTableBrowse[[${bdId}]]();
+                    }
+        function updateBrowse[[${bdId}]](){
+             var bdId = [[${bdId}]];
+                $.ajax({
+                    url: '/browses?bdId='+bdId,
+                    type: 'get',
+                    dataType: 'JSON',
+                    success: function(response){
+
+                    ecritTableBrowse[[${bdId}]](response);
+
+                    }// succ
+                });  //ajax
+
+        }
+        function listenerTableBrowse[[${bdId}]](){
+                var browsersTableId='browsersTable_[[${bdId}]]';
+                  $("#"+browsersTableId+" > tbody > tr").click(function (e) {
+                     $(this).addClass("selected").siblings().removeClass("selected");
+                     console.log(" coup ="+ $(this).attr('id'));
+                     var id=$(this).attr('id');
+                        var coup=$(this).attr('data-move');
+                    console.log("id="+id+" c="+coup);
+                     playBrowse[[${bdId}]]BR([[${bdId}]],id,coup, ecritTableBrowse[[${bdId}]]);
+                    });
+        }
+        $(document).ready(function(){
+            updateBrowse[[${bdId}]]();
+            listenerTableBrowse[[${bdId}]]();
+
+        });
+
+
+                </script>
+            </div>
+            <div class="col-5">
+                <div th:insert="~{fragments/board.html :: board(${bdId},'BR')}"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
