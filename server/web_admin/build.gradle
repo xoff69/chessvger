@@ -47,6 +47,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.34'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    implementation ('org.springframework.boot:spring-boot-starter-data-redis'){
+        exclude module: 'lettuce-core'
+    }
+    // https://mvnrepository.com/artifact/redis.clients/jedis
+    implementation 'redis.clients:jedis'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'

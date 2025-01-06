@@ -30,14 +30,16 @@ public class Main {
       System.out.println("Main!" + args[0]);
       dbhost = "localhost";
       // for test
+      Thread thread = new Thread(new RunInitSystem());
+      thread.start();
       UserTenant userTenant = new UserTenant();
       userTenant.setName("xoff");
       userTenant.setPassword("xoff");
       userTenant.setIsAdmin(false);
       userTenant.setId(5L);
       userTenant.setLogin("xoff");
-      Thread thread = new Thread(new RunInitTenant(userTenant));
-      thread.start();
+      Thread thread2 = new Thread(new RunInitTenant(userTenant));
+      thread2.start();
     }
     System.out.println("Start main");
     ObjectMapper objectMapper = new ObjectMapper();
