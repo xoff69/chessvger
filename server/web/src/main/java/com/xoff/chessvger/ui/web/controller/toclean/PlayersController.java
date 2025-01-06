@@ -1,7 +1,5 @@
 package com.xoff.chessvger.ui.web.controller.toclean;
 
-import com.xoff.chessvger.repository.CommonPlayerEntity;
-import com.xoff.chessvger.repository.PlayerParser;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IPlayerService;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
@@ -24,22 +22,8 @@ public class PlayersController {
   @Autowired
   IPlayerService iPlayerService;
 
-  @Autowired
-  PlayerParser playerParser;
 
-  @GetMapping("/api/allplayers")
-  public ResponseEntity<List<CommonPlayerEntity>> all(){
-    return new ResponseEntity<>(iPlayerService.findAll(),
-        HttpStatus.OK);
-  }
 
-  @GetMapping("/load")
-  public ResponseEntity<String> importe(){
-    // long c=importePlayerBatch.importeFidePlayer();
-    long c= playerParser.parse();
-    return new ResponseEntity<>("ok "+c,
-        HttpStatus.OK);
-  }
 
   @GetMapping("/players")
   public ResponseEntity<PageView> getAllItems(@RequestParam(name = "bdId") long bdId,

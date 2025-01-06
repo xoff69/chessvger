@@ -3,7 +3,6 @@ package com.xoff.chessvger.ui.service;
 import com.xoff.chessvger.chess.filter.Filter;
 import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.repository.CommonGameEntity;
-import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.CoupleFenMoveId;
 import com.xoff.chessvger.view.CoupleLongView;

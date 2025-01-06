@@ -25,7 +25,7 @@ public class Main {
   }
 
   public static void main(String[] args) {
-
+    OpenTelemetryExample.vasy();
     if (args.length > 0) {
       System.out.println("Main!" + args[0]);
       dbhost = "localhost";

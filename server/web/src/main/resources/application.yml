@@ -9,6 +9,8 @@ chessvger:
 jwt:
   secret: chessvger
   expiration: 3600000
+server:
+  port : 8080
 spring:
 
   security:

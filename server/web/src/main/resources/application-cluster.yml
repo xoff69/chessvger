@@ -6,7 +6,8 @@ chessvger:
     list: fr\#en
     default: fr
     current: fr
-
+server:
+  port : 8080
 spring:
   redis:
     host:redis
