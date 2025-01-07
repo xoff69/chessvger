@@ -65,7 +65,7 @@ public class Main {
               // TODO
               System.out.println("Creating environment");
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
-              Thread thread = new Thread(new RunGameParser(messageToParser.getFolderToParse()));
+              Thread thread = new Thread(new RunGameParser(messageToParser));
               thread.start();
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 

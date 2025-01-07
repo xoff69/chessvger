@@ -56,8 +56,9 @@ RedisMessageReceiver redisMessageReceiver;
     log.info("jobGame");
 
     MessageToParser messageGame=new MessageToParser();
-    messageGame.setFolderToParse("./data/twic_big");
-    messageGame.setSchema("common");
+    messageGame.setFolderToParse("./data/twic1997");
+    messageGame.setDatabaseName("chessvger_admin_database");
+    messageGame.setSchema("main_admin");  // TODO renommer
     messageGame.setActionQueue(ActionQueue.PARSEGAME);
 
     ObjectMapper objectMapper=new ObjectMapper();
