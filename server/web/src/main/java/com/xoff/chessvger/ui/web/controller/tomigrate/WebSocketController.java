@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.tomigrate;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

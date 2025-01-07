@@ -1,10 +1,9 @@
-package com.xoff.chessvger.ui.web.controller.toclean;
+package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IPlayerService;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
 import com.xoff.chessvger.view.PageView;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.tomigrate;
 
 import com.xoff.chessvger.chess.user.User;
 import com.xoff.chessvger.common.DbKeyManager;

@@ -16,7 +16,7 @@ import redis.clients.jedis.JedisPubSub;
 
 public class Main {
 
-
+// TODO check l existence des folders dans data
   // localhost
   private static String dbhost = "db_chessvger";
 

@@ -6,6 +6,10 @@ import com.xoff.chessvger.chess.repertoire.Repertoire;
 import com.xoff.chessvger.chess.user.User;
 import com.xoff.chessvger.common.DbKeyManager;
 import com.xoff.chessvger.common.GlobalManager;
+import com.xoff.chessvger.repository.CommonGameEntity;
+import com.xoff.chessvger.repository.DatabaseEntity;
+import com.xoff.chessvger.repository.DatabaseRepository;
+import com.xoff.chessvger.repository.GameRepository;
 import com.xoff.chessvger.ui.web.form.DBForm;
 import com.xoff.chessvger.ui.web.form.FilterForm;
 import com.xoff.chessvger.ui.web.mapper.DatabaseMapper;
@@ -30,6 +34,18 @@ public class DatabaseServiceImpl implements IDatabaseService {
 
   @Autowired
   DatabaseMapper databaseMapper;
+
+  @Autowired
+  private DatabaseRepository databaseRepository;
+  public Long count() {
+    return databaseRepository.count();
+  }
+  public List<DatabaseEntity> findAll(){
+    org.springframework.data.domain.Page<DatabaseEntity> page=databaseRepository.findAll(
+        org.springframework.data.domain.Pageable.ofSize(5));
+    return  page.stream().toList();
+  }
+
 
   public PageView managePage(Pageable paging, long userId) {
     User user = GlobalManager.getInstance().getUserManager().get(userId);

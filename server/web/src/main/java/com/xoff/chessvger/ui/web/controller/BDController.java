@@ -1,5 +1,6 @@
 package com.xoff.chessvger.ui.web.controller;
 
+import com.xoff.chessvger.repository.DatabaseEntity;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IDatabaseService;
 import com.xoff.chessvger.ui.web.form.DBForm;
@@ -7,6 +8,7 @@ import com.xoff.chessvger.ui.web.navigation.Navigation;
 import com.xoff.chessvger.view.CoupleLongView;
 import com.xoff.chessvger.view.DBView;
 import com.xoff.chessvger.view.PageView;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,17 @@ public class BDController {
 
   @Autowired
   Navigation navigation;
+  @GetMapping("/api/databases/count")
+  public ResponseEntity<Long> count(){
+    return new ResponseEntity<>(iDatabaseService.count(),
+        HttpStatus.OK);
+  }
+
+  @GetMapping("/api/databases/all")
+  public ResponseEntity<List<DatabaseEntity>> all(){
+    return new ResponseEntity<>(iDatabaseService.findAll(),
+        HttpStatus.OK);
+  }
 
   @GetMapping("/bds")
   public ResponseEntity<PageView<DBView>> getAllBds(

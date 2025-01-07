@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.tomigrate;
 
 import com.xoff.chessvger.chess.pack.Pack;
 import com.xoff.chessvger.exception.CrudException;

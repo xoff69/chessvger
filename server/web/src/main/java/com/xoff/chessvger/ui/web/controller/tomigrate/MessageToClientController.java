@@ -1,5 +1,4 @@
-package com.xoff.chessvger.ui.web.controller;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.xoff.chessvger.ui.web.controller.tomigrate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

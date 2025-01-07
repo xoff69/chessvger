@@ -1,8 +1,7 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.tomigrate;
 
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.FeatureService;
-import com.xoff.chessvger.ui.web.navigation.ApplicationBean;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.FeatureDto;
 import com.xoff.chessvger.view.PageView;

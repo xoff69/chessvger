@@ -2,8 +2,9 @@ package com.xoff.chessvger.ui.web.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.xoff.chessvger.ui.web.controller.toclean.GamesController;
-import com.xoff.chessvger.ui.web.controller.toclean.PlayersController;
+import com.xoff.chessvger.ui.web.controller.tomigrate.BrowseController;
+import com.xoff.chessvger.ui.web.controller.tomigrate.FeatureController;
+import com.xoff.chessvger.ui.web.controller.tomigrate.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

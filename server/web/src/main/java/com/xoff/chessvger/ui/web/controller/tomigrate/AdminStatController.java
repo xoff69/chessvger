@@ -1,7 +1,6 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.tomigrate;
 
 import com.xoff.chessvger.ui.service.IAdminStatService;
-import com.xoff.chessvger.ui.web.navigation.ApplicationBean;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

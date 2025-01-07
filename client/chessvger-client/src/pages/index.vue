@@ -15,7 +15,7 @@
         <v-window v-model="tab">
           <v-window-item v-for="(t, index) in visibleTabs" :key="t.name">
             <!-- Onglet 1 -->
-            <div v-if="tab === 0">Contenu du premier onglet</div>
+            <div v-if="tab === 0"> <DatabasesList /></div>
             <div v-if="tab === 1">
               <GamesList />
             </div>
@@ -37,11 +37,12 @@ import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue";
 import { ref, computed } from 'vue';
 import GamesList from '../components/GamesList.vue';
+import DatabasesList from '../components/DatabasesList.vue';
 import { getUser } from '../services/authService';
 export default {
   name: 'ComposantOnglets',
   components: {
-   GamesList,  AppHeader,
+   GamesList,  AppHeader,DatabasesList,
     AppFooter,
   },
   data() {

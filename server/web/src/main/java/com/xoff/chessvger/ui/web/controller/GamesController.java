@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.web.controller.toclean;
+package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.repository.CommonGameEntity;
 import com.xoff.chessvger.ui.PageRequest;
