@@ -52,6 +52,7 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
   public static Connection getConnection(String name) throws SQLException {
     if (!mapDatasource.containsKey(name)) {
       HikariConfig config = new HikariConfig();
+      // url: jdbc:postgresql://localhost/chessvger?currentSchema=common
       config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/"+name);
       config.setUsername("chessvger");
       config.setPassword("chessvger");

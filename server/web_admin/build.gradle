@@ -25,12 +25,9 @@ dependencies {
     implementation project(':core')
     testImplementation project(':core')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
-    implementation 'io.jsonwebtoken:jjwt:0.12.6'
 
     implementation 'org.apache.commons:commons-lang3:3.15.0'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
