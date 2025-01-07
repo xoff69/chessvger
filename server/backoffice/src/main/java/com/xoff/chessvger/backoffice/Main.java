@@ -18,14 +18,14 @@ public class Main {
 
 
   // localhost
-  private static String dbhost = "db_chessvger"; //"db_chessvger"
+  private static String dbhost = "db_chessvger";
 
   public static String getDBHost() {
     return dbhost;
   }
 
   public static void main(String[] args) {
-    OpenTelemetryExample.vasy();
+
     System.out.println("start backoffice");
     if (args.length > 0) {
       /*
@@ -44,7 +44,12 @@ public class Main {
       Thread thread2 = new Thread(new RunInitTenant(userTenant));
       thread2.start();*/
     }
-    System.out.println("Start main");
+     Thread thread=new Thread(new Runnable() {
+       public void run() {
+         OpenTelemetryExample.vasy();
+       }
+     });
+    thread.start();
     ObjectMapper objectMapper = new ObjectMapper();
     try (Jedis jedis = new Jedis("redis", 6379)) {
       JedisPubSub pubSub = new JedisPubSub() {

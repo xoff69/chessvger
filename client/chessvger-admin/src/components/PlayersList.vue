@@ -1,7 +1,18 @@
 <!-- src/components/PlayersList.vue -->
 <template>
+
+
   <v-container>
-    <h1>Liste des players</h1>
+    <v-btn
+    href="http://localhost:16686"
+    target="_blank"
+    icon
+>
+    <v-icon>window</v-icon> Import players
+</v-btn>
+
+
+    <h1>Players</h1>
     <v-data-table
       :headers="headers"
       :items="players"
@@ -15,6 +26,8 @@
         </v-toolbar>
       </template>
     </v-data-table>
+
+    players : {{ count }}
   </v-container>
 </template>
 
@@ -26,6 +39,7 @@ export default {
   data() {
     return {
       players: [],
+      count: 0,
       headers: [
         { text: "Nom", value: "name" },
         { text: "fideId", value: "fideId" },
@@ -36,20 +50,25 @@ export default {
   methods: {
     async fetchPlayers() {
       try {
-        const response = await axios.get("http://localhost:8082/api/allplayers");
+        const response = await axios.get("http://localhost:8082/api/admin/players/all");
         this.players = response.data;
       } catch (error) {
-        console.error("Erreur lors de la récupération des joueurs :", error);
+        console.error("Error all players :", error);
+      }
+    },
+    async countPlayers() {
+      try {
+        const response = await axios.get("http://localhost:8082/api/admin/players/count");
+        this.count = response.data;
+      } catch (error) {
+        console.error("Error count player :", error);
       }
     },
   },
   mounted() {
-    // Appel de l'API dès que le composant est monté
     this.fetchPlayers();
+    this.countPlayers();
   },
 };
 </script>
 
-<style scoped>
-/* Ajoutez ici des styles spécifiques à ce composant si nécessaire */
-</style>

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IPlayerService {
   public List<CommonPlayerEntity> findAll();
+  public Long count();
 }

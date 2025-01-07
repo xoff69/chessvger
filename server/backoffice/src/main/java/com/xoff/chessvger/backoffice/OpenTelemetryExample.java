@@ -14,7 +14,7 @@ public class OpenTelemetryExample {
     JaegerGrpcSpanExporter jaegerExporter = JaegerGrpcSpanExporter.builder()
         .setEndpoint("http://localhost:14250")
         .build();
-
+    System.out.println("jaeger go");
     // Configurer le traceur SDK
     SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
         .addSpanProcessor(BatchSpanProcessor.builder(jaegerExporter).build())
@@ -37,8 +37,7 @@ public class OpenTelemetryExample {
     } finally {
       span.end();
     }
-
-    // Fermer les ressources
+    System.out.println("jaeger fin");
     tracerProvider.close();
   }
 }

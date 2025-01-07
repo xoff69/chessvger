@@ -20,11 +20,15 @@ public class PlayersController {
   @Autowired
   IPlayerService iPlayerService;
 
-  @GetMapping("/api/allplayers")
+  @GetMapping("/api/admin/players/all")
   public ResponseEntity<List<CommonPlayerEntity>> all(){
     return new ResponseEntity<>(iPlayerService.findAll(),
         HttpStatus.OK);
   }
-
+  @GetMapping("/api/admin/players/count")
+  public ResponseEntity<Long> count(){
+    return new ResponseEntity<>(iPlayerService.count(),
+        HttpStatus.OK);
+  }
 
 }
