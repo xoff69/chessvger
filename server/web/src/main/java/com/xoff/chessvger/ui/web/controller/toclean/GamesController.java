@@ -61,9 +61,13 @@ public class GamesController {
     return ResponseEntity.ok(iGameService.managePage(paging, filterForm.getBdId(),
         filterMapper.form2entity(filterForm)));
   }
+  @GetMapping("/api/games/count")
+  public ResponseEntity<Long> count(){
+    return new ResponseEntity<>(iGameService.count(),
+        HttpStatus.OK);
+  }
 
-
-  @GetMapping("/api/allgames")
+  @GetMapping("/api/games/all")
   public ResponseEntity<List<CommonGameEntity>> all(){
     return new ResponseEntity<>(iGameService.findAll(),
         HttpStatus.OK);

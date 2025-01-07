@@ -25,8 +25,8 @@ public class FeatureController {
   @Autowired
   private FeatureService featureService;
 
-  @Autowired
-  private ApplicationBean applicationBean;
+ // @Autowired
+  //private ApplicationBean applicationBean;
 
   @GetMapping(path = "/features")
   public ResponseEntity<PageView> getAll(@RequestParam(defaultValue = "0", name = "page") int page,
@@ -50,7 +50,7 @@ public class FeatureController {
       dtoUpdated.setEnabled("true");
     }
     featureService.update(id, dtoUpdated);
-    applicationBean.reset();
+   // applicationBean.reset();
     log.info(" feature patch " + dtoUpdated);
     return new ResponseEntity<String>("OK", HttpStatus.OK);
   }
@@ -59,7 +59,7 @@ public class FeatureController {
   public ResponseEntity<FeatureDto> update(@RequestBody FeatureDto dto,
                                            @PathVariable(name = "id") Long id) {
     FeatureDto dtoUpdated = featureService.update(id, dto);
-    applicationBean.reset();
+  //  applicationBean.reset();
     if (dtoUpdated != null) {
       return new ResponseEntity<>(dtoUpdated, HttpStatus.OK);
     } else {

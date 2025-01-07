@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <AppHeader/>
     <v-card>
       <!-- Onglets principaux -->
       <v-tabs v-model="tab" bg-color="primary">
@@ -60,13 +61,16 @@
       </v-card-text>
     </v-card>
 
-    <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn>
+    <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn> <AppFooter />
   </v-app>
 
 
 </template>
 
 <script>
+
+import AppHeader from "../components/AppHeader.vue";
+import AppFooter from "../components/AppFooter.vue";
 import { ref, computed } from 'vue';
 import PlayersList from '../components/PlayersList.vue';
 import GamesList from '../components/GamesList.vue';
@@ -75,7 +79,8 @@ import { getUser } from '../services/authService';
 export default {
   name: 'ComposantOnglets',
   components: {
-    PlayersList,GamesList, WebSocketChat
+    PlayersList,GamesList, WebSocketChat, AppHeader,
+    AppFooter,
   },
   data() {
     return {

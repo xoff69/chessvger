@@ -12,7 +12,7 @@ import java.util.List;
 public interface IGameService {
   public List<CommonGameEntity> findAll();
   public PageView<CommonGame> managePage(Pageable paging, long bdId);
-
+  public Long count();
   public PageView<CommonGame> managePage(Pageable paging, long bdId, Filter filter);
 
   public void gameOpen(long bdId, long gameId);

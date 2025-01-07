@@ -39,7 +39,9 @@ public class GameServiceImpl implements IGameService {
 
   @Autowired
   private GameRepository gameRepository;
-
+  public Long count() {
+    return gameRepository.count();
+  }
   public List<CommonGameEntity> findAll(){
     org.springframework.data.domain.Page<CommonGameEntity> page=gameRepository.findAll(
         org.springframework.data.domain.Pageable.ofSize(5));

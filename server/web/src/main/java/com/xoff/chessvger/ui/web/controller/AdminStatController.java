@@ -18,8 +18,8 @@ public class AdminStatController {
   @Autowired
   private IAdminStatService adminStatService;
 
-  @Autowired
-  private ApplicationBean applicationBean;
+ // @Autowired
+ // private ApplicationBean applicationBean;
 
   @GetMapping(path = "/adminStat", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<String> getAllStat() {

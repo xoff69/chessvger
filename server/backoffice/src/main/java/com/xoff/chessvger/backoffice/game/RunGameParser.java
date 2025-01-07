@@ -25,6 +25,7 @@ public class RunGameParser implements Runnable {
 
 
   private static void manageFile(MessageToParser messageToParser) throws IOException,SQLException {
+    // TODO quelle bd? celle donnee par le nom du schema
     System.out.println("games " + messageToParser);
     GameDao commonGameDao = new GameDao();
     Parser parser = new Parser();

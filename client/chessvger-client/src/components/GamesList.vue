@@ -15,6 +15,7 @@
         </v-toolbar>
       </template>
     </v-data-table>
+    games : {{ count }}
   </v-container>
 </template>
 
@@ -26,6 +27,7 @@ export default {
   data() {
     return {
       games: [],
+      count:0,
       headers: [
         { text: "whitePlayer", value: "whitePlayer" },
         { text: "blackPlayer", value: "blackPlayer" },
@@ -36,16 +38,25 @@ export default {
   methods: {
     async fetchGames() {
       try {
-        const response = await axios.get("http://localhost:8080/api/allgames");
+        const response = await axios.get("http://localhost:8080/api/games/all");
         this.games = response.data;
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);
+      }},
+
+    async countGames() {
+      try {
+        const response = await axios.get("http://localhost:8080/api/games/count");
+        this.count = response.data;
+      } catch (error) {
+        console.error("Error count games :", error);
       }
     },
-  },
+    },
   mounted() {
     // Appel de l'API dès que le composant est monté
     this.fetchGames();
+    this.countGames();
   },
 };
 </script>

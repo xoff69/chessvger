@@ -21,8 +21,8 @@ import org.springframework.web.util.HtmlUtils;
 public class ChessEngineController {
   @Autowired
   Navigation navigation;
-  @Autowired
-  private SimpMessagingTemplate template;
+  //@Autowired
+  //private SimpMessagingTemplate template;
 
   /*
       Random r=new Random();
@@ -43,6 +43,7 @@ public class ChessEngineController {
         return new Simple(fleetId, driverId);
     }
     */
+  /*
   @MessageMapping("/runAnalyse")
   @SendTo("/topic/greetings")
   // public ChessLineView runAnalyse(@PathVariable Long bdId,
@@ -63,5 +64,5 @@ public class ChessEngineController {
     //Thread.sleep(1000); // simulated delay
     return new ChessLineView("Hello, " + HtmlUtils.htmlEscape("start") + "!");
   }
-
+*/
 }
