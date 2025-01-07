@@ -47,6 +47,7 @@ public class Main {
      Thread thread=new Thread(new Runnable() {
        public void run() {
          OpenTelemetryExample.vasy();
+         ProcessTiming.test();
        }
      });
     thread.start();
