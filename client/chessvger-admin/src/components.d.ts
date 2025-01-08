@@ -13,6 +13,7 @@ declare module 'vue' {
     DEPGamesList: typeof import('./components/DEPGamesList.vue')['default']
     DEPHelloWorld: typeof import('./components/DEPHelloWorld.vue')['default']
     FeatureFlags: typeof import('./components/FeatureFlags.vue')['default']
+    FeatureFlagsForm: typeof import('./components/FeatureFlagsForm.vue')['default']
     GamesList: typeof import('./components/GamesList.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
