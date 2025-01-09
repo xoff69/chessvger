@@ -11,10 +11,9 @@
       </v-tabs>
 
       <v-card-text>
-        <!-- Contenu des onglets -->
         <v-window v-model="tab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
-            <!-- Onglet 1 -->
+
             <div v-if="tab === 0">
               <DatabasesList  @row-clicked="handleRowClick"  :items="databases"  />
             </div>
@@ -53,7 +52,6 @@ export default {
       selectedDatabase:null,
       user: null,
        tab :ref(0),
-       subTab : ref(0),
        activeTab:0,
        allTabs : ref([{ name: 'Your databases', visible: true },]),
     }
@@ -72,13 +70,11 @@ export default {
       this.selectedDatabase=item;
 
       this.activeTab = this.allTabs.length - 1;
-      console.log("activeTab :",this.activeTab );
     },
     async fetchDatabases() {
       try {
         const response = await axios.get("http://localhost:8080/api/databases/all");
-        console.log("fetch");
-        console.log("db "+response.data)
+
         this.databases = response.data;
       } catch (error) {
         console.error("Erreur lors de la récupération des databases :", error);

@@ -44,6 +44,7 @@ export default {
   methods: {
     handleRowClick(item,row) {
 // TODO ne pas ouvrir deux fois la meme
+      console.log("list "+row.item.name);
       this.$emit("row-clicked", row.item);
     },
 
