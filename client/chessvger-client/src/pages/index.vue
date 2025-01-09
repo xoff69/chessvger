@@ -4,86 +4,87 @@
     <v-card>
       <!-- Onglets principaux -->
       <v-tabs v-model="tab" bg-color="primary">
-        <v-tab v-for="(t, index) in visibleTabs" :key="t.name">
+        <v-tab v-for="(t, index) in allTabs" :key="t.name">
           {{ t.name }}
-          <v-icon x-small class="ml-2" @click="cacherOnglet(t)">mdi-close</v-icon>
+
         </v-tab>
       </v-tabs>
 
       <v-card-text>
         <!-- Contenu des onglets -->
         <v-window v-model="tab">
-          <v-window-item v-for="(t, index) in visibleTabs" :key="t.name">
+          <v-window-item v-for="(t, index) in allTabs" :key="t.name">
             <!-- Onglet 1 -->
-            <div v-if="tab === 0"> <DatabasesList /></div>
+            <div v-if="tab === 0">
+              <DatabasesList  @row-clicked="handleRowClick"  :items="databases"  />
+            </div>
             <div v-if="tab === 1">
-              <GamesList />
+              <DatabaseDetail :database="selectedDatabase" />
             </div>
 
           </v-window-item>
         </v-window>
       </v-card-text>
     </v-card>
-
-    <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn> <AppFooter />
+    <AppFooter/>
   </v-app>
 
 
 </template>
 
-<script>
-
+<script lang="ts">
+import axios from "axios";
+import { ref, computed } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue";
-import { ref, computed } from 'vue';
-import GamesList from '../components/GamesList.vue';
+import DatabaseDetail from "../components/DatabaseDetail.vue";
+
 import DatabasesList from '../components/DatabasesList.vue';
 import { getUser } from '../services/authService';
 export default {
   name: 'ComposantOnglets',
   components: {
-   GamesList,  AppHeader,DatabasesList,
+     AppHeader,DatabasesList,DatabaseDetail,
     AppFooter,
   },
   data() {
     return {
+      databases: [],
+      selectedDatabase:null,
       user: null,
-    };
+       tab :ref(0),
+       subTab : ref(0),
+       activeTab:0,
+       allTabs : ref([{ name: 'Your databases', visible: true },]),
+    }
   },
   created() {
     this.user = getUser();
   },
-  setup() {
-    const tab = ref(0);  // Onglet principal
-    const subTab = ref(0); // Sous-onglet pour Admin
-    const allTabs = ref([
-      { name: 'Liste des bd', visible: true },
-      { name: 'Games', visible: true },
-    ]);
 
-    const visibleTabs = computed(() => allTabs.value.filter((onglet) => onglet.visible));
-
-    function cacherOnglet(onglet) {
-      onglet.visible = false;
-      // Si le dernier onglet est fermé, on sélectionne le premier onglet
-      if (onglet.name === 'Admin') {
-        tab.value = 0;
-      }
-    }
-
-    function selectionnerPremierOnglet() {
-      tab.value = 0;
-    }
-
-    return {
-      tab,
-      subTab,  // Variable pour suivre l'onglet sélectionné dans les sous-onglets Admin
-      allTabs,
-      visibleTabs,
-      cacherOnglet,
-      selectionnerPremierOnglet,
-    };
+  mounted() {
+    this.fetchDatabases();
   },
+  methods: {
+    handleRowClick(item,row) {
+      console.log("Ligne cliquée :", item.name);
+      this.allTabs.push({ name: "Database "+item.name, visible: true });
+      this.selectedDatabase=item;
+
+      this.activeTab = this.allTabs.length - 1;
+      console.log("activeTab :",this.activeTab );
+    },
+    async fetchDatabases() {
+      try {
+        const response = await axios.get("http://localhost:8080/api/databases/all");
+        console.log("fetch");
+        console.log("db "+response.data)
+        this.databases = response.data;
+      } catch (error) {
+        console.error("Erreur lors de la récupération des databases :", error);
+      }},
+  },
+
 };
 </script>
 

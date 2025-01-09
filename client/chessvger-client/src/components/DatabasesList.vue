@@ -4,9 +4,10 @@
     <h1>Liste des db</h1>
     <v-data-table
       :headers="headers"
-      :items="databases"
+      :items="items"
       :items-per-page="5"
       class="elevation-1"
+      @click:row="handleRowClick"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -24,6 +25,10 @@ import axios from "axios";
 
 export default {
   name: "DatabasesList",
+  props: {
+    items: Array,
+  },
+
   data() {
     return {
       databases: [],
@@ -32,16 +37,16 @@ export default {
         { text: "name", value: "name" },
         { text: "description", value: "description" },
       ],
+
     };
   },
+
   methods: {
-    async fetchDatabases() {
-      try {
-        const response = await axios.get("http://localhost:8080/api/databases/all");
-        this.databases = response.data;
-      } catch (error) {
-        console.error("Erreur lors de la récupération des databases :", error);
-      }},
+    handleRowClick(item,row) {
+// TODO ne pas ouvrir deux fois la meme
+      this.$emit("row-clicked", row.item);
+    },
+
 
     async countDatabases() {
       try {
@@ -53,7 +58,6 @@ export default {
     },
     },
   mounted() {
-    this.fetchDatabases();
     this.countDatabases();
   },
 };
