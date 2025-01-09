@@ -1,14 +1,6 @@
 <template>
   <div id="app">
-    <header>
-      <h1>Mon Application Vue.js</h1>
-      <nav>
-        <ul>
-          <li><router-link to="/">Accueil</router-link></li>
-          <li><router-link to="/about">À propos</router-link></li>
-        </ul>
-      </nav>
-    </header>
+
     <main>
       <router-view /> <!-- Affiche le composant correspondant à la route -->
     </main>
