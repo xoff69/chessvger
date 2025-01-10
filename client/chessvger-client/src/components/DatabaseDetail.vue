@@ -9,13 +9,12 @@
       </v-tabs>
 
       <v-card-text>
-        <!-- Contenu des onglets -->
         <v-window v-model="tab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="tab === 0"> <GamesList/></div>
-            <div v-if="tab === 1"> <GameBrowse/></div>
-            <div v-if="tab === 2"> <GamePlayers/></div>
+            <div v-if="tab === 0"> <GamesList :database="database" /></div>
+            <div v-if="tab === 1"> <GameBrowse :database="database"/></div>
+            <div v-if="tab === 2"> <GamePlayers :database="database"/></div>
 
           </v-window-item>
         </v-window>
@@ -54,8 +53,7 @@ export default {
       };
     },
     mounted() {
-      console.log("database reçu:"+ this.database);
-        console.log("database reçu:"+ this.database.name );
+      console.log("database reçue:"+ this.database);
   },
 
 };
