@@ -14,18 +14,18 @@ public class DynamicDataSourceService {
   }
 
   // Ajouter une nouvelle DataSource à la volée
-  public void addNewDataSource(String key, String jdbcUrl, String username, String password) {
-    DataSource newDataSource = createDataSource(jdbcUrl, username, password);
+  public void addNewDataSource(String key, String jdbcUrl, String username, String password,String schema) {
+    DataSource newDataSource = createDataSource(jdbcUrl, username, password,schema);
     dynamicRoutingDataSource.addDataSource(key, newDataSource);
   }
 
   // Créer une datasource
-  private DataSource createDataSource(String url, String username, String password) {
+  private DataSource createDataSource(String url, String username, String password,String schema) {
     HikariDataSource dataSource = new HikariDataSource();
-    dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/mydb");
-dataSource.setUsername("username");
-dataSource.setPassword("password");
- dataSource.setConnectionInitSql("SET search_path TO my_schema");
+    dataSource.setJdbcUrl(url);
+dataSource.setUsername(username);
+dataSource.setPassword(password);
+ dataSource.setConnectionInitSql("SET search_path TO "+schema);
 
     return dataSource;
   }

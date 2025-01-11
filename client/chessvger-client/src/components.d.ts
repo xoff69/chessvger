@@ -11,10 +11,8 @@ declare module 'vue' {
     AppHeader: typeof import('./components/AppHeader.vue')['default']
     Board: typeof import('./components/Board.vue')['default']
     Chat: typeof import('./components/Chat.vue')['default']
-    copy: typeof import('./components/GameBrowse copy.vue')['default']
     DatabaseDetail: typeof import('./components/DatabaseDetail.vue')['default']
     DatabasesList: typeof import('./components/DatabasesList.vue')['default']
-    DEPHelloWorld: typeof import('./components/DEPHelloWorld.vue')['default']
     Game: typeof import('./components/Game.vue')['default']
     GameBrowse: typeof import('./components/GameBrowse.vue')['default']
     GamePlayers: typeof import('./components/GamePlayers.vue')['default']
@@ -25,6 +23,5 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserInfo: typeof import('./components/UserInfo.vue')['default']
-    WebSocketChat: typeof import('./components/WebSocketChat.vue')['default']
   }
 }

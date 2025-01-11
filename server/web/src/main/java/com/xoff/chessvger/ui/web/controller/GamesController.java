@@ -1,6 +1,7 @@
 package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.repository.CommonGameEntity;
+import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;
@@ -38,6 +39,15 @@ public class GamesController {
 
   @Autowired
   IGameService iGameService;
+
+  @Autowired
+  GameService gameService;
+
+  @GetMapping("/api/games/all2")
+  public ResponseEntity<List<CommonGameEntity>> all2(){
+    return new ResponseEntity<>(gameService.handleGameAction(),
+        HttpStatus.OK);
+  }
 
   @PostMapping( path ="/searchGame", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody ResponseEntity<PageView> searchGame(@RequestBody FilterForm filterForm,
