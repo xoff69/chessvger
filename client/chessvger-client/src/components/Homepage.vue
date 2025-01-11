@@ -3,7 +3,6 @@
     <AppHeader/>
 
     <UserInfo />
-      <Chat/>
 
 
     <v-card>
@@ -43,14 +42,14 @@ import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue";
 import DatabaseDetail from "../components/DatabaseDetail.vue";
 import UserInfo from "./UserInfo.vue";
-import Chat from "./Chat.vue";
+
 import DatabasesList from '../components/DatabasesList.vue';
 import { getUser } from '../services/authService';
 export default {
   name: 'ComposantOnglets',
   components: {
      AppHeader,DatabasesList,DatabaseDetail,
-    AppFooter, UserInfo,Chat
+    AppFooter, UserInfo,
   },
   data() {
     return {
