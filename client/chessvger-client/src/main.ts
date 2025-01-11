@@ -4,6 +4,7 @@ import router from './router';
 import { createVuetify } from 'vuetify';
 import 'vuetify/styles';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import { createPinia } from 'pinia';
 
 // Configuration de Vuetify
 const vuetify = createVuetify({
@@ -18,5 +19,6 @@ const vuetify = createVuetify({
 
 const app = createApp(App);
 app.use(router);
+app.use(createPinia());
 app.use(vuetify);
 app.mount('#app');

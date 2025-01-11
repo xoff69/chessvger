@@ -1,60 +1,32 @@
 <template>
-  <div id="app">
+  <v-app><!--
     <header>
-      <h1>Mon Application Vue.js</h1>
-      <!-- cette partie permet de voir les onglets-->
+
+      <h1>My Application</h1>
       <nav>
-        <ul>
-          <li><router-link to="/">Accueil</router-link></li>
-          <li><router-link to="/about">À propos</router-link></li>
-        </ul>
+        <router-link to="/">Home</router-link>
+        <router-link to="/login">Login</router-link>
       </nav>
-    </header>
-    <main>
-      <router-view />
-    </main>
-    <footer>
-      <p>© 2025 Mon Application Vue.js</p>
-    </footer>
-  </div>
+    </header>-->
+    <router-view />
+  </v-app>
 </template>
 
-<script lang="ts">
+<script>
+import router from "./router";
+import { useAuthStore } from "./stores/authStore.js";
+import LoginForm from "./components/Login.vue";
+import UserInfo from "./components/UserInfo.vue";
 export default {
-  name: 'App',
+  setup() {
+    const authStore = useAuthStore();
+    authStore.fetchUser(); // Récupérer les données utilisateur au chargement
+
+    return { authStore };
+  },
+  components: {
+    LoginForm,
+    UserInfo
+  }
 };
 </script>
-
-<style scoped>
-#app {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  color: #2c3e50;
-}
-
-header {
-  background-color: #42b983;
-  color: white;
-  padding: 1em;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-  margin: 0 10px;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
-}
-
-footer {
-  margin-top: 20px;
-  font-size: 0.8em;
-}
-</style>

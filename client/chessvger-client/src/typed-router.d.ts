@@ -19,6 +19,5 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/DEPindex avec sous onglets': RouteRecordInfo<'/DEPindex avec sous onglets', '/DEPindex avec sous onglets', Record<never, never>, Record<never, never>>,
   }
 }
