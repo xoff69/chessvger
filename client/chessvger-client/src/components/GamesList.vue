@@ -54,13 +54,8 @@ export default {
     },
     },
   mounted() {
-    // Appel de l'API dès que le composant est monté
     this.fetchGames();
     this.countGames();
   },
 };
 </script>
-
-<style scoped>
-/* Ajoutez ici des styles spécifiques à ce composant si nécessaire */
-</style>

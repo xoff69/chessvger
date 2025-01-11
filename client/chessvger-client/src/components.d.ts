@@ -9,10 +9,12 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     AppHeader: typeof import('./components/AppHeader.vue')['default']
+    Board: typeof import('./components/Board.vue')['default']
     copy: typeof import('./components/GameBrowse copy.vue')['default']
     DatabaseDetail: typeof import('./components/DatabaseDetail.vue')['default']
     DatabasesList: typeof import('./components/DatabasesList.vue')['default']
     DEPHelloWorld: typeof import('./components/DEPHelloWorld.vue')['default']
+    Game: typeof import('./components/Game.vue')['default']
     GameBrowse: typeof import('./components/GameBrowse.vue')['default']
     GamePlayers: typeof import('./components/GamePlayers.vue')['default']
     GamesList: typeof import('./components/GamesList.vue')['default']
