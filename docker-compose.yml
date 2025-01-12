@@ -6,6 +6,18 @@ networks:
     driver: bridge
 
 services:
+  chessvger-backoffice:
+    image: chessvger-backoffice:latest
+    environment:
+      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - chessvger_network
+    volumes:
+      - ./data:/app/data  
+      
   redis:
     image: redis:latest
     container_name: redis_container
@@ -29,7 +41,21 @@ services:
     volumes:
       - ./reference/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./data/postgres_data:/var/lib/postgresql/data
-      
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.45
+    container_name: jaeger
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "14250:14250"
+      - "9411:9411"
+    networks:
+      - chessvger_network     
   # dockfish:
   #   image: registry.gitlab.com/ce72/dockfish:latest 
   #   build:
@@ -54,6 +80,10 @@ services:
 
   chessvger-serverapp-admin:
     image: chessvger-serverapp-admin:latest
+    environment:
+      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
+    depends_on:
+      - jaeger
     build:
       context: .
       dockerfile: Dockerfile
@@ -84,13 +114,5 @@ services:
     ports:
       - "3002:3002"
            
-  chessvger-backoffice:
-    image: chessvger-backoffice:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    networks:
-      - chessvger_network
-    volumes:
-      - ./data:/app/data  
+
 

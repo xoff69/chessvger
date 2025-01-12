@@ -14,7 +14,7 @@ import org.springframework.data.domain.Persistable;
 import jakarta.persistence.Id;
 @Data
 @Entity
-@Table(name = "database")
+@Table(name = "database", schema="common")
 public class DatabaseEntity implements Persistable<Long> {
   @Override
   public boolean isNew() {

@@ -13,7 +13,7 @@ import lombok.Data;
 import org.springframework.data.domain.Persistable;
 @Data
 @Entity
-@Table(name = "common_game",schema = "tenant_admin")
+@Table(name = "common_game",schema = "main_admin")
 public class CommonGameEntity implements Persistable<Long> {
   @Override
   public boolean isNew() {

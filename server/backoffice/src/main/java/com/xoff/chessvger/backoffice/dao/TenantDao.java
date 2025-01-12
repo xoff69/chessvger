@@ -9,15 +9,15 @@ public class TenantDao {
     try (Connection connection = CommonDao.getConnection()) {
 
       CommonDao.createDatabasePg(connection, tenantName);
-      String name="chessvger_"+tenantName+"_database";
-      try (Connection connectionTenant = CommonDao.getConnection(name)) {
+      String sqlDatabaseName="chessvger_"+tenantName+"_database";
+      try (Connection connectionTenant = CommonDao.getConnection(sqlDatabaseName)) {
         // schema common
         CommonDao.createSchemaIfNotExists(connectionTenant, CommonDao.COMMON_SCHEMA);
         // puis un schema par bd
         String queryDatabaseTable= FileUtils.read("query/databasetable.sql");
         System.out.println("queryDatabaseTable "+queryDatabaseTable);
         CommonDao.executeQuery(connectionTenant, queryDatabaseTable);
-        String schemaName="main_"+tenantName;
+        String schemaName="main_db";
         CommonDao.createSchemaIfNotExists(connectionTenant, schemaName);
         createChessvgerDatabase(connectionTenant,schemaName);
 

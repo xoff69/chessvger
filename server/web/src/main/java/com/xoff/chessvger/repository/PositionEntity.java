@@ -16,7 +16,7 @@ import org.springframework.data.domain.Persistable;
 import java.util.List;
 @Data
 @Entity
-@Table(name = "position_games",schema = "tenant_admin")
+@Table(name = "position_games",schema = "main_admin")
 public class PositionEntity  implements Persistable<Long> {
   @Override
   public boolean isNew() {
@@ -28,7 +28,7 @@ public class PositionEntity  implements Persistable<Long> {
   private long position;
 
   @ElementCollection
-  @CollectionTable(schema = "tenant_admin")
+  @CollectionTable(schema = "main_admin")
   private List<Long> games;
 
 }

@@ -1,4 +1,4 @@
-# docker build -t  chessvger-admin . --no-cache
+# docker build -t  chessvger-client . --no-cache
 FROM node:16 AS build-stage
 
 WORKDIR /app
@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY . .
 
-RUN npm install --force
+RUN npm install
 
 FROM node:16 AS production-stage
 

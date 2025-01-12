@@ -7,16 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GameDao {
-  /**
-   * tenant schema + db id
-   */
-  public static final String TABLE_GAME=" create table %s.db_%s_common_game (black_elo integer, date date, event_date date, favori boolean not null, interet integer not null,\n" +
-  "is_deleted boolean, last_position integer, nb_coups integer, partie_analysee boolean, theorique boolean not null,\n" +
-  "white_elo integer, black_fide_id bigint, id bigint not null, informations_fait_de_jeu bigint, last_update bigint,\n" +
-  "white_fide_id bigint, moves varchar(3000), black_player varchar(255), black_title varchar(255), eco varchar(255),\n" +
-  "event varchar(255), first_move varchar(255), opening varchar(255), result varchar(255), round varchar(255),\n" +
- " site varchar(255), white_player varchar(255), white_title varchar(255), primary key (id))\n" +
-  ";";
+
 
 
   private static final String INSERT_SQL =
@@ -26,28 +17,26 @@ public class GameDao {
           "interet, theorique, favori,id,white_player,black_player) " +
           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
 
-  public int count(String schemaName) throws SQLException {
-    try (Connection connection = CommonDao.getConnection()) {
-      ;
+  public int count(Connection connection,String schemaName) throws SQLException {
 
       String sqlQuery = "SELECT COUNT(*) FROM "+schemaName+".common_game";
       PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-      ;
+
       try (ResultSet resultSet = preparedStatement.executeQuery()) {
         if (resultSet.next()) {
           int count = resultSet.getInt(1);
           return count;
         }
-      }
+
     }
     return 0;
   }
 
-  public void insertCommonGame(CommonGame commonGame,String schemaName) throws SQLException, ClassNotFoundException {
+  public void insertCommonGame(Connection connection,String schemaName,CommonGame commonGame) throws SQLException, ClassNotFoundException {
 
     String sql = String.format(INSERT_SQL, schemaName);
     // TODO faire un upsert
-    try (Connection connection = CommonDao.getConnection();
+    try (
          PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
       preparedStatement.setString(1, commonGame.getEvent());

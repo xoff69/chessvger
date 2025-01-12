@@ -9,14 +9,14 @@ chessvger:
 jwt:
   secret: chessvger
   expiration: 3600000
+server:
+  port : 8080
 spring:
 
   security:
     user:
       name: chessvger
       password: chessvger
-  thymeleaf:
-    cache: false
   main:
     banner-mode: 'console'
   banner:

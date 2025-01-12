@@ -16,9 +16,9 @@ import redis.clients.jedis.JedisPubSub;
 
 public class Main {
 
-
+// TODO check l existence des folders dans data
   // localhost
-  private static String dbhost = "localhost:19092"; //"db_chessvger"
+  private static String dbhost = "db_chessvger";
 
   public static String getDBHost() {
     return dbhost;
@@ -26,20 +26,31 @@ public class Main {
 
   public static void main(String[] args) {
 
+    System.out.println("start backoffice");
     if (args.length > 0) {
+      /*
       System.out.println("Main!" + args[0]);
       dbhost = "localhost";
+
       // for test
+      Thread thread = new Thread(new RunInitSystem());
+      thread.start();
       UserTenant userTenant = new UserTenant();
       userTenant.setName("xoff");
       userTenant.setPassword("xoff");
       userTenant.setIsAdmin(false);
       userTenant.setId(5L);
       userTenant.setLogin("xoff");
-      Thread thread = new Thread(new RunInitTenant(userTenant));
-      thread.start();
+      Thread thread2 = new Thread(new RunInitTenant(userTenant));
+      thread2.start();*/
     }
-    System.out.println("Start main");
+     Thread thread=new Thread(new Runnable() {
+       public void run() {
+         OpenTelemetryExample.vasy();
+         ProcessTiming.test();
+       }
+     });
+    thread.start();
     ObjectMapper objectMapper = new ObjectMapper();
     try (Jedis jedis = new Jedis("redis", 6379)) {
       JedisPubSub pubSub = new JedisPubSub() {
@@ -55,7 +66,7 @@ public class Main {
               // TODO
               System.out.println("Creating environment");
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
-              Thread thread = new Thread(new RunGameParser(messageToParser.getFolderToParse()));
+              Thread thread = new Thread(new RunGameParser(messageToParser));
               thread.start();
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 

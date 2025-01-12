@@ -8,12 +8,20 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
+    AppHeader: typeof import('./components/AppHeader.vue')['default']
+    Board: typeof import('./components/Board.vue')['default']
+    Chat: typeof import('./components/Chat.vue')['default']
+    DatabaseDetail: typeof import('./components/DatabaseDetail.vue')['default']
+    DatabasesList: typeof import('./components/DatabasesList.vue')['default']
+    Game: typeof import('./components/Game.vue')['default']
+    GameBrowse: typeof import('./components/GameBrowse.vue')['default']
+    GamePlayers: typeof import('./components/GamePlayers.vue')['default']
     GamesList: typeof import('./components/GamesList.vue')['default']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    Homepage: typeof import('./components/Homepage.vue')['default']
+    LandingPage: typeof import('./components/LandingPage.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
-    PlayersList: typeof import('./components/PlayersList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    WebSocketChat: typeof import('./components/WebSocketChat.vue')['default']
+    UserInfo: typeof import('./components/UserInfo.vue')['default']
   }
 }

@@ -25,10 +25,7 @@ public class ChessVgerApplication implements WebMvcConfigurer {
     SpringApplication.run(ChessVgerApplication.class, args);
   }
 
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**");
-  }
+
   @EventListener(ApplicationReadyEvent.class)
   public void initializeAfterStartup() {
     log.info("initializeAfterStartup");

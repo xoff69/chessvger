@@ -16,7 +16,10 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.3'
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'io.opentelemetry:opentelemetry-api:1.30.0'
+    implementation 'io.opentelemetry:opentelemetry-sdk:1.30.0'
 
+    implementation 'io.opentelemetry:opentelemetry-exporter-jaeger:1.30.0'
 
     implementation 'redis.clients:jedis:2.8.0'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'

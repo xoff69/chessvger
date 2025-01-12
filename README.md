@@ -12,3 +12,7 @@
 # test
 # tools: 
    tools for git
+
+
+jaeger : log telemertry
+  http://localhost:16686

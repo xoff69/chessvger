@@ -49,10 +49,18 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
   public static Connection getConnection() throws SQLException {
     return getConnection("chessvger");
   }
-  public static Connection getConnection(String name) throws SQLException {
-    if (!mapDatasource.containsKey(name)) {
+
+  /**
+   * the schema must be in the query itself
+   * @param databaseName
+   * @return
+   * @throws SQLException
+   */
+  public static Connection getConnection(String databaseName) throws SQLException {
+    if (!mapDatasource.containsKey(databaseName)) {
       HikariConfig config = new HikariConfig();
-      config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/"+name);
+      // url: jdbc:postgresql://localhost/chessvger?currentSchema=common
+      config.setJdbcUrl("jdbc:postgresql://" + Main.getDBHost() + "/"+databaseName);
       config.setUsername("chessvger");
       config.setPassword("chessvger");
       config.addDataSourceProperty("cachePrepStmts", "true");
@@ -60,9 +68,9 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
       config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
       config.setAutoCommit(true);
 
-      mapDatasource.put(name,new HikariDataSource(config));
+      mapDatasource.put(databaseName,new HikariDataSource(config));
     }
-    return mapDatasource.get(name).getConnection();
+    return mapDatasource.get(databaseName).getConnection();
   }
   public static boolean createSchemaIfNotExists(Connection connection, String schemaName)
       throws Exception {

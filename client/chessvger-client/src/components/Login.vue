@@ -1,64 +1,40 @@
 <template>
-  <div>
-    <div v-if="!isAuthenticated">
-      <form @submit.prevent="login">
-        <input v-model="username" placeholder="Username" required />
+    <div>
+      <h2>Login:tu n es pas connecte </h2>
+      <form @submit.prevent="handleLogin">
+        <input v-model="email" type="email" placeholder="Email" required />
         <input v-model="password" type="password" placeholder="Password" required />
         <button type="submit">Login</button>
       </form>
+      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
-    <div v-else>
-      <p>Welcome, {{ user.name }} ({{ user.role }})</p>
-      <button @click="logout">Logout</button>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-      user: null,
-    };
-  },
-  computed: {
-    isAuthenticated() {
-      return !!localStorage.getItem('authToken');
+  </template>
+  
+  <script>
+  import { useAuthStore } from "../stores/authStore";
+  
+  export default {
+    data() {
+      return {
+        email: "",
+        password: "",
+        errorMessage: ""
+      };
     },
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await fetch('http://localhost:8080/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: this.username, password: this.password }),
-        });
-
-        if (!response.ok) throw new Error('Authentication failed');
-
-        const data = await response.json();
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('user', JSON.stringify({ id: data.id, name: data.name, role: data.role }));
-
-        this.user = { id: data.id, name: data.name, role: data.role };
-      } catch (error) {
-        alert('Login failed: ' + error.message);
+    setup() {
+      const authStore = useAuthStore();
+      return { authStore };
+    },
+    methods: {
+      async handleLogin() {
+        try {
+          await this.authStore.login(this.email, this.password);
+          this.errorMessage = "";
+          this.$router.push("/"); // Redirige après la connexion
+        } catch (error) {
+          this.errorMessage = "Invalid email or password";
+        }
       }
-    },
-    logout() {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('user');
-      this.user = null;
-    },
-  },
-  created() {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
     }
-  },
-};
-</script>
+  };
+  </script>
