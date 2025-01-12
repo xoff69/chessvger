@@ -4,9 +4,12 @@
 
 package com.xoff.chessvger.backoffice.game;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.backoffice.dao.CommonDao;
 import com.xoff.chessvger.backoffice.dao.GameDao;
+import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
+import com.xoff.chessvger.topic.ResultAction;
 import com.xoff.chessvger.topic.Topic;
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +67,18 @@ public class RunGameParser implements Runnable {
       System.out.println("db insert games done " + games.size() + ":" + timeElapsed + " s");
       try (Jedis jedis = new Jedis("redis", 6379)) {
         // TODO a externaliser
-        jedis.publish(Topic.TOPIC_FROM_QUEUE, games.size() + ":" + timeElapsed + " s");
+        MessageFromParser messageFromParser = new MessageFromParser();
+        // TODO
+        // private long tenantId;
+        //private long correlationId;
+messageFromParser.setCorrelationId(messageToParser.getCorrelationId());
+messageFromParser.setTenantId(messageFromParser.getTenantId())
+;
+        messageFromParser.setResult(ResultAction.SUCCESS);
+        messageFromParser.setMessage(games.size() + ":" + timeElapsed + " s");
+        ObjectMapper objectMapper=new ObjectMapper();
+
+        jedis.publish(Topic.TOPIC_FROM_QUEUE,objectMapper.writeValueAsString(messageFromParser) );
       }
       System.out.println(
           "Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");

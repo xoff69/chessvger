@@ -7,6 +7,7 @@ import com.xoff.chessvger.backoffice.environnement.RunInitSystem;
 import com.xoff.chessvger.backoffice.environnement.RunInitTenant;
 import com.xoff.chessvger.backoffice.game.RunGameParser;
 import com.xoff.chessvger.backoffice.player.RunPlayerParser;
+import com.xoff.chessvger.backoffice.util.ProcessTiming;
 import com.xoff.chessvger.common.UserTenant;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
@@ -44,13 +45,7 @@ public class Main {
       Thread thread2 = new Thread(new RunInitTenant(userTenant));
       thread2.start();*/
     }
-     Thread thread=new Thread(new Runnable() {
-       public void run() {
-         OpenTelemetryExample.vasy();
-         ProcessTiming.test();
-       }
-     });
-    thread.start();
+
     ObjectMapper objectMapper = new ObjectMapper();
     try (Jedis jedis = new Jedis("redis", 6379)) {
       JedisPubSub pubSub = new JedisPubSub() {
@@ -62,12 +57,10 @@ public class Main {
             MessageToParser messageToParser =
                 objectMapper.readValue(message, MessageToParser.class);
 
-            if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
-              // TODO
-              System.out.println("Creating environment");
-            } else if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
-              Thread thread = new Thread(new RunGameParser(messageToParser));
-              thread.start();
+         if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
+              Runnable runnable=new RunGameParser(messageToParser);
+              ProcessTiming.measureProcess("RunGameParser",runnable);
+
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 
               Thread thread = new Thread(new RunPlayerParser(messageToParser.getFolderToParse()));

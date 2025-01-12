@@ -1,7 +1,12 @@
 package com.xoff.chessvger.ui.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.repository.CommonGameEntity;
 import com.xoff.chessvger.service.GameService;
+import com.xoff.chessvger.topic.ActionQueue;
+import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.ui.PageRequest;
 import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;
@@ -13,6 +18,9 @@ import com.xoff.chessvger.view.CoupleLongView;
 import com.xoff.chessvger.view.GameView;
 import com.xoff.chessvger.view.PageView;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +39,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @Slf4j
 public class GamesController {
+
+
   @Autowired
   Navigation navigation;
 
@@ -43,12 +54,32 @@ public class GamesController {
   @Autowired
   GameService gameService;
 
+  @Autowired
+  RedisMessagePublisher redisMessagePublisher;
+
   @GetMapping("/api/games/all2")
   public ResponseEntity<List<CommonGameEntity>> all2(){
     return new ResponseEntity<>(gameService.handleGameAction(),
         HttpStatus.OK);
   }
+  @PostMapping("/api/games/import")
+  public ResponseEntity<String> importPgn(@RequestBody ApiRequest request)
+      throws JsonProcessingException {
+    String databaseId = request.getDatabaseId();
+    String userId = request.getUserId();
+    System.out.println("Reçu databaseId: " + databaseId + ", userId: " + userId);
+    MessageToParser messageGame=new MessageToParser();
+    messageGame.setFolderToParse("./data/big");
+    messageGame.setDatabaseName("chessvger_admin_database");
+    messageGame.setSchema("main_admin");  // TODO renommer
+    messageGame.setActionQueue(ActionQueue.PARSEGAME);
 
+    ObjectMapper objectMapper=new ObjectMapper();
+
+    redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
+
+    return ResponseEntity.ok("Requête traitée avec succès pour userId: " + userId);
+  }
   @PostMapping( path ="/searchGame", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody ResponseEntity<PageView> searchGame(@RequestBody FilterForm filterForm,
                                                            @RequestParam(defaultValue = "0", name = "page")

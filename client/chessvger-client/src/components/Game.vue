@@ -5,17 +5,16 @@
   </div>
 
 
-  <Chat/>
 
 </template>
 
 <script>
 import Chessboard from "../components/Board.vue";
-import Chat from "./Chat.vue";
+
 export default {
   name: "App",
   components: {
-    Chessboard,Chat
+    Chessboard
   },
   props: {
      database: {

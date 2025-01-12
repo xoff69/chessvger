@@ -2,12 +2,7 @@
   <div>
     <h1>WebSocket Client</h1>
     <p>Message reçu : {{ receivedMessage }}</p>
-    <input
-      type="text"
-      v-model="messageToSend"
-      placeholder="Entrez un message"
-    />
-    <button @click="sendMessage">Envoyer</button>
+
   </div>
 </template>
 
