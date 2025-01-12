@@ -2,10 +2,16 @@
   <v-app>
     <AppHeader/>
 
-    <UserInfo />
+
 
 
     <v-card>
+      <div> <!-- pour gagner de l espace -->
+    <p>Premier Élément</p>
+    <br />
+    <p>Deuxième Élément</p>
+  </div>
+
       <!-- Onglets principaux -->
       <v-tabs v-model="tab" bg-color="primary">
         <v-tab v-for="(t, index) in allTabs" :key="t.name">

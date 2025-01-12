@@ -17,5 +17,20 @@ export default {
   components: {
     Chessboard,Chat
   },
+  props: {
+     database: {
+               type: Object,
+               required: true
+           }
+   },
+   data() {
+     return {}
+   },
+   mounted() {
+     console.log("Game:"+ this.database);
+ },
+
+
 };
 </script>
+

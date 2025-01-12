@@ -1,54 +1,90 @@
 <template>
-    <div>
-      <h1>Socket.IO Vue.js Demo</h1>
-      <ul>
-        <li v-for="(msg, index) in messages" :key="index">{{ msg }}</li>
-      </ul>
-      <input v-model="message" placeholder="Type your message" />
-      <button @click="sendMessage">Send</button>
-    </div>
-  </template>
-  
-  <script>
-  import { io } from 'socket.io-client';
-  
-  export default {
-    data() {
-      return {
-        socket: null,
-        messages: [],
-        message: '',
-      };
-    },
-    methods: {
-      setupSocket() {
-        // Se connecter au serveur Socket.IO
-        this.socket = io('http://localhost:3000');
-  
-        // Écouter les messages du serveur
-        this.socket.on('message', (data) => {
-          this.messages.push(`Server: ${data}`);
+  <div>
+    <h1>WebSocket Client</h1>
+    <p>Message reçu : {{ receivedMessage }}</p>
+    <input
+      type="text"
+      v-model="messageToSend"
+      placeholder="Entrez un message"
+    />
+    <button @click="sendMessage">Envoyer</button>
+  </div>
+</template>
+
+<script>
+import SockJS from "sockjs-client";
+import { Stomp } from "@stomp/stompjs";
+
+export default {
+  name: "WebSocketClient",
+  data() {
+    return {
+      stompClient: null, // Instance STOMP
+      receivedMessage: "", // Message reçu
+      messageToSend: "", // Message à envoyer
+    };
+  },
+  methods: {
+    connect() {
+      // Connectez-vous au serveur WebSocket via SockJS
+      const socket = new SockJS("http://localhost:8080/ws");
+      this.stompClient = Stomp.over(socket);
+
+      this.stompClient.connect({}, () => {
+        console.log("Connecté au WebSocket");
+
+        // S'abonner à la destination "/topic/notifications"
+        this.stompClient.subscribe("/topic/notifications", (message) => {
+          this.receivedMessage = message.body;
+          console.log("Message reçu :", message.body);
         });
-  
-        this.socket.on('broadcast-message', (data) => {
-          this.messages.push(`Broadcast: ${data}`);
-        });
-      },
-      sendMessage() {
-        if (this.message.trim() !== '') {
-          // Envoyer un message au serveur
-          this.socket.emit('send-message', this.message);
-          this.message = '';
-        }
-      },
+      }, (error) => {
+        console.error("Erreur de connexion WebSocket :", error);
+      });
     },
-    mounted() {
-      this.setupSocket();
-    },
-    beforeDestroy() {
-      if (this.socket) {
-        this.socket.disconnect();
+    sendMessage() {
+      if (this.stompClient && this.messageToSend.trim()) {
+        // Envoyer un message à "/app/hello" (géré côté serveur)
+        this.stompClient.send("/app/hello", {}, this.messageToSend);
+        this.messageToSend = "";
+      } else {
+        console.warn("Le client WebSocket n'est pas connecté ou le message est vide.");
       }
     },
-  };
-  </script>
+    disconnect() {
+      if (this.stompClient) {
+        this.stompClient.disconnect(() => {
+          console.log("Déconnecté du WebSocket");
+        });
+      }
+    },
+  },
+  mounted() {
+    // Se connecter lorsque le composant est monté
+    this.connect();
+  },
+  beforeUnmount() {
+    // Se déconnecter lorsque le composant est détruit
+    this.disconnect();
+  },
+};
+</script>
+
+<style scoped>
+h1 {
+  color: #333;
+}
+input {
+  margin-right: 10px;
+}
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+</style>

@@ -16,8 +16,6 @@ spring:
     user:
       name: chessvger
       password: chessvger
-  thymeleaf:
-    cache: false
   main:
     banner-mode: 'console'
   banner:

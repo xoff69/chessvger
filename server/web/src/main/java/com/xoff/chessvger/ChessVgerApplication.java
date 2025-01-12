@@ -17,10 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 @Slf4j
 @EntityScan("com.xoff.chessvger.repository")
-public class ChessVgerApplication implements WebMvcConfigurer {
-
-
-
+public class ChessVgerApplication  {
 
 
   public static void main(String[] args) {
@@ -38,10 +35,7 @@ public class ChessVgerApplication implements WebMvcConfigurer {
     messageSource.setUseCodeAsDefaultMessage(true);
     return messageSource;
   }
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**");
-  }
+
   @EventListener(ApplicationReadyEvent.class)
   public void initializeAfterStartup() {
     log.info("initializeAfterStartup");
