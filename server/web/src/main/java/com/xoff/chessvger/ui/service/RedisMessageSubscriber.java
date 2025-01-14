@@ -1,4 +1,4 @@
-package com.xoff.chessvger.config;
+package com.xoff.chessvger.ui.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,12 +12,17 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class RedisMessageSubscriber implements MessageListener {
 
-  @Autowired
-  private SimpMessagingTemplate messagingTemplate;
+
+  private ApiService apiService;
+
+  public RedisMessageSubscriber(ApiService apiService){
+    this.apiService = apiService;
+  }
 
   public static List<String> messageList = new ArrayList<>();
 
@@ -30,7 +35,15 @@ public class RedisMessageSubscriber implements MessageListener {
 
       messageList.add(message.toString());
       System.out.println("RedisMessageSubscriber web Message received: " + new String(message.getBody()));
-      messagingTemplate.convertAndSend("/topic/notifications", messageFromParser.getMessage());
+
+      MessageFromParser messageFromParser1=
+          objectMapper.readValue(new String(message.getBody()), MessageFromParser.class);
+
+      String url="http://localhost:8080/send?message="+messageFromParser1.getMessage();
+
+      System.out.println(apiService +"RedisMessageSubscriber web Message received: " + url);
+      apiService.callExternalApi(url);
+
     } catch (IOException e) {
       System.out.println("Error parsing JSON message: " + e.getMessage());
       throw new RuntimeException(e);

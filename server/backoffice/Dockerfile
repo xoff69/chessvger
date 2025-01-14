@@ -4,5 +4,7 @@ FROM openjdk:21-jdk-slim
 
 WORKDIR /app
 COPY build/libs/. .
-EXPOSE  14250 16686
-CMD ["java", "-jar", "all-in-one-jar-1.0.0-SNAPSHOT.jar","cluster"]
+
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.28.0/opentelemetry-javaagent.jar /opentelemetry-javaagent.jar
+
+CMD ["java", "-Dotel.exporter.jaeger.endpoint=http://localhost:14250 ","-javaagent:/opentelemetry-javaagent.jar","-jar", "all-in-one-jar-1.0.0-SNAPSHOT.jar","cluster"]
