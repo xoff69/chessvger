@@ -18,6 +18,7 @@ declare module 'vue' {
     GamePlayers: typeof import('./components/GamePlayers.vue')['default']
     GamesList: typeof import('./components/GamesList.vue')['default']
     Homepage: typeof import('./components/Homepage.vue')['default']
+    HomePage: typeof import('./components/HomePage.vue')['default']
     LandingPage: typeof import('./components/LandingPage.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
