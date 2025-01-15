@@ -83,6 +83,10 @@ export default {
         const response = await axios.get("http://localhost:8080/api/databases/all");
 
         this.databases = response.data;
+
+        const customHeader = response.headers["X-Total-Count"];
+        console.log("Valeur de 'X-Total-Count':", customHeader);
+
       } catch (error) {
         console.error("Erreur lors de la récupération des databases :", error);
       }},

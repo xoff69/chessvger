@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -110,7 +111,16 @@ public class GamesController {
 
   @GetMapping("/api/games/all")
   public ResponseEntity<List<CommonGameEntity>> all(){
-    return new ResponseEntity<>(iGameService.findAll(),
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("X-Total-Count", String.valueOf(iGameService.count()));
+
+
+  return new ResponseEntity<>(iGameService.findAll(),headers,
+        HttpStatus.OK);
+  }
+  @GetMapping("/api/games/findById")
+  public ResponseEntity<CommonGameEntity> findById(@RequestParam("id") Long id){
+    return new ResponseEntity<>(gameService.findById(id),
         HttpStatus.OK);
   }
   @GetMapping("/games")

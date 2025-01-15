@@ -29,9 +29,22 @@ public class GameService {
     DataSourceContextHolder.setDataSource("newDb");
     org.springframework.data.domain.Page<CommonGameEntity> page=gameRepository.findAll(
         org.springframework.data.domain.Pageable.ofSize(5));
+
     return  page.stream().toList();
     // Vous pouvez maintenant exécuter des requêtes sur cette nouvelle base de données
     // Par exemple, vous pouvez appeler un repository ou un EntityManager pour interagir avec la base de données "newDb".
   }
+  public CommonGameEntity findById(long id) {
+    // Logique pour ajouter une nouvelle source de données
+    System.out.println("test repo findById id=" + id);
+    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
+    dynamicDataSourceService.addNewDataSource("newDb",
+        "jdbc:postgresql://db_chessvger/chessvger_admin_database",
+        "chessvger",
+        "chessvger","main_admin");
 
+
+
+    return  gameRepository.findById(id);
+  }
 }
