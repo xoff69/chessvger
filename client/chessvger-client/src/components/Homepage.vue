@@ -1,10 +1,6 @@
 <template>
   <v-app>
     <AppHeader/>
-
-
-
-
     <v-card>
       <div> <!-- pour gagner de l espace -->
     <p>Premier Élément</p>
@@ -13,7 +9,7 @@
   </div>
 
       <!-- Onglets principaux -->
-      <v-tabs v-model="tab" bg-color="primary">
+      <v-tabs v-model="activeTab" bg-color="primary">
         <v-tab v-for="(t, index) in allTabs" :key="t.name">
           {{ t.name }}
 
@@ -21,13 +17,13 @@
       </v-tabs>
 
       <v-card-text>
-        <v-window v-model="tab">
+        <v-window v-model="activeTab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="tab === 0">
+            <div v-if="activeTab === 0">
               <DatabasesList  @row-clicked="handleRowClick"  :items="databases"  />
             </div>
-            <div v-if="tab === 1">
+            <div v-if="activeTab === 1">
               <DatabaseDetail :database="selectedDatabase" />
             </div>
 
