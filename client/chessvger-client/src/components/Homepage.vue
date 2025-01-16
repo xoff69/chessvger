@@ -12,7 +12,7 @@
       <v-tabs v-model="activeTab" bg-color="primary">
         <v-tab v-for="(t, index) in allTabs" :key="t.name">
           {{ t.name }}
-          <v-icon
+          <v-icon v-if="index>0"
           small
           class="ml-2 red-background white--text"
           @click.stop="closeTab(index)"
@@ -77,6 +77,13 @@ export default {
   mounted() {
   },
   methods: {
+    closeTab(index) {
+      console.log("close "+index);
+      this.allTabs.splice(index, 1); // Supprimer l'onglet
+      if (this.activeTab >= this.allTabs.length) {
+        this.activeTab = this.allTabs.length - 1; // Ajuster l'onglet actif
+      }
+    },
     handleRowClick(item,row) {
       console.log("Ligne cliquée :", item.name);
       this.allTabs.push({ name: "Database "+item.name, visible: true });

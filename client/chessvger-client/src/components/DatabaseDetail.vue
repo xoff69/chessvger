@@ -5,7 +5,7 @@
         <v-tab v-for="(t, index) in allTabs" :key="t.name"   @click="activeTab = index"
         >
           {{ t.name }}
-          <v-icon
+          <v-icon v-if="index>2"
           small
           class="ml-2 red-background white--text"
           @click.stop="closeTab(index)"
