@@ -1,7 +1,7 @@
 <!-- src/components/GamesList.vue -->
 <template>
   <v-container>
-    <h1>Liste des games</h1> <button @click="importGames">Importer games</button>
+    <h1>Liste des games:</h1> <button @click="importGames">Importer games</button>
     <v-data-table
       :headers="headers"
       :items="games"
@@ -37,7 +37,7 @@ export default {
     return {
        authStore : useAuthStore(),
       games: [],
-      count:0,
+      count:"",
       loading:false,
       headers: [
         { text: "whitePlayer", value: "whitePlayer" },
@@ -49,8 +49,13 @@ export default {
   methods: {
     async fetchGames() {
       try {
+        console.log("Valeur de 'X-Total-Count'fetchGames");
         const response = await axios.get("http://localhost:8080/api/games/all");
         this.games = response.data;
+        console.log("response.headers fetchGames" +response.headers);
+        const customHeader = response.headers["X-Total-Count"];
+        console.log("Valeur de 'X-Total-Count':", customHeader);
+        this.count=response.headers["X-Total-Count"];
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);
       }},
@@ -60,7 +65,7 @@ export default {
 
 
       try {
-        this.response = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id, this.authStore.user.id);
+        this.response = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id, this.authStore.user.tenantId);
 
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);
@@ -69,18 +74,10 @@ export default {
         this.loading = false;
       }
     },
-    async countGames() {
-      try {
-        const response = await axios.get("http://localhost:8080/api/games/count");
-        this.count = response.data;
-      } catch (error) {
-        console.error("Error count games :", error);
-      }
-    },
+
     },
   mounted() {
     this.fetchGames();
-    this.countGames();
 
 
     console.log("games list database reçue:"+ this.database);

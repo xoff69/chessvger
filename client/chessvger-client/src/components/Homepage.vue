@@ -21,7 +21,7 @@
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
             <div v-if="activeTab === 0">
-              <DatabasesList  @row-clicked="handleRowClick"  :items="databases"  />
+              <DatabasesList  @row-clicked="handleRowClick"    />
             </div>
             <div v-if="activeTab === 1">
               <DatabaseDetail :database="selectedDatabase" />
@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      databases: [],
+
       selectedDatabase:null,
       user: null,
        tab :ref(0),
@@ -68,7 +68,6 @@ export default {
   },
 
   mounted() {
-    this.fetchDatabases();
   },
   methods: {
     handleRowClick(item,row) {
@@ -78,18 +77,7 @@ export default {
 
       this.activeTab = this.allTabs.length - 1;
     },
-    async fetchDatabases() {
-      try {
-        const response = await axios.get("http://localhost:8080/api/databases/all");
 
-        this.databases = response.data;
-
-        const customHeader = response.headers["X-Total-Count"];
-        console.log("Valeur de 'X-Total-Count':", customHeader);
-
-      } catch (error) {
-        console.error("Erreur lors de la récupération des databases :", error);
-      }},
   },
 
 };
