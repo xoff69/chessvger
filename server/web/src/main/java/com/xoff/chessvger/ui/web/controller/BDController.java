@@ -11,6 +11,7 @@ import com.xoff.chessvger.view.PageView;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,10 @@ public class BDController {
 
   @GetMapping("/api/databases/all")
   public ResponseEntity<List<DatabaseEntity>> all(){
-    return new ResponseEntity<>(iDatabaseService.findAll(),
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("X-Total-Count", String.valueOf(iDatabaseService.count()));
+
+    return new ResponseEntity<>(iDatabaseService.findAll(),headers,
         HttpStatus.OK);
   }
 

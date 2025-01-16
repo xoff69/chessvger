@@ -39,7 +39,7 @@ public class RedisMessageSubscriber implements MessageListener {
       MessageFromParser messageFromParser1=
           objectMapper.readValue(new String(message.getBody()), MessageFromParser.class);
 
-      String url="http://localhost:8080/send?message="+messageFromParser1.getMessage();
+      String url="http://localhost:8080/send?message="+messageFromParser1;
 
       System.out.println(apiService +"RedisMessageSubscriber web Message received: " + url);
       apiService.callExternalApi(url);

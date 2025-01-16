@@ -9,10 +9,11 @@ import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 
 public class OpenTelemetryExample {
+  public static void main(String[] args) {vasy();}
   public static void vasy() {
     // Configurer l'exportateur Jaeger
     JaegerGrpcSpanExporter jaegerExporter = JaegerGrpcSpanExporter.builder()
-        .setEndpoint("http://localhost:14250")
+        .setEndpoint("http://localhost:4343")
         .build();
     System.out.println("jaeger go");
     // Configurer le traceur SDK
