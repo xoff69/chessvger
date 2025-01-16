@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 System.out.println("addCorsMappings");
     registry.addMapping("/ws/**")
         .allowedMethods("GET", "POST", "PUT", "DELETE")
-        .allowedHeaders("*")
+        .allowedHeaders("*").allowedHeaders("Authorization", "X-Total-Count")
         .allowedOrigins("http://localhost:3000").allowCredentials(false);
 
     registry.addMapping("/api/**") .allowCredentials(false);

@@ -7,7 +7,7 @@
           {{ t.name }}
           <v-icon
           small
-          class="ml-2"
+          class="ml-2 red-background white--text"
           @click.stop="closeTab(index)"
         >
           mdi-close
@@ -81,5 +81,10 @@ export default {
 .v-icon {
   cursor: pointer;
   color: red;
+}
+.red-background {
+  background-color: red;
+  border-radius: 50%; /* Fond rond */
+  padding: 4px; /* Ajuster selon la taille */
 }
 </style>

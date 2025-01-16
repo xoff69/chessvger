@@ -18,9 +18,6 @@ import com.xoff.chessvger.view.CoupleLongView;
 import com.xoff.chessvger.view.GameView;
 import com.xoff.chessvger.view.PageView;
 import java.util.List;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -67,9 +64,10 @@ public class GamesController {
   public ResponseEntity<String> importPgn(@RequestBody ApiRequest request)
       throws JsonProcessingException {
     String databaseId = request.getDatabaseId();
-    String userId = request.getUserId();
-    System.out.println("Reçu databaseId: " + databaseId + ", userId: " + userId);
+    String tenantId = request.getTenantId();
+    System.out.println("Reçu databaseId: " + databaseId + ", userId: " + tenantId);
     MessageToParser messageGame=new MessageToParser();
+    messageGame.setTenantId(Long.parseLong(tenantId));
     messageGame.setFolderToParse("./data/big");
     messageGame.setDatabaseName("chessvger_admin_database");
     messageGame.setSchema("main_admin");  // TODO renommer
@@ -79,7 +77,7 @@ public class GamesController {
 
     redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
 
-    return ResponseEntity.ok("Requête traitée avec succès pour userId: " + userId);
+    return ResponseEntity.ok("Requête traitée avec succès pour userId: " + tenantId);
   }
   @PostMapping( path ="/searchGame", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public @ResponseBody ResponseEntity<PageView> searchGame(@RequestBody FilterForm filterForm,

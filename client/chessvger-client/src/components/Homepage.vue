@@ -12,6 +12,13 @@
       <v-tabs v-model="activeTab" bg-color="primary">
         <v-tab v-for="(t, index) in allTabs" :key="t.name">
           {{ t.name }}
+          <v-icon
+          small
+          class="ml-2 red-background white--text"
+          @click.stop="closeTab(index)"
+        >
+          mdi-close
+        </v-icon>
 
         </v-tab>
       </v-tabs>
@@ -84,5 +91,14 @@ export default {
 </script>
 
 <style scoped>
-/* Ajoutez ici des styles spécifiques à ce composant si nécessaire */
+/* Optionnel : Ajouter du style à l'icône */
+.v-icon {
+  cursor: pointer;
+  color: red;
+}
+.red-background {
+  background-color: red;
+  border-radius: 50%; /* Fond rond */
+  padding: 4px; /* Ajuster selon la taille */
+}
 </style>

@@ -51,8 +51,9 @@ export default {
       try {
         console.log("Valeur de 'X-Total-Count'fetchGames");
         const response = await axios.get("http://localhost:8080/api/games/all");
+
+
         this.games = response.data;
-        console.log("response.headers fetchGames" +response.headers);
         const customHeader = response.headers["X-Total-Count"];
         console.log("Valeur de 'X-Total-Count':", customHeader);
         this.count=response.headers["X-Total-Count"];

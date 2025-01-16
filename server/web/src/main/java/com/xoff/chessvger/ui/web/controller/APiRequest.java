@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 class ApiRequest{
   private String databaseId;
-  private String userId;
+  private String tenantId;
 }
