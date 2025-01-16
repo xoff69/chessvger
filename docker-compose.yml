@@ -13,6 +13,8 @@ services:
       - "9411:9411"
     networks:
       - chessvger_network   
+    volumes:
+      - ./data:/app/metrics 
 
   chessvger-backoffice:
     image: chessvger-backoffice:latest

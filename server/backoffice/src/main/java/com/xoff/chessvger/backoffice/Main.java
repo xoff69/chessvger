@@ -59,13 +59,15 @@ public class Main {
 
          if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
               Runnable runnable=new RunGameParser(messageToParser);
-             // ProcessTiming.measureProcess("RunGameParser",runnable);
+
            Metrics.mesure("backoffice","game-parse",runnable);
 
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 
-              Thread thread = new Thread(new RunPlayerParser(messageToParser.getFolderToParse()));
-              thread.start();
+           Runnable runnable=new RunPlayerParser(messageToParser.getFolderToParse());
+
+           Metrics.mesure("backoffice","player-parse",runnable);
+
             }
            else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
 

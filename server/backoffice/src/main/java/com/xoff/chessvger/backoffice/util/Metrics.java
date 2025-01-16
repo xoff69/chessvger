@@ -7,6 +7,8 @@ import brave.propagation.ThreadLocalCurrentTraceContext;
 import brave.sampler.Sampler;
 import brave.Tracer;
 import brave.Span;
+import com.xoff.chessvger.backoffice.player.RunPlayerParser;
+import java.util.UUID;
 import zipkin2.reporter.AsyncReporter;
 import zipkin2.reporter.okhttp3.OkHttpSender;
 
@@ -46,8 +48,11 @@ public class Metrics {
         Span childSpan = tracer.newChild(parentSpan.context()).name(span).start();
         try (Tracer.SpanInScope childScope = tracer.withSpanInScope(childSpan)) {
           System.out.println("runnable running...");
-          childSpan.tag("key1", "test christophe");
-          runnable.run();
+          childSpan.tag("execution.id", String.valueOf(UUID.randomUUID()));
+
+          Thread thread = new Thread(runnable);
+          thread.start();
+
         } finally {
           childSpan.finish();
           System.out.println("Child span finished.");
