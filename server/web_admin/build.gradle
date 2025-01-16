@@ -43,11 +43,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.3'
     compileOnly 'org.projectlombok:lombok:1.18.34'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-   // OpenTelemetry API
-    implementation 'io.opentelemetry:opentelemetry-api:1.30.0'
-    implementation 'io.opentelemetry:opentelemetry-sdk:1.30.0'
 
-    implementation 'io.opentelemetry:opentelemetry-exporter-jaeger:1.30.0'
 
     implementation ('org.springframework.boot:spring-boot-starter-data-redis'){
         exclude module: 'lettuce-core'

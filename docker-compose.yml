@@ -6,24 +6,18 @@ networks:
     driver: bridge
 
 services:
-  jaeger:
-    image: jaegertracing/jaeger:2.2.0
-    container_name: jaeger
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
     ports:
-      - "16686:16686" # Jaeger UI
-      - "4317:4317"
-      - "4318:4318"
-      - "5778:5778"
       - "9411:9411"
     networks:
       - chessvger_network   
 
   chessvger-backoffice:
     image: chessvger-backoffice:latest
-    environment:
-      - OTEL_EXPORTER_JAEGER_ENDPOINT=http:/jaeger:4318
     depends_on:
-      - jaeger
+      - zipkin
     build:
       context: .
       dockerfile: Dockerfile
@@ -81,10 +75,6 @@ services:
 
   chessvger-serverapp-admin:
     image: chessvger-serverapp-admin:latest
-    environment:
-      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
-    depends_on:
-      - jaeger
     build:
       context: .
       dockerfile: Dockerfile

@@ -24,7 +24,6 @@ public class RedisMessageSubscriber implements MessageListener {
     this.apiService = apiService;
   }
 
-  public static List<String> messageList = new ArrayList<>();
 
   public void onMessage(final Message message, final byte[] pattern) {
 
@@ -33,19 +32,17 @@ public class RedisMessageSubscriber implements MessageListener {
       MessageFromParser messageFromParser =
           objectMapper.readValue(message.getBody(), MessageFromParser.class);
 
-      messageList.add(message.toString());
       System.out.println("RedisMessageSubscriber web Message received: " + new String(message.getBody()));
 
-      MessageFromParser messageFromParser1=
-          objectMapper.readValue(new String(message.getBody()), MessageFromParser.class);
-
-      String url="http://localhost:8080/send?message="+messageFromParser1;
-
-      System.out.println(apiService +"RedisMessageSubscriber web Message received: " + url);
+      String param=MessageFromParser.toJSon(messageFromParser);
+      System.out.println(apiService +"RedisMessageSubscriber web Message received: " );
+      String url="http://localhost:8080/send?message="+param;
       apiService.callExternalApi(url);
 
     } catch (IOException e) {
       System.out.println("Error parsing JSON message: " + e.getMessage());
+      throw new RuntimeException(e);
+    } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
 

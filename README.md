@@ -1,4 +1,6 @@
 # chessvger
+decrire tous les outils
+docker, zipkin
 # folders
 #client
 @ data
@@ -14,5 +16,5 @@
    tools for git
 
 
-jaeger : log telemertry
-  http://localhost:16686
+zipkin : log telemertry
+  http://localhost:9411/

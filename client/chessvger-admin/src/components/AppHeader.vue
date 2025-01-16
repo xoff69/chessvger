@@ -6,11 +6,11 @@
     <v-btn text>À propos</v-btn>
     <v-btn text>Contact</v-btn>
     <v-btn
-    href="http://localhost:16686"
+    href="http://localhost:9411/"
     target="_blank"
     icon
 >
-    <v-icon>window</v-icon> Jaeger
+    <v-icon>window</v-icon> Metrics
 </v-btn>
 
   </v-app-bar>
