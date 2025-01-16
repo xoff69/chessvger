@@ -9,7 +9,7 @@ services:
   chessvger-backoffice:
     image: chessvger-backoffice:latest
     environment:
-      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250/api/traces
+      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:4317
     build:
       context: .
       dockerfile: Dockerfile

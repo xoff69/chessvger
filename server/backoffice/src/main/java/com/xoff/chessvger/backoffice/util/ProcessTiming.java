@@ -18,7 +18,7 @@ public class ProcessTiming {
   public static void measureProcess( String processName, Runnable process) {
     // TODO static code
     JaegerGrpcSpanExporter jaegerExporter = JaegerGrpcSpanExporter.builder()
-        .setEndpoint("http://localhost:14250")
+        .setEndpoint("http://jaeger:14250")
         .build();
 
     SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
