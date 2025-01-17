@@ -49,6 +49,7 @@ export default {
       }
     },
     logout() {
+      console.log("remove user");
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
       this.user = null;

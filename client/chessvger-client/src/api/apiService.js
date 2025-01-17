@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 
-export async function sendPostRequest(url, databaseId,userId) {
+export async function sendPostRequest(url, databaseId,tenantId) {
   try {
 
     const payload = {
       databaseId: databaseId,
-      userId: userId,
+      tenantId: tenantId,
     };
 
     const config = {

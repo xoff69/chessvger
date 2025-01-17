@@ -27,10 +27,10 @@
         <v-window v-model="activeTab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="activeTab === 0">
+            <div v-show="activeTab === 0">
               <DatabasesList  @row-clicked="handleRowClick"    />
             </div>
-            <div v-if="activeTab === 1">
+            <div v-show="activeTab === 1">
               <DatabaseDetail :database="selectedDatabase" />
             </div>
 

@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", {
     async login(email, password) {
       try {
         const response = await login(email, password);
-        this.user = { id: response.id, name: response.name, email: response.email };
+        this.user = { tenantId: response.tenantId, name: response.name, email: response.email };
         this.token = response.token;
         this.isAuthenticated = true;
 
@@ -29,7 +29,7 @@ export const useAuthStore = defineStore("auth", {
         if (!token) return;
 
         const response = await getUser(token);
-        this.user = { id: response.id, name: response.name, email: response.email };
+        this.user = { tenantId: response.tenantId, name: response.name, email: response.email };
         this.token = token;
         this.isAuthenticated = true;
       } catch (error) {

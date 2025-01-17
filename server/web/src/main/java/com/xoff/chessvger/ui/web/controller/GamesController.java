@@ -65,7 +65,7 @@ public class GamesController {
       throws JsonProcessingException {
     String databaseId = request.getDatabaseId();
     String tenantId = request.getTenantId();
-    System.out.println("Reçu databaseId: " + databaseId + ", userId: " + tenantId);
+    System.out.println("Reçu databaseId: " + databaseId + ", tenantId: " + tenantId);
     MessageToParser messageGame=new MessageToParser();
     messageGame.setTenantId(Long.parseLong(tenantId));
     messageGame.setFolderToParse("./data/big");
@@ -113,8 +113,7 @@ public class GamesController {
     headers.add("X-Total-Count", String.valueOf(iGameService.count()));
 
 
-  return new ResponseEntity<>(iGameService.findAll(),headers,
-        HttpStatus.OK);
+  return  ResponseEntity.ok().headers(headers).body(iGameService.findAll());
   }
   @GetMapping("/api/games/findById")
   public ResponseEntity<CommonGameEntity> findById(@RequestParam("id") Long id){

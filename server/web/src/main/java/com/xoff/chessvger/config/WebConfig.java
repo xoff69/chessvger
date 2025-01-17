@@ -1,5 +1,6 @@
 package com.xoff.chessvger.config;
 
+import java.util.Arrays;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
 System.out.println("addCorsMappings");
     registry.addMapping("/ws/**")
         .allowedMethods("GET", "POST", "PUT", "DELETE")
-        .allowedHeaders("*").allowedHeaders("Authorization", "X-Total-Count")
+        .allowedHeaders("*")
         .allowedOrigins("http://localhost:3000").allowCredentials(false);
 
     registry.addMapping("/api/**") .allowCredentials(false);

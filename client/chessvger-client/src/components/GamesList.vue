@@ -62,7 +62,8 @@ export default {
       }},
       async importGames() {
         this.loading = true;
-
+        console.log("this.authStore.user.tenantId':", this.authStore.user);
+        console.log("this.authStore.user.tenantId':", this.authStore.user.tenantId);
 
 
       try {

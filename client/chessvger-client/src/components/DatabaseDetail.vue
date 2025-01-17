@@ -20,10 +20,10 @@
         <v-window v-model="tab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="tab === 0"> <GamesList :database="database" /></div>
-            <div v-if="tab === 1"> <GameBrowse :database="database"/></div>
-            <div v-if="tab === 2"> <GamePlayers :database="database"/></div>
-            <div v-if="tab ===3"> <Game :database="database"/></div>
+            <div v-show="tab === 0"> <GamesList :database="database" /></div>
+            <div v-show="tab === 1"> <GameBrowse :database="database"/></div>
+            <div v-show="tab === 2"> <GamePlayers :database="database"/></div>
+            <div v-show="tab ===3"> <Game :database="database"/></div>
           </v-window-item>
         </v-window>
       </v-card-text>
