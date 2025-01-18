@@ -16,7 +16,16 @@ export async function sendPostRequest(url, databaseId,tenantId) {
     };
 
     const response = await axios.post(url, payload, config);
-    return response.data;
+    return response;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Une erreur est survenue.');
+  }
+}
+export async function sendGetRequest(url) {
+  try {
+
+    const response = await axios.get(url);
+    return response;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Une erreur est survenue.');
   }

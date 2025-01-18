@@ -14,9 +14,11 @@ System.out.println("addCorsMappings");
     registry.addMapping("/ws/**")
         .allowedMethods("GET", "POST", "PUT", "DELETE")
         .allowedHeaders("*")
+        .exposedHeaders("X-Total-Count")
         .allowedOrigins("http://localhost:3000").allowCredentials(false);
 
-    registry.addMapping("/api/**") .allowCredentials(false);
+    registry.addMapping("/api/**")  .allowedHeaders("*")
+        .exposedHeaders("X-Total-Count").allowCredentials(false);
     registry.addMapping("/ws/**") .allowCredentials(false);
     registry.addMapping("/app/ws/**") .allowCredentials(false);
     registry
@@ -24,7 +26,6 @@ System.out.println("addCorsMappings");
         // Exact path mapping URIs (such as "/admin") are supported as well as Ant-style path patterns (such as "/admin/**").
         .addMapping("/*")
         .allowedOrigins("*")
-        // .allowedOriginPatterns("")
         .allowCredentials(false)
         .allowedHeaders("*")
         .exposedHeaders("*")

@@ -40,7 +40,10 @@ public class BDController {
   }
 
   @GetMapping("/api/databases/all")
-  public ResponseEntity<List<DatabaseEntity>> all(){
+  public ResponseEntity<List<DatabaseEntity>> all(@RequestParam long tenantId){
+
+    System.out.println("Reçu  tenantId: " + tenantId);
+
     HttpHeaders headers = new HttpHeaders();
     headers.add("X-Total-Count", String.valueOf(iDatabaseService.count()));
 

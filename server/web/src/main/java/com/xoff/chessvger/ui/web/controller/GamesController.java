@@ -54,10 +54,28 @@ public class GamesController {
 
   @Autowired
   RedisMessagePublisher redisMessagePublisher;
+  @GetMapping("/api/games/count")
+  public ResponseEntity<Long> count(){
+    return new ResponseEntity<>(iGameService.count(),
+        HttpStatus.OK);
+  }
 
+  @GetMapping("/api/games/all")
+  public ResponseEntity<List<CommonGameEntity>> all(){
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("X-Total-Count", String.valueOf(iGameService.count()));
+
+
+    return  ResponseEntity.ok().headers(headers).body(iGameService.findAll());
+  }
+  @GetMapping("/api/games/findById")
+  public ResponseEntity<CommonGameEntity> findById(@RequestParam("id") Long id){
+    return new ResponseEntity<>(gameService.findById(id),
+        HttpStatus.OK);
+  }
   @GetMapping("/api/games/all2")
   public ResponseEntity<List<CommonGameEntity>> all2(){
-    return new ResponseEntity<>(gameService.handleGameAction(),
+    return new ResponseEntity<>(gameService.handleAllGames(),
         HttpStatus.OK);
   }
   @PostMapping("/api/games/import")
@@ -101,25 +119,7 @@ public class GamesController {
     return ResponseEntity.ok(iGameService.managePage(paging, filterForm.getBdId(),
         filterMapper.form2entity(filterForm)));
   }
-  @GetMapping("/api/games/count")
-  public ResponseEntity<Long> count(){
-    return new ResponseEntity<>(iGameService.count(),
-        HttpStatus.OK);
-  }
 
-  @GetMapping("/api/games/all")
-  public ResponseEntity<List<CommonGameEntity>> all(){
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("X-Total-Count", String.valueOf(iGameService.count()));
-
-
-  return  ResponseEntity.ok().headers(headers).body(iGameService.findAll());
-  }
-  @GetMapping("/api/games/findById")
-  public ResponseEntity<CommonGameEntity> findById(@RequestParam("id") Long id){
-    return new ResponseEntity<>(gameService.findById(id),
-        HttpStatus.OK);
-  }
   @GetMapping("/games")
   public ResponseEntity<PageView> getAllGames(@RequestParam(name = "bdId") long bdId,
                                               @RequestParam(defaultValue = "1", name = "page")

@@ -22,6 +22,8 @@
 
 <script>
 import axios from "axios";
+import { useAuthStore } from "../stores/authStore";
+import { sendGetRequest } from '../api/apiService'; // Importez votre méthode
 
 export default {
   name: "DatabasesList",
@@ -36,7 +38,7 @@ export default {
         { text: "name", value: "name" },
         { text: "description", value: "description" },
       ],
-
+      authStore : useAuthStore(),
     };
   },
 
@@ -48,7 +50,9 @@ export default {
     },
     async fetchDatabases() {
       try {
-        const response = await axios.get("http://localhost:8080/api/databases/all");
+
+        const  response = await sendGetRequest("http://localhost:8080/api/databases/all?tenantId="+ this.authStore.user.tenantId);
+
 
         this.databases = response.data;
 

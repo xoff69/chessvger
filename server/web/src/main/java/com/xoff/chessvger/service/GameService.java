@@ -16,7 +16,7 @@ public class GameService {
   @Autowired
   private GameRepository gameRepository;
 
-  public List<CommonGameEntity> handleGameAction() {
+  public List<CommonGameEntity> handleAllGames() {
     // Logique pour ajouter une nouvelle source de données
     System.out.println("test repo dynamique");
     // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
