@@ -20,7 +20,7 @@
         <v-window v-model="tab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-show="tab === 0"> <GamesList :database="database" /></div>
+            <div v-show="tab === 0"> <GamesList :database="database"  @row-clicked="handleRowClickGame" /></div>
             <div v-show="tab === 1"> <GameBrowse :database="database"/></div>
             <div v-show="tab === 2"> <GamePlayers :database="database"/></div>
             <div v-show="tab ===3"> <Game :database="database"/></div>
@@ -62,11 +62,16 @@ export default {
       };
     },
     methods: {
+    handleRowClickGame(item,row) {
+      console.log("Ligne cliquée :", item.whitePlayer);
+      this.allTabs.push({ name: "game "+item.whitePlayer, visible: true });
+
+    },
     closeTab(index) {
       console.log("close "+index);
-      this.allTabs.splice(index, 1); // Supprimer l'onglet
+      this.allTabs.splice(index, 1);
       if (this.activeTab >= this.allTabs.length) {
-        this.activeTab = this.allTabs.length - 1; // Ajuster l'onglet actif
+        this.activeTab = this.allTabs.length - 1;
       }
     },
   },

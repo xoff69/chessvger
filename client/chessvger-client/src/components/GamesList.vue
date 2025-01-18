@@ -7,6 +7,7 @@
       :items="games"
       :items-per-page="5"
       class="elevation-1"
+      @click:row="handleRowClick"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -22,8 +23,7 @@
 <script>
 import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
-import { sendPostRequest } from '../api/apiService'; // Importez votre méthode
-
+import { sendPostRequest } from '../api/apiService';
 
 export default {
   name: "GamesList",
@@ -35,7 +35,7 @@ export default {
    },
   data() {
     return {
-       authStore : useAuthStore(),
+      authStore : useAuthStore(),
       games: [],
       count:"",
       loading:false,
@@ -47,6 +47,11 @@ export default {
     };
   },
   methods: {
+    handleRowClick(item,row) {
+      // TODO ne pas ouvrir deux fois la meme
+      console.log("list "+row.item.whitePlayer);
+      this.$emit("row-clicked", row.item);
+    },
     async fetchGames() {
       try {
         console.log("Valeur de 'X-Total-Count'fetchGames");
