@@ -54,14 +54,12 @@ export default {
     },
     async fetchGames() {
       try {
-        console.log("Valeur de 'X-Total-Count'fetchGames");
+
         const response = await axios.get("http://localhost:8080/api/games/all");
 
 
-        this.games = response.data;
-        const customHeader = response.headers["X-Total-Count"];
-        console.log("Valeur de 'X-Total-Count':", customHeader);
-        this.count=response.headers["X-Total-Count"];
+        this.games = response.data.list;
+        this.count=response.data.count;
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);
       }},

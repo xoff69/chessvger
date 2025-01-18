@@ -14,11 +14,9 @@ System.out.println("addCorsMappings");
     registry.addMapping("/ws/**")
         .allowedMethods("GET", "POST", "PUT", "DELETE")
         .allowedHeaders("*")
-        .exposedHeaders("X-Total-Count")
         .allowedOrigins("http://localhost:3000").allowCredentials(false);
 
-    registry.addMapping("/api/**")  .allowedHeaders("*")
-        .exposedHeaders("X-Total-Count").allowCredentials(false);
+    registry.addMapping("/api/**")  .allowedHeaders("*").allowCredentials(false);
     registry.addMapping("/ws/**") .allowCredentials(false);
     registry.addMapping("/app/ws/**") .allowCredentials(false);
     registry

@@ -54,11 +54,9 @@ export default {
         const  response = await sendGetRequest("http://localhost:8080/api/databases/all?tenantId="+ this.authStore.user.tenantId);
 
 
-        this.databases = response.data;
+        this.databases = response.data.list;
 
-        const customHeader = response.headers["X-Total-Count"];
-        console.log("Valeur de 'X-Total-Count':", customHeader);
-        this.count=customHeader;
+        this.count=response.data.count;
       } catch (error) {
         console.error("Erreur lors de la récupération des databases :", error);
       }},

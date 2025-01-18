@@ -2,6 +2,7 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.repository.DatabaseEntity;
 import com.xoff.chessvger.ui.PageRequest;
+import com.xoff.chessvger.ui.ResponseList;
 import com.xoff.chessvger.ui.service.IDatabaseService;
 import com.xoff.chessvger.ui.web.form.DBForm;
 import com.xoff.chessvger.ui.web.navigation.Navigation;
@@ -40,14 +41,11 @@ public class BDController {
   }
 
   @GetMapping("/api/databases/all")
-  public ResponseEntity<List<DatabaseEntity>> all(@RequestParam long tenantId){
+  public ResponseEntity<ResponseList<DatabaseEntity>> all(@RequestParam long tenantId){
 
     System.out.println("Reçu  tenantId: " + tenantId);
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("X-Total-Count", String.valueOf(iDatabaseService.count()));
-
-    return new ResponseEntity<>(iDatabaseService.findAll(),headers,
+    return new ResponseEntity<>(new ResponseList(iDatabaseService.findAll(),iDatabaseService.count()),
         HttpStatus.OK);
   }
 

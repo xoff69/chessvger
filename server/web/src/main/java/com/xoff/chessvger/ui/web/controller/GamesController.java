@@ -8,6 +8,7 @@ import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.ui.PageRequest;
+import com.xoff.chessvger.ui.ResponseList;
 import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;
 import com.xoff.chessvger.ui.web.mapper.FilterMapper;
@@ -54,19 +55,13 @@ public class GamesController {
 
   @Autowired
   RedisMessagePublisher redisMessagePublisher;
-  @GetMapping("/api/games/count")
-  public ResponseEntity<Long> count(){
-    return new ResponseEntity<>(iGameService.count(),
-        HttpStatus.OK);
-  }
+
 
   @GetMapping("/api/games/all")
-  public ResponseEntity<List<CommonGameEntity>> all(){
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("X-Total-Count", String.valueOf(iGameService.count()));
+  public ResponseEntity<ResponseList<CommonGameEntity>> all(){
 
-
-    return  ResponseEntity.ok().headers(headers).body(iGameService.findAll());
+    return new ResponseEntity<>(new ResponseList(iGameService.findAll(),iGameService.count()),
+        HttpStatus.OK);
   }
   @GetMapping("/api/games/findById")
   public ResponseEntity<CommonGameEntity> findById(@RequestParam("id") Long id){
@@ -74,8 +69,9 @@ public class GamesController {
         HttpStatus.OK);
   }
   @GetMapping("/api/games/all2")
-  public ResponseEntity<List<CommonGameEntity>> all2(){
-    return new ResponseEntity<>(gameService.handleAllGames(),
+  public ResponseEntity<ResponseList<CommonGameEntity>> all2(){
+
+    return new ResponseEntity<>(new ResponseList(gameService.handleAllGames(),iGameService.count()),
         HttpStatus.OK);
   }
   @PostMapping("/api/games/import")
