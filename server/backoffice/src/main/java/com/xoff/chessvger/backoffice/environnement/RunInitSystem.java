@@ -34,9 +34,6 @@ public class RunInitSystem implements Runnable {
       // database pg for ad,in
       TenantDao.createTenantEnvironnement("admin");
 
-      // creer la database admin
-      CommonDao.executeQuery(connection,
-          "insert into common.database(name,description) values('main','main database')");
 
     } catch (Exception e) {
       System.out.println("Error RunInitSystem");

@@ -39,6 +39,9 @@ public class TenantDao {
         CommonDao.createSchemaIfNotExists(connectionTenant, CommonDao.COMMON_SCHEMA);
         // puis un schema par bd
         CommonDao.executeSqlFromFile(connectionTenant,"query/database_createtable.sql");
+        // creer la database admin
+        CommonDao.executeQuery(connectionTenant,
+            "insert into common.database(name,description) values('main','main database')");
 
         String schemaName="main";
         CommonDao.createSchemaIfNotExists(connectionTenant, schemaName);
