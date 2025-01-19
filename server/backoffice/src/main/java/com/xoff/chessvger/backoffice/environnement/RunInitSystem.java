@@ -18,13 +18,11 @@ public class RunInitSystem  implements Runnable {
       // schema common: user, contract, player, feature flag
       if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)){
 
-        String queryPlayerTable= FileUtils.read("query/player_createtable.sql");
-        System.out.println("queryPlayerTable "+queryPlayerTable);
-        CommonDao.executeQuery(connection, queryPlayerTable);
 
-        String queryUserTable= FileUtils.read("query/user_createtable.sql");
-        System.out.println("queryUserTable "+queryUserTable);
-        CommonDao.executeQuery(connection, queryUserTable);
+        CommonDao.executeSqlFromFile(connection,"query/player_createtable.sql");
+        CommonDao.executeSqlFromFile(connection,"query/tenant_createtable.sql");
+        CommonDao.executeSqlFromFile(connection,"query/user_createtable.sql");
+
 int tenantId=TenantDao.createTenant(connection,"admin");
         UserDao.createUser(connection,"admin","admin name","admin",true,tenantId);
 

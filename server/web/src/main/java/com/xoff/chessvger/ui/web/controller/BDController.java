@@ -45,15 +45,7 @@ public class BDController {
         HttpStatus.OK);
   }
 
-  @GetMapping("/bds")
-  public ResponseEntity<PageView<DBView>> getAllBds(
-      @RequestParam(defaultValue = "1", name = "page") int page,
-      @RequestParam(defaultValue = "10", name = "size") int size) {
-    log.info("list des bds " + navigation.getUserDto() + " " + page);
-    return ResponseEntity.ok(
-        iDatabaseService.managePage(PageRequest.of(page, size), navigation.getUserDto().getId()));
 
-  }
 
   @PostMapping(path = "/bdCreate")
   public @ResponseBody ResponseEntity<String> post(@RequestBody DBForm dbForm) {

@@ -5,8 +5,8 @@ CREATE TABLE common.users
      description  TEXT,
      password     VARCHAR(255) NOT NULL,
      date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-     date_update  TIMESTAMP,
+     date_updated  TIMESTAMP,
      profil       BOOLEAN DEFAULT false,
-     tenantId INT NOT NULL,
-     FOREIGN KEY (tenantId) REFERENCES tenant(tenantId) ON DELETE CASCADE
+     tenant_id INT NOT NULL
+     -- TODO FOREIGN KEY (tenantId) REFERENCES common.tenant(tenantId) ON DELETE CASCADE
   ); -- Profil: admin (TRUE) ou utilisateur normal (FALSE)

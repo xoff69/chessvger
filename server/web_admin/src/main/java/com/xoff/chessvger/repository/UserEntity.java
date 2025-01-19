@@ -13,7 +13,7 @@ import org.springframework.data.domain.Persistable;
 import jakarta.persistence.Id;
 @Data
 @Entity
-@Table(name = "user",schema = "common")
+@Table(name = "users",schema = "common")
 public class UserEntity  implements Persistable<Long> {
   @Override
   public boolean isNew() {
@@ -35,7 +35,7 @@ public class UserEntity  implements Persistable<Long> {
   @Column(name = "date_created", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private LocalDateTime dateCreated;
 
-  @Column(name = "date_update")
+  @Column(name = "date_updated")
   private LocalDateTime dateUpdate;
 
   @Column(nullable = false)

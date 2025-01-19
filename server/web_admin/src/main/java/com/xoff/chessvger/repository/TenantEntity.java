@@ -25,4 +25,11 @@ public class TenantEntity  implements Persistable<Long> {
 
   @Column(name = "name", nullable = false, unique = true)
   private String name;
+
+  @Column(name = "date_created", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+  private LocalDateTime dateCreated;
+
+  @Column(name = "date_updated")
+  private LocalDateTime dateUpdate;
+
 }

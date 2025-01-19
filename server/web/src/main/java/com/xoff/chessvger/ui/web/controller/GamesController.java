@@ -82,7 +82,7 @@ public class GamesController {
     messageGame.setTenantId(Long.parseLong(tenantId));
     messageGame.setFolderToParse("./data/big");
     messageGame.setDatabaseName("chessvger_admin_database");
-    messageGame.setSchema("main_admin");  // TODO renommer
+    messageGame.setSchema("main");  // TODO renommer
     messageGame.setActionQueue(ActionQueue.PARSEGAME);
 
     ObjectMapper objectMapper=new ObjectMapper();

@@ -19,11 +19,11 @@ public class GameService {
   public List<CommonGameEntity> handleAllGames() {
     // Logique pour ajouter une nouvelle source de données
     System.out.println("test repo dynamique");
-    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
+    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main
     dynamicDataSourceService.addNewDataSource("newDb",
         "jdbc:postgresql://db_chessvger/chessvger_admin_database",
         "chessvger",
-        "chessvger","main_admin");
+        "chessvger","main");
 
     // Changer la source de données actuelle pour "newDb"
     DataSourceContextHolder.setDataSource("newDb");
@@ -37,11 +37,11 @@ public class GameService {
   public CommonGameEntity findById(long id) {
     // Logique pour ajouter une nouvelle source de données
     System.out.println("test repo findById id=" + id);
-    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
+    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main
     dynamicDataSourceService.addNewDataSource("newDb",
         "jdbc:postgresql://db_chessvger/chessvger_admin_database",
         "chessvger",
-        "chessvger","main_admin");
+        "chessvger","main");
 
 
 
