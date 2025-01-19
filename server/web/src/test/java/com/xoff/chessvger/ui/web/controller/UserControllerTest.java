@@ -101,7 +101,7 @@ class UserControllerTest {
   @DisplayName("right put update")
   public void expect_result_rightPut() throws Exception {
     UserTenant form = new UserTenant();
-    form.setName("test UserDto");
+    form.setTenantName("test UserDto");
     when(userService.update(Mockito.any(), Mockito.any())).thenReturn(form);
     String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/users/5";
 
@@ -119,7 +119,7 @@ class UserControllerTest {
   @DisplayName("UserDto post delete")
   public void expect_result_rightdelete() throws Exception {
     UserTenant form = new UserTenant();
-    form.setName("test UserDto");
+    form.setTenantName("test UserDto");
     when(userService.delete(Mockito.any())).thenReturn(true);
     String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/users/5";
 

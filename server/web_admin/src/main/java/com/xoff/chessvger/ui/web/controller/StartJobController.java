@@ -36,17 +36,27 @@ RedisMessageReceiver redisMessageReceiver;
    redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
     return "ok";
   }
+  @Deprecated
+  @GetMapping("/jobInitSystem")
+  String jobInitSystem() throws JsonProcessingException {
+    log.info("jobInitSystem");
+    MessageToParser message=new MessageToParser();
+    message.setActionQueue(ActionQueue.INIT_SYSTEM);
+
+    ObjectMapper objectMapper=new ObjectMapper();
+
+    redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
+    return "ok";
+  }
   @GetMapping("/jobCreateEnv")
-  String jobCreateEnv() {
+  String jobCreateEnv() throws JsonProcessingException {
     log.info("jobDatabase");
-    // TODO envoi message cree la db
-    //String message = "Message " + UUID.randomUUID();
-    //redisMessagePublisherPlayer.publish(message);
-    /* TODO
-         creer env pour un user : tenant user test
-                    creer le schema: nom
-                            table db
-     */
+    MessageToParser message=new MessageToParser();
+    message.setActionQueue(ActionQueue.CREATE_TENANT_ENVIRONMENT);
+
+    ObjectMapper objectMapper=new ObjectMapper();
+
+    redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
     return "ok";
   }
 

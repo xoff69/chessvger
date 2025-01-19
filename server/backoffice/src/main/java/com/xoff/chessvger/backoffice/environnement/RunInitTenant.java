@@ -1,7 +1,6 @@
 package com.xoff.chessvger.backoffice.environnement;
 
 import com.xoff.chessvger.backoffice.dao.CommonDao;
-import com.xoff.chessvger.backoffice.dao.ContractDao;
 import com.xoff.chessvger.backoffice.dao.TenantDao;
 import com.xoff.chessvger.backoffice.dao.UserDao;
 import com.xoff.chessvger.common.UserTenant;
@@ -17,12 +16,13 @@ public class RunInitTenant implements Runnable {
   public void run() {
 
     try (Connection connection= CommonDao.getConnection()){
-      UserDao.createUser(connection,userTenant.getLogin(),userTenant.getName(),userTenant.getPassword(),false); // admin
+      int tenantId=TenantDao.createTenant(connection,userTenant.getTenantName());
+      UserDao.createUser(connection,userTenant.getLogin(),userTenant.getTenantName(),userTenant.getPassword(),false,tenantId);
 
       // TODO ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
-      String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
+      //String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
 
-      TenantDao.createTenantEnvironnement(userTenant.getLogin());
+      TenantDao.createTenantEnvironnement(userTenant.getTenantName());
 
 // tenantDao initialise une nouvelle bd pg, et en plus on cree un schema dans cette nouvelle bd
       // et on fait une copie

@@ -1,4 +1,4 @@
-package com.xoff.chessvger.service;
+package com.xoff.chessvger.ui.service;
 
 import com.xoff.chessvger.repository.CommonGameEntity;
 import com.xoff.chessvger.repository.DataSourceContextHolder;

@@ -34,11 +34,7 @@ public class BDController {
 
   @Autowired
   Navigation navigation;
-  @GetMapping("/api/databases/count")
-  public ResponseEntity<Long> count(){
-    return new ResponseEntity<>(iDatabaseService.count(),
-        HttpStatus.OK);
-  }
+
 
   @GetMapping("/api/databases/all")
   public ResponseEntity<ResponseList<DatabaseEntity>> all(@RequestParam long tenantId){

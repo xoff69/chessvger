@@ -1,6 +1,7 @@
 package com.xoff.chessvger.backoffice.dao;
 
 import com.xoff.chessvger.backoffice.Main;
+import com.xoff.chessvger.backoffice.util.FileUtils;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.io.BufferedReader;
@@ -40,7 +41,11 @@ public class CommonDao {
 
 
   }
-
+public static void executeSqlFromFile(Connection connection,String filename){
+  String queryFromFile= FileUtils.read(filename);
+  System.out.println("queryDatabaseTable "+queryFromFile);
+  CommonDao.executeQuery(connection, queryFromFile);
+}
 private static Map<String,HikariDataSource> mapDatasource = new HashMap();
 
   private CommonDao() {
@@ -117,7 +122,7 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
     try (Statement statement = connection.createStatement()) {
 
       // Requête SQL pour créer une nouvelle base de données
-      String sql = "CREATE DATABASE chessvger_" + databaseName+"_database";
+      String sql = "CREATE DATABASE "+databaseName;
 
       // Exécution de la requête
       statement.executeUpdate(sql);

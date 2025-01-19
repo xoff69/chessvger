@@ -17,7 +17,7 @@ import redis.clients.jedis.JedisPubSub;
 
 public class Main {
 
-// TODO check l existence des folders dans data
+  // TODO check l existence des folders dans data
   // localhost
   private static String dbhost = "db_chessvger";
 
@@ -25,9 +25,17 @@ public class Main {
     return dbhost;
   }
 
+  private static void checkEnvironment() {
+    System.out.println("Checking environment...");
+    // TODO
+    Thread thread = new Thread(new RunInitSystem());
+    thread.start();
+  }
+
   public static void main(String[] args) {
 
     System.out.println("start backoffice");
+    checkEnvironment();
     if (args.length > 0) {
       /*
       System.out.println("Main!" + args[0]);
@@ -57,26 +65,28 @@ public class Main {
             MessageToParser messageToParser =
                 objectMapper.readValue(message, MessageToParser.class);
 
-         if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
-              Runnable runnable=new RunGameParser(messageToParser);
+            if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
+              Runnable runnable = new RunGameParser(messageToParser);
 
-           Metrics.mesure("backoffice","game-parse",runnable);
+              Metrics.mesure("backoffice", "game-parse", runnable);
 
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 
-           Runnable runnable=new RunPlayerParser(messageToParser.getFolderToParse());
+              Runnable runnable = new RunPlayerParser(messageToParser.getFolderToParse());
 
-           Metrics.mesure("backoffice","player-parse",runnable);
+              Metrics.mesure("backoffice", "player-parse", runnable);
 
-            }
-           else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
+            } else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
 
-            Thread thread = new Thread(new RunInitSystem());
-            thread.start();
-          }
-            else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
-              UserTenant userTenant=new UserTenant();
-              // todo
+              Thread thread = new Thread(new RunInitSystem());
+              thread.start();
+            } else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
+              UserTenant userTenant = new UserTenant();
+              // TODO demo
+              userTenant.setTenantName("demo");
+              userTenant.setPassword("demo");
+              userTenant.setIsAdmin(false);
+              userTenant.setLogin("demo");
               Thread thread = new Thread(new RunInitTenant(userTenant));
               thread.start();
             }

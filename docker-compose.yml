@@ -49,6 +49,7 @@ services:
     image: chessvger-backoffice:latest
     depends_on:
       - zipkin
+      - postgres
     build:
       context: .
       dockerfile: Dockerfile
@@ -94,6 +95,8 @@ services:
 
   chessvger-serverapp:
     image: chessvger-serverapp:latest
+    depends_on:
+      - chessvger-backoffice
     build:
       context: .
       dockerfile: Dockerfile
@@ -106,6 +109,8 @@ services:
 
   chessvger-serverapp-admin:
     image: chessvger-serverapp-admin:latest
+    depends_on:
+      - chessvger-backoffice
     build:
       context: .
       dockerfile: Dockerfile
