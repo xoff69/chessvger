@@ -9,13 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppFooter: typeof import('./components/AppFooter.vue')['default']
     AppHeader: typeof import('./components/AppHeader.vue')['default']
-    copy: typeof import('./components/FeatureFlags copy.vue')['default']
-    DEPGamesList: typeof import('./components/DEPGamesList.vue')['default']
-    DEPHelloWorld: typeof import('./components/DEPHelloWorld.vue')['default']
     FeatureFlags: typeof import('./components/FeatureFlags.vue')['default']
     FeatureFlagsForm: typeof import('./components/FeatureFlagsForm.vue')['default']
-    GamesList: typeof import('./components/GamesList.vue')['default']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
     PlayersList: typeof import('./components/PlayersList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

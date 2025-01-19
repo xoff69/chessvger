@@ -22,20 +22,7 @@ RedisMessageReceiver redisMessageReceiver;
   @Autowired
   RedisMessagePublisher redisMessagePublisher;
 
-  @GetMapping("/jobPlayer")
-    // TODO signature, try catch
- String jobPlayer() throws JsonProcessingException {
-    log.info("jobPlayer");
-    MessageToParser message=new MessageToParser();
-    message.setFolderToParse("./data/players_list_xml_foa.xml");
-    message.setSchema("common");
-    message.setActionQueue(ActionQueue.PARSEPLAYER);
 
-    ObjectMapper objectMapper=new ObjectMapper();
-
-   redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
-    return "ok";
-  }
 
 
   @GetMapping("/jobCreateEnv")

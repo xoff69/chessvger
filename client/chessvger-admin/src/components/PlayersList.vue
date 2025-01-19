@@ -4,7 +4,7 @@
 
   <v-container>
     <v-btn
-    href="http://localhost:16686"
+    href="http://localhost:8082/apiadmin/players/import"
     target="_blank"
     icon
 >
@@ -50,7 +50,7 @@ export default {
   methods: {
     async fetchPlayers() {
       try {
-        const response = await axios.get("http://localhost:8082/api/admin/players/all");
+        const response = await axios.get("http://localhost:8082/apiadmin/players/all");
         this.players = response.data;
       } catch (error) {
         console.error("Error all players :", error);
@@ -58,7 +58,7 @@ export default {
     },
     async countPlayers() {
       try {
-        const response = await axios.get("http://localhost:8082/api/admin/players/count");
+        const response = await axios.get("http://localhost:8082/apiadmin/players/count");
         this.count = response.data;
       } catch (error) {
         console.error("Error count player :", error);

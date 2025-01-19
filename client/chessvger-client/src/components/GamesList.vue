@@ -1,7 +1,13 @@
 <!-- src/components/GamesList.vue -->
 <template>
   <v-container>
-    <h1>Liste des games:</h1> <button @click="importGames">Importer games</button>
+    <h1>Liste des games:</h1>
+    <button @click="importGames">Importer games</button>
+
+    <button @click="showModal = true">Ouvrir la modale</button>
+    <ModalSearchGame v-if="showModal" :is-visible="showModal" @close="showModal = false" />
+
+
     <v-data-table
       :headers="headers"
       :items="games"
@@ -24,8 +30,11 @@
 import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
 import { sendPostRequest } from '../api/apiService';
-
+import ModalSearchGame from "./ModalSearchGame.vue";
 export default {
+  components:{
+    ModalSearchGame
+  },
   name: "GamesList",
   props: {
      database: {
@@ -38,6 +47,7 @@ export default {
       authStore : useAuthStore(),
       games: [],
       count:"",
+      showModal: false,
       loading:false,
       headers: [
         { text: "whitePlayer", value: "whitePlayer" },

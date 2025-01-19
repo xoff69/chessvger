@@ -20,6 +20,7 @@ declare module 'vue' {
     HomePage: typeof import('./components/HomePage.vue')['default']
     LandingPage: typeof import('./components/LandingPage.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
+    ModalSearchGame: typeof import('./components/ModalSearchGame.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserInfo: typeof import('./components/UserInfo.vue')['default']
