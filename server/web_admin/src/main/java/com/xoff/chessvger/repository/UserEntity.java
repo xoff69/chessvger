@@ -1,4 +1,5 @@
 package com.xoff.chessvger.repository;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,6 +42,7 @@ public class UserEntity  implements Persistable<Long> {
   @Column(nullable = false)
   private Boolean profil;
 
+  @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
   @ManyToOne(fetch = FetchType.LAZY) // Relation Many-to-One avec Tenant
   @JoinColumn(name = "tenant_id", nullable = false)
   private TenantEntity tenant;

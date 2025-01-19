@@ -36,6 +36,8 @@ RedisMessageReceiver redisMessageReceiver;
    redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
     return "ok";
   }
+
+
   @GetMapping("/jobCreateEnv")
   String jobCreateEnv() throws JsonProcessingException {
     log.info("jobCreateEnv");

@@ -4,41 +4,39 @@ import com.xoff.chessvger.backoffice.dao.CommonDao;
 import com.xoff.chessvger.backoffice.dao.ContractDao;
 import com.xoff.chessvger.backoffice.dao.TenantDao;
 import com.xoff.chessvger.backoffice.dao.UserDao;
-import com.xoff.chessvger.backoffice.util.FileUtils;
 import java.sql.Connection;
 
 
-public class RunInitSystem  implements Runnable {
+public class RunInitSystem implements Runnable {
 
 
   @Override
   public void run() {
 
-    try (Connection connection=CommonDao.getConnection()){
+    try (Connection connection = CommonDao.getConnection()) {
       // schema common: user, contract, player, feature flag
-      if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)){
+      if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)) {
 
 
-        CommonDao.executeSqlFromFile(connection,"query/player_createtable.sql");
-        CommonDao.executeSqlFromFile(connection,"query/tenant_createtable.sql");
-        CommonDao.executeSqlFromFile(connection,"query/user_createtable.sql");
+        CommonDao.executeSqlFromFile(connection, "query/player_createtable.sql");
+        CommonDao.executeSqlFromFile(connection, "query/tenant_createtable.sql");
+        CommonDao.executeSqlFromFile(connection, "query/user_createtable.sql");
 
-int tenantId=TenantDao.createTenant(connection,"admin");
-        UserDao.createUser(connection,"admin","admin name","admin",true,tenantId);
+        int tenantId = TenantDao.createTenant(connection, "admin");
+        UserDao.createUser(connection, "admin", "admin name", "admin", true, tenantId);
 
-        String queryContractTable= FileUtils.read("query/contract_createtable.sql");
-        System.out.println("queryContractTable "+queryContractTable);
-        CommonDao.executeQuery(connection, queryContractTable);
 
+        CommonDao.executeSqlFromFile(connection, "query/contract_createtable.sql");
         ContractDao.insertDefautContract(connection);
 
-        String queryFeatureFlagTable= FileUtils.read("query/featureflag_createtable.sql");
-        System.out.println("queryFeatureFlagTable "+queryFeatureFlagTable);
-        CommonDao.executeQuery(connection, queryFeatureFlagTable);
-
+        CommonDao.executeSqlFromFile(connection, "query/featureflag_createtable.sql");
       }
       // database pg for ad,in
       TenantDao.createTenantEnvironnement("admin");
+
+      // creer la database admin
+      CommonDao.executeQuery(connection,
+          "insert into common.database(name,description) values('main','main database')");
 
     } catch (Exception e) {
       System.out.println("Error RunInitSystem");

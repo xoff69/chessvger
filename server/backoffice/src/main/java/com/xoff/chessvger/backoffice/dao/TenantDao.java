@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 public class TenantDao {
 
-  private static final String INSERT_TENANT="INSERT INTO common.tenant (name, date_created, date_updated)\n" +
+  private static final String INSERT_TENANT="INSERT INTO common.tenants (name, date_created, date_updated)\n" +
       "VALUES\n" + "    (?, CURRENT_DATE, CURRENT_TIMESTAMP) returning tenant_id";
   public static int createTenant(Connection connection,
                                 String name) throws Exception {

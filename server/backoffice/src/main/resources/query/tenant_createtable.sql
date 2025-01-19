@@ -1,4 +1,4 @@
-CREATE TABLE common.tenant (
+CREATE TABLE common.tenants (
                         tenant_id SERIAL PRIMARY KEY,
                         name VARCHAR(100) NOT NULL,
                         date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
