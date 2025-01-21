@@ -37,7 +37,7 @@ public class UserEntity  implements Persistable<Long> {
   private LocalDateTime dateCreated;
 
   @Column(name = "date_updated")
-  private LocalDateTime dateUpdate;
+  private LocalDateTime dateUpdated;
 
   @Column(nullable = false)
   private Boolean profil;

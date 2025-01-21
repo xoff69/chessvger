@@ -4,3 +4,4 @@ CREATE TABLE common.database ( id SERIAL PRIMARY KEY ,
       date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       date_update TIMESTAMP
       );
+ALTER TABLE common.database ADD CONSTRAINT unique_name UNIQUE (name);

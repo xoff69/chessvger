@@ -5,6 +5,7 @@ import com.xoff.chessvger.chess.user.User;
 import com.xoff.chessvger.common.DbKeyManager;
 import com.xoff.chessvger.repository.UserEntity;
 import com.xoff.chessvger.ui.PageRequest;
+import com.xoff.chessvger.ui.UserDTO;
 import com.xoff.chessvger.ui.service.UserService;
 import com.xoff.chessvger.ui.web.form.LoginForm;
 import com.xoff.chessvger.util.Pageable;
@@ -45,7 +46,7 @@ public class UserController {
   }
 
   @GetMapping("/apiadmin/users/all")
-  public ResponseEntity<ResponseList<UserEntity>> all(){
+  public ResponseEntity<ResponseList<UserDTO>> all(){
 
 
     return new ResponseEntity<>(new ResponseList(userService.findAll(),userService.count()),

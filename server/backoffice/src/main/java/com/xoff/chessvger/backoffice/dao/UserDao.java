@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 public class UserDao {
 
   private static final String INSERT_USER="INSERT INTO "+ CommonDao.COMMON_SCHEMA+".users (login, description, password, profil,tenant_id)\n" +
-  "VALUES     (?, ?, ?, ?,?);";
+  "VALUES     (?, ?, ?, ?,?) ON CONFLICT (login) DO NOTHING;";
 
   public static void createUser(Connection connection,
                                 String login, String description, String password, boolean profil,int tenantId) throws Exception {

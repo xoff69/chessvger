@@ -10,3 +10,4 @@ CREATE TABLE common.users
      tenant_id INT NOT NULL
      -- TODO FOREIGN KEY (tenantId) REFERENCES common.tenant(tenantId) ON DELETE CASCADE
   ); -- Profil: admin (TRUE) ou utilisateur normal (FALSE)
+ALTER TABLE common.users ADD CONSTRAINT unique_login UNIQUE (login);

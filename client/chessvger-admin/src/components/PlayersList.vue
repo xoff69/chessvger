@@ -14,10 +14,8 @@
 
     <h1>Players</h1>
     <v-data-table
-      :headers="headers"
       :items="players"
-      :items-per-page="5"
-      class="elevation-1"
+      :items-per-page="5"  class="custom-table"
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -72,3 +70,16 @@ export default {
 };
 </script>
 
+<style scoped>
+.custom-table .v-data-table__thead {
+  background-color: #4caf50; /* Couleur de fond de l'en-tête */
+  color: white; /* Couleur du texte */
+}
+.custom-table .v-data-table__thead th {
+  font-weight: bold; /* Texte en gras */
+  padding: 10px; /* Espacement */
+}
+.custom-table .v-data-table__tbody {
+  background-color: #f9f9f9; /* Couleur de fond du corps */
+}
+</style>

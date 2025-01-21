@@ -4,3 +4,4 @@ CREATE TABLE common.tenants (
                         date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         date_updated  TIMESTAMP
 );
+ALTER TABLE common.tenants ADD CONSTRAINT unique_name UNIQUE (name);
