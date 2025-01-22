@@ -20,7 +20,6 @@ public class RunInitTenant implements Runnable {
       UserDao.createUser(connection,userTenant.getLogin(),userTenant.getTenantName(),userTenant.getPassword(),false,tenantId);
 
       // TODO ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
-      //String schemaName = String.format(CommonDao.SCHEMA_TENANT_PATTERN, String.valueOf(userTenant.getId()));
 
       TenantDao.createTenantEnvironnement(userTenant.getTenantName());
 

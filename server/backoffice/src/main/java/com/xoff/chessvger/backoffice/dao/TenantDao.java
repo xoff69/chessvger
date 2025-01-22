@@ -60,22 +60,20 @@ public class TenantDao {
    */
   private static void createChessvgerDatabase(Connection connection,String schemaNameString) {
 
-    String queryGameTable= FileUtils.read("query/game_createtable.sql");
 
-    System.out.println("queryGameTable "+queryGameTable);
-    String sql = String.format(queryGameTable, schemaNameString);
-    System.out.println("sql "+sql);
-    CommonDao.executeQuery(connection, sql);
+    CommonDao.executeSqlFromFile(connection, "query/game_createtable.sql",schemaNameString);
+// stats
+    CommonDao.executeSqlFromFile(connection, "query/stat_browser_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/stat_browser_best_players_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/gameofaplayer_create_table.sql",schemaNameString);
 
-    // table des stats
-    // table game of player
+
     // table position + subtable
     // table material+ subtable
     // filiation
     // favorite
     // filter
     // history
-    // statisque + meilleurs joueurs stat
 
   }
 

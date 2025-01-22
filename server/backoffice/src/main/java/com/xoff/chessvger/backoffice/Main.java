@@ -37,23 +37,16 @@ public class Main {
     System.out.println("start backoffice");
     checkEnvironment();
     if (args.length > 0) {
-      /*
+
       System.out.println("Main!" + args[0]);
       dbhost = "localhost";
 
       // for test
       Thread thread = new Thread(new RunInitSystem());
       thread.start();
-      UserTenant userTenant = new UserTenant();
-      userTenant.setName("xoff");
-      userTenant.setPassword("xoff");
-      userTenant.setIsAdmin(false);
-      userTenant.setId(5L);
-      userTenant.setLogin("xoff");
-      Thread thread2 = new Thread(new RunInitTenant(userTenant));
-      thread2.start();*/
-    }
 
+    }
+else{
     ObjectMapper objectMapper = new ObjectMapper();
     try (Jedis jedis = new Jedis("redis", 6379)) {
       JedisPubSub pubSub = new JedisPubSub() {
@@ -101,4 +94,4 @@ public class Main {
       jedis.subscribe(pubSub, Topic.TOPIC_TO_QUEUE);
     }
   }
-}
+}}

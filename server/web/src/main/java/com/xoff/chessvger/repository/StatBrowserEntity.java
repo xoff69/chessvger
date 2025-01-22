@@ -33,13 +33,13 @@ public class StatBrowserEntity implements Persistable<Long> {
 
   // Statistiques des résultats
   @Column(nullable = false)
-  private int blanc = 0;
+  private int whiteWin = 0;
 
   @Column(nullable = false)
   private int nul = 0;
 
   @Column(nullable = false)
-  private int noir = 0;
+  private int blackWin = 0;
 
   // Dernière apparition (date sous forme de chaîne)
   @Column(name = "last_game_date", length = 20)
@@ -51,18 +51,18 @@ public class StatBrowserEntity implements Persistable<Long> {
 
   // Liste des meilleurs joueurs (JSON ou chaîne délimitée)
   @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(name = "stat_browser_meilleurs_joueurs", joinColumns = @JoinColumn(name = "stat_browser_id"))
-  @Column(name = "joueur", nullable = false)
-  private List<String> listMeilleursJoueurs = new ArrayList<>();
+  @CollectionTable(name = "stat_browser_best_players", joinColumns = @JoinColumn(name = "stat_browser_id"))
+  @Column(name = "player", nullable = false)
+  private List<String> bestPlayers = new ArrayList<>();
 
   // Méthodes utilitaires pour gérer les meilleurs joueurs
   public void addBestPlayer(String player) {
-    if (!listMeilleursJoueurs.contains(player)) {
-      listMeilleursJoueurs.add(player);
+    if (!bestPlayers.contains(player)) {
+      bestPlayers.add(player);
     }
   }
 
   public void removeBestPlayer(String player) {
-    listMeilleursJoueurs.remove(player);
+    bestPlayers.remove(player);
   }
 }

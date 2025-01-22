@@ -41,6 +41,12 @@ public class CommonDao {
 
 
   }
+  public static void executeSqlFromFile(Connection connection,String filename,String schema){
+    String queryFromFile= FileUtils.read(filename);
+    String sql = String.format(queryFromFile, schema);
+    System.out.println("executeSqlFromFile "+queryFromFile);
+    CommonDao.executeQuery(connection, sql);
+  }
 public static void executeSqlFromFile(Connection connection,String filename){
   String queryFromFile= FileUtils.read(filename);
   System.out.println("queryDatabaseTable "+queryFromFile);
