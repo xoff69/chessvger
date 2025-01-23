@@ -20,7 +20,7 @@ public class RunInitTenant implements Runnable {
       UserDao.createUser(connection,userTenant.getLogin(),userTenant.getTenantName(),userTenant.getPassword(),false,tenantId);
 
       // TODO ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
-
+System.out.println("Tenant created");
       TenantDao.createTenantEnvironnement(userTenant.getTenantName());
 
 // tenantDao initialise une nouvelle bd pg, et en plus on cree un schema dans cette nouvelle bd

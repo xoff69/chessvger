@@ -35,18 +35,28 @@ public class Main {
   public static void main(String[] args) {
 
     System.out.println("start backoffice");
-    checkEnvironment();
-    if (args.length > 0) {
 
-      System.out.println("Main!" + args[0]);
+    if (args.length > 0&&"local".equals(args[0])) {
+
+      System.out.println("Local Main!" + args[0]);
       dbhost = "localhost";
-
+    }
+    checkEnvironment();
       // for test
+      /*
       Thread thread = new Thread(new RunInitSystem());
       thread.start();
-
-    }
-else{
+*/
+    /*
+      UserTenant userTenant = new UserTenant();
+      // TODO demo
+      userTenant.setTenantName("demo2");
+      userTenant.setPassword("demo");
+      userTenant.setIsAdmin(false);
+      userTenant.setLogin("demo2");
+      Thread thread = new Thread(new RunInitTenant(userTenant));
+      thread.start();
+ */
     ObjectMapper objectMapper = new ObjectMapper();
     try (Jedis jedis = new Jedis("redis", 6379)) {
       JedisPubSub pubSub = new JedisPubSub() {
@@ -93,5 +103,5 @@ else{
       };
       jedis.subscribe(pubSub, Topic.TOPIC_TO_QUEUE);
     }
-  }
+
 }}

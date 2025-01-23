@@ -67,13 +67,16 @@ public class TenantDao {
     CommonDao.executeSqlFromFile(connection, "query/stat_browser_best_players_create_table.sql",schemaNameString);
     CommonDao.executeSqlFromFile(connection, "query/gameofaplayer_create_table.sql",schemaNameString);
 
+    CommonDao.executeSqlFromFile(connection, "query/materialgames_create_table.sql",schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/material_entity_games_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/positiongames_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/position_entity_games_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/favorite_create_table.sql",schemaNameString);
 
-    // table position + subtable
-    // table material+ subtable
-    // filiation
-    // favorite
-    // filter
-    // history
+    CommonDao.executeSqlFromFile(connection, "query/search_criteria_create_table.sql",schemaNameString);
+
+    CommonDao.executeSqlFromFile(connection, "query/history_create_table.sql",schemaNameString);
+
 
   }
 

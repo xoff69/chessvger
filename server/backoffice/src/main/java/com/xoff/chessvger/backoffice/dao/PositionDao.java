@@ -13,16 +13,6 @@ public class PositionDao {
   private static final String INSERT_LIST_SQL =
       "INSERT INTO "+SCHEMA+".position_entity_games (position_entity_id, games) VALUES (?, ?)";
 
- /**
-      * tenant schema + db id
-   */
-  public static final String TABLE_POSITION_GAMES=
-      "create table %s.position_games (id bigint not null, position bigint not null, primary key (id));";
-  /**
-   * tenant schema + db id
-   */
-  public static final String TABLE_POSITION_ENTITY_GAMES=
-      "  create table %s.position_entity_games (games bigint, position_entity_id bigint not null);";
 
   public void insertEntity(PositionEntity entity) throws SQLException {
     Connection connection = null;

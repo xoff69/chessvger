@@ -1,0 +1,1 @@
+create table %s.material_entity_games (games bigint, position_entity_id bigint not null);
