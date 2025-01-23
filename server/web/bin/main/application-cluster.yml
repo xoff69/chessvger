@@ -1,17 +1,17 @@
 chessvger:
   run_init: true
-  version: Version 1.0.2 - 01/2025
+  version: Version 1.0.2 - 05/2024
   contact: <a href="mailto:chessvger@gmail.com">contact</a>
   language:
     list: fr\#en
     default: fr
     current: fr
-jwt:
-  secret: chessvger
-  expiration: 3600000
 server:
-  port : 8082
+  port : 8080
 spring:
+  redis:
+    host:redis
+    port:6379
   security:
     user:
       name: chessvger
@@ -30,17 +30,16 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: chessvger
     password: chessvger
-    url: jdbc:postgresql://localhost/chessvger?currentSchema=common
+    url: jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
   jpa:
     show-sql: true
     generate-ddl: true
     hibernate:
       ddl-auto: update
     database: POSTGRESQL
+    properties:
+      hibernate:
+        default_schema: chessvger
 
-  data:
-    redis:
-      host:redis
-      port:6379
 logging:
   file.name: data/logs/chessvger.log

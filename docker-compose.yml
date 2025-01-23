@@ -6,50 +6,31 @@ networks:
     driver: bridge
 
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.11
-    container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m  # Ajustez en fonction de la mémoire disponible
-    ports:
-      - "9200:9200"  # Elasticsearch API
+  prometheus:
+    image: prom/prometheus:latest
     volumes:
-      - ./data/es_data:/usr/share/elasticsearch/data
-    networks:
-    - chessvger_network   
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.11
-    container_name: kibana
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ./data/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - "5601:5601"  # Kibana UI accessible sur http://localhost:5601
-    networks:
-      - chessvger_network
-    depends_on:
-      - elasticsearch
-  zipkin:
-    image: openzipkin/zipkin:latest
-    environment:
-      - STORAGE_TYPE=elasticsearch
-      - ES_HOSTS=http://elasticsearch:9200  # Pointage vers le service Elasticsearch
-      - ES_INDEX=zipkin    # Nom de l'index dans Elasticsearch
-    container_name: zipkin
-    depends_on:
-      - elasticsearch
+      - "9090:9090"
+  otel-collector:
+    image: otel/opentelemetry-collector:latest
     ports:
-      - "9411:9411"
-    networks:
-      - chessvger_network   
+      - "4317:4317"
+      - "55680:55680"
+      - "8888:8888"
+    command: [
+      "--config=/etc/otel-collector-config.yaml"
+    ]
     volumes:
-      - ./data:/app/metrics 
+      - ./data/otel-collector-config.yaml:/etc/otel-collector-config.yaml
 
   chessvger-backoffice:
     image: chessvger-backoffice:latest
     depends_on:
-      - zipkin
+      - otel-collector
       - postgres
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
     build:
       context: .
       dockerfile: Dockerfile

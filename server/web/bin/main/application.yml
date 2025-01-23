@@ -1,6 +1,6 @@
 chessvger:
   run_init: true
-  version: Version 1.0.2 - 01/2025
+  version: Version 1.0.2 - 05/2024
   contact: <a href="mailto:chessvger@gmail.com">contact</a>
   language:
     list: fr\#en
@@ -10,8 +10,9 @@ jwt:
   secret: chessvger
   expiration: 3600000
 server:
-  port : 8082
+  port : 8080
 spring:
+
   security:
     user:
       name: chessvger
@@ -30,7 +31,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: chessvger
     password: chessvger
-    url: jdbc:postgresql://localhost/chessvger?currentSchema=common
+    url: jdbc:postgresql://localhost/chessvger?currentSchema=chessvger
   jpa:
     show-sql: true
     generate-ddl: true
