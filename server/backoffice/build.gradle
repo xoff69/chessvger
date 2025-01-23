@@ -18,10 +18,15 @@ dependencies {
 
     implementation 'org.slf4j:slf4j-api:1.7.36'          // Logging
     implementation 'org.slf4j:slf4j-simple:1.7.36'       // Simple logger
+    implementation 'io.opentelemetry:opentelemetry-exporter-prometheus'
+    implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.29.0'
+    implementation 'io.prometheus:simpleclient_httpserver:0.16.0' // Serveur HTTP pour exposer les métriques
+
 
     // OpenTelemetry API
     implementation 'io.opentelemetry:opentelemetry-api:1.40.0'
     // OpenTelemetry SDK
+    implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.29.0'
     implementation 'io.opentelemetry:opentelemetry-sdk:1.40.0'
     // OpenTelemetry Exporter (Exemple : Logging)
     // https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-exporters-logging
