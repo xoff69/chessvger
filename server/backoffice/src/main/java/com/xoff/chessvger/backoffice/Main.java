@@ -32,7 +32,7 @@ public class Main {
     thread.start();
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
 
     System.out.println("start backoffice");
 
@@ -42,6 +42,7 @@ public class Main {
       dbhost = "localhost";
     }
     checkEnvironment();
+    Prometheus.start();
       // for test
       /*
       Thread thread = new Thread(new RunInitSystem());

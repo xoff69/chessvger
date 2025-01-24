@@ -17,23 +17,15 @@ dependencies {
     implementation 'com.zaxxer:HikariCP:5.0.1'
 
     implementation 'org.slf4j:slf4j-api:1.7.36'          // Logging
-    implementation 'org.slf4j:slf4j-simple:1.7.36'       // Simple logger
-    implementation 'io.opentelemetry:opentelemetry-exporter-prometheus'
-    implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.29.0'
-    implementation 'io.prometheus:simpleclient_httpserver:0.16.0' // Serveur HTTP pour exposer les métriques
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
 
-
-    // OpenTelemetry API
-    implementation 'io.opentelemetry:opentelemetry-api:1.40.0'
-    // OpenTelemetry SDK
-    implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.29.0'
-    implementation 'io.opentelemetry:opentelemetry-sdk:1.40.0'
-    // OpenTelemetry Exporter (Exemple : Logging)
-    // https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-exporters-logging
-    implementation 'io.opentelemetry:opentelemetry-exporters-logging:0.9.1'
-
-    // OpenTelemetry Metrics
-    implementation 'io.opentelemetry:opentelemetry-sdk-metrics:1.40.0'
+    // Simple logger
+    implementation 'io.micrometer:micrometer-core:1.9.0'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.9.0'
+    implementation 'io.prometheus:simpleclient:0.16.0'
+    implementation 'io.prometheus:simpleclient_common:0.16.0'
+    implementation 'io.prometheus:simpleclient_hotspot:0.16.0' // Pour les métriques système
+    implementation 'com.sun.net.httpserver:http:20070405' // Serveur HTTP intégré
 
     implementation 'redis.clients:jedis:2.8.0'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'

@@ -44,12 +44,10 @@ public class CommonDao {
   public static void executeSqlFromFile(Connection connection,String filename,String schema){
     String queryFromFile= FileUtils.read(filename);
     String sql = String.format(queryFromFile, schema);
-    System.out.println("executeSqlFromFile "+queryFromFile);
     CommonDao.executeQuery(connection, sql);
   }
 public static void executeSqlFromFile(Connection connection,String filename){
-  String queryFromFile= FileUtils.read(filename);
-  System.out.println("queryDatabaseTable "+queryFromFile);
+  String queryFromFile= FileUtils.read(filename);;
   CommonDao.executeQuery(connection, queryFromFile);
 }
 private static Map<String,HikariDataSource> mapDatasource = new HashMap();
@@ -111,7 +109,7 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
     }
   }
 
-  // Méthode pour créer une table
+
   public static void executeQuery(Connection connection, String query)  {
 
     try (Statement stmt = connection.createStatement()) {
