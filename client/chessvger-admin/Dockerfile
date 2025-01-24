@@ -1,5 +1,6 @@
 # docker build -t  chessvger-client . --no-cache
-FROM node:16 AS build-stage
+chessvger-client . --no-cache
+
 
 WORKDIR /app
 
@@ -8,10 +9,6 @@ COPY . .
 
 RUN npm install
 
-FROM node:16 AS production-stage
-
-WORKDIR /app
-COPY --from=build-stage /app /app
 
 EXPOSE 3002
 
