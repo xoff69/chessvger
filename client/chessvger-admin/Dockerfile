@@ -1,6 +1,5 @@
 # docker build -t  chessvger-client . --no-cache
-chessvger-client . --no-cache
-
+FROM node
 
 WORKDIR /app
 
@@ -8,6 +7,7 @@ COPY package*.json ./
 COPY . .
 
 RUN npm install
+
 
 
 EXPOSE 3002
