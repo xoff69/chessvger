@@ -34,16 +34,17 @@ services:
 
   chessvger-backoffice:
     image: chessvger-backoffice:latest
+    hostname: backoffice
     depends_on:
       - prometheus
       - postgres
-    environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
     build:
       context: .
       dockerfile: Dockerfile
     networks:
       - chessvger_network
+    ports:
+      - "8087:8087"
     volumes:
       - ./data:/app/data  
       

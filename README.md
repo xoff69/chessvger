@@ -15,6 +15,6 @@ docker, zipkin
 # tools: 
    tools for git
 
-
-zipkin : log telemertry
-  http://localhost:9411/
+http://localhost:8087/metrics  
+http://localhost:9090/targets
+http://localhost:9090/graph   requests_total

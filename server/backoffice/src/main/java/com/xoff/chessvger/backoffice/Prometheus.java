@@ -1,11 +1,10 @@
 package com.xoff.chessvger.backoffice;
+
 import com.sun.net.httpserver.HttpServer;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.exporter.common.TextFormat;
 import io.prometheus.client.hotspot.DefaultExports;
-
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.InetSocketAddress;
@@ -19,13 +18,12 @@ public class Prometheus {
     DefaultExports.initialize(); // Ajouter des métriques système par défaut
 
     // Créer un compteur personnalisé
-    Counter requestCounter = Counter.build()
-        .name("requests_total")
-        .help("Total number of requests processed")
-        .register(registry);
+    Counter requestCounter =
+        Counter.build().name("requests_total").help("Total number of requests processed")
+            .register(registry);
 
     // Configurer le serveur HTTP intégré
-    HttpServer server = HttpServer.create(new InetSocketAddress(9464), 0);
+    HttpServer server = HttpServer.create(new InetSocketAddress(8087), 0);
     server.createContext("/metrics", httpExchange -> {
       httpExchange.getResponseHeaders().set("Content-Type", TextFormat.CONTENT_TYPE_004);
 
@@ -41,10 +39,11 @@ public class Prometheus {
     server.start();
     System.out.println("Prometheus metrics available at http://localhost:9464/metrics");
     System.out.println("Starting Prometheus...");
-    int cpmte=50;
-   for (int i=0;i<cpmte;i++) {
+    int cpmte = 50;
+    for (int i = 0; i < cpmte; i++) {
       requestCounter.inc(); // Incrémenter le compteur
       Thread.sleep(10); // Pause de 1 seconde
-    }  System.out.println("end Prometheus...");
+    }
+    System.out.println("end Prometheus...");
   }
 }
