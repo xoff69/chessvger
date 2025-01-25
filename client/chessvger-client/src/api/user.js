@@ -1,24 +1,27 @@
-let mockUser = {
-    tenantId: 1,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    token: "mockToken123"
-  };
+import axios from "axios";
 
-  export const login = async (email, password) => {
-    // Simuler une authentification
-    if (email === "john@doe" && password === "password") {
-      return Promise.resolve(mockUser);
-    } else {
-      return Promise.reject(new Error("Invalid credentials"));
-    }
-  };
+const api = axios.create({
+  baseURL: "http://localhost:8082/apiadmin", // Adresse de votre serveur Node.js
+});
 
-  export const getUser = async (token) => {
-    // Simuler la récupération d'utilisateur
-    if (token === "mockToken123") {
-      return Promise.resolve(mockUser);
-    } else {
-      return Promise.reject(new Error("Invalid token"));
-    }
-  };
+export const login = async (email, password) => {
+  try {
+    const response = await api.post("/login", { email, password });
+    return response.data; // Renvoie l'utilisateur en cas de succès
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Login failed");
+  }
+};
+
+export const getUser = async (token) => {
+  try {
+    const response = await api.get("/user", {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return response.data; // Renvoie l'utilisateur en cas de succès
+  } catch (error) {
+    throw new Error(error.response?.data?.error || "Failed to fetch user");
+  }
+};

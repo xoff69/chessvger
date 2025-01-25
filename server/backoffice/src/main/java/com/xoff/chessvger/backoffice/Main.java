@@ -42,7 +42,11 @@ public class Main {
       dbhost = "localhost";
     }
     checkEnvironment();
-    Prometheus.start();
+    try {
+      Prometheus.start();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
       // for test
       /*
       Thread thread = new Thread(new RunInitSystem());

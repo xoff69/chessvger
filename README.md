@@ -15,6 +15,8 @@ docker, zipkin
 # tools: 
    tools for git
 
+# test back office metrique
 http://localhost:8087/metrics  
 http://localhost:9090/targets
 http://localhost:9090/graph   requests_total
+

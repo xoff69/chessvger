@@ -9,26 +9,25 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-System.out.println("addCorsMappings");
-    registry.addMapping("/ws/**")
-        .allowedMethods("GET", "POST", "PUT", "DELETE")
-        .allowedHeaders("*")
+    System.out.println("addCorsMappings");
+
+    registry.addMapping("/ws/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*")
         .allowedOrigins("http://localhost:3002").allowCredentials(false);
 
-    registry.addMapping("/apiadmin/**")  .allowedHeaders("*").
-        allowCredentials(false);
-    registry.addMapping("/ws/**") .allowCredentials(false);
-    registry.addMapping("/app/ws/**") .allowCredentials(false);
-    registry
-        // Enable cross-origin request handling for the specified path pattern.
-        // Exact path mapping URIs (such as "/admin") are supported as well as Ant-style path patterns (such as "/admin/**").
-        .addMapping("/*")
-        .allowedOrigins("*")
-        .allowCredentials(false)
-        .allowedHeaders("*")
-        .exposedHeaders("*")
-        .maxAge(60 *30)
-        .allowedMethods("*")
-    ;
+    registry.addMapping("/ws/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*")
+        .allowedOrigins("http://localhost:3000").allowCredentials(false);
+
+    registry.addMapping("/api/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3000").allowCredentials(false);
+    registry.addMapping("/apiadmin/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3002").allowCredentials(false);
+    registry.addMapping("/apiadmin/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3002").allowCredentials(false);
+    registry.addMapping("/apiadmin/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3000").allowCredentials(false);
+
+    //    registry.addMapping("/api/**")  .allowedHeaders("*").allowCredentials(false);
+
+    registry.addMapping("/ws/**").allowCredentials(false);
+    registry.addMapping("/app/ws/**").allowCredentials(false);
+
+    registry.addMapping("/*").allowedOrigins("*").allowCredentials(false).allowedHeaders("*")
+        .exposedHeaders("*").maxAge(60 * 30).allowedMethods("*");
   }
 }

@@ -13,11 +13,11 @@
     <v-icon>window</v-icon> Metrics
 </v-btn>
 <v-btn
-    href="http://localhost:5601"
+    href="http://localhost:3008/?orgId=1&from=now-6h&to=now&timezone=browser"
     target="_blank"
     icon
 >
-    <v-icon>window</v-icon> kibana
+    <v-icon>window</v-icon> grafana
 </v-btn>
   </v-app-bar>
 </template>
