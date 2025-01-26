@@ -25,7 +25,7 @@ public class MetricsService {
 
     Summary.Timer timer = executionSummary.labels(name).startTimer();
     try {
-      new Thread(r).start();
+      r.run();
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
