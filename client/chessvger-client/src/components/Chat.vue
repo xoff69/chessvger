@@ -32,8 +32,8 @@ export default {
         // S'abonner à la destination "/topic/notifications"
         this.stompClient.subscribe("/topic/notifications", (message) => {
           console.log("getUser "+this.user);
+          console.log(" this.stompClient.subscribe "+message);
            jsonObject = JSON.parse(message.body);
-          console.log("jsonObject "+jsonObject);
           console.log("jsonObject "+jsonObject);
           this.receivedMessage = message.body;
           console.log("Message reçu :", message.body);

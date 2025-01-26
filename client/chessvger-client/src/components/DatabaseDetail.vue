@@ -1,7 +1,7 @@
 <template>
 
 <v-card>
-      <v-tabs v-model="tab" bg-color="yellow">
+      <v-tabs v-model="activeTab" bg-color="yellow">
         <v-tab v-for="(t, index) in allTabs" :key="t.name"   @click="activeTab = index"
         >
           {{ t.name }}
@@ -17,13 +17,13 @@
       </v-tabs>
 
       <v-card-text>
-        <v-window v-model="tab">
+        <v-window v-model="activeTab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-show="tab === 0"> <GamesList :database="database"  @row-clicked="handleRowClickGame" /></div>
-            <div v-show="tab === 1"> <GameBrowse :database="database"/></div>
-            <div v-show="tab === 2"> <GamePlayers :database="database"/></div>
-            <div v-show="tab ===3"> <Game :database="database"/></div>
+            <div v-show="activeTab === 0"> <GamesList :database="database"  @row-clicked="handleRowClickGame" /></div>
+            <div v-show="activeTab === 1"> <GameBrowse :database="database"/></div>
+            <div v-show="activeTab === 2"> <GamePlayers :database="database"/></div>
+            <div v-show="activeTab ===3"> <Game :database="database"/></div>
           </v-window-item>
         </v-window>
       </v-card-text>
