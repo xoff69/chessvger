@@ -2,7 +2,7 @@
 
 # Fonction pour afficher l'aide
 usage() {
-    echo "Usage: $0 [all|frontend|core|backoffice|web|web_admin|images]"
+    echo "Usage: $0 [all|frontend|frontend_admin|core|backoffice|web|web_admin|images]"
     exit 1
 }
 
@@ -20,7 +20,14 @@ build_frontend() {
     npm run build
     cd ../..
 }
-
+build_frontend_admin() {
+    echo "Building frontend admin..."
+    cd client/chessvger-admin
+    npm install
+    npm update
+    npm run build
+    cd ../..
+}
 build_core() {
     echo "Building core..."
     cd server/core
@@ -63,6 +70,7 @@ build_images() {
 case "$1" in
     all)
         build_frontend
+        build_frontend_admin
         build_core
         build_backoffice
         build_web
@@ -70,6 +78,7 @@ case "$1" in
         build_images
         ;;
     frontend) build_frontend ;;
+    frontend_admin) build_frontend_admin ;;
     core) build_core ;;
     backoffice) build_backoffice ;;
     web) build_web ;;
