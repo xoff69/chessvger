@@ -5,7 +5,7 @@
   <v-container>
     <v-btn
     href="http://localhost:8082/apiadmin/players/import"
-    target="_blank"
+
     icon
 >
     <v-icon>window</v-icon> Import players
@@ -49,23 +49,16 @@ export default {
     async fetchPlayers() {
       try {
         const response = await axios.get("http://localhost:8082/apiadmin/players/all");
-        this.players = response.data;
+        this.players = response.data.list;
+        this.count = response.data.count;
       } catch (error) {
         console.error("Error all players :", error);
       }
     },
-    async countPlayers() {
-      try {
-        const response = await axios.get("http://localhost:8082/apiadmin/players/count");
-        this.count = response.data;
-      } catch (error) {
-        console.error("Error count player :", error);
-      }
-    },
+
   },
   mounted() {
     this.fetchPlayers();
-    this.countPlayers();
   },
 };
 </script>

@@ -19,10 +19,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     registry.addMapping("/api/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3000").allowCredentials(false);
     registry.addMapping("/apiadmin/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3002").allowCredentials(false);
-    registry.addMapping("/apiadmin/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3002").allowCredentials(false);
+    registry.addMapping("/api/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3002").allowCredentials(false);
     registry.addMapping("/apiadmin/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedHeaders("*").allowedOrigins("http://localhost:3000").allowCredentials(false);
 
-    //    registry.addMapping("/api/**")  .allowedHeaders("*").allowCredentials(false);
+     registry.addMapping("/api/**")  .allowedHeaders("*").allowCredentials(false);
+    registry.addMapping("/apiadmin/**")  .allowedHeaders("*").allowCredentials(false);
 
     registry.addMapping("/ws/**").allowCredentials(false);
     registry.addMapping("/app/ws/**").allowCredentials(false);

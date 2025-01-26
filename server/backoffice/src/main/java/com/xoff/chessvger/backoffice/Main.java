@@ -66,6 +66,7 @@ public class Main {
       Thread thread = new Thread(new RunInitTenant(userTenant));
       thread.start();
  */
+    MetricsService metricsService = new MetricsService();
     ObjectMapper objectMapper = new ObjectMapper();
     try (Jedis jedis = new Jedis("redis", 6379)) {
       JedisPubSub pubSub = new JedisPubSub() {
@@ -79,13 +80,13 @@ public class Main {
 
             if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
               Runnable runnable = new RunGameParser(messageToParser);
-
-              MetricsService.executeProcess(runnable,"backoffice.game-parse" );
+              System.out.println("ActionQueue.PARSEGAME Received message from channel " + channel + ": " + message);
+              metricsService.executeProcess(runnable,"backoffice.game-parse" );
 
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 
               Runnable runnable = new RunPlayerParser(messageToParser.getFolderToParse());
-              MetricsService.executeProcess(runnable,"backoffice.player-parse" );
+              metricsService.executeProcess(runnable,"backoffice.player-parse" );
 
             } else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
 
@@ -102,6 +103,7 @@ public class Main {
               thread.start();
             }
           } catch (JsonProcessingException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
 
           }
