@@ -22,8 +22,8 @@ public class Prometheus {
     Counter requestCounter =
         Counter.build().name("requests_total").help("Total number of requests processed")
             .register(registry);
-   // Histogram methodOneDuration = Histogram.build().name("method_one_execution_duration_seconds")
-  //      .help("Duration of method one executions in seconds").register(registry);
+   Histogram methodOneDuration = Histogram.build().name("method_one_execution_duration_seconds")
+       .help("Duration of method one executions in seconds").register(registry);
 
    // Histogram methodTwoDuration = Histogram.build().name("method_two_execution_duration_seconds")
    //     .help("Duration of method two executions in seconds").register(registry);
@@ -50,7 +50,7 @@ public class Prometheus {
       requestCounter.inc(); // Incrémenter le compteur
       Thread.sleep(10); // Pause de 1 seconde
     }
-/*
+
     cpmte = 50;
     for (int i = 0; i < 50; i++) {
       Histogram.Timer timer = methodOneDuration.startTimer();
@@ -64,7 +64,7 @@ public class Prometheus {
       } finally {
         timer.observeDuration();
       }
-    }*/
+    }
     System.out.println("end Prometheus avec mesure temps.3.."+server.toString());
   }
 }

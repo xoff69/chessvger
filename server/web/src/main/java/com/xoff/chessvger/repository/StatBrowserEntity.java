@@ -15,16 +15,12 @@ import org.springframework.data.domain.Persistable;
 @AllArgsConstructor
 @Entity
 @Table(name = "stat_browser")
-public class StatBrowserEntity implements Persistable<Long> {
-  @Override
-  public boolean isNew() {
-    return true;
-  }
+public class StatBrowserEntity  {
+
 
   private static final long serialVersionUID = 1479196290106048668L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   // Niveau (profondeur des coups)

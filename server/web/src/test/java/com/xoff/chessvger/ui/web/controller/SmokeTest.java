@@ -16,7 +16,7 @@ class SmokeTest {
   @Autowired
   private GamesController gamesController;
   @Autowired
-  private BDController bdController;
+  private DatabaseController bdController;
   @Autowired
   private FeatureController featureController;
 

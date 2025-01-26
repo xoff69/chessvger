@@ -14,7 +14,7 @@ export const useAuthStore = defineStore("auth", {
     async login(email, password) {
       try {
         const response = await login(email, password);
-        this.user = { id: response.id, name: response.name, email: response.email };
+        this.user = { id: response.id, name: response.name, email: response.email ,tenantId: response.tenantId};
         this.token = response.token;
         this.isAuthenticated = true;
 
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore("auth", {
 
         // Recharger les détails de l'utilisateur depuis l'API
         const response = await getUser(token);
-        this.user = { id: response.id, name: response.name, email: response.email };
+        this.user = { id: response.id, name: response.name, email: response.email ,tenantId: response.tenantId};
         this.token = token;
         this.isAuthenticated = true;
 

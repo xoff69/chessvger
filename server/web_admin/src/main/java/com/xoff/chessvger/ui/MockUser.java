@@ -12,4 +12,5 @@ public class MockUser {
   private String name;
   private String email;
   private String token;
+  private int tenantId;
 }

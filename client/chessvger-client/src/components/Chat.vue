@@ -31,10 +31,10 @@ export default {
 
         // S'abonner à la destination "/topic/notifications"
         this.stompClient.subscribe("/topic/notifications", (message) => {
-          console.log("getUser "+this.user.tenantId);
+          console.log("getUser "+this.user);
            jsonObject = JSON.parse(message.body);
           console.log("jsonObject "+jsonObject);
-          console.log("jsonObject "+jsonObject.tenantId);
+          console.log("jsonObject "+jsonObject);
           this.receivedMessage = message.body;
           console.log("Message reçu :", message.body);
         });

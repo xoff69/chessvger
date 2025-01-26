@@ -65,7 +65,7 @@ export default {
     handleRowClickGame(item,row) {
       console.log("Ligne cliquée :", item.whitePlayer);
       this.allTabs.push({ name: "game "+item.whitePlayer, visible: true });
-
+      this.activeTab = this.allTabs.length - 1;
     },
     closeTab(index) {
       console.log("close "+index);

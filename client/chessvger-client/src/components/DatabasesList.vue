@@ -35,8 +35,8 @@ export default {
       databases: [],
       count:0,
       headers: [
-        { text: "name", value: "name" },
-        { text: "description", value: "description" },
+        { title: "name", value: "name" },
+        { title: "description", value: "description" },
       ],
       authStore : useAuthStore(),
     };
@@ -50,8 +50,9 @@ export default {
     },
     async fetchDatabases() {
       try {
-
-        const  response = await sendGetRequest("http://localhost:8080/api/databases/all?tenantId="+ this.authStore.user.tenantId);
+        console.log("tenant id database + "+ this.authStore.user);
+        console.log("tenant id database + "+ this.authStore.user);
+        const  response = await sendGetRequest("http://localhost:8080/api/databases/all?userId="+ this.authStore.user.id);
 
 
         this.databases = response.data.list;

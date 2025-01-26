@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
   private static final MockUser mockUser =
-      new MockUser(1, "John Doe", "john.doe@example.com", "mockToken123");
+      new MockUser(1, "John Doe", "john.doe@example.com", "mockToken123",1);
 
   @PostMapping("/apiadmin/login")
   public MockUser login(@RequestBody LoginRequest loginRequest) {

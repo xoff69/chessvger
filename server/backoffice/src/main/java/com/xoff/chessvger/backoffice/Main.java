@@ -7,7 +7,7 @@ import com.xoff.chessvger.backoffice.environnement.RunInitSystem;
 import com.xoff.chessvger.backoffice.environnement.RunInitTenant;
 import com.xoff.chessvger.backoffice.game.RunGameParser;
 import com.xoff.chessvger.backoffice.player.RunPlayerParser;
-import com.xoff.chessvger.backoffice.util.Metrics;
+import com.xoff.chessvger.backoffice.util.MetricsService;
 import com.xoff.chessvger.common.UserTenant;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
@@ -42,11 +42,15 @@ public class Main {
       dbhost = "localhost";
     }
     checkEnvironment();
+    /*
     try {
-      Prometheus.start();
+     // Prometheus.start();
+      PrometheusSummaryExample.start();
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+     */
       // for test
       /*
       Thread thread = new Thread(new RunInitSystem());
@@ -76,13 +80,12 @@ public class Main {
             if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
               Runnable runnable = new RunGameParser(messageToParser);
 
-              Metrics.mesure("backoffice", "game-parse", runnable);
+              MetricsService.executeProcess(runnable,"backoffice.game-parse" );
 
             } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 
               Runnable runnable = new RunPlayerParser(messageToParser.getFolderToParse());
-
-              Metrics.mesure("backoffice", "player-parse", runnable);
+              MetricsService.executeProcess(runnable,"backoffice.player-parse" );
 
             } else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
 
@@ -101,8 +104,6 @@ public class Main {
           } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
 
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
           }
         }
       };

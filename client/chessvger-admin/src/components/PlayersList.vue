@@ -39,9 +39,9 @@ export default {
       players: [],
       count: 0,
       headers: [
-        { text: "Nom", value: "name" },
-        { text: "fideId", value: "fideId" },
-        { text: "country", value: "country" },
+        { title: "Nom", value: "name" },
+        { title: "fideId", value: "fideId" },
+        { title: "country", value: "country" },
       ],
     };
   },

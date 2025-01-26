@@ -42,6 +42,36 @@ export default {
                required: true
            }
    },
+   /* "id": 1,
+            "event": "Vinkoal Tourna",
+            "site": "Vinkovci CRO",
+            "partieAnalysee": false,
+            "date": "1995-01-01",
+            "eventDate": null,
+            "round": "10",
+            "result": "1-0",
+            "whitePlayer": "Rosandic, Denis",
+            "blackPlayer": "Hodak, S",
+            "whiteTitle": null,
+            "blackTitle": null,
+            "whiteElo": 0,
+            "blackElo": 0,
+            "eco": "D02",
+            "opening": null,
+            "whiteFideId": 0,
+            "blackFideId": 0,
+            "nbcoups": 0,
+            "lastPosition": 0,
+            "informationsFaitDeJeu": 0,
+            "lastUpdate": 0,
+            "firstMove": "d4",
+            "moves": "1. d4 d5 2. Nf3 e6 3. c3 Nf6 4. Bg5 Be7 5. Nbd2 O-O 6. e3 b6 7. Ne5 h6  8. Bh4 Ne4 9. Bxe7 Qxe7 10. Bd3 Nxd2 11. Qxd2 Nd7 12. f4 Nxe5 13. fxe5  a5 14. Qe2 f6 15. O-O fxe5 16. Rxf8 Qxf8 17. Rf1 Qe7 18. dxe5 Bd7  19. Qf3 c5 20. Qf4 c4 21. Bb1 Be8 22. Qf2 Bf7 23. Qc2 g6 24. Rf6 Rf8  25. Qf2 Be8 26. Bxg6 Bxg6 27. Rxg6 Kh7 28. Qc2 Rf5 29. Rf6 Kg8 30. Rxf5  exf5 31. Qxf5 Qc5 32. Qg6 Kh8 33. Qxh6 Kg8 34. e6 ",
+            "interet": 0,
+            "theorique": false,
+            "favori": false,
+            "new": true,
+            "deleted": false
+   */
   data() {
     return {
       authStore : useAuthStore(),
@@ -50,9 +80,11 @@ export default {
       showModal: false,
       loading:false,
       headers: [
-        { text: "whitePlayer", value: "whitePlayer" },
-        { text: "blackPlayer", value: "blackPlayer" },
-        { text: "event", value: "event" },
+      { title: "event", value: "event" ,sortable:true},
+      { title: "site", value: "site" ,sortable:true},
+        { title: "whitePlayer", value: "whitePlayer" ,sortable:true},
+        { title: "blackPlayer", value: "blackPlayer" },
+        { title: "result", value: "result" },
       ],
     };
   },
@@ -80,7 +112,7 @@ export default {
 
 
       try {
-        const re = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id, this.authStore.user.tenantId);
+        const re = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id, this.authStore.user.id);
         this.response=re.data;
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);

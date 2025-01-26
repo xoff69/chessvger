@@ -76,10 +76,13 @@ public class GamesController {
   public ResponseEntity<String> importPgn(@RequestBody ApiRequest request)
       throws JsonProcessingException {
     String databaseId = request.getDatabaseId();
-    String tenantId = request.getTenantId();
-    System.out.println("Reçu databaseId: " + databaseId + ", tenantId: " + tenantId);
+    String userId = request.getUserId();
+    System.out.println("Reçu databaseId: " + databaseId + ", userId: " + userId);
+    // TODO appeler redis pour avoir le tenantId?
+    long tenantId=1;
+
     MessageToParser messageGame=new MessageToParser();
-    messageGame.setTenantId(Long.parseLong(tenantId));
+    messageGame.setTenantId(tenantId);
     messageGame.setFolderToParse("./data/big");
     messageGame.setDatabaseName("chessvger_admin_database");
     messageGame.setSchema("main");  // TODO renommer
