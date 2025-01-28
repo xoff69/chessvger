@@ -11,6 +11,8 @@
     <v-icon>window</v-icon> Import players
 </v-btn>
 
+<button @click="showModal = true">Ouvrir la modale</button>
+<ModalSearchPlayer v-if="showModal" :is-visible="showModal" @close="showModal = false" />
 
     <h1>Players</h1>
     <v-data-table
@@ -31,13 +33,20 @@
 
 <script>
 import axios from "axios";
+import ModalSearchPlayer from "./ModalSearchPlayer.vue";
 
 export default {
   name: "PlayersList",
+  components: { ModalSearchPlayer },
+
   data() {
     return {
       players: [],
       count: 0,
+      showDialog: false,
+      searchCriteria: {},
+      filteredPlayers: [],
+      showModal: false,
       headers: [
         { title: "Nom", value: "name" },
         { title: "fideId", value: "fideId" },
@@ -55,24 +64,51 @@ export default {
         console.error("Error all players :", error);
       }
     },
+    handleSearch(searchData) {
+      console.log("Recherche lancée avec :", searchData);
+      // Ici, tu peux appeler une API ou filtrer une liste de joueurs
+    },
+    handleReset() {
+      console.log("Formulaire réinitialisé !");
+    },
+    performSearch(criteria) {
+      this.searchCriteria = criteria;
+      const { name, country, fide_id, title } = criteria;
+
+      this.filteredPlayers = this.players.filter((player) => {
+        return (
+          (!name || player.name.toLowerCase().includes(name.toLowerCase())) &&
+          (!country || player.country.toLowerCase().includes(country.toLowerCase())) &&
+          (!fide_id || player.fide_id.includes(fide_id)) &&
+          (!title || player.title === title)
+        );
+      });
+    },
+    resetSearch() {
+      this.searchCriteria = {};
+      this.filteredPlayers = [...this.players];
+    },
 
   },
   mounted() {
     this.fetchPlayers();
+    this.filteredPlayers = [...this.players];
+
   },
 };
 </script>
 
-<style scoped>
-.custom-table .v-data-table__thead {
-  background-color: #4caf50; /* Couleur de fond de l'en-tête */
-  color: white; /* Couleur du texte */
+<style>
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
-.custom-table .v-data-table__thead th {
-  font-weight: bold; /* Texte en gras */
-  padding: 10px; /* Espacement */
-}
-.custom-table .v-data-table__tbody {
-  background-color: #f9f9f9; /* Couleur de fond du corps */
+
+button:hover {
+  background-color: #0056b3;
 }
 </style>
