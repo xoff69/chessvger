@@ -7,10 +7,14 @@ package com.xoff.chessvger.backoffice.game;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.backoffice.dao.CommonDao;
 import com.xoff.chessvger.backoffice.dao.GameDao;
+import com.xoff.chessvger.chess.game.ICommonGameManager;
+import com.xoff.chessvger.chess.stat.IBrowserStatManager;
+import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.ResultAction;
 import com.xoff.chessvger.topic.Topic;
+import com.xoff.chessvger.util.Constants;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -62,6 +66,37 @@ public class RunGameParser implements Runnable {
         //enqueueGameOfAPlayer(game.getId(), game.getBlackFideId());
         //ReconciliationManager.update(game.getId(), ReconciliationType.GAME);
       }
+
+      public int postUpdateGameAndStat() {
+
+        int total = 0;
+        long bdId = database.getId();
+
+        for (String firstmove : Constants.ALL_FIRST_MOVE) {
+
+
+          ICommonGameManager commonGameManager =
+              GlobalManager.getInstance().getDatabaseManager(bdId).getGlobalGameManager()
+                  .get(firstmove);
+          commonGameManager.update();
+          total += commonGameManager.nbgames();
+          // log.info("post update " + g.nbgames());
+          IBrowserStatManager bs =
+              GlobalManager.getInstance().getDatabaseManager(bdId).getGlobalBrowserStatManager()
+                  .get(firstmove);
+          if (bs != null) {
+            bs.clear();
+            List<com.xoff.chessvger.chess.game.CommonGame> liste = commonGameManager.getGames();
+            //  log.info(firstmove+" nouvelles parties to browse:-" + liste.size()+ "/"+commonGameManager.getGames().size());
+            bs.browseFirstMove(liste);
+          }
+
+
+        }
+        database.setLastUpdate(System.currentTimeMillis());
+        return total;
+      }
+
       long finish2 = System.currentTimeMillis();
       timeElapsed = (finish2 - finish1) / 1000;
       System.out.println("db insert games done " + games.size() + ":" + timeElapsed + " s");

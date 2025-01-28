@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   private UserRepository userRespository;
+
+  public UserDTO getUserByUsername(String username) {
+    return mapToDTO(userRespository.findByLogin(username));
+  }
+
   public Long count() {
     return userRespository.count();
   }

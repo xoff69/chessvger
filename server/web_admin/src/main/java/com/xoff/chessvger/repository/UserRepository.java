@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface  UserRepository  extends CrudRepository<UserEntity, Long> {
   Page<UserEntity> findAll(Pageable pageable);
   UserEntity findByLoginAndPassword(String login, String password);
+  UserEntity findByLogin(String login);
 }
