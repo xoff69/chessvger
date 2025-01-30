@@ -1,35 +1,35 @@
 package com.xoff.chessvger.backoffice.dao;
 
 import com.xoff.chessvger.backoffice.material.MaterialEntity;
+import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.chess.board.IPositionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import org.postgresql.shaded.com.ongres.scram.common.exception.ScramServerErrorException;
 
 public class MaterialDao {
-  // position_games
-  //position_entity_games
 
-  private static String SCHEMA = "tenant_admin";
 
-  private static final String INSERT_SQL = "INSERT INTO  "+SCHEMA+".material_games (id,position) VALUES (?,?)";
+  private static final String INSERT_SQL = "INSERT INTO  %s.material_games (id,position) VALUES (?,?)";
   private static final String INSERT_LIST_SQL =
-      "INSERT INTO  "+SCHEMA+".material_entity_games (material_entity_id, games) VALUES (?, ?)";
+      "INSERT INTO  %s.material_entity_games (material_entity_id, games) VALUES (?, ?)";
 
-  public void insertEntity(MaterialEntity entity) throws SQLException {
-    Connection connection = null;
+  public static void insert(Connection connection,String schemaName,Long gameId, List<CoupleZobristMaterial> list) {
+
+    on ajoute juste des mateial-id, game-id
+
+    upsert la position avec le game
     PreparedStatement insertEntityStmt = null;
     PreparedStatement insertListStmt = null;
 
     try {
-      // 1. Créer la connexion à la base de données
-      connection = CommonDao.getConnection();
-      connection.setAutoCommit(false); // Permet de contrôler la transaction manuellement
-
-      // 2. Préparer la requête SQL pour insérer dans ExampleEntity
+      String sql = String.format(INSERT_SQL, schemaName);
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
       insertEntityStmt =
           connection.prepareStatement(INSERT_SQL, PreparedStatement.RETURN_GENERATED_KEYS);
-      insertEntityStmt.setLong(1, entity.getId());
+      insertEntityStmt.setLong(1, gameId);
       insertEntityStmt.executeUpdate();
 
       // 3. Récupérer l'ID généré

@@ -1,5 +1,6 @@
 package com.xoff.chessvger.backoffice.dao;
 
+import com.xoff.chessvger.backoffice.game.CommonGame;
 import com.xoff.chessvger.chess.player.ICommonPlayerManager;
 import com.xoff.chessvger.chess.stat.StatBrowser;
 import com.xoff.chessvger.common.DbKeyManager;
@@ -8,12 +9,19 @@ import com.xoff.chessvger.common.ParamConstants;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.util.DateUtils;
 import com.xoff.chessvger.util.PgnUtil;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.List;
 
 public class BrowserDao
 {
-  /*
-  public void browseFirstMove(List<CommonGame> liste) {
 
+  public static void browseFirstMove(Connection connection,String schemaName, List<CommonGame> liste) {
+
+   // String sql = String.format(INSERT_SQL, schemaName);
+   // PreparedStatement preparedStatement = connection.prepareStatement(sql);
+  }
+  /*
     ICommonPlayerManager playerManager = GlobalManager.getInstance().getCommonPlayerManager();
     StatBrowserRepository statBrowserRepository = ...; // Injectez votre repository ici
     GameOfAStatRepository gameOfAStatRepository = ...; // Injectez votre repository ici
