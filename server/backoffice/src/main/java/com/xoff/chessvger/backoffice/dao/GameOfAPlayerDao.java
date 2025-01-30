@@ -18,7 +18,7 @@ public class GameOfAPlayerDao {
 
       preparedStatement.setLong(1, id);
       // FIXME : trouver le nom du player dans la table des plauers cache Redis
-      preparedStatement.setLong(2, playerFideId==0?1:playerFideId);
+      preparedStatement.setLong(2, playerFideId==0?PlayerDao.findOrCreate(playerName):playerFideId);
 
       preparedStatement.executeUpdate();
 

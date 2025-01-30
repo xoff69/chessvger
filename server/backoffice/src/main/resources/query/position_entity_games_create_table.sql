@@ -1,1 +1,0 @@
-create table %s.position_entity_games (games bigint, position_entity_id bigint not null);

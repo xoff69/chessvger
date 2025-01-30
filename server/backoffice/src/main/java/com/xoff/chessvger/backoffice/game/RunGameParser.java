@@ -10,6 +10,7 @@ import com.xoff.chessvger.backoffice.dao.CommonDao;
 import com.xoff.chessvger.backoffice.dao.GameDao;
 import com.xoff.chessvger.backoffice.dao.GameOfAPlayerDao;
 import com.xoff.chessvger.backoffice.dao.MaterialDao;
+import com.xoff.chessvger.backoffice.dao.PositionDao;
 import com.xoff.chessvger.backoffice.materialposition.MaterialPositionsUtil;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
 import com.xoff.chessvger.topic.MessageFromParser;

@@ -19,6 +19,9 @@ public class PlayerDao {
           "blitz_games, blitzk, birthday, flag) " +
           "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+  public static long findOrCreate(String name){
+     return 0L; // TODO
+  }
   public void insertCommonPlayer(CommonPlayer player) throws SQLException, ClassNotFoundException {
 
     // TODO faire un upsert
