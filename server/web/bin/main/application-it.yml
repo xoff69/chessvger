@@ -1,8 +1,0 @@
-profile:
-  property:
-    value: This the the application.yaml file it test
-chessvger:
-  run_init: false
-spring:
-logging:
-  file.name: data/logs/chessvger-it.log

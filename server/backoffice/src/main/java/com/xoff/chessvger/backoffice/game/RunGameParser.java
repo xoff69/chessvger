@@ -4,9 +4,18 @@
 
 package com.xoff.chessvger.backoffice.game;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.backoffice.dao.BrowserDao;
 import com.xoff.chessvger.backoffice.dao.CommonDao;
 import com.xoff.chessvger.backoffice.dao.GameDao;
+import com.xoff.chessvger.backoffice.dao.GameOfAPlayerDao;
+import com.xoff.chessvger.backoffice.dao.MaterialDao;
+import com.xoff.chessvger.backoffice.dao.PositionDao;
+import com.xoff.chessvger.backoffice.materialposition.MaterialPositionsUtil;
+import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
+import com.xoff.chessvger.topic.ResultAction;
 import com.xoff.chessvger.topic.Topic;
 import java.io.File;
 import java.io.IOException;
@@ -17,14 +26,14 @@ import redis.clients.jedis.Jedis;
 
 public class RunGameParser implements Runnable {
 
-  private final MessageToParser messageToParser ;
+  private final MessageToParser messageToParser;
 
   public RunGameParser(MessageToParser messageToParser) {
     this.messageToParser = messageToParser;
   }
 
 
-  private static void manageFile(MessageToParser messageToParser) throws IOException,SQLException {
+  private static void manageFile(MessageToParser messageToParser) throws IOException, SQLException {
     // TODO quelle bd? celle donnee par le nom du schema
     System.out.println("games " + messageToParser);
     GameDao commonGameDao = new GameDao();
@@ -36,39 +45,50 @@ public class RunGameParser implements Runnable {
     long timeElapsed = (finish1 - start) / 1000;
     System.out.println("after parse games done: " + games.size() + ":" + timeElapsed + " s");
     System.out.println("after parse games done: " + messageToParser);
-    try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
 
-      long id = commonGameDao.count(connection,messageToParser.getSchema()) + 1;
-      for (CommonGame game : games) {
+      try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
 
-        game.setId(id++);
+        long id = commonGameDao.count(connection, messageToParser.getSchema()) + 1;
+        for (CommonGame game : games) {
 
-        try {
-          commonGameDao.insertCommonGame(connection,messageToParser.getSchema(),game);
-        } catch (SQLException e) {
-          throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-          throw new RuntimeException(e);
+          game.setId(id++);
+
+
+          commonGameDao.insertCommonGame(connection, messageToParser.getSchema(), game);
+
+          GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getWhitePlayer(), game.getWhiteFideId());
+          GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getBlackPlayer(), game.getBlackFideId());
+          List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
+          MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+          PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+
         }
-        // mettre a jour le reconciliation manager
-        // envoyer sur les stats browser
-        // envoyer game of player
-        // List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
-        // PositionMaterialProducer.enqueuePositionMaterial(game.getId(), list);
-        //enqueueGameOfAPlayer(game.getId(), game.getWhiteFideId());
-        //enqueueGameOfAPlayer(game.getId(), game.getBlackFideId());
-        //ReconciliationManager.update(game.getId(), ReconciliationType.GAME);
+        BrowserDao.browseFirstMove(connection, messageToParser.getSchema(), games);
+
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      } catch (ClassNotFoundException e) {
+        throw new RuntimeException(e);
       }
       long finish2 = System.currentTimeMillis();
       timeElapsed = (finish2 - finish1) / 1000;
       System.out.println("db insert games done " + games.size() + ":" + timeElapsed + " s");
       try (Jedis jedis = new Jedis("redis", 6379)) {
         // TODO a externaliser
-        jedis.publish(Topic.TOPIC_FROM_QUEUE, games.size() + ":" + timeElapsed + " s");
+        MessageFromParser messageFromParser = new MessageFromParser();
+        // TODO
+        // private long tenantId;
+        messageFromParser.setCorrelationId(messageToParser.getCorrelationId());
+        messageFromParser.setTenantId(messageFromParser.getTenantId());
+        messageFromParser.setResult(ResultAction.SUCCESS);
+        messageFromParser.setMessage(games.size() + ":" + timeElapsed + " s");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        jedis.publish(Topic.TOPIC_FROM_QUEUE, objectMapper.writeValueAsString(messageFromParser));
+      }finally {
+        System.out.println(
+            "Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");
       }
-      System.out.println(
-          "Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");
-    }
   }
 
   @Override

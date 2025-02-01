@@ -1,5 +1,6 @@
 package com.xoff.chessvger.config;
 
+import java.util.Arrays;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,7 +16,9 @@ System.out.println("addCorsMappings");
         .allowedHeaders("*")
         .allowedOrigins("http://localhost:3000").allowCredentials(false);
 
-    registry.addMapping("/api/**") .allowCredentials(false);
+    registry.addMapping("/api/**")  .allowedHeaders("*").allowCredentials(false);
+    registry.addMapping("/apiadmin/**")  .allowedHeaders("*").allowCredentials(false);
+
     registry.addMapping("/ws/**") .allowCredentials(false);
     registry.addMapping("/app/ws/**") .allowCredentials(false);
     registry
@@ -23,7 +26,6 @@ System.out.println("addCorsMappings");
         // Exact path mapping URIs (such as "/admin") are supported as well as Ant-style path patterns (such as "/admin/**").
         .addMapping("/*")
         .allowedOrigins("*")
-        // .allowedOriginPatterns("")
         .allowCredentials(false)
         .allowedHeaders("*")
         .exposedHeaders("*")

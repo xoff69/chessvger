@@ -34,7 +34,6 @@
       </v-card-text>
     </v-card>
 
-    <v-btn @click="selectionnerPremierOnglet">Select first tab</v-btn>
     <AppFooter />
   </v-app>
 
@@ -84,15 +83,10 @@ export default {
       }
     }
 
-    function selectionnerPremierOnglet() {
-      tab.value = 0;
-    }
-
     return {
       tab,
       visibleTabs,
       cacherOnglet,
-      selectionnerPremierOnglet,
     };
   },
 };

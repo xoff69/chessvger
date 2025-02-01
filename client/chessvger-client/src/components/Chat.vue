@@ -1,20 +1,15 @@
 <template>
   <div>
-    <h1>WebSocket Client</h1>
+
     <p>Message reçu : {{ receivedMessage }}</p>
-    <input
-      type="text"
-      v-model="messageToSend"
-      placeholder="Entrez un message"
-    />
-    <button @click="sendMessage">Envoyer</button>
+
   </div>
 </template>
 
 <script>
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
-
+import { getUser } from '../services/authService';
 export default {
   name: "WebSocketClient",
   data() {
@@ -22,6 +17,7 @@ export default {
       stompClient: null, // Instance STOMP
       receivedMessage: "", // Message reçu
       messageToSend: "", // Message à envoyer
+      user:null,
     };
   },
   methods: {
@@ -35,6 +31,10 @@ export default {
 
         // S'abonner à la destination "/topic/notifications"
         this.stompClient.subscribe("/topic/notifications", (message) => {
+          console.log("getUser "+this.user);
+          console.log(" this.stompClient.subscribe "+message);
+           jsonObject = JSON.parse(message.body);
+          console.log("jsonObject "+jsonObject);
           this.receivedMessage = message.body;
           console.log("Message reçu :", message.body);
         });
@@ -62,6 +62,7 @@ export default {
   mounted() {
     // Se connecter lorsque le composant est monté
     this.connect();
+    this.user=getUser();
   },
   beforeUnmount() {
     // Se déconnecter lorsque le composant est détruit

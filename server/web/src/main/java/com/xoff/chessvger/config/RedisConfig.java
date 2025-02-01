@@ -2,6 +2,8 @@ package com.xoff.chessvger.config;
 
 
 import com.xoff.chessvger.topic.Topic;
+import com.xoff.chessvger.service.ApiService;
+import com.xoff.chessvger.service.RedisMessageSubscriber;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +14,17 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
+import org.springframework.web.client.RestTemplate;
 
 
 @ComponentScan("com.xoff.chessvger.config")
 @Configuration
 public class RedisConfig {
+
+  @Bean
+  public RestTemplate restTemplate() {
+    return new RestTemplate();
+  }
 
   @Bean
   JedisConnectionFactory jedisConnectionFactory() {
@@ -35,7 +43,7 @@ public class RedisConfig {
   }
   @Bean
   MessageListenerAdapter messageListener() {
-    return new MessageListenerAdapter(new RedisMessageSubscriber());
+    return new MessageListenerAdapter(new RedisMessageSubscriber(new ApiService(restTemplate())));
   }
 
 

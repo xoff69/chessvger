@@ -1,10 +1,6 @@
 <template>
   <v-app>
     <AppHeader/>
-
-
-
-
     <v-card>
       <div> <!-- pour gagner de l espace -->
     <p>Premier Élément</p>
@@ -13,21 +9,28 @@
   </div>
 
       <!-- Onglets principaux -->
-      <v-tabs v-model="tab" bg-color="primary">
+      <v-tabs v-model="activeTab" bg-color="primary">
         <v-tab v-for="(t, index) in allTabs" :key="t.name">
           {{ t.name }}
+          <v-icon v-if="index>0"
+          small
+          class="ml-2 red-background white--text"
+          @click.stop="closeTab(index)"
+        >
+          mdi-close
+        </v-icon>
 
         </v-tab>
       </v-tabs>
 
       <v-card-text>
-        <v-window v-model="tab">
+        <v-window v-model="activeTab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="tab === 0">
-              <DatabasesList  @row-clicked="handleRowClick"  :items="databases"  />
+            <div v-show="activeTab === 0">
+              <DatabasesList  @row-clicked="handleRowClick"    />
             </div>
-            <div v-if="tab === 1">
+            <div v-show="activeTab === 1">
               <DatabaseDetail :database="selectedDatabase" />
             </div>
 
@@ -59,7 +62,7 @@ export default {
   },
   data() {
     return {
-      databases: [],
+
       selectedDatabase:null,
       user: null,
        tab :ref(0),
@@ -72,9 +75,15 @@ export default {
   },
 
   mounted() {
-    this.fetchDatabases();
   },
   methods: {
+    closeTab(index) {
+      console.log("close "+index);
+      this.allTabs.splice(index, 1); // Supprimer l'onglet
+      if (this.activeTab >= this.allTabs.length) {
+        this.activeTab = this.allTabs.length - 1; // Ajuster l'onglet actif
+      }
+    },
     handleRowClick(item,row) {
       console.log("Ligne cliquée :", item.name);
       this.allTabs.push({ name: "Database "+item.name, visible: true });
@@ -82,19 +91,21 @@ export default {
 
       this.activeTab = this.allTabs.length - 1;
     },
-    async fetchDatabases() {
-      try {
-        const response = await axios.get("http://localhost:8080/api/databases/all");
 
-        this.databases = response.data;
-      } catch (error) {
-        console.error("Erreur lors de la récupération des databases :", error);
-      }},
   },
 
 };
 </script>
 
 <style scoped>
-/* Ajoutez ici des styles spécifiques à ce composant si nécessaire */
+/* Optionnel : Ajouter du style à l'icône */
+.v-icon {
+  cursor: pointer;
+  color: red;
+}
+.red-background {
+  background-color: red;
+  border-radius: 50%; /* Fond rond */
+  padding: 4px; /* Ajuster selon la taille */
+}
 </style>

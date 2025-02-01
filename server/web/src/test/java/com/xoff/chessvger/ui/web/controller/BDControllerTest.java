@@ -18,7 +18,7 @@ import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.service.IDatabaseService;
+import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.ui.web.form.DBForm;
 import com.xoff.chessvger.ui.web.mapper.DatabaseMapper;
 import com.xoff.chessvger.ui.web.navigation.Page;

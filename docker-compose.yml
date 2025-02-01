@@ -6,15 +6,45 @@ networks:
     driver: bridge
 
 services:
+  prometheus:
+    image: prom/prometheus
+    hostname: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./data/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: always
+    networks:
+      - chessvger_network
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3008:3008"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_HTTP_PORT=3008
+    restart: always
+    volumes:
+      - ./data/grafana-data:/var/lib/grafana  # Persistance des données
+    depends_on:
+      - prometheus
+    networks:
+      - chessvger_network
+
   chessvger-backoffice:
     image: chessvger-backoffice:latest
-    environment:
-      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
+    hostname: backoffice
+    depends_on:
+      - prometheus
+      - postgres
     build:
       context: .
       dockerfile: Dockerfile
     networks:
       - chessvger_network
+    ports:
+      - "8087:8087"
     volumes:
       - ./data:/app/data  
       
@@ -42,32 +72,14 @@ services:
       - ./reference/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./data/postgres_data:/var/lib/postgresql/data
 
-  jaeger:
-    image: jaegertracing/all-in-one:1.45
-    container_name: jaeger
-    ports:
-      - "5775:5775/udp"
-      - "6831:6831/udp"
-      - "6832:6832/udp"
-      - "5778:5778"
-      - "16686:16686"
-      - "14268:14268"
-      - "14250:14250"
-      - "9411:9411"
-    networks:
-      - chessvger_network     
-  # dockfish:
-  #   image: registry.gitlab.com/ce72/dockfish:latest 
-  #   build:
-  #     context: ./dockfish 
-  #   ports:
-  #     - "8084:8080"
-  #   networks:
-  #   - chessvger_network
+  
+
 
 
   chessvger-serverapp:
     image: chessvger-serverapp:latest
+    depends_on:
+      - chessvger-backoffice
     build:
       context: .
       dockerfile: Dockerfile
@@ -78,21 +90,6 @@ services:
     ports:
       - "8080:8080"
 
-  chessvger-serverapp-admin:
-    image: chessvger-serverapp-admin:latest
-    environment:
-      - OTEL_EXPORTER_JAEGER_ENDPOINT=http://jaeger:14250
-    depends_on:
-      - jaeger
-    build:
-      context: .
-      dockerfile: Dockerfile
-    networks:
-      - chessvger_network
-    volumes:
-      - ./data:/app/data   
-    ports:
-      - "8082:8082"
 
   chessvger-client:
     image: chessvger-client:latest
@@ -116,3 +113,11 @@ services:
            
 
 
+  # dockfish:
+  #   image: registry.gitlab.com/ce72/dockfish:latest 
+  #   build:
+  #     context: ./dockfish 
+  #   ports:
+  #     - "8084:8080"
+  #   networks:
+  #   - chessvger_network

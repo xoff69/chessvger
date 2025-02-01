@@ -6,7 +6,8 @@ chessvger:
     list: fr\#en
     default: fr
     current: fr
-
+server:
+  port : 8080
 spring:
   redis:
     host:redis
@@ -15,8 +16,6 @@ spring:
     user:
       name: chessvger
       password: chessvger
-  thymeleaf:
-    cache: false
   main:
     banner-mode: 'console'
   banner:
@@ -31,7 +30,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: chessvger
     password: chessvger
-    url: jdbc:postgresql://db_chessvger/chessvger?currentSchema=chessvger
+    url: jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
   jpa:
     show-sql: true
     generate-ddl: true

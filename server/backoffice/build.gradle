@@ -14,12 +14,22 @@ repositories {
 dependencies {
     implementation project(':core')
     implementation 'org.postgresql:postgresql:42.7.3'
-    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation 'com.zaxxer:HikariCP:5.0.1'
-    implementation 'io.opentelemetry:opentelemetry-api:1.30.0'
-    implementation 'io.opentelemetry:opentelemetry-sdk:1.30.0'
 
-    implementation 'io.opentelemetry:opentelemetry-exporter-jaeger:1.30.0'
+    implementation 'org.slf4j:slf4j-api:1.7.36'          // Logging
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+
+    // Simple logger
+    implementation 'io.micrometer:micrometer-core:1.9.0'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.9.0'
+    implementation 'io.prometheus:simpleclient:0.16.0'
+    implementation 'io.prometheus:simpleclient_common:0.16.0'
+    implementation 'io.prometheus:simpleclient_hotspot:0.16.0' // Pour les métriques système
+    implementation 'com.sun.net.httpserver:http:20070405' // Serveur HTTP intégré
+
+    implementation 'io.prometheus:simpleclient:0.16.0'
+    implementation 'io.prometheus:simpleclient_hotspot:0.16.0'
+    implementation 'io.prometheus:simpleclient_httpserver:0.16.0'
 
     implementation 'redis.clients:jedis:2.8.0'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.18.0'

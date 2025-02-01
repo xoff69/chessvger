@@ -2,22 +2,48 @@ package com.xoff.chessvger.backoffice.dao;
 
 import com.xoff.chessvger.backoffice.util.FileUtils;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 public class TenantDao {
+
+  private static final String INSERT_TENANT="INSERT INTO common.tenants (name, date_created, date_updated)\n" +
+      "VALUES\n" + "    (?, CURRENT_DATE, CURRENT_TIMESTAMP) ON CONFLICT (name) DO NOTHING  returning tenant_id";
+  public static int createTenant(Connection connection,
+                                String name) throws Exception {
+
+    try (PreparedStatement stmt = connection.prepareStatement(INSERT_TENANT)) {
+      stmt.setString(1, name);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (rs.next()) {
+          int generatedId = rs.getInt("tenant_id"); // Adaptez ici au nom du champ
+          System.out.println("Tenant ID généré : " + generatedId);
+          return generatedId;
+        }
+      }
+    }
+    catch (Exception e){
+      System.out.println("Error createTenant: " + name+" "+e.getMessage());
+    }
+    return 0;
+  }
   public static void createTenantEnvironnement(String tenantName) {
 
     try (Connection connection = CommonDao.getConnection()) {
-
-      CommonDao.createDatabasePg(connection, tenantName);
       String sqlDatabaseName="chessvger_"+tenantName+"_database";
+      CommonDao.createDatabasePg(connection, sqlDatabaseName);
+
       try (Connection connectionTenant = CommonDao.getConnection(sqlDatabaseName)) {
         // schema common
         CommonDao.createSchemaIfNotExists(connectionTenant, CommonDao.COMMON_SCHEMA);
         // puis un schema par bd
-        String queryDatabaseTable= FileUtils.read("query/databasetable.sql");
-        System.out.println("queryDatabaseTable "+queryDatabaseTable);
-        CommonDao.executeQuery(connectionTenant, queryDatabaseTable);
-        String schemaName="main_db";
+        CommonDao.executeSqlFromFile(connectionTenant,"query/database_createtable.sql");
+        // creer la database admin
+        CommonDao.executeQuery(connectionTenant,
+            "insert into common.database(name,description) values('main','main database') ON CONFLICT (name) DO NOTHING") ;
+
+        String schemaName="main";
         CommonDao.createSchemaIfNotExists(connectionTenant, schemaName);
         createChessvgerDatabase(connectionTenant,schemaName);
 
@@ -34,26 +60,26 @@ public class TenantDao {
    */
   private static void createChessvgerDatabase(Connection connection,String schemaNameString) {
 
-    String queryGameTable= FileUtils.read("query/gametable.sql");
 
-    System.out.println("queryGameTable "+queryGameTable);
-    String sql = String.format(queryGameTable, schemaNameString);
-    System.out.println("sql "+sql);
-    CommonDao.executeQuery(connection, sql);
+    CommonDao.executeSqlFromFile(connection, "query/game_createtable.sql",schemaNameString);
+// stats
+    CommonDao.executeSqlFromFile(connection, "query/stat_browser_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/stat_browser_best_players_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/gameofaplayer_create_table.sql",schemaNameString);
 
-    // table des stats
-    // table game of player
-    // table position + subtable
-    // table material+ subtable
-    // filiation
-    // favorite
-    // filter
-    // history
-    // statisque + meilleurs joueurs stat
+    CommonDao.executeSqlFromFile(connection, "query/materialgames_create_table.sql",schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/material_entity_games_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/positiongames_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/position_entity_games_create_table.sql",schemaNameString);
+    CommonDao.executeSqlFromFile(connection, "query/favorite_create_table.sql",schemaNameString);
+
+    CommonDao.executeSqlFromFile(connection, "query/search_criteria_create_table.sql",schemaNameString);
+
+    CommonDao.executeSqlFromFile(connection, "query/history_create_table.sql",schemaNameString);
+
 
   }
 
-  public static final String DEFAULT_DATABASE_NAME = "Main 2025";
 
 
 

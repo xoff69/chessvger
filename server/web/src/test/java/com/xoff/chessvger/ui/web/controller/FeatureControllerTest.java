@@ -14,7 +14,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.chess.feature.Feature;
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.service.FeatureService;
 import com.xoff.chessvger.ui.web.mapper.FeatureMapper;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.FeatureDto;

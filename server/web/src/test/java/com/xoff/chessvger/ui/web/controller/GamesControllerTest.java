@@ -17,7 +17,6 @@ import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.service.IGameService;
 import com.xoff.chessvger.ui.web.form.FilterForm;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.PageView;

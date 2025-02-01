@@ -1,71 +1,43 @@
 package com.xoff.chessvger.backoffice.dao;
 
 import com.xoff.chessvger.backoffice.material.MaterialEntity;
+import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.chess.board.IPositionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import org.postgresql.shaded.com.ongres.scram.common.exception.ScramServerErrorException;
 
 public class MaterialDao {
-  // position_games
-  //position_entity_games
 
-  private static String SCHEMA = "tenant_admin";
 
-  private static final String INSERT_SQL = "INSERT INTO  "+SCHEMA+".material_games (id,position) VALUES (?,?)";
-  private static final String INSERT_LIST_SQL =
-      "INSERT INTO  "+SCHEMA+".material_entity_games (material_entity_id, games) VALUES (?, ?)";
+  private static final String INSERT_SQL = "INSERT INTO  %s.material_games (value,game_id) VALUES (?,?)";
 
-  public void insertEntity(MaterialEntity entity) throws SQLException {
-    Connection connection = null;
+
+  public static void insert(Connection connection,String schemaName,Long gameId, List<CoupleZobristMaterial> list)
+      throws SQLException {
+
     PreparedStatement insertEntityStmt = null;
-    PreparedStatement insertListStmt = null;
-
+    String sql = String.format(INSERT_SQL, schemaName);
     try {
-      // 1. Créer la connexion à la base de données
-      connection = CommonDao.getConnection();
-      connection.setAutoCommit(false); // Permet de contrôler la transaction manuellement
 
-      // 2. Préparer la requête SQL pour insérer dans ExampleEntity
       insertEntityStmt =
-          connection.prepareStatement(INSERT_SQL, PreparedStatement.RETURN_GENERATED_KEYS);
-      insertEntityStmt.setLong(1, entity.getId());
-      insertEntityStmt.executeUpdate();
-
-      // 3. Récupérer l'ID généré
-      try (var generatedKeys = insertEntityStmt.getGeneratedKeys()) {
-        if (generatedKeys.next()) {
-          long generatedId = generatedKeys.getLong(1);
-          entity.setId(generatedId);
-
-          // 4. Insérer les éléments de la liste dans la table associée
-          insertListStmt = connection.prepareStatement(INSERT_LIST_SQL);
-          List<Long> games = entity.getGames();
-          for (Long value : games) {
-            insertListStmt.setLong(1, generatedId);
-            insertListStmt.setLong(2, value);
-            insertListStmt.addBatch(); // Préparer un batch d'inserts
-          }
-          insertListStmt.executeBatch();
-        }
+          connection.prepareStatement(sql);
+      for (CoupleZobristMaterial coupleZobristMaterial : list) {
+        insertEntityStmt.setLong(1, gameId);
+        insertEntityStmt.setLong(1, coupleZobristMaterial.getMaterial());
+        insertEntityStmt.executeUpdate();
       }
 
-      connection.commit(); // Valider la transaction
+      connection.commit();   insertEntityStmt.close();
     } catch (SQLException e) {
       if (connection != null) {
-        connection.rollback(); // Annuler la transaction en cas d'erreur
+
+        connection.rollback();
       }
-      throw e;
-    } finally {
-      if (insertListStmt != null) {
-        insertListStmt.close();
-      }
-      if (insertEntityStmt != null) {
-        insertEntityStmt.close();
-      }
-      if (connection != null) {
-        connection.close();
-      }
+      e.printStackTrace();
     }
-  }
+
+    }
 }

@@ -4,7 +4,7 @@
     <h1>Liste des db</h1>
     <v-data-table
       :headers="headers"
-      :items="items"
+      :items="databases"
       :items-per-page="5"
       class="elevation-1"
       @click:row="handleRowClick"
@@ -22,11 +22,12 @@
 
 <script>
 import axios from "axios";
+import { useAuthStore } from "../stores/authStore";
+import { sendGetRequest } from '../api/apiService'; // Importez votre méthode
 
 export default {
   name: "DatabasesList",
   props: {
-    items: Array,
   },
 
   data() {
@@ -34,10 +35,10 @@ export default {
       databases: [],
       count:0,
       headers: [
-        { text: "name", value: "name" },
-        { text: "description", value: "description" },
+        { title: "name", value: "name" },
+        { title: "description", value: "description" },
       ],
-
+      authStore : useAuthStore(),
     };
   },
 
@@ -47,19 +48,24 @@ export default {
       console.log("list "+row.item.name);
       this.$emit("row-clicked", row.item);
     },
-
-
-    async countDatabases() {
+    async fetchDatabases() {
       try {
-        const response = await axios.get("http://localhost:8080/api/databases/count");
-        this.count = response.data;
+        console.log("tenant id database + "+ this.authStore.user);
+        console.log("tenant id database + "+ this.authStore.user);
+        const  response = await sendGetRequest("http://localhost:8080/api/databases/all?userId="+ this.authStore.user.id);
+
+
+        this.databases = response.data.list;
+
+        this.count=response.data.count;
       } catch (error) {
-        console.error("Error count databases :", error);
-      }
-    },
+        console.error("Erreur lors de la récupération des databases :", error);
+      }},
+
+
     },
   mounted() {
-    this.countDatabases();
+    this.fetchDatabases();
   },
 };
 </script>

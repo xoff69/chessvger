@@ -17,7 +17,6 @@ import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.chess.player.CommonPlayer;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.service.IPlayerService;
 import com.xoff.chessvger.ui.web.navigation.Page;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.PageView;

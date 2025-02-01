@@ -1,13 +1,13 @@
 <template>
 
 <v-card>
-      <v-tabs v-model="tab" bg-color="yellow">
+      <v-tabs v-model="activeTab" bg-color="yellow">
         <v-tab v-for="(t, index) in allTabs" :key="t.name"   @click="activeTab = index"
         >
           {{ t.name }}
-          <v-icon
+          <v-icon v-if="index>2"
           small
-          class="ml-2"
+          class="ml-2 red-background white--text"
           @click.stop="closeTab(index)"
         >
           mdi-close
@@ -17,13 +17,13 @@
       </v-tabs>
 
       <v-card-text>
-        <v-window v-model="tab">
+        <v-window v-model="activeTab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="tab === 0"> <GamesList :database="database" /></div>
-            <div v-if="tab === 1"> <GameBrowse :database="database"/></div>
-            <div v-if="tab === 2"> <GamePlayers :database="database"/></div>
-            <div v-if="tab ===3"> <Game :database="database"/></div>
+            <div v-show="activeTab === 0"> <GamesList :database="database"  @row-clicked="handleRowClickGame" /></div>
+            <div v-show="activeTab === 1"> <GameBrowse :database="database"/></div>
+            <div v-show="activeTab === 2"> <GamePlayers :database="database"/></div>
+            <div v-show="activeTab ===3"> <Game :database="database"/></div>
           </v-window-item>
         </v-window>
       </v-card-text>
@@ -62,11 +62,16 @@ export default {
       };
     },
     methods: {
+    handleRowClickGame(item,row) {
+      console.log("Ligne cliquée :", item.whitePlayer);
+      this.allTabs.push({ name: "game "+item.whitePlayer, visible: true });
+      this.activeTab = this.allTabs.length - 1;
+    },
     closeTab(index) {
       console.log("close "+index);
-      this.allTabs.splice(index, 1); // Supprimer l'onglet
+      this.allTabs.splice(index, 1);
       if (this.activeTab >= this.allTabs.length) {
-        this.activeTab = this.allTabs.length - 1; // Ajuster l'onglet actif
+        this.activeTab = this.allTabs.length - 1;
       }
     },
   },
@@ -81,5 +86,10 @@ export default {
 .v-icon {
   cursor: pointer;
   color: red;
+}
+.red-background {
+  background-color: red;
+  border-radius: 50%; /* Fond rond */
+  padding: 4px; /* Ajuster selon la taille */
 }
 </style>
