@@ -17,6 +17,8 @@ System.out.println("addCorsMappings");
         .allowedOrigins("http://localhost:3000").allowCredentials(false);
 
     registry.addMapping("/api/**")  .allowedHeaders("*").allowCredentials(false);
+    registry.addMapping("/apiadmin/**")  .allowedHeaders("*").allowCredentials(false);
+
     registry.addMapping("/ws/**") .allowCredentials(false);
     registry.addMapping("/app/ws/**") .allowCredentials(false);
     registry
