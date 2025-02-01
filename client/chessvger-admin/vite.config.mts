@@ -70,12 +70,7 @@ export default defineConfig({
   },
   server: {
     port: 3002,
-    proxy: {
-      '/apiadmin': {
-        target: 'http://localhost:8082',
-        changeOrigin: true,
-        secure: false,
-      },
+    proxy:{
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true,

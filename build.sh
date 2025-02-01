@@ -2,7 +2,7 @@
 
 # Fonction pour afficher l'aide
 usage() {
-    echo "Usage: $0 [all|frontend|frontend_admin|core|backoffice|web|web_admin|images]"
+    echo "Usage: $0 [all|frontend|frontend_admin|core|backoffice|web|images]"
     exit 1
 }
 
@@ -49,19 +49,12 @@ build_web() {
     cd ../..
 }
 
-build_web_admin() {
-    echo "Building web admin..."
-    cd server/web_admin
-    gradle build --no-daemon -x spotbugsMain -x spotbugsTest -x test
-    cd ../..
-}
 
 build_images() {
     echo "Building Docker images..."
     docker build -t chessvger-client ./client/chessvger-client --no-cache
     docker build -t chessvger-client-admin ./client/chessvger-admin --no-cache
     docker build -t chessvger-serverapp ./server/web --no-cache
-    docker build -t chessvger-serverapp-admin ./server/web_admin --no-cache
     docker build -t chessvger-backoffice ./server/backoffice --no-cache
     docker compose up
 }
@@ -74,7 +67,6 @@ case "$1" in
         build_core
         build_backoffice
         build_web
-        build_web_admin
         build_images
         ;;
     frontend) build_frontend ;;
@@ -82,7 +74,6 @@ case "$1" in
     core) build_core ;;
     backoffice) build_backoffice ;;
     web) build_web ;;
-    web_admin) build_web_admin ;;
     images) build_images ;;
     *) usage ;;  # Si un argument non valide est donné
 esac

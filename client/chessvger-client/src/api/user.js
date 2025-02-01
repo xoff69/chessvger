@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8082/apiadmin/users", // Adresse de votre serveur Node.js
+  baseURL: "http://localhost:8080/apiadmin/users", // Adresse de votre serveur Node.js
 });
 
 export const login = async (email, password) => {

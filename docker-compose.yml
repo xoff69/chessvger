@@ -90,19 +90,6 @@ services:
     ports:
       - "8080:8080"
 
-  chessvger-serverapp-admin:
-    image: chessvger-serverapp-admin:latest
-    depends_on:
-      - chessvger-backoffice
-    build:
-      context: .
-      dockerfile: Dockerfile
-    networks:
-      - chessvger_network
-    volumes:
-      - ./data:/app/data   
-    ports:
-      - "8082:8082"
 
   chessvger-client:
     image: chessvger-client:latest

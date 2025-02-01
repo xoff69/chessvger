@@ -109,7 +109,7 @@ formData: {
       },
     async fetchUsers() {
       try {
-        const response = await axios.get("http://localhost:8082/apiadmin/users/all");
+        const response = await axios.get("http://localhost:8080/apiadmin/users/all");
         console.log("user recuperes "+response.data);
         this.users =  response.data.list;
         this.count=response.data.count;

@@ -72,7 +72,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/apiadmin': {
-        target: 'http://localhost:8082', // Remplace par ton backend
+        target: 'http://localhost:8080', // Remplace par ton backend
         changeOrigin: true,
         secure: false,
       },

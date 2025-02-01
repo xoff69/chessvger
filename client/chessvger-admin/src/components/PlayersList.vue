@@ -4,7 +4,7 @@
 
   <v-container>
     <v-btn
-    href="http://localhost:8082/apiadmin/players/import"
+    href="http://localhost:8080/apiadmin/players/import"
 
     icon
 >
@@ -57,7 +57,7 @@ export default {
   methods: {
     async fetchPlayers() {
       try {
-        const response = await axios.get("http://localhost:8082/apiadmin/players/all");
+        const response = await axios.get("http://localhost:8080/apiadmin/players/all");
         this.players = response.data.list;
         this.count = response.data.count;
       } catch (error) {
