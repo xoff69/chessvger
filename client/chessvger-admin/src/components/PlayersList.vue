@@ -57,8 +57,10 @@ export default {
   methods: {
     async fetchPlayers() {
       try {
+        console.log("fetchPlayers lancée avec :");
         const response = await axios.get("http://localhost:8080/apiadmin/players/all");
         this.players = response.data.list;
+        console.log("fetchPlayers lancée avec :"+response.data.count);
         this.count = response.data.count;
       } catch (error) {
         console.error("Error all players :", error);

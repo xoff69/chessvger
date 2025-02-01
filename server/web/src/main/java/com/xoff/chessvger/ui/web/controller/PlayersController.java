@@ -2,11 +2,14 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.ResponseList;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.service.IPlayerService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
+import com.xoff.chessvger.ui.UserDTO;
+
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +29,15 @@ public class PlayersController {
 
   @Autowired
   IPlayerService iPlayerService;
+ @GetMapping("/apiadmin/players/all")
+  public ResponseEntity<ResponseList<CommonPlayerEntity>> all(){
 
 
-  @GetMapping("/apiadmin/players/all")
-  public ResponseEntity<List<CommonPlayerEntity>> all(){
-    return new ResponseEntity<>(iPlayerService.findAll(),
+    return new ResponseEntity<>(new ResponseList(iPlayerService.findAll(),iPlayerService.count()),
         HttpStatus.OK);
   }
+
+
   @GetMapping("/apiadmin/players/count")
   public ResponseEntity<Long> count(){
     return new ResponseEntity<>(iPlayerService.count(),
