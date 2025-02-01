@@ -7,7 +7,7 @@ import com.xoff.chessvger.repository.CommonGameEntity;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.ui.ResponseList;
-import com.xoff.chessvger.ui.service.GameService;
+import com.xoff.chessvger.service.GameService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

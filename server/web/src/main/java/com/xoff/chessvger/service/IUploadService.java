@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.service;
+package com.xoff.chessvger.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -2,7 +2,7 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.repository.DatabaseEntity;
 import com.xoff.chessvger.ui.ResponseList;
-import com.xoff.chessvger.ui.service.IDatabaseService;
+import com.xoff.chessvger.service.IDatabaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

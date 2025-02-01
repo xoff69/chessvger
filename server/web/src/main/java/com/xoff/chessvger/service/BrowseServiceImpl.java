@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.service;
+package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;

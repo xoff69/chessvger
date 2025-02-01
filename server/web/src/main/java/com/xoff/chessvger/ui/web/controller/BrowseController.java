@@ -1,6 +1,6 @@
 package com.xoff.chessvger.ui.web.controller;
 
-import com.xoff.chessvger.ui.service.IBrowseService;
+import com.xoff.chessvger.service.IBrowseService;
 import com.xoff.chessvger.view.StatBrowserView;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,5 @@
-package com.xoff.chessvger.ui.service;
+package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.topic.MessageFromParser;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;

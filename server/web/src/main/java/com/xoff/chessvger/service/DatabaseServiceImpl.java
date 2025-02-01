@@ -1,19 +1,7 @@
-package com.xoff.chessvger.ui.service;
+package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.chess.database.Database;
-import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.repertoire.Repertoire;
-import com.xoff.chessvger.chess.user.User;
-import com.xoff.chessvger.common.DbKeyManager;
-import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.repository.CommonGameEntity;
 import com.xoff.chessvger.repository.DatabaseEntity;
 import com.xoff.chessvger.repository.DatabaseRepository;
-import com.xoff.chessvger.repository.GameRepository;
-import com.xoff.chessvger.util.Pageable;
-import com.xoff.chessvger.view.CoupleLongView;
-import com.xoff.chessvger.view.PageView;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

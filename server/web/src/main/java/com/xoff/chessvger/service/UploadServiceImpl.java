@@ -1,4 +1,4 @@
-package com.xoff.chessvger.ui.service;
+package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.IDatabaseManager;
@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

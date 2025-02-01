@@ -1,18 +1,12 @@
-package com.xoff.chessvger.ui.service;
+package com.xoff.chessvger.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.topic.MessageFromParser;
-import com.xoff.chessvger.topic.MessageToParser;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class RedisMessageSubscriber implements MessageListener {

@@ -2,8 +2,8 @@ package com.xoff.chessvger.config;
 
 
 import com.xoff.chessvger.topic.Topic;
-import com.xoff.chessvger.ui.service.ApiService;
-import com.xoff.chessvger.ui.service.RedisMessageSubscriber;
+import com.xoff.chessvger.service.ApiService;
+import com.xoff.chessvger.service.RedisMessageSubscriber;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
