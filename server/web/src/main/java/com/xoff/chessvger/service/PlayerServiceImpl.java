@@ -1,6 +1,7 @@
 package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.repository.CommonPlayerEntity;
+import com.xoff.chessvger.repository.DataSourceContextHolder;
 import com.xoff.chessvger.repository.DynamicDataSourceService;
 import com.xoff.chessvger.repository.PlayerRepository;
 import java.util.List;
@@ -17,6 +18,11 @@ public class PlayerServiceImpl implements IPlayerService {
   private PlayerRepository playerRepository;
 
   public Long count() {
+    dynamicDataSourceService.addNewDataSource("common",
+        "jdbc:postgresql://db_chessvger/chessvger",
+        "chessvger",
+        "chessvger","common");
+    DataSourceContextHolder.setDataSource("common");
     return playerRepository.count();
   }
 
@@ -25,6 +31,7 @@ public class PlayerServiceImpl implements IPlayerService {
         "jdbc:postgresql://db_chessvger/chessvger",
         "chessvger",
         "chessvger","common");
+    DataSourceContextHolder.setDataSource("common");
     org.springframework.data.domain.Page<CommonPlayerEntity> page =
         playerRepository.findAll(org.springframework.data.domain.Pageable.ofSize(5));
     return page.stream().toList();
