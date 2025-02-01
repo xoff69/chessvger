@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.chess.opening.Opening;
 import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.ui.service.IOpeningService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Tag;

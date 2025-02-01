@@ -5,7 +5,6 @@ import com.xoff.chessvger.chess.database.IDatabaseManager;
 import com.xoff.chessvger.chess.player.ICommonPlayerManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.common.ParamConstants;
-import com.xoff.chessvger.ui.web.navigation.Navigation;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class UploadServiceImpl implements IUploadService {
 
-  @Autowired
-  Navigation navigation;
 
   private static void finishUpload() {
     log.info(" finishUpload ");
@@ -85,7 +82,6 @@ public class UploadServiceImpl implements IUploadService {
 
     dm.finish();
     finishUpload();
-    navigation.setServerMessage("#new games: " + l);
     return l;
   }
 

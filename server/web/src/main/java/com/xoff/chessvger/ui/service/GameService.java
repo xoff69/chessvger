@@ -15,7 +15,18 @@ public class GameService {
 
   @Autowired
   private GameRepository gameRepository;
+  public long count() {
 
+    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main
+    dynamicDataSourceService.addNewDataSource("newDb",
+        "jdbc:postgresql://db_chessvger/chessvger_admin_database",
+        "chessvger",
+        "chessvger","main");
+
+    // Changer la source de données actuelle pour "newDb"
+    DataSourceContextHolder.setDataSource("newDb");
+    return gameRepository.count();
+  }
   public List<CommonGameEntity> handleAllGames() {
     // Logique pour ajouter une nouvelle source de données
     System.out.println("test repo dynamique");
