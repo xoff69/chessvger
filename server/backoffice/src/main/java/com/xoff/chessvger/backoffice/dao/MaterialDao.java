@@ -26,7 +26,7 @@ public class MaterialDao {
           connection.prepareStatement(sql);
       for (CoupleZobristMaterial coupleZobristMaterial : list) {
         insertEntityStmt.setLong(1, gameId);
-        insertEntityStmt.setLong(1, coupleZobristMaterial.getMaterial());
+        insertEntityStmt.setLong(2, coupleZobristMaterial.getMaterial());
         insertEntityStmt.executeUpdate();
       }
 

@@ -1,10 +1,12 @@
 package com.xoff.chessvger.backoffice.dao;
 
 import com.xoff.chessvger.backoffice.player.CommonPlayer;
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+@Slf4j
 public class PlayerDao {
   public static final String TABLE_PLAYER="create table "+ CommonDao.COMMON_SCHEMA+".common_player (id bigint not null, birthday varchar(255),\n" +
       "                                   blitz_games varchar(255), blitz_rating varchar(255), blitzk varchar(255),\n" +
@@ -21,6 +23,11 @@ public class PlayerDao {
 
   public static long findOrCreate(String name){
      return 0L; // TODO
+  }
+
+  public static boolean isWellKnowPlayer(String name){
+    log.warn("NOT IMPLEMENTED YET: isWellKnowPlayer");
+    return true; // TODO
   }
   public void insertCommonPlayer(CommonPlayer player) throws SQLException, ClassNotFoundException {
 

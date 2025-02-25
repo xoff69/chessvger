@@ -76,7 +76,7 @@ public class TenantDao {
     CommonDao.executeSqlFromFile(connection, "query/search_criteria_create_table.sql",schemaNameString);
 
     CommonDao.executeSqlFromFile(connection, "query/history_create_table.sql",schemaNameString);
-
+    CommonDao.executeSqlFromFile(connection, "query/gameofstat_create_table.sql",schemaNameString);
 
   }
 

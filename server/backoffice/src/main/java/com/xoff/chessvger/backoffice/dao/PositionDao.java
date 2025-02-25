@@ -23,7 +23,7 @@ public class PositionDao {
           connection.prepareStatement(sql);
       for (CoupleZobristMaterial coupleZobristMaterial : list) {
         insertEntityStmt.setLong(1, gameId);
-        insertEntityStmt.setLong(1, coupleZobristMaterial.getZobrist());
+        insertEntityStmt.setLong(2, coupleZobristMaterial.getZobrist());
         insertEntityStmt.executeUpdate();
       }
 

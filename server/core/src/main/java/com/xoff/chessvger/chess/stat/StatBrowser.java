@@ -32,6 +32,7 @@ public class StatBrowser implements Serializable {
 
 
   public StatBrowser() {
+    id=0L;
     lastGameDate = StringUtils.EMPTY;
     listMeilleursJoueurs = new ArrayList();
     eloMin = Integer.MAX_VALUE;

@@ -11,7 +11,7 @@ version = "1.0.0-SNAPSHOT"
 description = "chessvger"
 
 java {
-    sourceCompatibility = '21'
+    sourceCompatibility = '23'
 }
 
 

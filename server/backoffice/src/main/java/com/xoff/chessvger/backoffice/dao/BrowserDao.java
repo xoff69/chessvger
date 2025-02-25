@@ -9,29 +9,56 @@ import com.xoff.chessvger.common.ParamConstants;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.util.DateUtils;
 import com.xoff.chessvger.util.PgnUtil;
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 public class BrowserDao
 {
 
-  public static void browseFirstMove(Connection connection,String schemaName, List<CommonGame> liste) {
+  private static final String INSERT_SQL = "INSERT INTO %s.stat_browser "
+          + "(level, white_win, nul, black_win, last_game_date, elo_min) "
+          + "VALUES (?, ?, ?, ?, ?, ?)";
 
-   // String sql = String.format(INSERT_SQL, schemaName);
-   // PreparedStatement preparedStatement = connection.prepareStatement(sql);
+  private static void insertStat(Connection connection,String schemaName, int level, int whiteWin, int nul, int blackWin, String lastGameDate, int eloMin) {
+    String query = String.format(INSERT_SQL, schemaName);
+try{
+         PreparedStatement stmt = connection.prepareStatement(query) ;
+
+      stmt.setInt(1, level);
+      stmt.setInt(2, whiteWin);
+      stmt.setInt(3, nul);
+      stmt.setInt(4, blackWin);
+      stmt.setString(5, lastGameDate);
+      stmt.setInt(6, eloMin);
+
+      stmt.executeUpdate();
+      System.out.println("Insert successful!");
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
-  /*
-    ICommonPlayerManager playerManager = GlobalManager.getInstance().getCommonPlayerManager();
-    StatBrowserRepository statBrowserRepository = ...; // Injectez votre repository ici
-    GameOfAStatRepository gameOfAStatRepository = ...; // Injectez votre repository ici
+
+  private static Optional<StatBrowser> findByDebutS(String debut){
+    log.warn("NOT IMPLEMENTED YET: findByDebutS");
+
+  return Optional.of(new StatBrowser()); // TODO
+}
+  public static void browseFirstMove(Connection connection,String schemaName, List<CommonGame> liste) throws SQLException {
+
 
     for (CommonGame g : liste) {
-      String debutS = StringUtils.EMPTY;
+      String debutS = "";
 
       // Extraction des mouvements
       String[] moves = PgnUtil.extractMovesFromString(g.getMoves());
-      int max = inMemory ? moves.length + 1 : ParamConstants.MAX_FIRST_MOVE;
+      int max = ParamConstants.MAX_FIRST_MOVE;
 
       for (int i = 0; i < max; i++) {
         if (i >= moves.length) {
@@ -40,10 +67,10 @@ public class BrowserDao
         debutS = debutS + moves[i] + Constants.MAP_SEP;
 
         // Récupération ou création de l'entrée StatBrowser
-        StatBrowser sb = statBrowserRepository.findByDebutS(debutS)
-            .orElse(new StatBrowser());
+        StatBrowser sb = findByDebutS(debutS)
+                .orElse(new StatBrowser());
 
-        if (sb.getId() == null) {
+        if (sb.getId() == 0) {
           sb.setId(DbKeyManager.getInstance().getDbKeyGenerator().getNext());
         }
 
@@ -61,17 +88,17 @@ public class BrowserDao
         }
 
         // Mise à jour de la dernière date du jeu
-        if (DateUtils.getYear(g.getDate()) > DateUtils.getYear(sb.getLastGameDate())) {
-          sb.setLastGameDate(g.getDate());
+        if (DateUtils.getYear(String.valueOf(g.getDate())) > DateUtils.getYear(sb.getLastGameDate())) {
+          sb.setLastGameDate(String.valueOf(g.getDate()));
         }
 
         // Ajout des meilleurs joueurs
-        String blanc = g.getNomBlanc();
-        if (playerManager.isWellKnowPlayer(blanc)) {
+        String blanc = g.getWhitePlayer();
+        if (PlayerDao.isWellKnowPlayer(blanc)) {
           sb.addBestPlayer(blanc);
         }
-        String noir = g.getNomNoir();
-        if (playerManager.isWellKnowPlayer(noir)) {
+        String noir = g.getBlackPlayer();
+        if (PlayerDao.isWellKnowPlayer(noir)) {
           sb.addBestPlayer(noir);
         }
 
@@ -81,16 +108,10 @@ public class BrowserDao
         int eloNoir = g.getBlackElo() == 0 ? Integer.MAX_VALUE : g.getBlackElo();
         sb.setEloMin(Math.min(Math.min(eloBlanc, eloNoir), sb.getEloMin()));
 
-        // Sauvegarde dans la base de données
-        statBrowserRepository.save(sb);
+          insertStat(connection, schemaName, sb.getLevel(),sb.getBlanc(),sb.getNul(),sb.getNoir(),sb.getLastGameDate(),sb.getEloMin());
 
-        // Ajout de l'association entre StatBrowser et CommonGame
-        GameOfAStat gameOfAStat = new GameOfAStat();
-        gameOfAStat.setStatId(sb.getId());
-        gameOfAStat.setGameId(g.getId());
-        gameOfAStatRepository.save(gameOfAStat);
+        GameOfStatDao.insert(connection, schemaName, g.getId(), sb.getId());
       }
     }
-  }
-*/
-}
+
+  }}
