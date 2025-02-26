@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
@@ -22,7 +24,7 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
     private UserService userService;
 
     // TODO mettre un tenantDto
-    private TenantEntity getFromToken(String token){
+    public Optional<TenantEntity> getFromToken(String token){
         log.info("getFromToken, token: " + token);
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         UserDTO user = userService.getUserByUsername(username);
@@ -33,16 +35,22 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
     public void setDatasource(String token, String schema){
         // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main
         log.info("setDatasource, token: {}, schema: {}", token, schema);
-        TenantEntity tenantEntity = getFromToken(token);
-        String name=tenantEntity.getName();
-        String key=name+"_DB_"+schema;
-        dynamicDataSourceService.addNewDataSource(key,
-                "jdbc:postgresql://db_chessvger/chessvger_"+name+"_database",
-                "chessvger",
-                "chessvger",schema);
+        Optional<TenantEntity> opt = getFromToken(token);
+        if (opt.isPresent()) {
+            TenantEntity tenantEntity = opt.get();
+            String name = tenantEntity.getName();
+            String key = name + "_DB_" + schema;
+            dynamicDataSourceService.addNewDataSource(key,
+                    "jdbc:postgresql://db_chessvger/chessvger_" + name + "_database",
+                    "chessvger",
+                    "chessvger", schema);
 
-        // Changer la source de données actuelle pour "newDb"
-        DataSourceContextHolder.setDataSource(key);
+            // Changer la source de données actuelle pour "newDb"
+            DataSourceContextHolder.setDataSource(key);
+        }
+        else {
+            log.info("setDatasource TENANT not found, token: {}, schema: {}", token, schema);
+        }
     }
 
 }

@@ -21,13 +21,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @Slf4j
 public class GamesController {
 
 
-  @Autowired
-  private TenantService tenantService;
   @Autowired
   GameService gameService;
 
@@ -72,20 +72,27 @@ public class GamesController {
 
     String databaseId = request.getDatabaseId();
     String userId = request.getUserId();
-     TenantEntity tenant=tenantService.getByUserId(Long.getLong(userId));
+    Optional<TenantEntity> opt = databaseHelperService.getFromToken(token);
+    if (opt.isPresent()) {
+      TenantEntity tenantEntity = opt.get();
 
-    MessageToParser messageGame=new MessageToParser();
-    messageGame.setTenantId(tenant.getId());
-    messageGame.setFolderToParse("./data/big");
-    messageGame.setDatabaseName("chessvger_admin_database");
-    messageGame.setSchema("main");  // TODO renommer
-    messageGame.setActionQueue(ActionQueue.PARSEGAME);
+      MessageToParser messageGame = new MessageToParser();
+      messageGame.setTenantId(tenantEntity.getId());
+      messageGame.setFolderToParse("./data/big");
+      messageGame.setDatabaseName("chessvger_admin_database");
+      messageGame.setSchema("main");  // TODO renommer
+      messageGame.setActionQueue(ActionQueue.PARSEGAME);
 
-    ObjectMapper objectMapper=new ObjectMapper();
+      ObjectMapper objectMapper = new ObjectMapper();
 
-    redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
+      redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
 
-    return ResponseEntity.ok("Requête traitée avec succès pour userId: " + tenant.getId());
+      return ResponseEntity.ok("Requête traitée avec succès pour tenantEntity: " + tenantEntity.getId());
+    }
+    else {
+      log.error("Token importPgn= {}", token);
+      return ResponseEntity.badRequest().body("Token importPgn= " + token);
+    }
   }
 
 }

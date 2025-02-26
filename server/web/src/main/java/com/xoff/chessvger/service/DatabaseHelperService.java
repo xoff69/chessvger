@@ -1,7 +1,11 @@
 package com.xoff.chessvger.service;
 
-public interface DatabaseHelperService {
+import com.xoff.chessvger.repository.TenantEntity;
 
+import java.util.Optional;
+
+public interface DatabaseHelperService {
+    public Optional<TenantEntity> getFromToken(String token);
     /**
      * create datasource if needed
      * @param token
