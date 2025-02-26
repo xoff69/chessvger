@@ -105,11 +105,12 @@ export default {
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);
       }},
+      // importGames 
       async importGames() {
         this.loading = true;
-        console.log("this.authStore.user.tenantId':", this.authStore.user);
+        console.log("this.authStore.user':", this.authStore.user);
         console.log("this.authStore.user.tenantId':", this.authStore.user.tenantId);
-
+        console.log("database':", this.database.id);
 
       try {
         const re = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id, this.authStore.user.id);
