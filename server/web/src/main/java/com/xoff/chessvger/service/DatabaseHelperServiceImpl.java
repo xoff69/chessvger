@@ -32,6 +32,7 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
 
     public void setDatasource(String token, String schema){
         // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main
+        log.info("setDatasource, token: {}, schema: {}", token, schema);
         TenantEntity tenantEntity = getFromToken(token);
         String name=tenantEntity.getName();
         String key=name+"_DB_"+schema;

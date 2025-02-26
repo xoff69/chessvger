@@ -33,7 +33,7 @@ public class DatabaseController {
   @GetMapping("/api/databases/all")
   public ResponseEntity<ResponseList<DatabaseEntity>> all(@RequestHeader ("Authorization") String token){
 
-
+  log.info("token = {}", token);
     databaseHelperService.setDatasource(token,"common");
     return new ResponseEntity<>(new ResponseList(iDatabaseService.findAll(),iDatabaseService.count()),
         HttpStatus.OK);
