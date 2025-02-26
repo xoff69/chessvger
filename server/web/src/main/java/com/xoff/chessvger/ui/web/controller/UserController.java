@@ -43,7 +43,7 @@ public class UserController {
   }
 
   @GetMapping("/apiadmin/users/all")
-  public ResponseEntity<ResponseList<UserDTO>> all(){
+  public ResponseEntity<ResponseList<UserDTO>> all(@RequestHeader ("Authorization") String token){
 
 
     return new ResponseEntity<>(new ResponseList(userService.findAll(),userService.count()),
@@ -52,10 +52,9 @@ public class UserController {
   @GetMapping("/apiadmin/users/user")
   public ResponseEntity<UserDTO> getUser(@RequestHeader("Authorization") String token) {
     try {
-      // Vérifier et extraire l'ID utilisateur du token
+
       String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
 
-      // Récupérer l'utilisateur en base
       UserDTO user = userService.getUserByUsername(username);
 
       if (user == null) {

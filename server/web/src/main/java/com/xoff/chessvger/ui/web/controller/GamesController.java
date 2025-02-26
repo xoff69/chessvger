@@ -4,10 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.repository.CommonGameEntity;
+import com.xoff.chessvger.repository.TenantEntity;
+import com.xoff.chessvger.service.DatabaseHelperService;
+import com.xoff.chessvger.service.TenantService;
+import com.xoff.chessvger.service.UserService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
+import com.xoff.chessvger.ui.JwtUtil;
 import com.xoff.chessvger.ui.ResponseList;
 import com.xoff.chessvger.service.GameService;
+import com.xoff.chessvger.ui.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,47 +26,56 @@ import org.springframework.web.bind.annotation.*;
 public class GamesController {
 
 
-
-
-
+  @Autowired
+  private TenantService tenantService;
   @Autowired
   GameService gameService;
 
   @Autowired
   RedisMessagePublisher redisMessagePublisher;
 
+  @Autowired
+  DatabaseHelperService databaseHelperService;
 
   @GetMapping("/api/games/all")
-  public ResponseEntity<ResponseList<CommonGameEntity>> all(){
+  public ResponseEntity<ResponseList<CommonGameEntity>> all(@RequestHeader ("Authorization") String token){
 
+  // TODO trouver le nom a partir du bd id
+    databaseHelperService.setDatasource(token,"main");
     return new ResponseEntity<>(new ResponseList(gameService.handleAllGames(),gameService.count()),
         HttpStatus.OK);
   }
   @GetMapping("/api/games/findById")
   public ResponseEntity<CommonGameEntity>
+  findById(@RequestHeader ("Authorization") String token,@RequestParam("id") Long id){
 
 
-  findById(@RequestParam("id") Long id){
+    // TODO trouver le nom a partir du bd id
+    databaseHelperService.setDatasource(token,"main");
+
     return new ResponseEntity<>(gameService.findById(id),
         HttpStatus.OK);
   }
   @GetMapping("/api/games/all2")
-  public ResponseEntity<ResponseList<CommonGameEntity>> all2(){
+  public ResponseEntity<ResponseList<CommonGameEntity>> all2(@RequestHeader ("Authorization") String token){
 
+    // TODO trouver le nom a partir du bd id
+    databaseHelperService.setDatasource(token,"main");
     return new ResponseEntity<>(new ResponseList(gameService.handleAllGames(),gameService.count()),
         HttpStatus.OK);
   }
   @PostMapping("/api/games/import")
-  public ResponseEntity<String> importPgn(@RequestBody ApiRequest request)
+  public ResponseEntity<String> importPgn(@RequestHeader ("Authorization") String token,@RequestBody ApiRequest request)
       throws JsonProcessingException {
+
+
+
     String databaseId = request.getDatabaseId();
     String userId = request.getUserId();
-    System.out.println("Reçu databaseId: " + databaseId + ", userId: " + userId);
-    // TODO appeler redis pour avoir le tenantId?
-    long tenantId=1;
+     TenantEntity tenant=tenantService.getByUserId(Long.getLong(userId));
 
     MessageToParser messageGame=new MessageToParser();
-    messageGame.setTenantId(tenantId);
+    messageGame.setTenantId(tenant.getId());
     messageGame.setFolderToParse("./data/big");
     messageGame.setDatabaseName("chessvger_admin_database");
     messageGame.setSchema("main");  // TODO renommer
@@ -70,7 +85,7 @@ public class GamesController {
 
     redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
 
-    return ResponseEntity.ok("Requête traitée avec succès pour userId: " + tenantId);
+    return ResponseEntity.ok("Requête traitée avec succès pour userId: " + tenant.getId());
   }
 
 }

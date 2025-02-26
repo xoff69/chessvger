@@ -1,13 +1,17 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.repository.UserEntity;
 import com.xoff.chessvger.ui.UserDTO;
+
 import java.util.List;
 
 public interface UserService {
-  public Long count();
+    public Long count();
+    // TODO renommer findByID /?
+    public UserDTO getById(long id);
 
-  public  List<UserDTO> findAll();
-  public UserDTO getUserByUsername(String username);
- public UserDTO findByLoginAndPassword(String login, String password);
+    public List<UserDTO> findAll();
+
+    public UserDTO getUserByUsername(String username);
+
+    public UserDTO findByLoginAndPassword(String login, String password);
 }

@@ -6,6 +6,7 @@ import com.xoff.chessvger.repository.UserEntity;
 import com.xoff.chessvger.repository.UserRepository;
 import com.xoff.chessvger.ui.UserDTO;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.xoff.chessvger.ui.UserMapper;
@@ -20,7 +21,21 @@ public class UserServiceImpl implements UserService {
   private DynamicDataSourceService dynamicDataSourceService;
   @Autowired
   private UserRepository userRespository;
+  public UserDTO getById(long id){
+    // TODO
+    dynamicDataSourceService.addNewDataSource("common",
+            "jdbc:postgresql://db_chessvger/chessvger",
+            "chessvger",
+            "chessvger","common");
 
+    // Changer la source de données actuelle pour "newDb"
+    DataSourceContextHolder.setDataSource("common");
+    Optional<UserEntity> userEntity = userRespository.findById(id);
+    if (!userEntity.isPresent()){
+      throw  new RuntimeException("user not found");
+    }
+    return mapToDTO(userEntity.get());
+  }
   public UserDTO getUserByUsername(String username) {
     dynamicDataSourceService.addNewDataSource("common",
         "jdbc:postgresql://db_chessvger/chessvger",

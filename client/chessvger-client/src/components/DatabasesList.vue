@@ -52,7 +52,7 @@ export default {
       try {
         console.log("tenant id database + "+ this.authStore.user);
         console.log("tenant id database + "+ this.authStore.user);
-        const  response = await sendGetRequest("http://localhost:8080/api/databases/all?userId="+ this.authStore.user.id);
+        const  response = await sendGetRequest("http://localhost:8080/api/databases/all");
 
 
         this.databases = response.data.list;

@@ -6,6 +6,7 @@ import 'vuetify/styles';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createPinia } from 'pinia';
 
+import axios from 'axios';
 // Configuration de Vuetify
 const vuetify = createVuetify({
   icons: {
@@ -18,7 +19,21 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
+
 app.use(router);
 app.use(createPinia());
 app.use(vuetify);
+
+
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token'); 
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 app.mount('#app');

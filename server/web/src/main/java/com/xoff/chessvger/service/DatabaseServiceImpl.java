@@ -20,24 +20,10 @@ public class DatabaseServiceImpl implements IDatabaseService {
   private DatabaseRepository databaseRepository;
   public Long count() {
 
-    dynamicDataSourceService.addNewDataSource("newDb",
-            "jdbc:postgresql://db_chessvger/chessvger_admin_database",
-            "chessvger",
-            "chessvger","main");
-
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("newDb");
     return databaseRepository.count();
   }
   public List<DatabaseEntity> findAll(){
 
-    dynamicDataSourceService.addNewDataSource("newDb",
-            "jdbc:postgresql://db_chessvger/chessvger_admin_database",
-            "chessvger",
-            "chessvger","main");
-
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("newDb");
 
     org.springframework.data.domain.Page<DatabaseEntity> page=databaseRepository.findAll(
         org.springframework.data.domain.Pageable.ofSize(5));
