@@ -6,6 +6,7 @@ import com.xoff.chessvger.service.UserService;
 import com.xoff.chessvger.ui.JwtUtil;
 import com.xoff.chessvger.ui.MockUser;
 import com.xoff.chessvger.ui.UserDTO;
+import com.xoff.chessvger.ui.UserMapper;
 import com.xoff.chessvger.ui.form.LoginForm;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @Slf4j
 public class UserController {
   private static final MockUser mockUser =
@@ -29,15 +28,17 @@ public class UserController {
   private  JwtUtil jwtUtil;
 
   @PostMapping(path = "/apiadmin/users/login")
-  public String login(LoginForm form) {
-    UserEntity userEntity = userService.findByLoginAndPassword(form.getLogin(), form.getPassword());
-    if (userEntity == null) {
+  public UserDTO login(@RequestBody LoginForm form) {
+    log.info("login "+form);
+    UserDTO user = userService.findByLoginAndPassword(form.getLogin(), form.getPassword());
+    if (user == null) {
       log.info("not found " + form);
-      return "error";
+      return null;
     } else {
-          System.out.println("ok "+userEntity);
+          System.out.println("ok "+user);
+      log.info("login ok "+user);
          // tenantName allows the application to know which database we work with
-      return userEntity.getTenant().getName();
+      return  user;
     }
   }
 

@@ -7,6 +7,8 @@ import com.xoff.chessvger.repository.UserRepository;
 import com.xoff.chessvger.ui.UserDTO;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.xoff.chessvger.ui.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
         .map(this::mapToDTO)
         .collect(Collectors.toList());
   }
-  public UserEntity findByLoginAndPassword(String login, String password){
+  public UserDTO findByLoginAndPassword(String login, String password){
     dynamicDataSourceService.addNewDataSource("common",
         "jdbc:postgresql://db_chessvger/chessvger",
         "chessvger",
@@ -62,19 +64,10 @@ public class UserServiceImpl implements UserService {
 
     // Changer la source de données actuelle pour "newDb"
     DataSourceContextHolder.setDataSource("common");
-    return userRespository.findByLoginAndPassword(login, password);
+    return mapToDTO(userRespository.findByLoginAndPassword(login, password));
   }
 
   private UserDTO mapToDTO(UserEntity userEntity) {
-    UserDTO dto = new UserDTO();
-    dto.setId(userEntity.getId());
-    dto.setLogin(userEntity.getLogin());
-    dto.setDescription(userEntity.getDescription());
-    dto.setPassword(userEntity.getPassword());
-    dto.setDateCreated(userEntity.getDateCreated());
-    dto.setDateUpdated(userEntity.getDateUpdated());
-    dto.setProfil(userEntity.getProfil());
-    dto.setTenantId(userEntity.getTenant().getId());
-    return dto;
+    return UserMapper.toDto(userEntity);
   }
 }

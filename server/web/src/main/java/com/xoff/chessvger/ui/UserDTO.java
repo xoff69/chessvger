@@ -16,8 +16,6 @@ public class UserDTO {
  private String login;
 private String description;
  private String password;
- private LocalDateTime dateCreated;
-private LocalDateTime dateUpdated;
  private Boolean profil;
  private Long tenantId;
 }

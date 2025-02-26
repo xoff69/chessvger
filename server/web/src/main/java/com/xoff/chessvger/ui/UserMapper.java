@@ -12,8 +12,6 @@ public class UserMapper {
         entity.getLogin(),
         entity.getDescription(),
         entity.getPassword(),
-        entity.getDateCreated(),
-        entity.getDateUpdated(),
         entity.getProfil(),
         entity.getTenant().getId()
     );

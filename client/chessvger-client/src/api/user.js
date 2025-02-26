@@ -4,11 +4,12 @@ const api = axios.create({
   baseURL: "http://localhost:8080/apiadmin/users", // Adresse de votre serveur Node.js
 });
 
-export const login = async (email, password) => {
+export const login = async (login, password) => {
   try {
-    const response = await api.post("/login", { email, password });
+    const response = await api.post("/login", { login, password });
     return response.data;
   } catch (error) {
+    console.log("login "+login);
     throw new Error(error.response?.data?.error || "Login failed");
   }
 };

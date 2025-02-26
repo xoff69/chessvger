@@ -9,5 +9,5 @@ public interface UserService {
 
   public  List<UserDTO> findAll();
   public UserDTO getUserByUsername(String username);
-  UserEntity findByLoginAndPassword(String login, String password);
+ public UserDTO findByLoginAndPassword(String login, String password);
 }
