@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.backoffice.dao.BrowserDao;
 import com.xoff.chessvger.backoffice.dao.CommonDao;
 import com.xoff.chessvger.backoffice.dao.GameDao;
-import com.xoff.chessvger.backoffice.dao.GameOfAPlayerDao;
+import com.xoff.chessvger.backoffice.gameofplayer.GameOfAPlayerDao;
 import com.xoff.chessvger.backoffice.dao.MaterialDao;
 import com.xoff.chessvger.backoffice.dao.PositionDao;
 import com.xoff.chessvger.backoffice.materialposition.MaterialPositionsUtil;

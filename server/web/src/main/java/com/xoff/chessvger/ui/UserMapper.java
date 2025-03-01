@@ -13,7 +13,8 @@ public class UserMapper {
         entity.getDescription(),
         entity.getPassword(),
         entity.getProfil(),
-        entity.getTenant().getId()
+        entity.getTenant().getId(),
+            ""
     );
   }
 

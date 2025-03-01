@@ -36,7 +36,7 @@ export default {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: this.username, password: this.password }),
         });
-
+        console.log("login Token stocké :", localStorage.getItem('authToken'));
         if (!response.ok) throw new Error('Authentication failed');
 
         const data = await response.json();

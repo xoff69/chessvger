@@ -40,12 +40,12 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
             TenantEntity tenantEntity = opt.get();
             String name = tenantEntity.getName();
             String key = name + "_DB_" + schema;
+            log.info("setDatasource, key: {} ", key);
             dynamicDataSourceService.addNewDataSource(key,
                     "jdbc:postgresql://db_chessvger/chessvger_" + name + "_database",
                     "chessvger",
                     "chessvger", schema);
 
-            // Changer la source de données actuelle pour "newDb"
             DataSourceContextHolder.setDataSource(key);
         }
         else {

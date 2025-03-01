@@ -5,17 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@Data // Génère getters, setters, equals, hashCode et toString
-@Builder // Fournit un pattern de construction fluide
-@NoArgsConstructor // Génère un constructeur sans argument
-@AllArgsConstructor // Génère un constructeur avec tous les arguments
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO {
- private Long id;
- private String login;
-private String description;
- private String password;
- private Boolean profil;
- private Long tenantId;
+    private Long id;
+    private String login;
+    private String description;
+    private String password;
+    private Boolean profil;
+    private Long tenantId;
+
+    private String token;
 }

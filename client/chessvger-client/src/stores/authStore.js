@@ -20,8 +20,7 @@ export const useAuthStore = defineStore("auth", {
 
         // Stocker les informations dans localStorage
         localStorage.setItem("token", this.token);
-        localStorage.setItem("user", JSON.stringify(this.user)); // Sauvegarder l'utilisateur
-        console.log("fetch "+this.user);
+        localStorage.setItem("user", JSON.stringify(this.user));
       } catch (error) {
         console.error("Login failed:", error.message);
         throw error;
@@ -38,7 +37,7 @@ export const useAuthStore = defineStore("auth", {
         this.user = { id: response.id, name: response.name, email: response.email ,tenantId: response.tenantId};
         this.token = token;
         this.isAuthenticated = true;
-
+        console.log("set  token 2 "+this.token);
         console.log("fetch "+this.user);
         localStorage.setItem("user", JSON.stringify(this.user));
       } catch (error) {
@@ -77,7 +76,7 @@ export const useAuthStore = defineStore("auth", {
       // Recharger les données sauvegardées depuis localStorage
       const user = localStorage.getItem("user");
       const token = localStorage.getItem("token");
-      console.log("loadFromStorage "+this.user);
+
       if (token && user) {
         this.token = token;
         this.user = JSON.parse(user);

@@ -1,6 +1,7 @@
-package com.xoff.chessvger.backoffice.dao;
+package com.xoff.chessvger.backoffice.gameofplayer;
 
-import com.xoff.chessvger.backoffice.gameofplayer.GameOfAPlayer;
+import com.xoff.chessvger.backoffice.dao.PlayerDao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class GameOfAPlayerDao {
 
       preparedStatement.setLong(1, id);
       // FIXME : trouver le nom du player dans la table des plauers cache Redis
-      preparedStatement.setLong(2, playerFideId==0?PlayerDao.findOrCreate(playerName):playerFideId);
+      preparedStatement.setLong(2, playerFideId==0? PlayerDao.findOrCreate(playerName):playerFideId);
 
       preparedStatement.executeUpdate();
 
