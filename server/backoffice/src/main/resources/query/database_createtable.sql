@@ -1,7 +1,7 @@
-CREATE TABLE common.database ( id SERIAL PRIMARY KEY ,
+CREATE TABLE common.databases ( id SERIAL PRIMARY KEY ,
     name VARCHAR(255) NOT NULL,
       description TEXT,
       date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       date_update TIMESTAMP
       );
-ALTER TABLE common.database ADD CONSTRAINT unique_name UNIQUE (name);
+ALTER TABLE common.databases ADD CONSTRAINT unique_name UNIQUE (name);

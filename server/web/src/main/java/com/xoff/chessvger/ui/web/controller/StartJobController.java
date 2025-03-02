@@ -37,21 +37,6 @@ RedisMessageReceiver redisMessageReceiver;
     return "ok";
   }
 
-  @GetMapping("/jobGame")
-  // TODO signature, try catch
-  String jobGame() throws JsonProcessingException {
-    log.info("jobGame");
 
-    MessageToParser messageGame=new MessageToParser();
-    messageGame.setFolderToParse("./data/twic1997");
-    messageGame.setDatabaseName("chessvger_admin_database");
-    messageGame.setSchema("main");  // TODO renommer
-    messageGame.setActionQueue(ActionQueue.PARSEGAME);
-
-    ObjectMapper objectMapper=new ObjectMapper();
-
-    redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
-    return "ok";
-  }
 
 }

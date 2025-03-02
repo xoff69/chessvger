@@ -96,8 +96,9 @@ export default {
     },
     async fetchGames() {
       try {
-
-        const response = await axios.get("http://localhost:8080/api/games/all");
+// TODO databaseId en dur
+databaseId=1;
+        const response = await axios.get("http://localhost:8080/api/games/all?databaseId="+databaseId);
 
 
         this.games = response.data.list;

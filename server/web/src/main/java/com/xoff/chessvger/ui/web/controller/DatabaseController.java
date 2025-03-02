@@ -1,6 +1,6 @@
 package com.xoff.chessvger.ui.web.controller;
 
-import com.xoff.chessvger.repository.DatabaseEntity;
+import com.xoff.chessvger.model.DatabaseModel;
 import com.xoff.chessvger.service.DatabaseHelperService;
 import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.service.UserService;
@@ -25,7 +25,7 @@ public class DatabaseController {
     private UserService userService;
 
     @GetMapping("/api/databases/all")
-    public ResponseEntity<ResponseList<DatabaseEntity>> all(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<ResponseList<DatabaseModel>> all(@RequestHeader("Authorization") String token) {
 
         log.info("token = {}", token);
         databaseHelperService.setDatasource(token, "common");

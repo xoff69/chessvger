@@ -12,4 +12,6 @@ public interface DatabaseHelperService {
      * @param schema
      */
     public void setDatasource(String token, String schema);
+
+    public void trace();
 }

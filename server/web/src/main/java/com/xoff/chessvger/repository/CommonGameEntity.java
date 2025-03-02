@@ -14,6 +14,7 @@ import org.springframework.data.domain.Persistable;
 @Data
 @Entity
 @Table(name = "common_game",schema = "main")
+@Deprecated
 public class CommonGameEntity implements Persistable<Long> {
   @Override
   public boolean isNew() {

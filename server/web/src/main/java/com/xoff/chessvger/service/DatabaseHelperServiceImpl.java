@@ -7,13 +7,18 @@ import com.xoff.chessvger.ui.JwtUtil;
 import com.xoff.chessvger.ui.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Slf4j
 public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -53,4 +58,24 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
         }
     }
 
+
+
+    public List<String> listTables(String schema) {
+        String query = "SELECT table_name FROM information_schema.tables WHERE table_schema = '" + schema + "'";
+        return jdbcTemplate.query(query, (rs, rowNum) -> rs.getString("table_name"));
+    }
+
+    public String getCurrentDatabase() {
+        return jdbcTemplate.queryForObject("SELECT current_database()", String.class);
+    }
+
+    public String getCurrentSchema() {
+        return jdbcTemplate.queryForObject("SELECT current_schema()", String.class);
+    }
+
+    public void trace(){
+        log.info("database {}", getCurrentDatabase());
+        log.info("schema {}", getCurrentSchema());
+        log.info("tables {}", listTables(getCurrentSchema()));
+    }
 }
