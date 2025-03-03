@@ -23,7 +23,7 @@
 <script>
 import axios from "axios";
 import { useAuthStore } from "../stores/authStore";
-import { sendGetRequest } from '../api/apiService'; // Importez votre méthode
+import { sendGetRequest } from '../api/apiService'; 
 
 export default {
   name: "DatabasesList",

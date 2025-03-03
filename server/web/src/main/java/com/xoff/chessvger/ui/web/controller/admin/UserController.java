@@ -1,10 +1,9 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.admin;
 
-import com.xoff.chessvger.ResponseList;
 import com.xoff.chessvger.service.UserService;
-import com.xoff.chessvger.ui.JwtUtil;
-import com.xoff.chessvger.ui.MockUser;
-import com.xoff.chessvger.ui.UserDTO;
+import com.xoff.chessvger.config.JwtUtil;
+import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
+import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import com.xoff.chessvger.ui.form.LoginForm;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 public class UserController {
-    private static final MockUser mockUser =
-            new MockUser(1, "John Doe", "john.doe@example.com", "mockToken123", 1);
 
     @Autowired
     private UserService userService;

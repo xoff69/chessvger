@@ -1,10 +1,7 @@
 package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.repository.*;
-import com.xoff.chessvger.ui.JwtUtil;
-import com.xoff.chessvger.ui.UserDTO;
-import jdk.jfr.Label;
-import lombok.extern.log4j.Log4j;
+import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import com.xoff.chessvger.model.DatabaseModel;
 import com.xoff.chessvger.service.DatabaseHelperService;
 import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.service.UserService;
-import com.xoff.chessvger.ui.ResponseList;
+import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

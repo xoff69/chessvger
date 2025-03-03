@@ -1,16 +1,14 @@
-package com.xoff.chessvger.ui.web.controller;
+package com.xoff.chessvger.ui.web.controller.admin;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.ResponseList;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.service.IPlayerService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
-import com.xoff.chessvger.ui.UserDTO;
 
-import java.util.List;
+import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

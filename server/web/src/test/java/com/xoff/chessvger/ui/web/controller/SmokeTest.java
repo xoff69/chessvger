@@ -2,6 +2,7 @@ package com.xoff.chessvger.ui.web.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.xoff.chessvger.ui.web.controller.admin.PlayersController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

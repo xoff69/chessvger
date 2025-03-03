@@ -1,6 +1,6 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.ui.UserDTO;
+import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 
 import java.util.List;
 

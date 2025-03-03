@@ -4,12 +4,12 @@ import com.xoff.chessvger.repository.DataSourceContextHolder;
 import com.xoff.chessvger.repository.DynamicDataSourceService;
 import com.xoff.chessvger.repository.UserEntity;
 import com.xoff.chessvger.repository.UserRepository;
-import com.xoff.chessvger.ui.UserDTO;
+import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.xoff.chessvger.ui.UserMapper;
+import com.xoff.chessvger.ui.web.controller.tools.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

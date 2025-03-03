@@ -30,7 +30,7 @@ export default {
    methods: {
     async fetchGame(id) {
       try {
-        const response = await axios.get("http://localhost:8080/api/games/findById?id="+id);
+        const response = await axios.get("http://localhost:8080/api/games/findById?id="+id+"&databaseId="+this.database.id);
         console.log(response.data);
         this.game=response.data;
         console.log(this.game.id);

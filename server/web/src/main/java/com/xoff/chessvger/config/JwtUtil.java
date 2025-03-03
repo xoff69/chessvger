@@ -1,9 +1,8 @@
-package com.xoff.chessvger.ui;
+package com.xoff.chessvger.config;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Base64;
