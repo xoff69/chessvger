@@ -7,6 +7,6 @@ import lombok.Data;
 public class DatabaseModel {
     private Long id;
     private String name;
-private String description;
+    private String description;
 
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import org.springframework.data.domain.Persistable;
 
+// FIXME a virer
 @Data
 @Entity
 @Table(name = "common_player",schema = "common")

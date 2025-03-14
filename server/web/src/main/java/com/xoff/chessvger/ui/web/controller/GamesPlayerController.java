@@ -2,7 +2,10 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.xoff.chessvger.model.CommonGameModel;
 import com.xoff.chessvger.model.DatabaseModel;
+import com.xoff.chessvger.model.PlayerGameCount;
+import com.xoff.chessvger.model.PlayerGameModel;
 import com.xoff.chessvger.service.DatabaseHelperService;
+import com.xoff.chessvger.service.GamePlayerService;
 import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
@@ -21,25 +24,31 @@ public class GamesPlayerController {
     IDatabaseService iDatabaseService;
 
     @Autowired
-    GameService gameService;
+    GamePlayerService gamePlayerService;
 
 
     @Autowired
     DatabaseHelperService databaseHelperService;
 
     @GetMapping("/api/gamesplayer/all")
-    public ResponseEntity<ResponseList<CommonGameModel>> all(@RequestHeader("Authorization") String token,
-                                                              @RequestParam long databaseId, @RequestParam(defaultValue = "0") int page,
-                                                              @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<ResponseList<PlayerGameCount>> all(@RequestHeader("Authorization") String token,
+                                                             @RequestParam long databaseId,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size) {
+        log.info("Getting all game player models");
         Pageable pageable = PageRequest.of(page, size);
+
         // TODO verifier que le user a le droit de lire cette bd
 // FIXME on fait deja le count dans le gameservice
         // pas la peine de repondre un response list ?
+        // TODO : la bd des players n est aps au meme endroit, difficile de faire une jointure
         databaseHelperService.setDatasource(token, "common");
         DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
         log.info("databaseid:" + databaseId + "databaseModel:" + databaseModel);
         databaseHelperService.setDatasource(token, databaseModel.getName());
-        return new ResponseEntity<>(new ResponseList(gameService.findAll(pageable).stream().toList(), gameService.count()),
+
+
+        return new ResponseEntity<>(new ResponseList(gamePlayerService.getPlayersWithGameCount(pageable).stream().toList(), gamePlayerService.count()),
                 HttpStatus.OK);
     }
 

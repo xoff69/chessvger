@@ -53,7 +53,7 @@ public class GameService {
   };
 
   public long count() {
-    return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM main.common_game", Long.class);
+    return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM common_game", Long.class);
   }
 
   public Optional<CommonGameModel> findById(Long id) {
@@ -69,7 +69,7 @@ public class GameService {
     log.info("findAll");
     long total = count();
     List<CommonGameModel> games = jdbcTemplate.query(
-            "SELECT * FROM main.common_game LIMIT ? OFFSET ?",
+            "SELECT * FROM common_game LIMIT ? OFFSET ?",
             rowMapper,
             pageable.getPageSize(),
             pageable.getOffset()

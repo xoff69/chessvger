@@ -95,10 +95,10 @@ public class Main {
             } else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
               UserTenant userTenant = new UserTenant();
               // TODO demo
-              userTenant.setTenantName("demo");
-              userTenant.setPassword("demo");
+              userTenant.setTenantName("demo3");
+              userTenant.setPassword("demo3");
               userTenant.setIsAdmin(false);
-              userTenant.setLogin("demo");
+              userTenant.setLogin("demo3");
               Thread thread = new Thread(new RunInitTenant(userTenant));
               thread.start();
             }

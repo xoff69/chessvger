@@ -18,6 +18,7 @@ public class PlayerServiceImpl implements IPlayerService {
   private PlayerRepository playerRepository;
 
   public Long count() {
+    // FIXME  a pousser dans le controller
     dynamicDataSourceService.addNewDataSource("common",
         "jdbc:postgresql://db_chessvger/chessvger",
         "chessvger",

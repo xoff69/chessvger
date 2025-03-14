@@ -4,6 +4,9 @@ import com.xoff.chessvger.backoffice.Main;
 import com.xoff.chessvger.backoffice.util.FileUtils;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,6 +23,8 @@ import java.util.Map;
 // TODO gestion des databases: comment on switche
 // TODO gestion des exceptions
 // TODO gestion des databases: comment on switche
+
+@Slf4j
 public class CommonDao {
   public static final String COMMON_SCHEMA="common";
   public static final String SCHEMA_TENANT_PATTERN="tenant_%s";
@@ -35,7 +40,7 @@ public class CommonDao {
       Class.forName("org.postgresql.Driver");
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("connexion DB :" + e);
+      log.error("connexion DB :" + e);
     }
     // System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
 
@@ -105,7 +110,7 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
     String sql = String.format(CREATE_SCHEMA_SQL, schemaName);
     try (Statement stmt = connection.createStatement()) {
       stmt.execute(sql);
-      System.out.println("Schema created: " + schemaName);
+     log.info("Schema created: " + schemaName);
     }
   }
 
@@ -114,9 +119,9 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
 
     try (Statement stmt = connection.createStatement()) {
       stmt.execute(query);
-      System.out.println("Query executed: " + query);
+      log.info("Query executed: " + query);
     } catch (Exception e) {
-      System.out.println("Error executeQuery "+query+ " "+e.getMessage());
+      log.error("Error executeQuery "+query+ " "+e.getMessage());
 
     }
   }
@@ -130,10 +135,12 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
 
       // Exécution de la requête
       statement.executeUpdate(sql);
-      System.out.println("Base de données créée avec succès : " + databaseName);
+      log.info("ChessDatabase created : " + databaseName);
+      statement.executeUpdate("CREATE EXTENSION dblink;");
+      log.info("db link added : " + databaseName);
 
     } catch (SQLException e) {
-      System.out.println("Erreur lors de la création de la base de données : " + e.getMessage());
+      log.error("Erreur lors de la création de la base de données : " + e.getMessage());
     }
   }
 
