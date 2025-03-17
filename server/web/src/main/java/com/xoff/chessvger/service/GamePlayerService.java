@@ -46,11 +46,14 @@ public class GamePlayerService {
         List<PlayerGameCount> players = jdbcTemplate.query(sql, playerGameCountRowMapper(),
                 pageable.getPageSize(), pageable.getOffset());
 
-        // TODO: faire un appel pour aller chercher les joueurs
-        // attention au jdbc template
-        // utiliser r[1,2,3};
-        String ids[]={"1","23"}; // TODO
-        String allPlayers=apiService.callExternalApi("http://localhost:8080//apiadmin/players/fetchPlayers",ids);
+
+
+        String[] ids = players.stream()
+                .map(player -> String.valueOf(player.getId()))
+                .toArray(String[]::new);
+        // http://localhost:8080/apiadmin/players/fetchPlayers?ids=123&ids=456
+        log.info("getPlayersWithGameCount ids: {}", ids);
+        String allPlayers=apiService.callExternalApi("http://localhost:8080/apiadmin/players/fetchPlayers",ids);
         log.info("all player ="+allPlayers);
         // total : TODO
         int total=5;

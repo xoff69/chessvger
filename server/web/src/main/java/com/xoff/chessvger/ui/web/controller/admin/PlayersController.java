@@ -45,7 +45,7 @@ public class PlayersController {
         DataSourceContextHolder.setDataSource("common");
     }
 
-    @GetMapping("/fetchPlayers")
+    @GetMapping("/apiadmin/players/fetchPlayers")
     public ResponseEntity<ResponseList<CommonPlayerEntity>> fetchPlayers(@RequestParam(required = false) String[] ids) {
         log.info("fetchPlayers");
         if (ids == null || ids.length == 0) {
