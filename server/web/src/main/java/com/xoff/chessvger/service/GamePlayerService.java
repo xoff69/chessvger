@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class GamePlayerService {
 
     private final JdbcTemplate jdbcTemplate;
+    private final  ApiService apiService;
 
     private final RowMapper<PlayerGameModel> rowMapper = (rs, rowNum) -> {
         PlayerGameModel game = new PlayerGameModel();
@@ -31,38 +33,27 @@ public class GamePlayerService {
         return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM game_of_a_player", Long.class);
     }
 
-    public Page<PlayerGameCount> getPlayersWithGameCount(Pageable pageable) {
+    public Page<PlayerGameCount> getPlayersWithGameCount(Pageable pageable) throws IOException, InterruptedException {
         String sql = """
-            SELECT p.id, p.name, COUNT(g.id_game) AS game_count 
-            FROM common.common_player p
-            LEFT JOIN game_of_a_player g ON p.id = g.id_player
-            GROUP BY p.id, p.name
-            ORDER BY game_count DESC
-            LIMIT ? OFFSET ?;
+           SELECT id_player, "" as name,COUNT(id_game) AS game_count
+         FROM main.game_of_a_player
+         GROUP BY id_player
+         HAVING COUNT(id_game) > 0
+         ORDER BY game_count DESC
         """;
 
-        /*
-        String sql = """
-    SELECT p.id, p.name, COUNT(g.id_game) AS game_count
-    FROM dblink('host=localhost:5432 dbname=chessvger user=chessvger password=chessvger',
-                'SELECT id, name FROM common.common_player')
-    AS p(id INT, name TEXT)
-    LEFT JOIN game_of_a_player g ON p.id = g.id_player
-    GROUP BY p.id, p.name
-    ORDER BY game_count DESC
-    LIMIT ? OFFSET ?;
-""";
-         */
 
-        // Récupérer les résultats paginés
         List<PlayerGameCount> players = jdbcTemplate.query(sql, playerGameCountRowMapper(),
                 pageable.getPageSize(), pageable.getOffset());
 
-        // Récupérer le total des joueurs pour la pagination
-        int total = jdbcTemplate.queryForObject("""
-            SELECT COUNT(*) FROM common.common_player
-        """, Integer.class);
-
+        // TODO: faire un appel pour aller chercher les joueurs
+        // attention au jdbc template
+        // utiliser r[1,2,3};
+        String ids[]={"1","23"}; // TODO
+        String allPlayers=apiService.callExternalApi("http://localhost:8080//apiadmin/players/fetchPlayers",ids);
+        log.info("all player ="+allPlayers);
+        // total : TODO
+        int total=5;
         return new PageImpl<>(players, pageable, total);
     }
 

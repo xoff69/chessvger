@@ -22,9 +22,6 @@ RedisMessageReceiver redisMessageReceiver;
   @Autowired
   RedisMessagePublisher redisMessagePublisher;
 
-
-
-
   @GetMapping("/jobCreateEnv")
   String jobCreateEnv() throws JsonProcessingException {
     log.info("jobCreateEnv");

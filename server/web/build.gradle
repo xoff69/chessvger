@@ -19,8 +19,6 @@ repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
     implementation project(':core')
     testImplementation project(':core')
@@ -37,7 +35,6 @@ dependencies {
     }
     // https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio
     implementation 'com.corundumstudio.socketio:netty-socketio:2.0.12'
-
     // https://mvnrepository.com/artifact/redis.clients/jedis
     implementation 'redis.clients:jedis'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt

@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @Slf4j
 public class GamesPlayerController {
@@ -34,7 +36,7 @@ public class GamesPlayerController {
     public ResponseEntity<ResponseList<PlayerGameCount>> all(@RequestHeader("Authorization") String token,
                                                              @RequestParam long databaseId,
                                                              @RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size) {
+                                                             @RequestParam(defaultValue = "10") int size) throws IOException, InterruptedException {
         log.info("Getting all game player models");
         Pageable pageable = PageRequest.of(page, size);
 

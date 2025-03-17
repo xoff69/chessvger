@@ -136,8 +136,6 @@ private static Map<String,HikariDataSource> mapDatasource = new HashMap();
       // Exécution de la requête
       statement.executeUpdate(sql);
       log.info("ChessDatabase created : " + databaseName);
-      statement.executeUpdate("CREATE EXTENSION dblink;");
-      log.info("db link added : " + databaseName);
 
     } catch (SQLException e) {
       log.error("Erreur lors de la création de la base de données : " + e.getMessage());

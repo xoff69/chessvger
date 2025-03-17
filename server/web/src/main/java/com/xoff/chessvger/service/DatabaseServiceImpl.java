@@ -28,10 +28,9 @@ public class DatabaseServiceImpl implements IDatabaseService {
             String query = "SELECT * FROM databases WHERE id = ?"; // Utilisation du nom de table "databases"
             return jdbcTemplate.queryForObject(query, new Object[]{id}, (rs, rowNum) -> {
                 DatabaseModel model = new DatabaseModel();
-                // Remplissez le modèle avec les données de la base de données
                 model.setId(rs.getLong("id"));
                 model.setName(rs.getString("name"));
-                // Ajoutez d'autres champs selon votre modèle
+                //TODO  Ajoutez d'autres champs selon votre modèle
                 return model;
             });
         } catch (Exception e) {
