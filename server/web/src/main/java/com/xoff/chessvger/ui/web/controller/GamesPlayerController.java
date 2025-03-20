@@ -41,14 +41,13 @@ public class GamesPlayerController {
         Pageable pageable = PageRequest.of(page, size);
 
         // TODO verifier que le user a le droit de lire cette bd
-// FIXME on fait deja le count dans le gameservice
+        // FIXME on fait deja le count dans le gameservice
         // pas la peine de repondre un response list ?
         // TODO : la bd des players n est aps au meme endroit, difficile de faire une jointure
         databaseHelperService.setDatasource(token, "common");
         DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
         log.info("databaseid:" + databaseId + "databaseModel:" + databaseModel);
         databaseHelperService.setDatasource(token, databaseModel.getName());
-
 
         return new ResponseEntity<>(new ResponseList(gamePlayerService.getPlayersWithGameCount(pageable).stream().toList(), gamePlayerService.count()),
                 HttpStatus.OK);

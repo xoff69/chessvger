@@ -54,14 +54,14 @@ public class TestGamePlayer {
 
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
     for (CommonGame g : games) {
-      g.setBlackFideId(player.getIdnumber());
+      g.setBlackFideId(player.getId());
       databaseManager.upsert(g, DBOperation.UPDATE);
       index++;
       if (index > ConstantsTest.NB_GAMES - 5) {
         break;
       }
     }
-    int compte = databaseManager.getGameOfAPlayerManager().countGameOfAPlayer(player.getIdnumber());
+    int compte = databaseManager.getGameOfAPlayerManager().countGameOfAPlayer(player.getId());
     assertEquals(compte, ConstantsTest.NB_GAMES - 4);
 
 

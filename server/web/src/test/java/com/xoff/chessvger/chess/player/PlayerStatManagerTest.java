@@ -56,7 +56,7 @@ class PlayerStatManagerTest {
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
 
     CommonGame game = games.get(0);
-    game.setWhiteFideId(commonPlayer.getIdnumber());
+    game.setWhiteFideId(commonPlayer.getId());
     databaseManager.upsert(game, DBOperation.UPDATE);
 
     assertNotNull(commonPlayer);

@@ -30,7 +30,7 @@ public class CommonPlayerMap extends AdbCommonKeyLong<CommonPlayer> {
     log.info("  " + l.size());
     for (CommonPlayer n : l) {
       mapByName.put(n.getName(), n);
-      mapById.put(n.getIdnumber(), n);
+      mapById.put(n.getId(), n);
       names.add(n.getName());
     }
     log.info("Fin:CommonPlayerMap");
@@ -99,7 +99,7 @@ public class CommonPlayerMap extends AdbCommonKeyLong<CommonPlayer> {
   public List<Long> listFideId() {
     List<Long> resultat = new ArrayList();
     for (CommonPlayer s : list()) {
-      resultat.add(s.getIdnumber());
+      resultat.add(s.getId());
     }
     return resultat;
   }

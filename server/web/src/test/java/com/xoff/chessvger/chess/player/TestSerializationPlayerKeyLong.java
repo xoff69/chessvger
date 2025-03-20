@@ -25,15 +25,15 @@ public class TestSerializationPlayerKeyLong {
       AdbCommonKeyLong adbc = new AdbCommonKeyLong<CommonPlayer>(where);
 
       CommonPlayer player1 = new CommonPlayer();
-      player1.setIdnumber(1L);
+      player1.setId(1L);
       player1.setName("toto");
       adbc.add(1L, player1);
       CommonPlayer player2 = new CommonPlayer();
-      player2.setIdnumber(2L);
+      player2.setId(2L);
       player2.setName("xxx");
       adbc.add(2L, player2);
       CommonPlayer player3 = new CommonPlayer();
-      player3.setIdnumber(3L);
+      player3.setId(3L);
       player3.setName("ddd");
       adbc.add(3L, player3);
 

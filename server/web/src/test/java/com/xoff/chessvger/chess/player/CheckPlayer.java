@@ -42,7 +42,7 @@ public class CheckPlayer {
     CommonPlayer j2 = pm.findOrAdd("Krapov,A", 0);
     assertNotNull(j);
     assertNotNull(j2);
-    assertEquals(j.getIdnumber(), j2.getIdnumber());
+    assertEquals(j.getId(), j2.getId());
 
   }
 
@@ -59,7 +59,7 @@ public class CheckPlayer {
     CommonPlayer j2 = pm.findOrAdd("Krapov,A", 500);
     assertNotNull(j);
     assertNotNull(j2);
-    assertEquals(j.getIdnumber(), j2.getIdnumber());
+    assertEquals(j.getId(), j2.getId());
 
   }
 }

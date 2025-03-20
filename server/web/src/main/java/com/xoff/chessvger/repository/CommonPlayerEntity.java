@@ -6,15 +6,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import org.springframework.data.domain.Persistable;
-
-// FIXME a virer
 @Data
-@Entity
-@Table(name = "common_player",schema = "common")
-public class CommonPlayerEntity  implements Persistable<Long> {
+public class CommonPlayerEntity   {
+/*
 
+TODO
+  //public boolean isFide() {
+    return id < Constants.ID_MIN_NON_FIDE_PLAYER;
+  }
+ */
 
-  @Id
   private Long id;
 
   private String fideId;
@@ -37,15 +38,7 @@ public class CommonPlayerEntity  implements Persistable<Long> {
   private String birthday;
   private String flag;
 
-  @Override
-  public boolean isNew() {
-    return true;
-  }
 
 
-
-  public boolean isFide() {
-    return id < Constants.ID_MIN_NON_FIDE_PLAYER;
-  }
 
 }

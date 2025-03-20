@@ -379,7 +379,7 @@ public class DatabaseManager implements IDatabaseManager {
       JoueurView jv = new JoueurView();
       jv.setJoueur(p);
 
-      int nb = getGameOfAPlayerManager().countGameOfAPlayer(p.getIdnumber());
+      int nb = getGameOfAPlayerManager().countGameOfAPlayer(p.getId());
 
       jv.setNbgames(nb);
       playersView.add(jv);

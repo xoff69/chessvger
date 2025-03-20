@@ -29,7 +29,7 @@ public class UserController {
             log.info("not found " + form);
             return null;
         } else {
-            System.out.println("ok " + user);
+            log.info("ok " + user);
             user.setToken(jwtUtil.generateToken(user.getLogin()));
             log.info("login ok " + user);
             // tenantName allows the application to know which database we work with

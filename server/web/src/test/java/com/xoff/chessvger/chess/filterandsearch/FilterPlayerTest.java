@@ -62,7 +62,7 @@ public class FilterPlayerTest {
 
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
     for (CommonGame g : games) {
-      g.setBlackFideId(player.getIdnumber());
+      g.setBlackFideId(player.getId());
       g.setWhiteElo(WHITE_ELO);
       g.setResult(Constants.RESULT_0_1);
       databaseManager.upsert(g, DBOperation.UPDATE);
@@ -93,7 +93,7 @@ public class FilterPlayerTest {
 
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
     for (CommonGame g : games) {
-      g.setBlackFideId(j.getIdnumber());
+      g.setBlackFideId(j.getId());
       databaseManager.upsert(g, DBOperation.UPDATE);
       index++;
       if (index > ConstantsTest.NB_GAMES - DELTA) {
@@ -119,7 +119,7 @@ public class FilterPlayerTest {
 
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
     for (CommonGame g : games) {
-      g.setWhiteFideId(j.getIdnumber());
+      g.setWhiteFideId(j.getId());
       databaseManager.upsert(g, DBOperation.UPDATE);
       index++;
       if (index > ConstantsTest.NB_GAMES - DELTA) {
@@ -165,7 +165,7 @@ public class FilterPlayerTest {
 
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
     for (CommonGame g : games) {
-      g.setWhiteFideId(j.getIdnumber());
+      g.setWhiteFideId(j.getId());
       databaseManager.upsert(g, DBOperation.UPDATE);
       index++;
       if (index > ConstantsTest.NB_GAMES - DELTA) {

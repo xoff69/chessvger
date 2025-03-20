@@ -13,7 +13,7 @@ public class PlayerBuilder {
   public static CommonPlayer buildPlayer() {
 
     CommonPlayer player = new CommonPlayer();
-    player.setIdnumber(rand.nextInt(10000));
+    player.setId(rand.nextInt(10000));
     player.setName("fakeName_" + rand.nextInt());
     player.setNakedName("fakeName_");
 

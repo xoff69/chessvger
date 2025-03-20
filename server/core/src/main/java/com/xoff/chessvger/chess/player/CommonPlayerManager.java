@@ -68,12 +68,12 @@ public class CommonPlayerManager implements ICommonPlayerManager {
         player.setName(pname);
         player.setNakedName(PgnUtil.playerDenudeName(pname));
 
-        player.setIdnumber(fideID);
-        if (player.getIdnumber() == 0L) {
-          player.setIdnumber(Constants.ID_MIN_NON_FIDE_PLAYER +
+        player.setId(fideID);
+        if (player.getId() == 0L) {
+          player.setId(Constants.ID_MIN_NON_FIDE_PLAYER +
               DbKeyManager.getInstance().getDbKeyGenerator().getNext());
         }
-        commonPlayerDB.add(player.getIdnumber(), player);
+        commonPlayerDB.add(player.getId(), player);
       }
     }
 

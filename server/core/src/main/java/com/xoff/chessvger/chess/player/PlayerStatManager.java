@@ -33,12 +33,12 @@ public class PlayerStatManager implements IPlayerStatManager {
     HashMap<String, StatOpening> openBlack = new HashMap();
     int nbblanc = 0;
     List<CommonGame> list = databaseManager.getGameOfAPlayerManager()
-        .listGameOfAPlayer(databaseManager, player.getIdnumber());
+        .listGameOfAPlayer(databaseManager, player.getId());
 
     //  log.info("player=" + player);
     for (CommonGame g : list) {
       //    log.info("g=" + g);
-      if (g.getWhiteFideId() == (player.getIdnumber())) {
+      if (g.getWhiteFideId() == (player.getId())) {
         nbblanc++;
 
         if (!StringUtils.isEmpty(g.getEco())) {
@@ -120,14 +120,14 @@ public class PlayerStatManager implements IPlayerStatManager {
     for (int i = 0; i < borne; i++) {
       CommonGame c = list.get(i);
       //    log.info(c);
-      if (player.getIdnumber() == (c.getWhiteFideId())) {
+      if (player.getId() == (c.getWhiteFideId())) {
         if (c.getResult() == Constants.RESULT_1_0) {
           tendance++;
         } else if (c.getResult() == Constants.RESULT_0_1) {
           tendance--;
         }
       }
-      if (player.getIdnumber() == (c.getBlackFideId())) {
+      if (player.getId() == (c.getBlackFideId())) {
         if (c.getResult() == Constants.RESULT_1_0) {
           tendance--;
         } else if (c.getResult() == Constants.RESULT_0_1) {

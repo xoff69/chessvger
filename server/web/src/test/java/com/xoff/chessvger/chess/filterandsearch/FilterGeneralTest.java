@@ -79,7 +79,7 @@ public class FilterGeneralTest {
 
     List<CommonGame> games = databaseManager.getGlobalGameManager().getAllGamesReadOnly();
     for (CommonGame g : games) {
-      g.setBlackFideId(player.getIdnumber());
+      g.setBlackFideId(player.getId());
       g.setWhiteElo(WHITE_ELO);
       g.setResult(Constants.RESULT_0_1);
       databaseManager.upsert(g, DBOperation.UPDATE);

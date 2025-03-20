@@ -8,6 +8,6 @@ public interface IDatabaseService {
 
   List<DatabaseModel> findAll();
   Long count();
-  public DatabaseModel findById(Long id);
+   DatabaseModel findById(Long id);
 
 }

@@ -1,8 +1,12 @@
 package com.xoff.chessvger.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.chess.player.CommonPlayer;
 import com.xoff.chessvger.model.CommonGameModel;
 import com.xoff.chessvger.model.PlayerGameCount;
 import com.xoff.chessvger.model.PlayerGameModel;
+import com.xoff.chessvger.repository.CommonPlayerEntity;
+import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -11,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -35,18 +39,21 @@ public class GamePlayerService {
 
     public Page<PlayerGameCount> getPlayersWithGameCount(Pageable pageable) throws IOException, InterruptedException {
         String sql = """
-           SELECT id_player, "" as name,COUNT(id_game) AS game_count
-         FROM main.game_of_a_player
-         GROUP BY id_player
-         HAVING COUNT(id_game) > 0
-         ORDER BY game_count DESC
-        """;
+    SELECT id_player as id, COUNT(id_game) AS game_count
+    FROM main.game_of_a_player
+    GROUP BY id_player
+    HAVING COUNT(id_game) > 0
+    ORDER BY game_count DESC
+    LIMIT ? OFFSET ?
+    """;
+        List<PlayerGameCount> players = jdbcTemplate.query(
+                sql,
+                playerGameCountRowMapper(),
+                pageable.getPageSize(),
+                pageable.getOffset()
+        );
 
-
-        List<PlayerGameCount> players = jdbcTemplate.query(sql, playerGameCountRowMapper(),
-                pageable.getPageSize(), pageable.getOffset());
-
-
+        log.info("sql = " + sql);
 
         String[] ids = players.stream()
                 .map(player -> String.valueOf(player.getId()))
@@ -55,6 +62,26 @@ public class GamePlayerService {
         log.info("getPlayersWithGameCount ids: {}", ids);
         String allPlayers=apiService.callExternalApi("http://localhost:8080/apiadmin/players/fetchPlayers",ids);
         log.info("all player ="+allPlayers);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            ResponseList<CommonPlayerEntity> response = mapper.readValue(
+                    allPlayers,
+                    new TypeReference<ResponseList<CommonPlayerEntity>>() {}
+            );
+            System.out.println("Count : " + response.getCount());
+            response.getList().forEach(player->{
+
+                    for(PlayerGameCount playerGameCount : players) {
+                        if (playerGameCount.getId()== player.getId()){
+                            playerGameCount.setName(player.getName());
+                        }
+                    }}
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // total : TODO
         int total=5;
         return new PageImpl<>(players, pageable, total);
@@ -62,8 +89,7 @@ public class GamePlayerService {
 
     private RowMapper<PlayerGameCount> playerGameCountRowMapper() {
         return (rs, rowNum) -> new PlayerGameCount(
-                rs.getLong("id"),
-                rs.getString("name"),
+                rs.getLong("id"),"",
                 rs.getInt("game_count")
         );
     }

@@ -19,14 +19,14 @@ public class TestFamous {
     try {
       String nom = "xxx";
       CommonPlayer player2 = new CommonPlayer();
-      player2.setIdnumber(2L);
+      player2.setId(2L);
       player2.setTit("GM");
       player2.setSsrtng("3000");
       player2.setName(nom);
       assertTrue(fpm.addIfRelevant(player2));
       // test pas ajout
       CommonPlayer player3 = new CommonPlayer();
-      player3.setIdnumber(3L);
+      player3.setId(3L);
       player3.setTit("GM");
       player3.setSsrtng("2300");
       player3.setName(nom + nom);

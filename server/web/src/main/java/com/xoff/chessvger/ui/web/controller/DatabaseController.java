@@ -21,14 +21,11 @@ public class DatabaseController {
     IDatabaseService iDatabaseService;
     @Autowired
     DatabaseHelperService databaseHelperService;
-    @Autowired
-    private UserService userService;
+
 
     @GetMapping("/api/databases/all")
     public ResponseEntity<ResponseList<DatabaseModel>> all(@RequestHeader("Authorization") String token) {
 
-        log.info("token = {}", token);
-        databaseHelperService.setDatasource(token, "common");
         return new ResponseEntity<>(new ResponseList(iDatabaseService.findAll(), iDatabaseService.count()),
                 HttpStatus.OK);
     }

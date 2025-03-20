@@ -12,6 +12,8 @@ import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -67,9 +69,12 @@ public class PlayersController {
     }
 
     @GetMapping("/apiadmin/players/all")
-    public ResponseEntity<ResponseList<CommonPlayerEntity>> all() {
+    public ResponseEntity<ResponseList<CommonPlayerEntity>> all(@RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
         setDatasource();
-        return new ResponseEntity<>(new ResponseList(iPlayerService.findAll(), iPlayerService.count()),
+        return new ResponseEntity<>(new ResponseList(iPlayerService.findAll(pageable).stream().toList(), iPlayerService.count()),
                 HttpStatus.OK);
     }
 

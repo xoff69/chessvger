@@ -149,7 +149,7 @@ public class CommonPlayerDb {
         int debut = 0;
         int fin = IDNUMBER;
         try {
-          player.setIdnumber(Long.parseLong(line.substring(debut, fin).trim()));
+          player.setId(Long.parseLong(line.substring(debut, fin).trim()));
         } catch (Exception e) {
           log.error(" importeFidePlayer " + line);
         }
@@ -223,7 +223,7 @@ public class CommonPlayerDb {
         //     log.info(player);
         if (compteurLigne[0] > 0) {
 
-          add(player.getIdnumber(), player);
+          add(player.getId(), player);
           famous.addIfRelevant(player);
         }
         compteurLigne[0]++;

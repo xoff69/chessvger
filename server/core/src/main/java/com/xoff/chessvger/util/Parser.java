@@ -127,14 +127,14 @@ public class Parser {
             case "White":
               CommonPlayer p1 = GlobalManager.getInstance().getCommonPlayerManager()
                   .findOrAdd(value, game.getWhiteFideId());
-              game.setWhiteFideId(p1.getIdnumber());
-              databaseManager.getPlayerOfDbManager().add(p1.getIdnumber());
+              game.setWhiteFideId(p1.getId());
+              databaseManager.getPlayerOfDbManager().add(p1.getId());
               break;
             case "Black":
               CommonPlayer p2 = GlobalManager.getInstance().getCommonPlayerManager()
                   .findOrAdd(value, game.getBlackFideId());
-              game.setBlackFideId(p2.getIdnumber());
-              databaseManager.getPlayerOfDbManager().add(p2.getIdnumber());
+              game.setBlackFideId(p2.getId());
+              databaseManager.getPlayerOfDbManager().add(p2.getId());
               break;
             case "Variant":
               if ("standard".equalsIgnoreCase(value)) {

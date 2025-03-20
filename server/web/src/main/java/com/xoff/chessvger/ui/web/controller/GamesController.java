@@ -11,8 +11,8 @@ import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
-import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import com.xoff.chessvger.ui.web.controller.tools.ApiRequest;
+import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -40,13 +40,13 @@ public class GamesController {
 
     @GetMapping("/api/games/all")
     public ResponseEntity<ResponseList<CommonGameModel>> all(@RequestHeader("Authorization") String token,
-                                                              @RequestParam long databaseId, @RequestParam(defaultValue = "0") int page,
-                                                              @RequestParam(defaultValue = "10") int size) {
-        log.info("/api/games/all:" +databaseId);
+                                                             @RequestParam long databaseId, @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "10") int size) {
+        log.info("/api/games/all:" + databaseId);
 
         Pageable pageable = PageRequest.of(page, size);
         // TODO verifier que le user a le droit de lire cette bd
-// FIXME on fait deja le count dans le gameservice
+        // FIXME on fait deja le count dans le gameservice
         // pas la peine de repondre un response list ?
         databaseHelperService.setDatasource(token, "common");
         DatabaseModel databaseModel = iDatabaseService.findById(databaseId);

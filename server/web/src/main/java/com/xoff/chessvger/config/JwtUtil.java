@@ -1,60 +1,77 @@
 package com.xoff.chessvger.config;
+
 import io.jsonwebtoken.*;
-import org.springframework.stereotype.Component;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+
 @Component
+@Slf4j
 public class JwtUtil {
-  private  final Key SECRET_KEY ;
-  private final long EXPIRATION_TIME = 1000 * 60 * 60*24*7;  /// TODO pour dev
 
-  // TODO À stocker en variable d'environnement en prod
+  private final Key secretKey;
+  private final long EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 30; // 30 jours
 
-  public JwtUtil() {
-    String secret = "sG2h23SeoaDDYHtuU1+iJQVvaiLvTOTqR4sr4zMyVrg="; // ⚠️ À définir en prod // cf main below
+  public JwtUtil(@Value("${jwt.secret:}") String secret) {
     if (secret == null || secret.isEmpty()) {
-      throw new IllegalStateException("La clé secrète JWT n'est pas définie !");
+      System.out.println("Clé JWT non définie. Génération d'une nouvelle clé...");
+      this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+      System.out.println("Nouvelle clé (Base64) : " + getEncodedSecretKey());
+    } else {
+      byte[] decodedKey = Base64.getDecoder().decode(secret);
+      this.secretKey = Keys.hmacShaKeyFor(decodedKey);
     }
-    byte[] decodedKey = Base64.getDecoder().decode(secret);
-    this.SECRET_KEY = Keys.hmacShaKeyFor(decodedKey);
+    log.info("GENERATION DU TOKEN POUR DEMO "+
+    generateToken("demo"));
   }
 
+  public String generateToken(String username) {
+    return Jwts.builder()
+            .setClaims(Map.of())
+            .setSubject(username)
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+            .signWith(secretKey)
+            .compact();
+  }
 
   public String extractUsername(String token) {
     return Jwts.parserBuilder()
-            .setSigningKey(SECRET_KEY)
+            .setSigningKey(secretKey)
             .build()
             .parseClaimsJws(token)
             .getBody()
             .getSubject();
   }
 
-  public String generateToken(String username) {
-    Map<String, Object> claims = new HashMap<>();
-    return Jwts.builder()
-            .setClaims(claims)
-            .setSubject(username)
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-            .signWith(SECRET_KEY)
-            .compact();
-  }
   public boolean validateToken(String token) {
     try {
-      Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+      Jwts.parserBuilder()
+              .setSigningKey(secretKey)
+              .build()
+              .parseClaimsJws(token);
       return true;
     } catch (JwtException e) {
       return false;
     }
   }
+
+  public String getEncodedSecretKey() {
+    return Base64.getEncoder().encodeToString(secretKey.getEncoded());
+  }
+
+  // Méthode main pour tester
   public static void main(String[] args) {
-    String key = Base64.getEncoder().encodeToString(Keys.secretKeyFor(SignatureAlgorithm.HS256).getEncoded());
-    System.out.println("Generated SECRET_KEY: " + key);
+    JwtUtil jwtUtil = new JwtUtil("Y8Rvca/uGFExf3/Bh+Y4h/Ijwwo31UiOwM3LAz4B5C8=");
+    String token = jwtUtil.generateToken("john");
+    System.out.println("Token généré : " + token);
+    System.out.println("Validation du token : " + jwtUtil.validateToken(token));
+    System.out.println("extraction user : " + jwtUtil.extractUsername(token));
+    System.out.println("Clé secrète à stocker (Base64) : " + jwtUtil.getEncodedSecretKey());
   }
 }

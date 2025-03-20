@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CommonPlayer implements Serializable {
 
   private static final long serialVersionUID = 3019214335943458171L;
-  private long idnumber;
+  private long id;
 
   private String name;
   private String nakedName;
@@ -36,7 +36,7 @@ public class CommonPlayer implements Serializable {
   private String flag;
 
   public CommonPlayer() {
-    idnumber = 0L;
+    id = 0L;
     name = StringUtils.EMPTY;
     nakedName = StringUtils.EMPTY;
     fex = StringUtils.EMPTY;
@@ -60,11 +60,11 @@ public class CommonPlayer implements Serializable {
 
 
   public boolean isFide() {
-    return idnumber < Constants.ID_MIN_NON_FIDE_PLAYER;
+    return id < Constants.ID_MIN_NON_FIDE_PLAYER;
   }
 
   private void writeObject(ObjectOutputStream out) throws IOException {
-    out.writeLong(getIdnumber());
+    out.writeLong(getId());
     out.writeUTF(getName());
     out.writeUTF(getNakedName());
     out.writeUTF(getFex());
@@ -88,7 +88,7 @@ public class CommonPlayer implements Serializable {
 
   private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
 
-    setIdnumber(in.readLong());
+    setId(in.readLong());
     setName(in.readUTF());
     setNakedName(in.readUTF());
 
