@@ -25,7 +25,7 @@ public class DatabaseController {
 
     @GetMapping("/api/databases/all")
     public ResponseEntity<ResponseList<DatabaseModel>> all(@RequestHeader("Authorization") String token) {
-
+        databaseHelperService.setDatasource(token, "common");
         return new ResponseEntity<>(new ResponseList(iDatabaseService.findAll(), iDatabaseService.count()),
                 HttpStatus.OK);
     }

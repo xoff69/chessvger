@@ -23,10 +23,7 @@ public class DatabaseServiceImpl implements IDatabaseService {
     private DatabaseHelperService databaseHelperService;
 
     public Long count() {
-
-
-
-        String query = "SELECT COUNT(*) FROM databases"; // Utilisation du nom de table "databases"
+        String query = "SELECT COUNT(*) FROM common.databases"; // Utilisation du nom de table "databases"
         return jdbcTemplate.queryForObject(query, Long.class);
     }
     public DatabaseModel findById(Long id) {
