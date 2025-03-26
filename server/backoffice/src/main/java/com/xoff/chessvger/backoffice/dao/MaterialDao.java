@@ -1,14 +1,15 @@
 package com.xoff.chessvger.backoffice.dao;
 
-import com.xoff.chessvger.backoffice.material.MaterialEntity;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
-import com.xoff.chessvger.chess.board.IPositionManager;
+
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import org.postgresql.shaded.com.ongres.scram.common.exception.ScramServerErrorException;
 
+@Slf4j
 public class MaterialDao {
 
 
@@ -32,11 +33,7 @@ public class MaterialDao {
 
       connection.commit();   insertEntityStmt.close();
     } catch (SQLException e) {
-      if (connection != null) {
-
-        connection.rollback();
-      }
-      e.printStackTrace();
+      log.error(sql, e);
     }
 
     }

@@ -84,7 +84,7 @@ export default {
         console.log("database':", this.database.id);
 
       try {
-        const re = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id, this.authStore.user.id);
+        const re = await sendPostRequest("http://localhost:8080/api/games/import", this.database.id);
         this.response=re.data;
       } catch (error) {
         console.error("Erreur lors de la récupération des games :", error);

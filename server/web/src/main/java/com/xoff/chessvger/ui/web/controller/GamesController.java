@@ -75,12 +75,12 @@ public class GamesController {
 
 
     @PostMapping("/api/games/import")
-    public ResponseEntity<String> importPgn(@RequestHeader("Authorization") String token, @RequestParam long databaseId)
+    public ResponseEntity<String> importPgn(@RequestHeader("Authorization") String token, @RequestBody ApiRequest apiRequest)
             throws JsonProcessingException {
-        log.info("importPgn request:" + databaseId);
+        log.info("importPgn request:" + apiRequest);
         databaseHelperService.setDatasource(token, "common");
-        DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
-        log.info("databaseid:" + databaseId + "databaseModel:" + databaseModel);
+        DatabaseModel databaseModel = iDatabaseService.findById(Long.valueOf(apiRequest.getDatabaseId()));
+        log.info("databaseid:" + apiRequest + "databaseModel:" + databaseModel);
 
 
         Optional<TenantEntity> opt = databaseHelperService.getFromToken(token);

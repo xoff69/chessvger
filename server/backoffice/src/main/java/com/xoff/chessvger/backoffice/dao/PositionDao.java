@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PositionDao {
 
 
@@ -29,9 +31,7 @@ public class PositionDao {
 
       connection.commit(); insertEntityStmt.close();
     } catch (SQLException e) {
-      if (connection != null) {
-        connection.rollback(); // Annuler la transaction en cas d'erreur
-      }e.printStackTrace();
+         log.error("error insert position",e);
     }
     }
   }

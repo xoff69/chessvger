@@ -1,23 +1,21 @@
 import axios from 'axios';
 import { getToken } from '../services/authService.js';
-export async function sendPostRequest(url, databaseId,tenantId) {
+export async function sendPostRequest(url, databaseId) {
   
   const token=getToken();
   try {
 
-    const payload = {
-      databaseId: databaseId,
-      tenantId: tenantId,
-    };
-
+    const data = { databaseId };
+    console.log("databaseId à envoyer:", data);
     const config = {
       headers: {
         'Content-Type': 'application/json', 
         Authorization: token,
       },
     };
+    console.log("config",config);
 
-    const response = await axios.post(url, payload, config);
+    const response = await axios.post(url, data, config);
     return response;
   } catch (error) {
     throw new Error(error.response?.data?.message || 'Une erreur est survenue.');

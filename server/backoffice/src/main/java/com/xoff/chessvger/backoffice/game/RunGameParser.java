@@ -17,6 +17,9 @@ import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.ResultAction;
 import com.xoff.chessvger.topic.Topic;
+
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -24,6 +27,7 @@ import java.sql.SQLException;
 import java.util.List;
 import redis.clients.jedis.Jedis;
 
+@Slf4j
 public class RunGameParser implements Runnable {
 
   private final MessageToParser messageToParser;
@@ -35,7 +39,7 @@ public class RunGameParser implements Runnable {
 
   private static void manageFile(MessageToParser messageToParser) throws IOException, SQLException {
     // TODO quelle bd? celle donnee par le nom du schema
-    System.out.println("games " + messageToParser);
+    log.info("games " + messageToParser);
     GameDao commonGameDao = new GameDao();
     Parser parser = new Parser();
     long start = System.currentTimeMillis();
@@ -43,8 +47,8 @@ public class RunGameParser implements Runnable {
 
     long finish1 = System.currentTimeMillis();
     long timeElapsed = (finish1 - start) / 1000;
-    System.out.println("after parse games done: " + games.size() + ":" + timeElapsed + " s");
-    System.out.println("after parse games done: " + messageToParser);
+    log.info("after parse games : nb games to insert: " + games.size() + ":" + timeElapsed + " s");
+    log.info("after parse games done: " + messageToParser);
 
       try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
 
@@ -52,7 +56,6 @@ public class RunGameParser implements Runnable {
         for (CommonGame game : games) {
 
           game.setId(id++);
-
 
           commonGameDao.insertCommonGame(connection, messageToParser.getSchema(), game);
 
@@ -63,16 +66,20 @@ public class RunGameParser implements Runnable {
           PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
 
         }
+        log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
+
         BrowserDao.browseFirstMove(connection, messageToParser.getSchema(), games);
+        log.info("browseFirstMove done " );
 
       } catch (SQLException e) {
-        throw new RuntimeException(e);
+        log.error("runGame Parser", e);
+        
       } catch (ClassNotFoundException e) {
         throw new RuntimeException(e);
       }
       long finish2 = System.currentTimeMillis();
       timeElapsed = (finish2 - finish1) / 1000;
-      System.out.println("db insert games done " + games.size() + ":" + timeElapsed + " s");
+      log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
       try (Jedis jedis = new Jedis("redis", 6379)) {
         // TODO a externaliser
         MessageFromParser messageFromParser = new MessageFromParser();
@@ -86,7 +93,7 @@ public class RunGameParser implements Runnable {
 
         jedis.publish(Topic.TOPIC_FROM_QUEUE, objectMapper.writeValueAsString(messageFromParser));
       }finally {
-        System.out.println(
+        log.info(
             "Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");
       }
   }
