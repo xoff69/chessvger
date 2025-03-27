@@ -3,7 +3,8 @@
     <h1>Chessboard Component</h1>
     <Chessboard :position="'start'" :draggable="true" />
   </div>
-  <p>Message reçu : {{ game }}</p>
+  <p>game reçu : {{ game }}</p>
+
 
 
 </template>

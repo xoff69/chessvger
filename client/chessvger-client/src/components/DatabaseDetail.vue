@@ -23,7 +23,7 @@
             <div v-show="activeTab === 0"> <GamesList :database="database"  @row-clicked="handleRowClickGame" /></div>
             <div v-show="activeTab === 1"> <GameBrowse :database="database"/></div>
             <div v-show="activeTab === 2"> <GamePlayers :database="database"/></div>
-            <div v-show="activeTab ===3"> <Game :database="database" :gameId="currentGameId"/></div>
+            <div v-show="activeTab >=3"> <Game :database="database" :gameId="currentGameId" /></div>
           </v-window-item>
         </v-window>
       </v-card-text>
@@ -68,7 +68,8 @@ export default {
       const found = this.tabGameIds.find(t => t.tabId +3=== this.activeTab);
       console.log("currentGameId="+found+" activeTab="+this.activeTab+" tabGameIds="+this.tabGameIds.length);
       return found ? found.gameId : null;
-    }
+    },
+
   },
     methods: {
     handleRowClickGame(item,row) {
@@ -84,6 +85,7 @@ export default {
     },
     closeTab(index) {
       console.log("close "+index);
+      // TODO nettoyer tabGameIds
       this.allTabs.splice(index, 1);
       if (this.activeTab >= this.allTabs.length) {
         this.activeTab = this.allTabs.length - 1;
