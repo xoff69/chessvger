@@ -7,7 +7,7 @@ package com.xoff.chessvger.backoffice.player;
 import com.xoff.chessvger.backoffice.dao.PlayerDao;
 import java.sql.SQLException;
 import java.util.List;
-
+import com.xoff.chessvger.chess.player.CommonPlayer;
 
 public class RunPlayerParser implements Runnable {
   private final String folder;

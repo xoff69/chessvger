@@ -1,22 +1,16 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.repository.CommonPlayerEntity;
-
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import com.xoff.chessvger.repository.CommonPlayerEntity;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.xoff.chessvger.chess.player.CommonPlayer;
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -24,8 +18,8 @@ public class PlayerServiceImpl implements IPlayerService {
 
   private final JdbcTemplate jdbcTemplate;
 
-  private final RowMapper<CommonPlayerEntity> playerRowMapper = (rs, rowNum) -> {
-    CommonPlayerEntity player = new CommonPlayerEntity();
+  private final RowMapper<CommonPlayer> playerRowMapper = (rs, rowNum) -> {
+    CommonPlayer player = new CommonPlayer();
     player.setId(rs.getLong("id"));
     player.setFideId(rs.getString("fide_id"));      // Adapte le nom de la colonne si nécessaire
     player.setName(rs.getString("name"));
@@ -49,10 +43,10 @@ public class PlayerServiceImpl implements IPlayerService {
     return player;
   };
 
-  public Page<CommonPlayerEntity> findAll(Pageable pageable) {
+  public Page<CommonPlayer> findAll(Pageable pageable) {
     // Adaptation de la requête selon ta structure et ton schéma si besoin (ici table "common_player" dans le schéma par défaut)
     String sql = "SELECT * FROM common_player LIMIT ? OFFSET ?";
-    List<CommonPlayerEntity> players = jdbcTemplate.query(
+    List<CommonPlayer> players = jdbcTemplate.query(
             sql,
             playerRowMapper,
             pageable.getPageSize(),
@@ -68,10 +62,10 @@ public class PlayerServiceImpl implements IPlayerService {
   }
 
   @Override
-  public CommonPlayerEntity findById(Long id) {
+  public CommonPlayer findById(Long id) {
 
     String sql = "SELECT * FROM common_player WHERE id = ?";
-    List<CommonPlayerEntity> players = jdbcTemplate.query(sql, playerRowMapper, id);
+    List<CommonPlayer> players = jdbcTemplate.query(sql, playerRowMapper, id);
     return players.stream().findFirst()
             .orElseThrow(() -> new RuntimeException("Player not found with id: " + id));
   }

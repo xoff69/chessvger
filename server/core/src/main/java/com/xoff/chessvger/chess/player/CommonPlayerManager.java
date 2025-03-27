@@ -66,7 +66,7 @@ public class CommonPlayerManager implements ICommonPlayerManager {
 
         player = new CommonPlayer();
         player.setName(pname);
-        player.setNakedName(PgnUtil.playerDenudeName(pname));
+        // TODO player.setNakedName(PgnUtil.playerDenudeName(pname));
 
         player.setId(fideID);
         if (player.getId() == 0L) {

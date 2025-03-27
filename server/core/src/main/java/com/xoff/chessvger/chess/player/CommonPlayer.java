@@ -5,111 +5,43 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+// TODO virer serialiszble
 public class CommonPlayer implements Serializable {
 
-  private static final long serialVersionUID = 3019214335943458171L;
-  private long id;
 
+  private Long id;
+
+  private String fideId;
   private String name;
-  private String nakedName;
-  private String fex;
+  private String country;
   private String sex;
-  private String tit;
-  private String wtit;
-  private String otit;
-  private String foa;
-  private String ssrtng;
-  private String sgm;
-  private String sk;
-  private String rrtng;
-  private String rgm;
-  private String rk;
-  private String brtng;
-  private String bgm;
-  private String bk;
-  private String bday;
+  private String title;
+  private String wTitle;
+  private String oTitle;
+  private String foaTitle;
+  private String rating;
+  private String games;
+  private String k;
+  private String rapidRating;
+  private String rapidGames;
+  private String rapidK;
+  private String blitzRating;
+  private String blitzGames;
+  private String blitzK;
+  private String birthday;
   private String flag;
 
-  public CommonPlayer() {
-    id = 0L;
-    name = StringUtils.EMPTY;
-    nakedName = StringUtils.EMPTY;
-    fex = StringUtils.EMPTY;
-    sex = StringUtils.EMPTY;
-    tit = StringUtils.EMPTY;
-    wtit = StringUtils.EMPTY;
-    otit = StringUtils.EMPTY;
-    foa = StringUtils.EMPTY;
-    ssrtng = StringUtils.EMPTY;
-    sgm = StringUtils.EMPTY;
-    sk = StringUtils.EMPTY;
-    rrtng = StringUtils.EMPTY;
-    rgm = StringUtils.EMPTY;
-    rk = StringUtils.EMPTY;
-    brtng = StringUtils.EMPTY;
-    bgm = StringUtils.EMPTY;
-    bk = StringUtils.EMPTY;
-    bday = StringUtils.EMPTY;
-    flag = StringUtils.EMPTY;
-  }
-
-
-  public boolean isFide() {
-    return id < Constants.ID_MIN_NON_FIDE_PLAYER;
-  }
-
-  private void writeObject(ObjectOutputStream out) throws IOException {
-    out.writeLong(getId());
-    out.writeUTF(getName());
-    out.writeUTF(getNakedName());
-    out.writeUTF(getFex());
-    out.writeUTF(getSex());
-    out.writeUTF(getTit());
-    out.writeUTF(getWtit());
-    out.writeUTF(getOtit());
-    out.writeUTF(getFoa());
-    out.writeUTF(getSsrtng());
-    out.writeUTF(getSgm());
-    out.writeUTF(getSk());
-    out.writeUTF(getRrtng());
-    out.writeUTF(getRgm());
-    out.writeUTF(getRk());
-    out.writeUTF(getBrtng());
-    out.writeUTF(getBgm());
-    out.writeUTF(getBk());
-    out.writeUTF(getBday());
-    out.writeUTF(getFlag());
-  }
-
-  private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
-
-    setId(in.readLong());
-    setName(in.readUTF());
-    setNakedName(in.readUTF());
-
-    setFex(in.readUTF());
-    setSex(in.readUTF());
-    setTit(in.readUTF());
-    setWtit(in.readUTF());
-    setOtit(in.readUTF());
-    setFoa(in.readUTF());
-    setSsrtng(in.readUTF());
-    setSgm(in.readUTF());
-    setSk(in.readUTF());
-    setRrtng(in.readUTF());
-    setRgm(in.readUTF());
-    setRk(in.readUTF());
-    setRrtng(in.readUTF());
-    setBgm(in.readUTF());
-    setBk(in.readUTF());
-    setBday(in.readUTF());
-    setFlag(in.readUTF());
-
-  }
 
 }

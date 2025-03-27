@@ -1,11 +1,8 @@
 package com.xoff.chessvger.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.chess.player.CommonPlayer;
-import com.xoff.chessvger.model.CommonGameModel;
 import com.xoff.chessvger.model.PlayerGameCount;
 import com.xoff.chessvger.model.PlayerGameModel;
-import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +15,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-
+import com.xoff.chessvger.chess.player.CommonPlayer;
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -66,9 +62,9 @@ public class GamePlayerService {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            ResponseList<CommonPlayerEntity> response = mapper.readValue(
+            ResponseList<CommonPlayer> response = mapper.readValue(
                     allPlayers,
-                    new TypeReference<ResponseList<CommonPlayerEntity>>() {}
+                    new TypeReference<ResponseList<CommonPlayer>>() {}
             );
             System.out.println("Count : " + response.getCount());
             response.getList().forEach(player->{

@@ -1,13 +1,11 @@
 package com.xoff.chessvger.service;
-
-import com.xoff.chessvger.repository.CommonPlayerEntity;
+import com.xoff.chessvger.chess.player.CommonPlayer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
-
+import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.chess.player.CommonPlayer;
 public interface IPlayerService {
-     Page<CommonPlayerEntity> findAll(Pageable pageable);
+     Page<CommonPlayer> findAll(Pageable pageable);
    Long count();
-  CommonPlayerEntity findById(Long id);
+  CommonPlayer findById(Long id);
 }

@@ -35,9 +35,9 @@ public class FamousPlayerManager {
    * ajoute le joueur a la liste s'il respecte la regle
    */
   public boolean addIfRelevant(CommonPlayer player) {
-    if ("GM".equals(player.getTit())) {
+    if ("GM".equals(player.getTitle())) {
       try {
-        int rating = Integer.parseInt(player.getSsrtng());
+        int rating = Integer.parseInt(player.getRating());
         if (rating >= Constants.RATINGFORFAMOUS) {
           mapFromFile.add(player.getName(), Constants.PRESENT);
 

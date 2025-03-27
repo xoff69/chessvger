@@ -3,7 +3,6 @@ package com.xoff.chessvger.ui.web.controller.admin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.config.RedisMessagePublisher;
-import com.xoff.chessvger.repository.CommonPlayerEntity;
 import com.xoff.chessvger.repository.DataSourceContextHolder;
 import com.xoff.chessvger.repository.DynamicDataSourceService;
 import com.xoff.chessvger.service.IPlayerService;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import com.xoff.chessvger.chess.player.CommonPlayer;
 @Controller
 @Slf4j
 public class PlayersController {
@@ -48,7 +47,7 @@ public class PlayersController {
     }
 
     @GetMapping("/apiadmin/players/fetchPlayers")
-    public ResponseEntity<ResponseList<CommonPlayerEntity>> fetchPlayers(@RequestParam(required = false) String[] ids) {
+    public ResponseEntity<ResponseList<CommonPlayer>> fetchPlayers(@RequestParam(required = false) String[] ids) {
         log.info("fetchPlayers");
         if (ids == null || ids.length == 0) {
             log.info("no ID");
@@ -56,10 +55,10 @@ public class PlayersController {
         }
 
         List<String> idList = Arrays.asList(ids);
-        List<CommonPlayerEntity> players = new ArrayList<>();
+        List<CommonPlayer> players = new ArrayList<>();
         setDatasource();
         for (String id : idList) {
-            CommonPlayerEntity commonPlayerEntity = iPlayerService.findById(Long.valueOf(id));
+            CommonPlayer commonPlayerEntity = iPlayerService.findById(Long.valueOf(id));
             if (commonPlayerEntity != null) {
                 players.add(commonPlayerEntity);
             }
@@ -69,8 +68,8 @@ public class PlayersController {
     }
 
     @GetMapping("/apiadmin/players/all")
-    public ResponseEntity<ResponseList<CommonPlayerEntity>> all(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<ResponseList<CommonPlayer>> all(@RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "10") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         setDatasource();
