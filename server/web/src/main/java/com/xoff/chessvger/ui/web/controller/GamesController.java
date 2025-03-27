@@ -60,6 +60,8 @@ public class GamesController {
     public ResponseEntity<CommonGameModel>
     findById(@RequestHeader("Authorization") String token, @RequestParam("id") Long id, @RequestParam("databaseId") Long databaseId) {
 
+        log.info("/api/games/findById:" + databaseId+"*"+id);
+
         databaseHelperService.setDatasource(token, "common");
         DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
 

@@ -63,7 +63,7 @@ export default {
   methods: {
     handleRowClick(item,row) {
       // TODO ne pas ouvrir deux fois la meme
-      console.log("list "+row.item.whitePlayer);
+      console.log("list game j emets "+row.item.whitePlayer);
       this.$emit("row-clicked", row.item);
     },
     async fetchGames() {
@@ -97,8 +97,6 @@ export default {
     },
   mounted() {
     this.fetchGames();
-
-
     console.log("games list database reçue:"+ this.database);
   },
 };

@@ -10,7 +10,7 @@
 
 <script>
 import Chessboard from "../components/Board.vue";
-import axios from "axios";
+import { sendGetRequest } from '../api/apiService'; 
 export default {
   name: "App",
   components: {
@@ -20,7 +20,11 @@ export default {
      database: {
                type: Object,
                required: true
-           }
+           },
+           gameId: {
+                type: Object,
+                required: true
+            },
    },
    data() {
      return {
@@ -30,8 +34,12 @@ export default {
    methods: {
     async fetchGame(id) {
       try {
-        const response = await axios.get("http://localhost:8080/api/games/findById?id="+id+"&databaseId="+this.database.id);
-        console.log(response.data);
+        console.log("game "+id);
+        const  response = await sendGetRequest("http://localhost:8080/api/games/findById?id="+id+"&databaseId="+this.database.id);
+
+        console.log("response.date="+response.data);
+        console.log(JSON.stringify(response.data));
+
         this.game=response.data;
         console.log(this.game.id);
       } catch (error) {
@@ -40,8 +48,7 @@ export default {
 
   },
    mounted() {
-     console.log("Game:"+ this.database);
-     this.fetchGame(233);
+     this.fetchGame(this.gameId);
  },
 
 

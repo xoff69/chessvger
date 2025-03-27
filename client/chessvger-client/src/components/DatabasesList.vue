@@ -51,7 +51,6 @@ export default {
     async fetchDatabases() {
       try {
         console.log("tenant id database + "+ this.authStore.user);
-        console.log("tenant id database + "+ this.authStore.user);
         const  response = await sendGetRequest("http://localhost:8080/api/databases/all");
 
 
