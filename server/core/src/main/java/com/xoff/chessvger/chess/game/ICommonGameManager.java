@@ -2,6 +2,8 @@ package com.xoff.chessvger.chess.game;
 
 import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.filter.Filter;
+import com.xoff.chessvger.model.CommonGame;
+
 import java.util.List;
 
 public interface ICommonGameManager {

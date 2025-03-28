@@ -5,15 +5,15 @@
 package com.xoff.chessvger.backoffice.game;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.backoffice.dao.BrowserDao;
-import com.xoff.chessvger.backoffice.dao.CommonDao;
-import com.xoff.chessvger.backoffice.dao.GameDao;
+import com.xoff.chessvger.dao.BrowserDao;
+import com.xoff.chessvger.dao.CommonDao;
+import com.xoff.chessvger.dao.GameDao;
 import com.xoff.chessvger.backoffice.gameofplayer.GameOfAPlayerDao;
-import com.xoff.chessvger.backoffice.dao.MaterialDao;
-import com.xoff.chessvger.backoffice.dao.PositionDao;
+import com.xoff.chessvger.dao.MaterialDao;
+import com.xoff.chessvger.dao.PositionDao;
 import com.xoff.chessvger.backoffice.materialposition.MaterialPositionsUtil;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.ResultAction;

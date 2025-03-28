@@ -1,6 +1,6 @@
 package com.xoff.chessvger.chess.history;
 
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import java.util.List;
 
 public interface IHistoryManager {

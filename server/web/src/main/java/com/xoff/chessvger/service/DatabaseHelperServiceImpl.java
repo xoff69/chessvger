@@ -1,7 +1,7 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.repository.DataSourceContextHolder;
-import com.xoff.chessvger.repository.DynamicDataSourceService;
+import com.xoff.chessvger.database.DataSourceContextHolder;
+import com.xoff.chessvger.database.DynamicDataSourceService;
 import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.config.JwtUtil;
 import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
@@ -23,8 +23,7 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
     private JwtUtil jwtUtil;
     @Autowired
     private DynamicDataSourceService dynamicDataSourceService;
-    @Autowired
-    private TenantService tenantService;
+
     @Autowired
     private UserService userService;
 
@@ -33,7 +32,7 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
         log.info("getFromToken, token: " + token);
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         UserDTO user = userService.getUserByUsername(username);
-        return tenantService.getByUserId(user.getId());
+        return userService.getByUserId(user.getId());
 
     }
 

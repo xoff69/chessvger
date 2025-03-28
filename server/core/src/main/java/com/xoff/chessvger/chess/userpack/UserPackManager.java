@@ -2,6 +2,7 @@ package com.xoff.chessvger.chess.userpack;
 
 import com.xoff.chessvger.common.ACommonManager;
 import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.model.UserPack;
 import com.xoff.chessvger.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 

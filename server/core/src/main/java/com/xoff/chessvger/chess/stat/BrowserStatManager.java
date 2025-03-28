@@ -2,13 +2,14 @@ package com.xoff.chessvger.chess.stat;
 
 import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.chess.game.GameOfAStatMap;
 import com.xoff.chessvger.chess.game.ICommonGameManager;
 import com.xoff.chessvger.chess.player.ICommonPlayerManager;
 import com.xoff.chessvger.common.DbKeyManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.model.StatBrowser;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.util.DateUtils;
 import com.xoff.chessvger.util.PgnUtil;

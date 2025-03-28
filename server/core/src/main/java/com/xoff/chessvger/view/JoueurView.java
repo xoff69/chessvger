@@ -1,6 +1,6 @@
 package com.xoff.chessvger.view;
 
-import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.model.CommonPlayer;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 

@@ -6,6 +6,8 @@ import com.xoff.chessvger.chess.filter.Filter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import com.xoff.chessvger.model.CommonGame;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

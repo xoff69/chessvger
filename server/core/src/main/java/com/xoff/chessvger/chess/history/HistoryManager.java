@@ -1,7 +1,7 @@
 package com.xoff.chessvger.chess.history;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.chess.game.ICommonGameManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;

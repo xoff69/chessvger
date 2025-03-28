@@ -2,6 +2,7 @@ package com.xoff.chessvger.chess.player;
 
 import com.xoff.chessvger.common.AdbCommonKeyString;
 import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.util.Constants;
 import java.util.Arrays;
 import java.util.List;

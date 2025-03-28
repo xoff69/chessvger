@@ -1,6 +1,6 @@
 package com.xoff.chessvger.util;
 
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.DbKeyManager;
 import com.xoff.chessvger.common.ParamConstants;
 import java.io.File;

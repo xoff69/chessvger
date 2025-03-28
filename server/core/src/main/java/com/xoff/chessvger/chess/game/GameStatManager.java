@@ -1,6 +1,7 @@
 package com.xoff.chessvger.chess.game;
 
 
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.view.StatGame;
 import java.util.List;

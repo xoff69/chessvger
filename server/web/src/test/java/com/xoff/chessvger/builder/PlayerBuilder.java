@@ -1,6 +1,6 @@
 package com.xoff.chessvger.builder;
 
-import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.model.CommonPlayer;
 import java.util.Random;
 
 public class PlayerBuilder {

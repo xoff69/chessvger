@@ -9,6 +9,8 @@ import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
 import java.util.List;
+
+import com.xoff.chessvger.model.CommonGame;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

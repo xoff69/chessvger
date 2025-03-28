@@ -3,8 +3,8 @@ package com.xoff.chessvger.ui.web.controller.admin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.config.RedisMessagePublisher;
-import com.xoff.chessvger.repository.DataSourceContextHolder;
-import com.xoff.chessvger.repository.DynamicDataSourceService;
+import com.xoff.chessvger.database.DataSourceContextHolder;
+import com.xoff.chessvger.database.DynamicDataSourceService;
 import com.xoff.chessvger.service.IPlayerService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.model.CommonPlayer;
 @Controller
 @Slf4j
 public class PlayersController {

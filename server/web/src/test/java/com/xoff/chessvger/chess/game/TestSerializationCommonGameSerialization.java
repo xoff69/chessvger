@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.xoff.chessvger.builder.GameBuilder;
 import com.xoff.chessvger.builder.SerializationUtil;
 import java.io.IOException;
+
+import com.xoff.chessvger.model.CommonGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

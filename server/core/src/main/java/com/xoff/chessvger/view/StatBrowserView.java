@@ -1,6 +1,6 @@
 package com.xoff.chessvger.view;
 
-import com.xoff.chessvger.chess.stat.StatBrowser;
+import com.xoff.chessvger.model.StatBrowser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

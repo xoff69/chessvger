@@ -2,7 +2,7 @@ package com.xoff.chessvger.backoffice.game;
 
 
 import com.xoff.chessvger.backoffice.util.DateConverter;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 
 import java.io.File;
 import java.io.IOException;

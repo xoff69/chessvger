@@ -1,4 +1,4 @@
-package com.xoff.chessvger.repository;
+package com.xoff.chessvger.database;
 
 import java.util.ArrayList;
 import java.util.List;

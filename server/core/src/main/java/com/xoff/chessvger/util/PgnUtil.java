@@ -5,7 +5,6 @@ import com.xoff.chessvger.chess.board.Case;
 import com.xoff.chessvger.chess.board.CoupleResultat;
 import com.xoff.chessvger.chess.board.MetierConstants;
 import com.xoff.chessvger.chess.board.Position;
-import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.exception.FindPieceException;
 import java.util.ArrayList;
 import java.util.List;

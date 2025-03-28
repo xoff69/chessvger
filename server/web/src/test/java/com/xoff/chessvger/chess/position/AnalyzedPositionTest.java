@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.xoff.chessvger.builder.SerializationUtil;
 import java.io.IOException;
+
+import com.xoff.chessvger.model.AnalyzedPosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

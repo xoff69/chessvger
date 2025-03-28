@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.xoff.chessvger.EnvManager;
 import com.xoff.chessvger.common.AdbCommonKeyLong;
 import java.util.List;
+
+import com.xoff.chessvger.model.CommonPlayer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

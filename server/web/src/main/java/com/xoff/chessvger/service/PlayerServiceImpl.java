@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.model.CommonPlayer;
 @Service
 @RequiredArgsConstructor
 @Slf4j

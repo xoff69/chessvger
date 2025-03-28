@@ -2,7 +2,7 @@ package com.xoff.chessvger.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.ParamConstants;
 import java.io.File;
 import java.io.IOException;

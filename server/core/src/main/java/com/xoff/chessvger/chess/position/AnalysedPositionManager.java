@@ -1,6 +1,8 @@
 package com.xoff.chessvger.chess.position;
 
 
+import com.xoff.chessvger.model.AnalyzedPosition;
+
 public class AnalysedPositionManager implements IAnalysedPositionManager {
 
 

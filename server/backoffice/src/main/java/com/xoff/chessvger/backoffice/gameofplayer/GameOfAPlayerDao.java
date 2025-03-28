@@ -1,6 +1,6 @@
 package com.xoff.chessvger.backoffice.gameofplayer;
 
-import com.xoff.chessvger.backoffice.dao.PlayerDao;
+import com.xoff.chessvger.dao.PlayerDao;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;

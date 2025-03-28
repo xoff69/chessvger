@@ -9,6 +9,7 @@ import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.Filter;
 import com.xoff.chessvger.common.AdbCommonKeyLong;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.util.DateUtils;
 import com.xoff.chessvger.util.FaitsDeJeuUtil;

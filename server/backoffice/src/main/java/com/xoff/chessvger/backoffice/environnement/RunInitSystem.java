@@ -1,9 +1,9 @@
 package com.xoff.chessvger.backoffice.environnement;
 
-import com.xoff.chessvger.backoffice.dao.CommonDao;
-import com.xoff.chessvger.backoffice.dao.ContractDao;
-import com.xoff.chessvger.backoffice.dao.TenantDao;
-import com.xoff.chessvger.backoffice.dao.UserDao;
+import com.xoff.chessvger.dao.CommonDao;
+import com.xoff.chessvger.dao.ContractDao;
+import com.xoff.chessvger.dao.TenantDao;
+import com.xoff.chessvger.dao.UserDao;
 import java.sql.Connection;
 
 

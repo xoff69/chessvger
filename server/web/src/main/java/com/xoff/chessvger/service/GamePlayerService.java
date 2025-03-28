@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.IOException;
 import java.util.List;
-import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.model.CommonPlayer;
 @Service
 @RequiredArgsConstructor
 @Slf4j

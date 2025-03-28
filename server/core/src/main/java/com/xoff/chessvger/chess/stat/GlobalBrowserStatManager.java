@@ -3,7 +3,7 @@ package com.xoff.chessvger.chess.stat;
 import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.QuickFilter;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.chess.game.ICommonGameManager;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.view.StatBrowserView;

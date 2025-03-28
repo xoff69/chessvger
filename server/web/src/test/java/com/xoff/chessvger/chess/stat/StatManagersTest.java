@@ -11,7 +11,7 @@ import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.QuickFilter;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.view.StatBrowserView;
 import com.xoff.chessvger.view.StatJoueurView;

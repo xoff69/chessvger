@@ -2,7 +2,7 @@ package com.xoff.chessvger.util;
 
 import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

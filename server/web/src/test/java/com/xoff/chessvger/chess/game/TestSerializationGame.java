@@ -8,6 +8,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import com.xoff.chessvger.model.CommonGame;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

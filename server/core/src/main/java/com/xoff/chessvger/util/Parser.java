@@ -2,8 +2,8 @@ package com.xoff.chessvger.util;
 
 import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.game.CommonGame;
-import com.xoff.chessvger.chess.player.CommonPlayer;
+import com.xoff.chessvger.model.CommonGame;
+import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.common.GlobalManager;
 import java.io.File;
 import java.io.IOException;

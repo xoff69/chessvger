@@ -1,17 +1,13 @@
 package com.xoff.chessvger.config;
 
-import com.xoff.chessvger.repository.DynamicRoutingDataSource;
+import com.xoff.chessvger.database.DynamicRoutingDataSource;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
+
 @Configuration
 public class DataSourceConfig {
 

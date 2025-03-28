@@ -1,12 +1,10 @@
 package com.xoff.chessvger.chess.player;
 
-import com.xoff.chessvger.util.PgnUtil;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import com.xoff.chessvger.model.CommonPlayer;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

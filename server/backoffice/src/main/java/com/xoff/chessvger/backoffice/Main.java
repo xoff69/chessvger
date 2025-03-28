@@ -8,7 +8,7 @@ import com.xoff.chessvger.backoffice.environnement.RunInitTenant;
 import com.xoff.chessvger.backoffice.game.RunGameParser;
 import com.xoff.chessvger.backoffice.player.RunPlayerParser;
 import com.xoff.chessvger.backoffice.util.MetricsService;
-import com.xoff.chessvger.common.UserTenant;
+import com.xoff.chessvger.model.UserTenant;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.Topic;

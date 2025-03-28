@@ -4,7 +4,7 @@ import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.DbKeyManager;
 import com.xoff.chessvger.common.GlobalManager;
 import java.util.List;

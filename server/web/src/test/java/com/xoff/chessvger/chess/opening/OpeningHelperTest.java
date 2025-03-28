@@ -3,7 +3,7 @@ package com.xoff.chessvger.chess.opening;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.xoff.chessvger.builder.GameBuilder;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import java.util.List;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

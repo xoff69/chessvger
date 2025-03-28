@@ -1,6 +1,6 @@
 package com.xoff.chessvger.chess.opening;
 
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.util.PgnUtil;
 import java.util.ArrayList;

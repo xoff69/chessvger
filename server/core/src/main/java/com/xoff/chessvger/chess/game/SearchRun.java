@@ -3,6 +3,7 @@ package com.xoff.chessvger.chess.game;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.Filter;
 import com.xoff.chessvger.common.GlobalManager;
+import com.xoff.chessvger.model.CommonGame;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

@@ -2,7 +2,7 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.model.DatabaseModel;
 import com.xoff.chessvger.model.TenantEntity;

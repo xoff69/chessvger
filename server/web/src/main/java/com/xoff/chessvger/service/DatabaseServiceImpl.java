@@ -4,8 +4,7 @@ import com.xoff.chessvger.model.DatabaseModel;
 
 import java.util.List;
 
-import com.xoff.chessvger.repository.DataSourceContextHolder;
-import com.xoff.chessvger.repository.DynamicDataSourceService;
+import com.xoff.chessvger.database.DynamicDataSourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

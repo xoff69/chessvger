@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.builder.DatabaseBuilder;
 import com.xoff.chessvger.builder.GameBuilder;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.JoueurView;

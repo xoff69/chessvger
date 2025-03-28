@@ -2,6 +2,7 @@ package com.xoff.chessvger.chess.stat;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.common.AdbCommonKeyString;
+import com.xoff.chessvger.model.StatBrowser;
 import com.xoff.chessvger.util.Constants;
 import java.util.Collection;
 import java.util.List;

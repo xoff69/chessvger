@@ -8,6 +8,7 @@ package com.xoff.chessvger.chess.favorite;
 
 import com.xoff.chessvger.common.AdbCommonKeyLong;
 import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.model.Favorite;
 import com.xoff.chessvger.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 

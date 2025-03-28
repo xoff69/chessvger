@@ -12,7 +12,7 @@ import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.builder.DatabaseBuilder;
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.ui.web.controller.tools.PageRequest;
 import com.xoff.chessvger.util.Pageable;

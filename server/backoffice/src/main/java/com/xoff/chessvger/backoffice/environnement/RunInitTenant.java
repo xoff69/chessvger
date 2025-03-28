@@ -1,9 +1,9 @@
 package com.xoff.chessvger.backoffice.environnement;
 
-import com.xoff.chessvger.backoffice.dao.CommonDao;
-import com.xoff.chessvger.backoffice.dao.TenantDao;
-import com.xoff.chessvger.backoffice.dao.UserDao;
-import com.xoff.chessvger.common.UserTenant;
+import com.xoff.chessvger.dao.CommonDao;
+import com.xoff.chessvger.dao.TenantDao;
+import com.xoff.chessvger.dao.UserDao;
+import com.xoff.chessvger.model.UserTenant;
 import java.sql.Connection;
 
 public class RunInitTenant implements Runnable {

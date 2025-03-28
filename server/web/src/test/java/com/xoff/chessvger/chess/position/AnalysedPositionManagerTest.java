@@ -6,6 +6,7 @@ import com.xoff.chessvger.builder.DatabaseBuilder;
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
+import com.xoff.chessvger.model.AnalyzedPosition;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;

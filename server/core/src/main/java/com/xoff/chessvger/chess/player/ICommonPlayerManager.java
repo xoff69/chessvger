@@ -1,5 +1,7 @@
 package com.xoff.chessvger.chess.player;
 
+import com.xoff.chessvger.model.CommonPlayer;
+
 import java.util.List;
 
 public interface ICommonPlayerManager {

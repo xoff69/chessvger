@@ -1,7 +1,7 @@
 package com.xoff.chessvger.chess.filter;
 
 import com.xoff.chessvger.chess.board.Position;
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

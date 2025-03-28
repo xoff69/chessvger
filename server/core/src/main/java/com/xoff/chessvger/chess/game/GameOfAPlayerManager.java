@@ -2,6 +2,7 @@ package com.xoff.chessvger.chess.game;
 
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.util.Constants;
 import java.util.ArrayList;
 import java.util.List;

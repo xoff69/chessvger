@@ -1,6 +1,6 @@
 package com.xoff.chessvger.builder;
 
-import com.xoff.chessvger.chess.game.CommonGame;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.chess.game.MetaCommonGame;
 import com.xoff.chessvger.util.Constants;
 import java.util.ArrayList;
