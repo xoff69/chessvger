@@ -186,26 +186,26 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
 
             // plantage des foisinfo
             //log.info("whilte="+filter.getWhite()+"-//"+ game.getPlayerWhite());
-            isToAdd = isToAdd && egaliteChainePlayer(filter.getWhite(), game.getNomBlanc(),
+            isToAdd = isToAdd && egaliteChainePlayer(filter.getWhite(), game.getWhitePlayer(),
                 filter.isModeApproximatif());
 
-            isToAdd = isToAdd && egaliteChainePlayer(filter.getBlack(), game.getNomNoir(),
+            isToAdd = isToAdd && egaliteChainePlayer(filter.getBlack(), game.getBlackPlayer(),
                 filter.isModeApproximatif());
 
 
           } else {
             boolean p1 = false;
 
-            p1 = egaliteChainePlayer(filter.getWhite(), game.getNomBlanc(),
+            p1 = egaliteChainePlayer(filter.getWhite(), game.getWhitePlayer(),
                 filter.isModeApproximatif()) &&
-                egaliteChainePlayer(filter.getBlack(), game.getNomNoir(),
+                egaliteChainePlayer(filter.getBlack(), game.getBlackPlayer(),
                     filter.isModeApproximatif());
 
             boolean p2 = false;
 
-            p2 = egaliteChainePlayer(filter.getWhite(), game.getNomNoir(),
+            p2 = egaliteChainePlayer(filter.getWhite(), game.getBlackPlayer(),
                 filter.isModeApproximatif()) &&
-                egaliteChainePlayer(filter.getBlack(), game.getNomBlanc(),
+                egaliteChainePlayer(filter.getBlack(), game.getWhitePlayer(),
                     filter.isModeApproximatif());
 
             isToAdd = isToAdd && (p1 || p2);
@@ -216,8 +216,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
             continue;
           }
           isToAdd = isToAdd && egaliteChaine(filter.getRound(), game.getRound());
-          if (game.getNomBlanc().equals("Vedder,R")) {  // DEBUG TODO
-            log.info("vedder a  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {  // DEBUG TODO
+            log.info("vedder a  " + isToAdd + " " + game.getWhitePlayer());
           }
           switch (filter.getSelectedModeEco()) {
             case Constants.INF_SEL:// <
@@ -240,8 +240,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
               log.error("map game sw");
           }
           // FIXME debug
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder b  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder b  " + isToAdd + " " + game.getWhitePlayer());
           }
           if (!isToAdd) {
             continue;
@@ -268,8 +268,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
             }
             isToAdd = isToAdd && isScore;
           }
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder c  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder c  " + isToAdd + " " + game.getWhitePlayer());
           }
           if (!isToAdd) {
             continue;
@@ -283,8 +283,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
           if ("-".equals(c1)) {
             c1 = "";
           }
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder d  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder d  " + isToAdd + " " + game.getWhitePlayer());
           }
           isToAdd = isToAdd && egaliteChaine(c1, game.getWhiteTitle());
           isToAdd = isToAdd && egaliteNombre(filter.getWhiteElo(), game.getWhiteElo());
@@ -294,18 +294,18 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
           if (!isToAdd) {
             continue;
           }
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder w  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder w  " + isToAdd + " " + game.getWhitePlayer());
           }
           if (!StringUtils.isEmpty(filter.getDate1())) {
 
-            if (StringUtils.isEmpty(game.getDate()) && filter.isIncludeDateNull()) {
+            if (StringUtils.isEmpty((CharSequence) game.getDate()) && filter.isIncludeDateNull()) {
               // rien a faire
             } else {
               //"label.avant","label.egal","label.apres","label.entre")};
               int anneeCrit = DateUtils.getYear(filter.getDate1());
-              int annee1 = DateUtils.getYear(game.getDate());
-              int annee1Event = DateUtils.getYear(game.getEventDate());
+              int annee1 = DateUtils.getYear(String.valueOf(game.getDate()));
+              int annee1Event = DateUtils.getYear(String.valueOf(game.getEventDate()));
               switch (filter.getSelectedModeDate()) {
                 case Constants.INF_SEL:
 
@@ -328,8 +328,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
               }
             }
           }
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder z  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder z  " + isToAdd + " " + game.getWhitePlayer());
           }
         /* FIXME : a remettre
         // favori
@@ -387,8 +387,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
 
           long now = System.currentTimeMillis();
           long lastu = now;
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder y  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder y  " + isToAdd + " " + game.getWhitePlayer());
           }
           if (filter.getNbJourSinceUpdate() != 0) {
 
@@ -404,8 +404,8 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
           if (game.getLastUpdate() > lastu) {
             asDUS = true;
           }
-          if (game.getNomBlanc().equals("Vedder,R")) {
-            log.info("vedder bdfd  " + isToAdd + " " + game.getNomBlanc());
+          if (game.getWhitePlayer().equals("Vedder,R")) {
+            log.info("vedder bdfd  " + isToAdd + " " + game.getWhitePlayer());
           }
           if (isToAdd && asDUS) {
             listResultat.add(game);

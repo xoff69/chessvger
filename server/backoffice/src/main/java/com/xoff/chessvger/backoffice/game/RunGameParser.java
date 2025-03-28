@@ -13,6 +13,7 @@ import com.xoff.chessvger.backoffice.dao.MaterialDao;
 import com.xoff.chessvger.backoffice.dao.PositionDao;
 import com.xoff.chessvger.backoffice.materialposition.MaterialPositionsUtil;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.ResultAction;

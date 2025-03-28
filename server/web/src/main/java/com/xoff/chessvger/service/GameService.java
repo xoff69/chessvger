@@ -1,5 +1,5 @@
 package com.xoff.chessvger.service;
-import com.xoff.chessvger.model.CommonGameModel;
+import com.xoff.chessvger.chess.game.CommonGame;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,8 +19,8 @@ public class GameService {
 
   private final JdbcTemplate jdbcTemplate;
 
-  private final RowMapper<CommonGameModel> rowMapper = (rs, rowNum) -> {
-    CommonGameModel game = new CommonGameModel();
+  private final RowMapper<CommonGame> rowMapper = (rs, rowNum) -> {
+    CommonGame game = new CommonGame();
     game.setId(rs.getLong("id"));
     game.setEvent(rs.getString("event"));
     game.setSite(rs.getString("site"));
@@ -56,8 +56,8 @@ public class GameService {
     return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM common_game", Long.class);
   }
 
-  public Optional<CommonGameModel> findById(Long id) {
-    List<CommonGameModel> games = jdbcTemplate.query(
+  public Optional<CommonGame> findById(Long id) {
+    List<CommonGame> games = jdbcTemplate.query(
             "SELECT * FROM main.common_game WHERE id = ?",
             rowMapper,
             id
@@ -65,10 +65,10 @@ public class GameService {
     return games.stream().findFirst();
   }
 
-  public Page<CommonGameModel> findAll(Pageable pageable) {
+  public Page<CommonGame> findAll(Pageable pageable) {
     log.info("findAll");
     long total = count();
-    List<CommonGameModel> games = jdbcTemplate.query(
+    List<CommonGame> games = jdbcTemplate.query(
             "SELECT * FROM common_game LIMIT ? OFFSET ?",
             rowMapper,
             pageable.getPageSize(),

@@ -1,10 +1,8 @@
 package com.xoff.chessvger.backoffice.dao;
 
-import com.xoff.chessvger.backoffice.game.CommonGame;
-import com.xoff.chessvger.chess.player.ICommonPlayerManager;
+import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.chess.stat.StatBrowser;
 import com.xoff.chessvger.common.DbKeyManager;
-import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.common.ParamConstants;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.util.DateUtils;

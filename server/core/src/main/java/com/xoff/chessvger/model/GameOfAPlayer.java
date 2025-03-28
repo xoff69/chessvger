@@ -1,4 +1,4 @@
-package com.xoff.chessvger.backoffice.gameofplayer;
+package com.xoff.chessvger.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

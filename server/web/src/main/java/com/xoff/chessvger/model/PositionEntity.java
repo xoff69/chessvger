@@ -1,16 +1,10 @@
-package com.xoff.chessvger.repository;
+package com.xoff.chessvger.model;
 
 import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.sql.Date;
 import lombok.Data;
 import org.springframework.data.domain.Persistable;
 import java.util.List;

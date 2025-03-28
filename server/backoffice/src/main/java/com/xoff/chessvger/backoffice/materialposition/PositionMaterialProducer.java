@@ -1,8 +1,8 @@
 package com.xoff.chessvger.backoffice.materialposition;
 
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
-import com.xoff.chessvger.backoffice.material.MaterialEntity;
-import com.xoff.chessvger.backoffice.position.PositionEntity;
+import com.xoff.chessvger.model.MaterialEntity;
+import com.xoff.chessvger.model.PositionEntity;
 import java.util.ArrayList;
 import java.util.List;
 

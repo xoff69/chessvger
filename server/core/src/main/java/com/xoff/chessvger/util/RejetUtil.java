@@ -56,7 +56,7 @@ public class RejetUtil {
     try {
       writer.write(cause);
       writer.write("\n");
-      writer.write(game.toPGN());
+      // TODOwriter.write(game.toPGN());
     } catch (IOException ioe) {
       log.error(ioe.getMessage());
     }

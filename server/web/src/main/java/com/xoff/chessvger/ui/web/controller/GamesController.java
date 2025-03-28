@@ -2,10 +2,10 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.config.RedisMessagePublisher;
-import com.xoff.chessvger.model.CommonGameModel;
 import com.xoff.chessvger.model.DatabaseModel;
-import com.xoff.chessvger.repository.TenantEntity;
+import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.service.DatabaseHelperService;
 import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.service.IDatabaseService;
@@ -39,9 +39,9 @@ public class GamesController {
     DatabaseHelperService databaseHelperService;
 
     @GetMapping("/api/games/all")
-    public ResponseEntity<ResponseList<CommonGameModel>> all(@RequestHeader("Authorization") String token,
-                                                             @RequestParam long databaseId, @RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<ResponseList<CommonGame>> all(@RequestHeader("Authorization") String token,
+                                                        @RequestParam long databaseId, @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
         log.info("/api/games/all:" + databaseId);
 
         Pageable pageable = PageRequest.of(page, size);
@@ -57,7 +57,7 @@ public class GamesController {
     }
 
     @GetMapping("/api/games/findById")
-    public ResponseEntity<CommonGameModel>
+    public ResponseEntity<CommonGame>
     findById(@RequestHeader("Authorization") String token, @RequestParam("id") Long id, @RequestParam("databaseId") Long databaseId) {
 
         log.info("/api/games/findById:" + databaseId+"*"+id);
@@ -66,7 +66,7 @@ public class GamesController {
         DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
 
         databaseHelperService.setDatasource(token, databaseModel.getName());
-        Optional<CommonGameModel> opt = gameService.findById(id);
+        Optional<CommonGame> opt = gameService.findById(id);
         if (opt.isPresent()) {
             return new ResponseEntity<>(opt.get(), HttpStatus.OK);
 

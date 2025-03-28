@@ -1,14 +1,12 @@
-package com.xoff.chessvger.repository;
+package com.xoff.chessvger.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.data.domain.Persistable;
 
 @Data
 @NoArgsConstructor

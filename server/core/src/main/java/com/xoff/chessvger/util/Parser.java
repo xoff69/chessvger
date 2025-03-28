@@ -58,7 +58,7 @@ public class Parser {
 
     CommonGame game = new CommonGame();
     boolean toAdd = true;
-    game.getMetaCommonGame().setSource(fileName);
+    // TODO game.getMetaCommonGame().setSource(fileName);
     while (compteur < len) {
       switch (data.charAt(compteur)) {
         case '[':
@@ -89,10 +89,10 @@ public class Parser {
               game.setSite(value);
               break;
             case "Date":
-              game.setDate(value);
+          // TODO     game.setDate(value);
               break;
             case "EventDate":
-              game.setEventDate(value);
+              // TODO    game.setEventDate(value);
               break;
             case "Round":
               game.setRound(value);
@@ -185,7 +185,7 @@ public class Parser {
             // log.info("moves=" + coups);
             // on positionnera le game ID dans le game DB à l'ajout du additonnal
             game.setMoves(coups);
-            game.getMetaCommonGame().setSource(fileName);
+            // TODO     game.getMetaCommonGame().setSource(fileName);
             int debut = coups.indexOf("1. ") + 3;
             //  log.info(fileName+"***moves=" + coups);
             // log.info(game+"***moves=" + coups);
@@ -209,7 +209,7 @@ public class Parser {
             }
             game = new CommonGame();
             toAdd = true;
-            game.getMetaCommonGame().setSource(fileName);
+            // TODO   game.getMetaCommonGame().setSource(fileName);
           }
           break;
         default:

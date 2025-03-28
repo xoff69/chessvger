@@ -5,6 +5,7 @@ import com.xoff.chessvger.chess.board.Case;
 import com.xoff.chessvger.chess.board.CoupleResultat;
 import com.xoff.chessvger.chess.board.MetierConstants;
 import com.xoff.chessvger.chess.board.Position;
+import com.xoff.chessvger.chess.game.CommonGame;
 import com.xoff.chessvger.exception.FindPieceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,85 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class PgnUtil {
 
+  /**
+   * [Event "89th Hastings Masters 2013-14"] [Site "Hastings ENG"] [Date
+   * "2013.12.31"] [Round "4.1"] [White "Ma Qun"] [Black "Gormally,D"] [Result
+   * "1/2-1/2"] [WhiteTitle "GM"] [BlackTitle "GM"] [WhiteElo "2595"]
+   * [BlackElo "2500"] [ECO "B90"] [Opening "Sicilian"] [Variation "Najdorf,
+   * Byrne (English) attack"] [WhiteFideId "8603154"] [BlackFideId "406465"]
+   * [EventDate "2013.12.28"]
+   */
+  /*
+  public static String toPGN() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("[Event \"").append(getEvent()).append("\"]").append(System.lineSeparator());
+    sb.append("[EventDate \"").append(getEventDate()).append("\"]").append(System.lineSeparator());
+    sb.append("[Site  \"").append(getSite()).append("\"]").append(System.lineSeparator());
+    sb.append("[Date  \"").append(getDate()).append("\"]").append(System.lineSeparator());
+    sb.append("[Round  \"").append(getRound()).append("\"]").append(System.lineSeparator());
+    sb.append("[White  \"").append(getNomBlanc()).append("\"]").append(System.lineSeparator());
+    sb.append("[Black  \"").append(getNomNoir()).append("\"]").append(System.lineSeparator());
+    sb.append("[Result  \"").append(getResult()).append("\"]").append(System.lineSeparator());
+    sb.append("[WhiteTitle  \"").append(getWhiteTitle()).append("\"]")
+            .append(System.lineSeparator());
+    sb.append("[BlackTitle  \"").append(getBlackTitle()).append("\"]")
+            .append(System.lineSeparator());
+
+    sb.append("[WhiteElo  \"").append(getWhiteElo()).append("\"]").append(System.lineSeparator());
+    sb.append("[BlackElo  \"").append(getBlackElo()).append("\"]").append(System.lineSeparator());
+
+    sb.append("[ECO  \"").append(getEco()).append("\"]").append(System.lineSeparator());
+    sb.append("[Opening  \"").append(getOpening()).append("\"]").append(System.lineSeparator());
+    if (getWhiteFideId() < Constants.ID_MIN_NON_FIDE_PLAYER) {
+      sb.append("[WhiteFideId  \"").append(getWhiteFideId()).append("\"]")
+              .append(System.lineSeparator());
+    }
+    if (getBlackFideId() < Constants.ID_MIN_NON_FIDE_PLAYER) {
+
+      sb.append("[BlackFideId  \"").append(getBlackFideId()).append("\"]")
+              .append(System.lineSeparator());
+    }
+    sb.append("\r\n").append(System.lineSeparator());
+    sb.append(getMoves()).append(System.lineSeparator());
+    sb.append(" ").append(getResult()).append(System.lineSeparator());
+    return sb.toString();
+  }
+
+  public static CommonGame duplicate() {
+    CommonGame autre = new CommonGame();
+    autre.setId(getId());
+    autre.setEvent(getEvent());
+    autre.setSite(getSite());
+    autre.setDate(getDate());
+    autre.setRound(getRound());
+    autre.setResult(getResult());
+    autre.setWhiteTitle(getWhiteTitle());
+    autre.setBlackTitle(getBlackTitle());
+    autre.setWhiteElo(getWhiteElo());
+    autre.setBlackElo(getBlackElo());
+    autre.setEco(getEco());
+    autre.setOpening(getOpening());
+    autre.setWhiteFideId(getWhiteFideId());
+    autre.setBlackFideId(getBlackFideId());
+    autre.setEventDate(getEventDate());
+    autre.setPartieAnalysee(partieAnalysee);
+    autre.setNbcoups(getNbcoups());
+    autre.setLastPosition(getLastPosition());
+    autre.setInformationsFaitDeJeu(getInformationsFaitDeJeu());
+
+    autre.setLastUpdate(getLastUpdate());
+
+    autre.setDeleted(isDeleted());
+
+    autre.setMoves(getMoves());
+    autre.setMetaCommonGame(getMetaCommonGame().duplicate());
+    autre.setInteret(getInteret()); // non defini
+    autre.setTheorique(isTheorique());
+    autre.setFavori(isFavori());
+    autre.setFirstMove(getFirstMove());
+    return autre;
+  }
+*/
   //-Des commentaires peuvent être ajoutés entre accolades {...}
   // -Des variantes peuvent être ajoutées entre parenthèses (...)
   public static final char START_VARIATION = '(';

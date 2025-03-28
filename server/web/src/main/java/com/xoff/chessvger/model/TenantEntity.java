@@ -1,4 +1,4 @@
-package com.xoff.chessvger.repository;
+package com.xoff.chessvger.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

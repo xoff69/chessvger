@@ -2,7 +2,7 @@ package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.repository.DataSourceContextHolder;
 import com.xoff.chessvger.repository.DynamicDataSourceService;
-import com.xoff.chessvger.repository.TenantEntity;
+import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.config.JwtUtil;
 import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import lombok.extern.slf4j.Slf4j;

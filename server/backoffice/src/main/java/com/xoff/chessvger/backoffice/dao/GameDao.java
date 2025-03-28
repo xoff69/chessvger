@@ -1,6 +1,7 @@
 package com.xoff.chessvger.backoffice.dao;
 
-import com.xoff.chessvger.backoffice.game.CommonGame;
+import com.xoff.chessvger.chess.game.CommonGame;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class GameDao {
     return 0;
   }
 
-  public void insertCommonGame(Connection connection,String schemaName,CommonGame commonGame) throws SQLException, ClassNotFoundException {
+  public void insertCommonGame(Connection connection, String schemaName, CommonGame commonGame) throws SQLException, ClassNotFoundException {
 
     String sql = String.format(INSERT_SQL, schemaName);
     // TODO faire un upsert
@@ -56,7 +57,7 @@ public class GameDao {
       preparedStatement.setLong(14, commonGame.getWhiteFideId());
       preparedStatement.setLong(15, commonGame.getBlackFideId());
       preparedStatement.setInt(16, commonGame.getNbcoups());
-      preparedStatement.setInt(17, commonGame.getLastPosition());
+      preparedStatement.setLong(17, commonGame.getLastPosition());
       preparedStatement.setLong(18, commonGame.getInformationsFaitDeJeu());
       preparedStatement.setLong(19, commonGame.getLastUpdate());
       preparedStatement.setBoolean(20, commonGame.isDeleted());

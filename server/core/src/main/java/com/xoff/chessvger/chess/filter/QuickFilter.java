@@ -49,13 +49,14 @@ public class QuickFilter {
   public boolean acceptGame(CommonGame commonGame) {
     int year = NOVALUE; // attention au  bug de NOVALUE
     // par dafaut on considere qu'une year inconnue est ok
+    /*
     if (commonGame.getDate().length() > 4) {
       try {
         year = Integer.parseInt(commonGame.getDate().substring(0, 4));
       } catch (NumberFormatException nef) {
         log.error(" year acceptGame ");
       }
-    }
+    }*/
     // pour le elo on compare au max des deux joueurs
     int elog = Math.max(commonGame.getBlackElo(), commonGame.getWhiteElo());
 

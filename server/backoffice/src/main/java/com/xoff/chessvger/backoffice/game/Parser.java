@@ -2,6 +2,8 @@ package com.xoff.chessvger.backoffice.game;
 
 
 import com.xoff.chessvger.backoffice.util.DateConverter;
+import com.xoff.chessvger.chess.game.CommonGame;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

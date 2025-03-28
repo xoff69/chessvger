@@ -2,7 +2,7 @@ package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.repository.DataSourceContextHolder;
 import com.xoff.chessvger.repository.DynamicDataSourceService;
-import com.xoff.chessvger.repository.UserEntity;
+import com.xoff.chessvger.model.UserEntity;
 import com.xoff.chessvger.repository.UserRepository;
 import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import java.util.List;

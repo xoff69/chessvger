@@ -126,15 +126,15 @@ public class BrowserStatManager implements IBrowserStatManager {
             break;
         }
         //  log.info("game : "+DateUtils.getYear(g.getDate())+"-"+DateUtils.getYear(sb.getLastGameDate()));
-        if (DateUtils.getYear(g.getDate()) > DateUtils.getYear(sb.getLastGameDate())) {
-          sb.setLastGameDate(g.getDate());
+        if (DateUtils.getYear(String.valueOf(g.getDate())) > DateUtils.getYear(sb.getLastGameDate())) {
+          sb.setLastGameDate(String.valueOf(g.getDate()));
         }
-        String blanc = g.getNomBlanc();
+        String blanc = g.getWhitePlayer();
 
         if (playerManager.isWellKnowPlayer(blanc)) {
           sb.addBestPlayer(blanc);
         }
-        String noir = g.getNomNoir();
+        String noir = g.getBlackPlayer();
 
         if (playerManager.isWellKnowPlayer(noir)) {
           sb.addBestPlayer(noir);

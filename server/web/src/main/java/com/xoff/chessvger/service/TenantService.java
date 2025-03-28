@@ -1,6 +1,6 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.repository.TenantEntity;
+import com.xoff.chessvger.model.TenantEntity;
 
 import java.util.Optional;
 

@@ -254,7 +254,7 @@ public class DatabaseManager implements IDatabaseManager {
               .get(s);
       List<CommonGame> l = g.getGames();
       for (CommonGame c : l) {
-        result.append(c.toPGN()).append(System.lineSeparator());
+       // TODO result.append(c.toPGN()).append(System.lineSeparator());
       }
     }
     return result.toString();
@@ -486,12 +486,15 @@ public class DatabaseManager implements IDatabaseManager {
         break;
 
       case DUPLICATE:
+        /*
         CommonGame cop = item.duplicate();
         cop.setLastUpdate(System.currentTimeMillis());
         cop.setId(DbKeyManager.getInstance().getDbKeyGenerator().getNext());
         if (parseMoves2(cop)) {
           gameManager.upsert(cop, operation);
         }
+        */ //TODO
+
         break;
       case DELETE:
         item.setDeleted(true);
@@ -535,10 +538,11 @@ public class DatabaseManager implements IDatabaseManager {
         if (deleteDoublon && compteur > 0) {
           List<CommonGame> sousList = allGames.subList(0, compteur);
           for (CommonGame gameBefore : sousList) {
+            /*
             if (game.isDoublon(gameBefore)) {
               toRemove = true;
               break;
-            }
+            }*/ // TODO
           }
         }
 

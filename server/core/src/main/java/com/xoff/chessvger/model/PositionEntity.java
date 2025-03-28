@@ -1,4 +1,4 @@
-package com.xoff.chessvger.backoffice.position;
+package com.xoff.chessvger.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
