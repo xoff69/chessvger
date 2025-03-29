@@ -27,12 +27,30 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
     @Autowired
     private UserService userService;
 
+    private void setDatasource(){
+        // FIXME  a pousser dans le controller
+        dynamicDataSourceService.addNewDataSource("common",
+                "jdbc:postgresql://db_chessvger/chessvger",
+                "chessvger",
+                "chessvger","common");
+        DataSourceContextHolder.setDataSource("common");
+    }
+
+
     // TODO mettre un tenantDto
     public Optional<TenantEntity> getFromToken(String token){
-        log.info("getFromToken, token: " + token);
-        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
-        UserDTO user = userService.getUserByUsername(username);
-        return userService.getByUserId(user.getId());
+        try {
+            log.info("getFromToken, token: " + token);
+            setDatasource();
+            String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+            UserDTO user = userService.getUserByUsername(username);
+            return userService.getByUserId(user.getId());
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+            trace();
+        }
+        return Optional.empty();
 
     }
 

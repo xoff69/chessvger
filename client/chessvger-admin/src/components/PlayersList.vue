@@ -32,9 +32,8 @@
 </template>
 
 <script>
-import axios from "axios";
 import ModalSearchPlayer from "./ModalSearchPlayer.vue";
-
+import { sendGetRequest } from '../api/apiService'; 
 export default {
   name: "PlayersList",
   components: { ModalSearchPlayer },
@@ -58,7 +57,8 @@ export default {
     async fetchPlayers() {
       try {
         console.log("fetchPlayers lancée avec :");
-        const response = await axios.get("http://localhost:8080/apiadmin/players/all");
+
+        const response =  await sendGetRequest("http://localhost:8080/apiadmin/players/all");
         this.players = response.data.list;
         console.log("fetchPlayers lancée avec :"+response.data.count);
         this.count = response.data.count;

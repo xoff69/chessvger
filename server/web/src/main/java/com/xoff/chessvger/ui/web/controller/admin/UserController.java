@@ -1,5 +1,7 @@
 package com.xoff.chessvger.ui.web.controller.admin;
 
+import com.xoff.chessvger.database.DataSourceContextHolder;
+import com.xoff.chessvger.database.DynamicDataSourceService;
 import com.xoff.chessvger.service.UserService;
 import com.xoff.chessvger.config.JwtUtil;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
@@ -23,9 +25,23 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private DynamicDataSourceService dynamicDataSourceService;
+
+    private void setDatasource(){
+        // FIXME  a pousser dans le controller
+        dynamicDataSourceService.addNewDataSource("common",
+                "jdbc:postgresql://db_chessvger/chessvger",
+                "chessvger",
+                "chessvger","common");
+        DataSourceContextHolder.setDataSource("common");
+    }
+
+
     @PostMapping(path = "/apiadmin/users/login")
     public UserDTO login(@RequestBody LoginForm form) {
         log.info("login " + form);
+        setDatasource();
         UserDTO user = userService.findByLoginAndPassword(form.getLogin(), form.getPassword());
         if (user == null) {
             log.info("not found " + form);
@@ -40,10 +56,11 @@ public class UserController {
     }
 
     @GetMapping("/apiadmin/users/all")
-    public ResponseEntity<ResponseList<UserDTO>> all(@RequestHeader("Authorization") String token,@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<ResponseList<UserDTO>> all(@RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "10") int size) {
+        //TODO @RequestHeader("Authorization") String token,
         Pageable pageable = PageRequest.of(page, size);
-
+        setDatasource();
         return new ResponseEntity<>(new ResponseList(userService.findAll(pageable), userService.count()),
                 HttpStatus.OK);
     }
@@ -51,7 +68,7 @@ public class UserController {
     @GetMapping("/apiadmin/users/user")
     public ResponseEntity<UserDTO> getUser(@RequestHeader("Authorization") String token) {
         try {
-
+            setDatasource();
             String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
 
             UserDTO user = userService.getUserByUsername(username);

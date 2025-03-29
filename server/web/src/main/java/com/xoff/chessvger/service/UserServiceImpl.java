@@ -26,20 +26,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserServiceImpl implements UserService {
   @Autowired
-  private DynamicDataSourceService dynamicDataSourceService;
-  @Autowired
   private JdbcTemplate jdbcTemplate;
 
 
   public UserDTO getById(long id){
-    // TODO
-    dynamicDataSourceService.addNewDataSource("common",
-            "jdbc:postgresql://db_chessvger/chessvger",
-            "chessvger",
-            "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
     Optional<UserEntity> userEntity = findUserById(id);
     if (!userEntity.isPresent()){
       throw  new RuntimeException("user not found");
@@ -47,37 +38,23 @@ public class UserServiceImpl implements UserService {
     return mapToDTO(userEntity.get());
   }
   public UserDTO getUserByUsername(String username) {
-    dynamicDataSourceService.addNewDataSource("common",
-        "jdbc:postgresql://db_chessvger/chessvger",
-        "chessvger",
-        "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
-    return mapToDTO(findByLogin(username).orElse(null));
+    Optional<UserEntity> optionalUserEntity=findByLogin(username);
+    log.info("getUserByUsername, username: " + username+", userEntity: " + optionalUserEntity);
+    if (optionalUserEntity.isPresent()){
+    return mapToDTO(optionalUserEntity.get());}
+    throw  new ServiceException("user not found");
   }
 
   public Long count() {
-    dynamicDataSourceService.addNewDataSource("common",
-        "jdbc:postgresql://db_chessvger/chessvger",
-        "chessvger",
-        "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
-    return count();
+    return 5L; // TODO
   }
   public List<UserDTO> findAll(Pageable pageable){
-    dynamicDataSourceService.addNewDataSource("common",
-        "jdbc:postgresql://db_chessvger/chessvger",
-        "chessvger",
-        "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
-    String sql = "SELECT id, login, description, date_created, date_updated, profil, tenant_id " +
+    String sql = "SELECT id, login, description, password, date_created, date_updated, profil, tenant_id " +
             "FROM common.users LIMIT ? OFFSET ?";
-    long total = count();
+
     List<UserEntity> userEntities = jdbcTemplate.query(sql, new Object[]{pageable.getPageSize(), pageable.getOffset()},
             new UserRowMapper());
 
@@ -87,13 +64,7 @@ public class UserServiceImpl implements UserService {
 
   }
   public UserDTO findByLoginAndPassword(String login, String password){
-    dynamicDataSourceService.addNewDataSource("common",
-        "jdbc:postgresql://db_chessvger/chessvger",
-        "chessvger",
-        "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
     return mapToDTO(repofindByLoginAndPassword(login, password).orElse(null));
   }
 
@@ -145,7 +116,7 @@ public class UserServiceImpl implements UserService {
   public Optional<UserEntity> findByLogin(String login) {
     String sql = "SELECT id, login, description, password, date_created, date_updated, profil, tenant_id " +
             "FROM common.users WHERE login = ?";
-
+    log.info("findByLogin, login: " + login+ " "+sql);
     return jdbcTemplate.query(sql, new Object[]{login}, new UserRowMapper())
             .stream()
             .findFirst();
@@ -156,24 +127,12 @@ public class UserServiceImpl implements UserService {
   public Optional<TenantEntity> getTenant(long  tenantId){
 
     log.info("getTenant, userId: " + tenantId);
-    dynamicDataSourceService.addNewDataSource("common",
-            "jdbc:postgresql://db_chessvger/chessvger",
-            "chessvger",
-            "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
     return findById(tenantId);
   }
   public Optional<TenantEntity> getByUserId(long userId){
     log.info("getByUserId, userId: " + userId);
-    dynamicDataSourceService.addNewDataSource("common",
-            "jdbc:postgresql://db_chessvger/chessvger",
-            "chessvger",
-            "chessvger","common");
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("common");
     // TODO appeler redis pour avoir le tenantId?
     // on va mettre en place un cache userID -? tenant
     UserDTO user=getById(userId);

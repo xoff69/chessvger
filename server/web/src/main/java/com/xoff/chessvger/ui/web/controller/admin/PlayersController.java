@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -68,9 +69,9 @@ public class PlayersController {
     }
 
     @GetMapping("/apiadmin/players/all")
-    public ResponseEntity<ResponseList<CommonPlayer>> all(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<ResponseList<CommonPlayer>> all( @RequestParam(defaultValue = "0") int page,
                                                           @RequestParam(defaultValue = "10") int size) {
-
+//TODO @RequestHeader("Authorization") String token,
         Pageable pageable = PageRequest.of(page, size);
         setDatasource();
         return new ResponseEntity<>(new ResponseList(iPlayerService.findAll(pageable).stream().toList(), iPlayerService.count()),

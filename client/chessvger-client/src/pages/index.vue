@@ -37,7 +37,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import { ref, computed } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppFooter from "../components/AppFooter.vue";
@@ -46,6 +45,7 @@ import UserInfo from "./UserInfo.vue";
 import Chat from "./Chat.vue";
 import DatabasesList from '../components/DatabasesList.vue';
 import { getUser } from '../services/authService';
+import { sendGetRequest } from '../api/apiService';
 export default {
   name: 'ComposantOnglets',
   components: {
@@ -79,7 +79,8 @@ export default {
     },
     async fetchDatabases() {
       try {
-        const response = await axios.get("http://localhost:8080/api/databases/all");
+
+        const response =  await sendGetRequest("http://localhost:8080/api/databases/all");
 
         this.databases = response.data;
       } catch (error) {

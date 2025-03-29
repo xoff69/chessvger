@@ -68,6 +68,7 @@
 <script>
 import axios from "axios";
 import UsersForm from './UsersForm.vue';
+import { sendGetRequest } from '../api/apiService'; 
 export default {
   components: { UsersForm },
   name: "UsersList",
@@ -109,7 +110,8 @@ formData: {
       },
     async fetchUsers() {
       try {
-        const response = await axios.get("http://localhost:8080/apiadmin/users/all");
+
+        const response =  await sendGetRequest("http://localhost:8080/apiadmin/users/all");
         console.log("user recuperes "+response.data);
         this.users =  response.data.list;
         this.count=response.data.count;

@@ -38,7 +38,7 @@ export default {
         console.log("game "+id);
         const  response = await sendGetRequest("http://localhost:8080/api/games/findById?id="+id+"&databaseId="+this.database.id);
 
-        console.log("response.date="+response.data);
+        console.log("response.data="+response.data);
         console.log(JSON.stringify(response.data));
 
         this.game=response.data;
