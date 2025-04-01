@@ -9,7 +9,6 @@ import com.xoff.chessvger.builder.DatabaseBuilder;
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.service.IUploadService;
 import com.xoff.chessvger.ui.web.mapper.DatabaseMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;

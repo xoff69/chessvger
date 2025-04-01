@@ -1,4 +1,4 @@
-package com.xoff.chessvger.service;
+package com.xoff.chessvger.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

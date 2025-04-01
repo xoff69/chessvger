@@ -1,7 +1,8 @@
-package com.xoff.chessvger.service;
+package com.xoff.chessvger.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.service.ApiService;
 import com.xoff.chessvger.topic.MessageFromParser;
 import java.io.IOException;
 import org.springframework.data.redis.connection.Message;

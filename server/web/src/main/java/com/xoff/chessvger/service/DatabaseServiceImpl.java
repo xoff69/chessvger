@@ -1,5 +1,6 @@
 package com.xoff.chessvger.service;
 
+import com.xoff.chessvger.database.DatabaseHelperService;
 import com.xoff.chessvger.model.DatabaseModel;
 
 import java.util.List;

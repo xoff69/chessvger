@@ -1,9 +1,8 @@
-package com.xoff.chessvger.service;
+package com.xoff.chessvger.database;
 
-import com.xoff.chessvger.database.DataSourceContextHolder;
-import com.xoff.chessvger.database.DynamicDataSourceService;
 import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.config.JwtUtil;
+import com.xoff.chessvger.service.UserService;
 import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

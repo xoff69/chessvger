@@ -2,11 +2,15 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.chess.database.Database;
+import com.xoff.chessvger.chess.database.IDatabaseManager;
+import com.xoff.chessvger.common.GlobalManager;
+import com.xoff.chessvger.common.ParamConstants;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.model.DatabaseModel;
 import com.xoff.chessvger.model.TenantEntity;
-import com.xoff.chessvger.service.DatabaseHelperService;
+import com.xoff.chessvger.database.DatabaseHelperService;
 import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.topic.ActionQueue;
@@ -14,13 +18,17 @@ import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.ui.web.controller.tools.ApiRequest;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.Optional;
 
 @RestController
@@ -107,5 +115,44 @@ public class GamesController {
             return ResponseEntity.badRequest().body("Token importPgn= " + token);
         }
     }
+    // TODO
+    public int uploadPgn(MultipartFile file, long bdId) {
 
+        GlobalManager.getInstance().getCallStatManager().appendStat("PGN_IMPORT");
+        //  TODO  File fileo = writeMultipartToDisk(multipartFile);
+        Database database = new Database();
+        IDatabaseManager dm = GlobalManager.getInstance().getDatabaseManager(bdId);
+
+        log.info("import PGN avant:" + database.getNbgames());
+        int l = dm.importePgn(ParamConstants.PATH_IMPORT);
+        log.info("import PGN apres:" + l);
+
+        dm.finish();
+        finishUpload();
+        return l;
+    }
+
+    private static void finishUpload() {
+        log.info(" finishUpload ");
+        try {
+            FileUtils.cleanDirectory(new File(FilenameUtils.getName(ParamConstants.PATH_IMPORT)));
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    private static final File writeMultipartToDisk(MultipartFile multipartFile) {
+        File fileo = new File(
+                FilenameUtils.getName(ParamConstants.PATH_IMPORT + multipartFile.getOriginalFilename()));
+
+        try (OutputStream os = new FileOutputStream(fileo)) {
+            os.write(multipartFile.getBytes());
+        } catch (FileNotFoundException e) {
+            log.error(e.getMessage());
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+        return fileo;
+    }
 }

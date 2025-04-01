@@ -1,4 +1,4 @@
-package com.xoff.chessvger.service;
+package com.xoff.chessvger.database;
 
 import com.xoff.chessvger.model.TenantEntity;
 
