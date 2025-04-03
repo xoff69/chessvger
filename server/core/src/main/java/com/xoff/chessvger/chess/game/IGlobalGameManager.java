@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface IGlobalGameManager {
 
-  void update();
+    void update();
 
 
-  List<CommonGame> getAllGamesReadOnly();
+    List<CommonGame> getAllGamesReadOnly();
 
-  int size();
+    int size();
 
-  ICommonGameManager get(String first);
+    ICommonGameManager get(String first);
 
-  void finish();
+    void finish();
 
-  void clear();
+    void clear();
 }

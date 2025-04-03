@@ -8,17 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CallStatManager extends ACommonManager<Long, CallStat> implements ICallStatManager {
-  public CallStatManager() {
-    super(ParamConstants.DATA_FOLDER_COMMON + "CallStatMap" + Constants.MAP_SFX);
-  }
+    public CallStatManager() {
+        super(ParamConstants.DATA_FOLDER_COMMON + "CallStatMap" + Constants.MAP_SFX);
+    }
 
-  public void appendStat(String name) {
-    CallStat callStat = new CallStat();
-    callStat.setName(name);
-    callStat.setTimestamp(System.currentTimeMillis());
-    GlobalManager.getInstance().getCallStatManager().create(callStat);
+    public void appendStat(String name) {
+        CallStat callStat = new CallStat();
+        callStat.setName(name);
+        callStat.setTimestamp(System.currentTimeMillis());
+        GlobalManager.getInstance().getCallStatManager().create(callStat);
 
-  }
+    }
 
 
 }

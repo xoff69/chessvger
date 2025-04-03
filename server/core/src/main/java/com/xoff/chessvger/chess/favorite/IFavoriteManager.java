@@ -8,14 +8,14 @@ import java.util.List;
 public interface IFavoriteManager {
 
 
-  List<CommonGame> listFavorite(long userId);
+    List<CommonGame> listFavorite(long userId);
 
-  void clear();
+    void clear();
 
-  void add(long key, Favorite value);
+    void add(long key, Favorite value);
 
 
-  void finish();
+    void finish();
 
-  Favorite get(long key);
+    Favorite get(long key);
 }

@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface IEngineManager {
 
-  void finish();
+    void finish();
 
-  List<Engine> list();
+    List<Engine> list();
 
-  Engine get(long id);
+    Engine get(long id);
 
-  void add(Engine f);
+    void add(Engine f);
 
-  void del(Engine f);
+    void del(Engine f);
 
-  void clear();
+    void clear();
 }

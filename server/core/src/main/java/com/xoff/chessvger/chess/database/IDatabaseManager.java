@@ -3,96 +3,97 @@ package com.xoff.chessvger.chess.database;
 import com.xoff.chessvger.chess.board.IMaterialManager;
 import com.xoff.chessvger.chess.board.IPositionManager;
 import com.xoff.chessvger.chess.filter.Filter;
-import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.chess.game.IGameOfAPlayerManager;
 import com.xoff.chessvger.chess.game.IGameStatManager;
 import com.xoff.chessvger.chess.game.IGameWhereMapManager;
 import com.xoff.chessvger.chess.game.IGlobalGameManager;
 import com.xoff.chessvger.chess.history.IHistoryManager;
-import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.chess.player.IPlayerOfDbManager;
 import com.xoff.chessvger.chess.player.IPlayerStatManager;
 import com.xoff.chessvger.chess.stat.IGlobalBrowserStatManager;
+import com.xoff.chessvger.model.CommonGame;
+import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.util.Pageable;
 import com.xoff.chessvger.view.JoueurView;
 import com.xoff.chessvger.view.StatBrowserView;
 import com.xoff.chessvger.view.StatGame;
 import com.xoff.chessvger.view.StatJoueurView;
+
 import java.util.List;
 
 public interface IDatabaseManager {
 
-  long getDatabaseId();
+    long getDatabaseId();
 
-  String getDatabaseName();
+    String getDatabaseName();
 
-  IPlayerOfDbManager getPlayerOfDbManager();
+    IPlayerOfDbManager getPlayerOfDbManager();
 
-  void finish();
+    void finish();
 
-  long duplicate(long userId);
+    long duplicate(long userId);
 
-  void clear();
+    void clear();
 
-  String createName();
+    String createName();
 
-  boolean parseMoves2(CommonGame game);
+    boolean parseMoves2(CommonGame game);
 
-  String exportePgn();
+    String exportePgn();
 
-  int importePgn(String emplacement);
+    int importePgn(String emplacement);
 
-  List<CommonGame> search(Filter filter);
-
-
-  CommonGame getGameById(long id);
+    List<CommonGame> search(Filter filter);
 
 
-  List<JoueurView> getPlayersWithGames(String param, Pageable paging);
-
-  void postUpdateGameAndStat(CommonGame game);
+    CommonGame getGameById(long id);
 
 
-  int postUpdateGameAndStat();
+    List<JoueurView> getPlayersWithGames(String param, Pageable paging);
+
+    void postUpdateGameAndStat(CommonGame game);
 
 
-  long getLastUpdate();
+    int postUpdateGameAndStat();
 
 
-  CommonGame upsert(CommonGame item, DBOperation operation);
-
-  boolean optimiser(boolean withDeleted, boolean deleteDoublon);
-
-  void delete();
+    long getLastUpdate();
 
 
-  List<StatBrowserView> getBrowseData(List<String> movesAlreadyPlayed);
+    CommonGame upsert(CommonGame item, DBOperation operation);
+
+    boolean optimiser(boolean withDeleted, boolean deleteDoublon);
+
+    void delete();
 
 
-  StatJoueurView getStatJoueur(CommonPlayer player);
+    List<StatBrowserView> getBrowseData(List<String> movesAlreadyPlayed);
 
 
-  StatGame getStatGame(List<CommonGame> games);
-
-  IGlobalGameManager getGlobalGameManager();
-
-  IPositionManager getPositionManager();
+    StatJoueurView getStatJoueur(CommonPlayer player);
 
 
-  IMaterialManager getMaterialManager();
+    StatGame getStatGame(List<CommonGame> games);
 
-  IGlobalBrowserStatManager getGlobalBrowserStatManager();
+    IGlobalGameManager getGlobalGameManager();
 
-
-  IPlayerStatManager getPlayerStatManager();
-
-  IGameStatManager getGameStatManager();
-
-  IGameWhereMapManager getGameWhereMapManager();
-
-  IGameOfAPlayerManager getGameOfAPlayerManager();
+    IPositionManager getPositionManager();
 
 
-  IHistoryManager getHistoryManager();
+    IMaterialManager getMaterialManager();
+
+    IGlobalBrowserStatManager getGlobalBrowserStatManager();
+
+
+    IPlayerStatManager getPlayerStatManager();
+
+    IGameStatManager getGameStatManager();
+
+    IGameWhereMapManager getGameWhereMapManager();
+
+    IGameOfAPlayerManager getGameOfAPlayerManager();
+
+
+    IHistoryManager getHistoryManager();
 
 }

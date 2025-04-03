@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class FeatureDto {
-  private Long id;
-  private String name;
+    private Long id;
+    private String name;
 
-  private String enabled;
+    private String enabled;
 }

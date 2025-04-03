@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DBView {
 
-  private long id;
-  private String name;
-  private String description;
-  private int nbgames;
-  private String lastUpdate;
+    private long id;
+    private String name;
+    private String description;
+    private int nbgames;
+    private String lastUpdate;
 
 }

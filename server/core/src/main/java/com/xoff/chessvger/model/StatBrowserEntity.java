@@ -1,9 +1,9 @@
 package com.xoff.chessvger.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,42 +12,42 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatBrowserEntity  {
+public class StatBrowserEntity {
 
-  private long id;
+    private long id;
 
-  // Niveau (profondeur des coups)
-  private int level;
+    // Niveau (profondeur des coups)
+    private int level;
 
-  // Statistiques des résultats
-  private int whiteWin = 0;
-
-
-  private int nul = 0;
+    // Statistiques des résultats
+    private int whiteWin = 0;
 
 
-  private int blackWin = 0;
+    private int nul = 0;
 
-  // Dernière apparition (date sous forme de chaîne)
 
-  private String lastGameDate;
+    private int blackWin = 0;
 
-  // Élo minimal
+    // Dernière apparition (date sous forme de chaîne)
 
-  private int eloMin = Integer.MAX_VALUE;
+    private String lastGameDate;
 
-  // Liste des meilleurs joueurs (JSON ou chaîne délimitée)
+    // Élo minimal
 
-  private List<String> bestPlayers = new ArrayList<>();
+    private int eloMin = Integer.MAX_VALUE;
 
-  // Méthodes utilitaires pour gérer les meilleurs joueurs
-  public void addBestPlayer(String player) {
-    if (!bestPlayers.contains(player)) {
-      bestPlayers.add(player);
+    // Liste des meilleurs joueurs (JSON ou chaîne délimitée)
+
+    private List<String> bestPlayers = new ArrayList<>();
+
+    // Méthodes utilitaires pour gérer les meilleurs joueurs
+    public void addBestPlayer(String player) {
+        if (!bestPlayers.contains(player)) {
+            bestPlayers.add(player);
+        }
     }
-  }
 
-  public void removeBestPlayer(String player) {
-    bestPlayers.remove(player);
-  }
+    public void removeBestPlayer(String player) {
+        bestPlayers.remove(player);
+    }
 }

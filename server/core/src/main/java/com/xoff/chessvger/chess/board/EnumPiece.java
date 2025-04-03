@@ -5,16 +5,16 @@ package com.xoff.chessvger.chess.board;
  */
 public enum EnumPiece {
 
-  CASE_VIDE(0), PION(100), CAVALIER(200), FOU(200), TOUR(500), REINE(900), ROI(10000);
+    CASE_VIDE(0), PION(100), CAVALIER(200), FOU(200), TOUR(500), REINE(900), ROI(10000);
 
-  private final int value;
+    private final int value;
 
-  EnumPiece(int v) {
-    value = v;
-  }
+    EnumPiece(int v) {
+        value = v;
+    }
 
-  public int getValue() {
-    return value;
-  }
+    public int getValue() {
+        return value;
+    }
 
 }

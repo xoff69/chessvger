@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class LigneEvaluee {
 
-  private String pv;
-  private float eval;
-  private String ligne;
-  private String profondeur;
+    private String pv;
+    private float eval;
+    private String ligne;
+    private String profondeur;
 
 
 }

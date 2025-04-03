@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserTenant {
-  private String login;
-  private String tenantName;
-  private String password;
+    private String login;
+    private String tenantName;
+    private String password;
 
-  private Boolean isAdmin;
+    private Boolean isAdmin;
 
 }

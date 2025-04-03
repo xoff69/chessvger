@@ -8,52 +8,53 @@ package com.xoff.chessvger.chess.history;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.util.Constants;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 @Slf4j
 public class HistoryMap {
 
-  private final DB db;
-  private final Set<Long> list;
+    private final DB db;
+    private final Set<Long> list;
 
-  public HistoryMap(String dbName) {
-    super();
+    public HistoryMap(String dbName) {
+        super();
 
-    db = DBMaker.fileDB(
-            DatabaseManager.getFolder(dbName) + dbName + "HistoryMap" + Constants.MAP_SFX)
-        .checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown().fileMmapEnable().make();
-    list = db.treeSet("HistoryMap", Serializer.LONG).createOrOpen();
-  }
+        db = DBMaker.fileDB(
+                        DatabaseManager.getFolder(dbName) + dbName + "HistoryMap" + Constants.MAP_SFX)
+                .checksumHeaderBypass().fileLockDisable().closeOnJvmShutdown().fileMmapEnable().make();
+        list = db.treeSet("HistoryMap", Serializer.LONG).createOrOpen();
+    }
 
-  public void clear() {
-    list.clear();
-    db.commit();
+    public void clear() {
+        list.clear();
+        db.commit();
 
-  }
+    }
 
 
-  public void commit() {
-    db.commit();
-  }
+    public void commit() {
+        db.commit();
+    }
 
-  public int size() {
-    return list.size();
-  }
+    public int size() {
+        return list.size();
+    }
 
-  public List<Long> list() {
-    return new ArrayList(list.stream().toList());
+    public List<Long> list() {
+        return new ArrayList(list.stream().toList());
 
-  }
+    }
 
-  public void add(Long value) {
-    list.add(value);
+    public void add(Long value) {
+        list.add(value);
 
-  }
+    }
 
 }

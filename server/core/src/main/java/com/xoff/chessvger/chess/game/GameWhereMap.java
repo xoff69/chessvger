@@ -8,10 +8,10 @@ import com.xoff.chessvger.util.Constants;
 public class GameWhereMap extends AdbCommonKeyLong<String> {
 
 
-  public GameWhereMap(String dbName) {
-    super(DatabaseManager.getFolder(dbName) + dbName + "GameWhereMap" + Constants.MAP_SFX);
+    public GameWhereMap(String dbName) {
+        super(DatabaseManager.getFolder(dbName) + dbName + "GameWhereMap" + Constants.MAP_SFX);
 
-  }
+    }
 
 
 }

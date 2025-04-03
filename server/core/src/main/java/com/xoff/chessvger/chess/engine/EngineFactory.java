@@ -11,24 +11,24 @@ import org.apache.commons.lang3.StringUtils;
 public class EngineFactory {
 
 
-  private static final String SF_PATH = ParamConstants.SF_PATH;
+    private static final String SF_PATH = ParamConstants.SF_PATH;
 
 
-  public static Engine createDefaultEngineForSystem() {
+    public static Engine createDefaultEngineForSystem() {
 
-    Engine e = new Engine(DbKeyManager.getInstance().getDbKeyGenerator().getNext());
-    e.setPv(3);
-    e.setDescription("StockFish 11");
-    e.setProf(20);
-    e.setName("StockFish 11");
-    e.setPath(StringUtils.EMPTY);
+        Engine e = new Engine(DbKeyManager.getInstance().getDbKeyGenerator().getNext());
+        e.setPv(3);
+        e.setDescription("StockFish 11");
+        e.setProf(20);
+        e.setName("StockFish 11");
+        e.setPath(StringUtils.EMPTY);
 
-    e.setPath(SF_PATH);
+        e.setPath(SF_PATH);
 
-    log.info("create default engine " + e);
-    return e;
+        log.info("create default engine " + e);
+        return e;
 
-  }
+    }
 
 
 }

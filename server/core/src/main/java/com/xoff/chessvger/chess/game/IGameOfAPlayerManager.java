@@ -7,14 +7,14 @@ import java.util.List;
 
 public interface IGameOfAPlayerManager {
 
-  void clear();
+    void clear();
 
-  List<CommonGame> listGameOfAPlayer(DatabaseManager databaseManager, long idPlayer);
+    List<CommonGame> listGameOfAPlayer(DatabaseManager databaseManager, long idPlayer);
 
-  int countGameOfAPlayer(Long idPlayer);
+    int countGameOfAPlayer(Long idPlayer);
 
 
-  void finish();
+    void finish();
 
-  void ajoute(long item, long idgame);
+    void ajoute(long item, long idgame);
 }

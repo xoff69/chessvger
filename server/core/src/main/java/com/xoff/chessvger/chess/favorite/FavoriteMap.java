@@ -16,9 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 public class FavoriteMap extends AdbCommonKeyLong<Favorite> {
 
 
-  public FavoriteMap(String dbName) {
-    super(ParamConstants.DATA_FOLDER_COMMON + "FavoriteMap" + Constants.MAP_SFX);
+    public FavoriteMap(String dbName) {
+        super(ParamConstants.DATA_FOLDER_COMMON + "FavoriteMap" + Constants.MAP_SFX);
 
-  }
+    }
 
 }

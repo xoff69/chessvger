@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 public class GameOfAPlayerMap extends AdbCommonKeyLongSet2 {
 
 
-  public GameOfAPlayerMap(String pfileName) {
+    public GameOfAPlayerMap(String pfileName) {
 
-    super(pfileName);
-  }
+        super(pfileName);
+    }
 
 
 }

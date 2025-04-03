@@ -3,21 +3,22 @@ package com.xoff.chessvger.chess.stat;
 import com.xoff.chessvger.chess.filter.QuickFilter;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.view.StatBrowserView;
+
 import java.util.List;
 
 public interface IGlobalBrowserStatManager {
 
-  void put(String first, IBrowserStatManager b);
+    void put(String first, IBrowserStatManager b);
 
-  IBrowserStatManager get(String first);
+    IBrowserStatManager get(String first);
 
-  void clear();
+    void clear();
 
-  void finish();
+    void finish();
 
-  List<CommonGame> gameOfASB(QuickFilter qf);
+    List<CommonGame> gameOfASB(QuickFilter qf);
 
-  List<StatBrowserView> getListSBForFilter(QuickFilter qf);
+    List<StatBrowserView> getListSBForFilter(QuickFilter qf);
 
-  List<StatBrowserView> buildTreeFromGame(List<CommonGame> games);
+    List<StatBrowserView> buildTreeFromGame(List<CommonGame> games);
 }

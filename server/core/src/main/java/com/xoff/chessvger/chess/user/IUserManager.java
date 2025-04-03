@@ -6,5 +6,5 @@ import com.xoff.chessvger.model.User;
 public interface IUserManager extends ICommonManager<Long, User> {
 
 
-  User findByLoginAndPassword(String login, String password);
+    User findByLoginAndPassword(String login, String password);
 }

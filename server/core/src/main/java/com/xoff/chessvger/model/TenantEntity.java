@@ -1,24 +1,25 @@
 package com.xoff.chessvger.model;
 
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TenantEntity  implements Serializable {
-  private Long id;
+public class TenantEntity implements Serializable {
+    private Long id;
 
-  private String name;
+    private String name;
 
-  private LocalDateTime dateCreated;
+    private LocalDateTime dateCreated;
 
-  private LocalDateTime dateUpdate;
+    private LocalDateTime dateUpdate;
 
 }

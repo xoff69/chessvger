@@ -25,7 +25,7 @@ public class PositionDao {
 
 
         for (CoupleZobristMaterial czm : list) {
-            set.add(new AbstractMap.SimpleEntry<>(gameId,czm.getZobrist()));
+            set.add(new AbstractMap.SimpleEntry<>(gameId, czm.getZobrist()));
         }
 
 

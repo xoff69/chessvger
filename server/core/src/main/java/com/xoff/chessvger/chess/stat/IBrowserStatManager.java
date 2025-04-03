@@ -4,19 +4,20 @@ import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.view.StatBrowserView;
+
 import java.util.List;
 
 public interface IBrowserStatManager {
 
-  List<CommonGame> getGames(Position p);
+    List<CommonGame> getGames(Position p);
 
 
-  void clear();
+    void clear();
 
 
-  void finish();
+    void finish();
 
-  void browseFirstMove(List<CommonGame> liste);
+    void browseFirstMove(List<CommonGame> liste);
 
-  List<StatBrowserView> getBrowseData(DatabaseManager databaseManager, List<String> pastMoves);
+    List<StatBrowserView> getBrowseData(DatabaseManager databaseManager, List<String> pastMoves);
 }

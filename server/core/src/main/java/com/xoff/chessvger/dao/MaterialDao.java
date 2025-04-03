@@ -6,7 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 public class MaterialDao {
@@ -22,7 +25,7 @@ public class MaterialDao {
 
 
         for (CoupleZobristMaterial czm : list) {
-            set.add(new AbstractMap.SimpleEntry<>(gameId,czm.getMaterial()));
+            set.add(new AbstractMap.SimpleEntry<>(gameId, czm.getMaterial()));
         }
 
 

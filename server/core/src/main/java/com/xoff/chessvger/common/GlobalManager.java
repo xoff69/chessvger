@@ -31,134 +31,135 @@ import com.xoff.chessvger.chess.user.UserManager;
 import com.xoff.chessvger.chess.userpack.IUserPackManager;
 import com.xoff.chessvger.chess.userpack.UserPackManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 
 
 @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
 public class GlobalManager {
-  @SuppressFBWarnings(value = {"MS_EXPOSE_REP"}, justification = "We want that")
-  private static GlobalManager _instance = null;
+    @SuppressFBWarnings(value = {"MS_EXPOSE_REP"}, justification = "We want that")
+    private static GlobalManager _instance = null;
 
-  @Getter
-  private final DatabaseMap databaseMap;
-  @Getter
-  private final FiliationMap filiationMap;
+    @Getter
+    private final DatabaseMap databaseMap;
+    @Getter
+    private final FiliationMap filiationMap;
 
-  private final HashMap<Long, IDatabaseManager> databaseManagers;
-  @Getter
-  private final RulesManager rulesManager;
-  @Getter
-  private final IOpeningManager openingManager;
-  @Getter
-  private final ICommonPlayerManager commonPlayerManager;
-  @Getter
-  private final IAnalysedPositionManager apPositionManager;
-  @Getter
-  private final IEngineManager engineManager;
-  @Getter
-  private final IFilterManager filterManager;
-  /**
-   * time stamp de debut de session, utile pour les quickfilter
-   */
-  private final long debutSession;
-  private final List<DatabaseManager> openedDatabase;
-  @Getter
-  private final IFavoriteManager favoriteManager;
-  @Getter
-  private final IRepertoireManager repertoireManager;
-  @Getter
-  private final IFeatureManager featureManager;
-  @Getter
-  private final ICallStatManager callStatManager;
-  @Getter
-  private final IUserManager userManager;
-  @Getter
-  private final IPackManager packManager;
-  @Getter
-  private final IUserPackManager userPackManager;
+    private final HashMap<Long, IDatabaseManager> databaseManagers;
+    @Getter
+    private final RulesManager rulesManager;
+    @Getter
+    private final IOpeningManager openingManager;
+    @Getter
+    private final ICommonPlayerManager commonPlayerManager;
+    @Getter
+    private final IAnalysedPositionManager apPositionManager;
+    @Getter
+    private final IEngineManager engineManager;
+    @Getter
+    private final IFilterManager filterManager;
+    /**
+     * time stamp de debut de session, utile pour les quickfilter
+     */
+    private final long debutSession;
+    private final List<DatabaseManager> openedDatabase;
+    @Getter
+    private final IFavoriteManager favoriteManager;
+    @Getter
+    private final IRepertoireManager repertoireManager;
+    @Getter
+    private final IFeatureManager featureManager;
+    @Getter
+    private final ICallStatManager callStatManager;
+    @Getter
+    private final IUserManager userManager;
+    @Getter
+    private final IPackManager packManager;
+    @Getter
+    private final IUserPackManager userPackManager;
 
-  @Getter
-  private final ObjectMapper objectMapper;
+    @Getter
+    private final ObjectMapper objectMapper;
 
-  private GlobalManager() {
-    log.info(">Globalmanager new");
-    objectMapper = new ObjectMapper();
-    databaseMap = new DatabaseMap();
-    filiationMap = new FiliationMap();
-    openedDatabase = new ArrayList<>();
-    debutSession = System.currentTimeMillis();
+    private GlobalManager() {
+        log.info(">Globalmanager new");
+        objectMapper = new ObjectMapper();
+        databaseMap = new DatabaseMap();
+        filiationMap = new FiliationMap();
+        openedDatabase = new ArrayList<>();
+        debutSession = System.currentTimeMillis();
 
-    databaseManagers = new HashMap();
-    rulesManager = new RulesManager();
+        databaseManagers = new HashMap();
+        rulesManager = new RulesManager();
 
-    commonPlayerManager = new CommonPlayerManager();
-    engineManager = new EngineManager();
-    filterManager = new FilterManager();
-    openingManager = new OpeningManager();
-    apPositionManager = new AnalysedPositionManager();
-    favoriteManager = new FavoriteManager();
-    repertoireManager = new RepertoireManager();
+        commonPlayerManager = new CommonPlayerManager();
+        engineManager = new EngineManager();
+        filterManager = new FilterManager();
+        openingManager = new OpeningManager();
+        apPositionManager = new AnalysedPositionManager();
+        favoriteManager = new FavoriteManager();
+        repertoireManager = new RepertoireManager();
 
-    featureManager = new FeatureManager();
-    callStatManager = new CallStatManager();
+        featureManager = new FeatureManager();
+        callStatManager = new CallStatManager();
 
-    userManager = new UserManager();
-    packManager = new PackManager();
-    userPackManager = new UserPackManager();
-    log.info("<Globalmanager new");
-  }
-
-  public static GlobalManager getInstance() {
-
-    if (_instance == null) {
-      log.info("Globalmanager getInstance");
-      _instance = new GlobalManager();
+        userManager = new UserManager();
+        packManager = new PackManager();
+        userPackManager = new UserPackManager();
+        log.info("<Globalmanager new");
     }
-    return _instance;
-  }
 
+    public static GlobalManager getInstance() {
 
-  public IDatabaseManager getDatabaseManager(long clef) {
-
-    return databaseManagers.get(clef);
-  }
-
-
-  public void addDatabaseManager(DatabaseManager dm) {
-    databaseManagers.put(dm.getDatabaseId(), dm);
-  }
-
-  // TODO quand on ferme l onglet
-  public void finish() {
-    log.info(">>>>>>>>>>globalManager.anager.commit");
-
-
-    for (val dbm : databaseManagers.entrySet()) {
-      ((DatabaseManager) dbm).finish();
+        if (_instance == null) {
+            log.info("Globalmanager getInstance");
+            _instance = new GlobalManager();
+        }
+        return _instance;
     }
-    commonPlayerManager.finish();
 
-    openingManager.finish();
-    filterManager.finish();
-    engineManager.finish();
-    favoriteManager.finish();
-    apPositionManager.finish();
-    repertoireManager.finish();
-    featureManager.finish();
-    callStatManager.finish();
-    userManager.finish();
-    packManager.finish();
-    userPackManager.finish();
-    //log.info("<<<<<<<<<<globalManager.anager.commit");
 
-  }
+    public IDatabaseManager getDatabaseManager(long clef) {
+
+        return databaseManagers.get(clef);
+    }
+
+
+    public void addDatabaseManager(DatabaseManager dm) {
+        databaseManagers.put(dm.getDatabaseId(), dm);
+    }
+
+    // TODO quand on ferme l onglet
+    public void finish() {
+        log.info(">>>>>>>>>>globalManager.anager.commit");
+
+
+        for (val dbm : databaseManagers.entrySet()) {
+            ((DatabaseManager) dbm).finish();
+        }
+        commonPlayerManager.finish();
+
+        openingManager.finish();
+        filterManager.finish();
+        engineManager.finish();
+        favoriteManager.finish();
+        apPositionManager.finish();
+        repertoireManager.finish();
+        featureManager.finish();
+        callStatManager.finish();
+        userManager.finish();
+        packManager.finish();
+        userPackManager.finish();
+        //log.info("<<<<<<<<<<globalManager.anager.commit");
+
+    }
 
 
 }

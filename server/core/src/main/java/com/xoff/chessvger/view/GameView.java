@@ -18,81 +18,81 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class GameView {
 
-  private int id;
-  private String event;
-  private String site;
+    private int id;
+    private String event;
+    private String site;
 
-  private String date;
-  private String round;
-  private String resultat;
-  private String whiteTitle;
-  private String blackTitle;
-  private int whiteElo;
-  private int blackElo;
-  private String eco;
-  private String opening;
+    private String date;
+    private String round;
+    private String resultat;
+    private String whiteTitle;
+    private String blackTitle;
+    private int whiteElo;
+    private int blackElo;
+    private String eco;
+    private String opening;
 
-  private String joueurBlanc;
-  private String joueurNoir;
+    private String joueurBlanc;
+    private String joueurNoir;
 
-  private String eventDate;
-  private int nbcoups;
-  private int lastPosition;
-  private long informationsFaitDeJeu;
-  private String lastUpdate;
+    private String eventDate;
+    private int nbcoups;
+    private int lastPosition;
+    private long informationsFaitDeJeu;
+    private String lastUpdate;
 
-  private boolean isDeleted;
+    private boolean isDeleted;
 
-  private String firstMove;
-  private String moves;
-
-
-  private int interet;
-  private boolean theorique;
-  private boolean favori;
-
-  private String metaCommentaireMove;
-  private String commentairePartie;
-  private long lastSeen;
-  private boolean flipBoard;
-  private String source;
-  private String commentateurPrincipal;
-
-  private boolean partieAnalysee;
-
-  private long bdId;
-  private long gameId;
+    private String firstMove;
+    private String moves;
 
 
-  private String movesHtml;
-  @JsonIgnore
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
-  private OneGameTree oneGameTree;
+    private int interet;
+    private boolean theorique;
+    private boolean favori;
+
+    private String metaCommentaireMove;
+    private String commentairePartie;
+    private long lastSeen;
+    private boolean flipBoard;
+    private String source;
+    private String commentateurPrincipal;
+
+    private boolean partieAnalysee;
+
+    private long bdId;
+    private long gameId;
 
 
-  public void computeHtml() {
-    oneGameTree = new OneGameTree((moves));
-    movesHtml = toHtml(oneGameTree.getParent(), new Position()) + resultat;
-  }
+    private String movesHtml;
+    @JsonIgnore
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
+    private OneGameTree oneGameTree;
 
-  private String toHtml(ItemGameTree current, Position position) {
 
-    StringBuilder sb = new StringBuilder();
-    if (StringUtils.isEmpty(current.getCurrentMove())) {
-      return sb.toString();
+    public void computeHtml() {
+        oneGameTree = new OneGameTree((moves));
+        movesHtml = toHtml(oneGameTree.getParent(), new Position()) + resultat;
     }
 
-    BoardManager.play(position, current.getCurrentMove());
-    String fen = position.tofen();
-    current.setFen(fen);
+    private String toHtml(ItemGameTree current, Position position) {
 
-    String functionName = "javascript:clickMove" + bdId + "_" + gameId;
-    String param = "(" + current.getId() + ",'" + fen + "');";
-    String idhref = " id='link_" + current.getId() + "' ";
-    sb.append("<a href=\"" + functionName + param + "\" " + idhref + ">");
-    sb.append(current.getCurrentMove());
-    sb.append("</a>");
-    sb.append("&nbsp;");
+        StringBuilder sb = new StringBuilder();
+        if (StringUtils.isEmpty(current.getCurrentMove())) {
+            return sb.toString();
+        }
+
+        BoardManager.play(position, current.getCurrentMove());
+        String fen = position.tofen();
+        current.setFen(fen);
+
+        String functionName = "javascript:clickMove" + bdId + "_" + gameId;
+        String param = "(" + current.getId() + ",'" + fen + "');";
+        String idhref = " id='link_" + current.getId() + "' ";
+        sb.append("<a href=\"" + functionName + param + "\" " + idhref + ">");
+        sb.append(current.getCurrentMove());
+        sb.append("</a>");
+        sb.append("&nbsp;");
 
     /*
     if (!StringUtils.isEmpty(comment)) {
@@ -120,20 +120,20 @@ public class GameView {
     }
 
      */
-    if (current.getNextMove() != null &&
-        !StringUtils.isEmpty(current.getNextMove().getCurrentMove())) {
-      sb.append(" ").append(toHtml(current.getNextMove(), position));
-    }
-    return sb.toString();
+        if (current.getNextMove() != null &&
+                !StringUtils.isEmpty(current.getNextMove().getCurrentMove())) {
+            sb.append(" ").append(toHtml(current.getNextMove(), position));
+        }
+        return sb.toString();
 
-  }
-
-  @JsonIgnore
-  public String getTitle() {
-    if (getId() == 0) {
-      return "label.nouellepartie";
     }
 
-    return getId() + " " + joueurBlanc + "/" + joueurNoir;
-  }
+    @JsonIgnore
+    public String getTitle() {
+        if (getId() == 0) {
+            return "label.nouellepartie";
+        }
+
+        return getId() + " " + joueurBlanc + "/" + joueurNoir;
+    }
 }

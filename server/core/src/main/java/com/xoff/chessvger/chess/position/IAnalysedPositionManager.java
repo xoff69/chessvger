@@ -4,15 +4,15 @@ import com.xoff.chessvger.model.AnalyzedPosition;
 
 public interface IAnalysedPositionManager {
 
-  void add(AnalyzedPosition f);
+    void add(AnalyzedPosition f);
 
-  void del(AnalyzedPosition f);
+    void del(AnalyzedPosition f);
 
-  AnalyzedPosition get(long id);
-
-
-  void finish();
+    AnalyzedPosition get(long id);
 
 
-  void clear();
+    void finish();
+
+
+    void clear();
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameOfAPlayer {
-  private long id;
-  private long gameId;
-  private long playerId;
+    private long id;
+    private long gameId;
+    private long playerId;
 }

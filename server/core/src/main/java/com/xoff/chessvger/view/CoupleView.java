@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CoupleView {
-  private int parent;
-  private int child;
+    private int parent;
+    private int child;
 }

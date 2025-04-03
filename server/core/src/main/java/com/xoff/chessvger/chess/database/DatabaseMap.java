@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DatabaseMap extends AdbCommonKeyLong<Database> {
-  public DatabaseMap() {
-    super(ParamConstants.DATA_FOLDER_DB + "bds" + Constants.MAP_SFX);
+    public DatabaseMap() {
+        super(ParamConstants.DATA_FOLDER_DB + "bds" + Constants.MAP_SFX);
 
-  }
+    }
 }

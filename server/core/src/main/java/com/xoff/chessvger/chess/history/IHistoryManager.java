@@ -1,18 +1,19 @@
 package com.xoff.chessvger.chess.history;
 
 import com.xoff.chessvger.model.CommonGame;
+
 import java.util.List;
 
 public interface IHistoryManager {
 
 
-  List<CommonGame> listHistory();
+    List<CommonGame> listHistory();
 
-  void clear();
+    void clear();
 
-  void add(Long value);
+    void add(Long value);
 
 
-  void finish();
+    void finish();
 
 }

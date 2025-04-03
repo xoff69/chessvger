@@ -6,34 +6,34 @@ import java.util.List;
 
 public interface ICommonPlayerManager {
 
-  void forceUpdate();
+    void forceUpdate();
 
-  void clear();
+    void clear();
 
-  List<CommonPlayer> findByNameOrID(String param);
+    List<CommonPlayer> findByNameOrID(String param);
 
-  List<CommonPlayer> findByNameOrIDSearch(String param);
+    List<CommonPlayer> findByNameOrIDSearch(String param);
 
-  CommonPlayer findOrAdd(String pname, long fideID);
+    CommonPlayer findOrAdd(String pname, long fideID);
 
-  List<String> listPlayer();
+    List<String> listPlayer();
 
-  CommonPlayer findById(long idFide);
+    CommonPlayer findById(long idFide);
 
-  boolean isWellKnowPlayer(String name);
+    boolean isWellKnowPlayer(String name);
 
-  CommonPlayer findByName(String name);
-
-
-  int importeFidePlayer();
-
-  int importeFidePlayer(String emplacement);
-
-  void finish();
+    CommonPlayer findByName(String name);
 
 
-  SynonymPlayerManager getSynonymPlayerManager();
+    int importeFidePlayer();
+
+    int importeFidePlayer(String emplacement);
+
+    void finish();
 
 
-  FamousPlayerManager getFamousPlayerManager();
+    SynonymPlayerManager getSynonymPlayerManager();
+
+
+    FamousPlayerManager getFamousPlayerManager();
 }

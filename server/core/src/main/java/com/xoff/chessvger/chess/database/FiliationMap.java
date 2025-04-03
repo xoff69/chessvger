@@ -6,8 +6,8 @@ import com.xoff.chessvger.util.Constants;
 
 public class FiliationMap extends AdbCommonKeyLongSet2 {
 
-  public FiliationMap() {
-    super(ParamConstants.DATA_FOLDER_DB + "filiation" + Constants.MAP_SFX);
+    public FiliationMap() {
+        super(ParamConstants.DATA_FOLDER_DB + "filiation" + Constants.MAP_SFX);
 
-  }
+    }
 }

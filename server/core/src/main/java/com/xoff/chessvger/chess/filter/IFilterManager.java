@@ -4,12 +4,12 @@ import java.util.List;
 
 public interface IFilterManager {
 
-  void add(Filter f);
+    void add(Filter f);
 
-  void del(Filter f);
+    void del(Filter f);
 
-  List<Filter> values();
+    List<Filter> values();
 
 
-  void finish();
+    void finish();
 }

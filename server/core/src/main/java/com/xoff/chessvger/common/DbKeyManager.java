@@ -5,19 +5,19 @@ import lombok.Getter;
 
 
 public class DbKeyManager {
-  private static DbKeyManager _instance;
-  @Getter
-  @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
-  private final DbKeyGenerator dbKeyGenerator;
+    private static DbKeyManager _instance;
+    @Getter
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
+    private final DbKeyGenerator dbKeyGenerator;
 
-  private DbKeyManager() {
-    dbKeyGenerator = new DbKeyGenerator();
-  }
-
-  public static DbKeyManager getInstance() {
-    if (_instance == null) {
-      _instance = new DbKeyManager();
+    private DbKeyManager() {
+        dbKeyGenerator = new DbKeyGenerator();
     }
-    return _instance;
-  }
+
+    public static DbKeyManager getInstance() {
+        if (_instance == null) {
+            _instance = new DbKeyManager();
+        }
+        return _instance;
+    }
 }

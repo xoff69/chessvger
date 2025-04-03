@@ -10,10 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 public class UserPackManager extends ACommonManager<Long, UserPack> implements IUserPackManager {
 
 
-  public UserPackManager() {
-    super(ParamConstants.DATA_FOLDER_COMMON + "UserPackMap" + Constants.MAP_SFX);
+    public UserPackManager() {
+        super(ParamConstants.DATA_FOLDER_COMMON + "UserPackMap" + Constants.MAP_SFX);
 
-  }
+    }
 
 
 }

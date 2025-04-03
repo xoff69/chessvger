@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RepertoireDto {
 
-  private long repertoireId;
-  private long userId;
-  private int color;
-  private long databaseId;
+    private long repertoireId;
+    private long userId;
+    private int color;
+    private long databaseId;
 }
