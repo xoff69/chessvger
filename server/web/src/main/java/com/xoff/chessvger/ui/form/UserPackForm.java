@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserPackForm {
-  private Long id;
-  private long packId;
-  private long userId;
+    private Long id;
+    private long packId;
+    private long userId;
 }

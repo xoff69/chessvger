@@ -17,31 +17,31 @@ import redis.clients.jedis.JedisPubSub;
 
 public class Main {
 
-  // TODO check l existence des folders dans data
-  // localhost
-  private static String dbhost = "db_chessvger";
+    // TODO check l existence des folders dans data
+    // localhost
+    private static String dbhost = "db_chessvger";
 
-  public static String getDBHost() {
-    return dbhost;
-  }
-
-  private static void checkEnvironment() {
-    System.out.println("Checking environment...");
-    // TODO
-    Thread thread = new Thread(new RunInitSystem());
-    thread.start();
-  }
-
-  public static void main(String[] args) throws Exception {
-
-    System.out.println("start backoffice");
-
-    if (args.length > 0&&"local".equals(args[0])) {
-
-      System.out.println("Local Main!" + args[0]);
-      dbhost = "localhost";
+    public static String getDBHost() {
+        return dbhost;
     }
-    checkEnvironment();
+
+    private static void checkEnvironment() {
+        System.out.println("Checking environment...");
+        // TODO
+        Thread thread = new Thread(new RunInitSystem());
+        thread.start();
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        System.out.println("start backoffice");
+
+        if (args.length > 0 && "local".equals(args[0])) {
+
+            System.out.println("Local Main!" + args[0]);
+            dbhost = "localhost";
+        }
+        checkEnvironment();
     /*
     try {
      // Prometheus.start();
@@ -51,7 +51,7 @@ public class Main {
     }
 
      */
-      // for test
+        // for test
       /*
       Thread thread = new Thread(new RunInitSystem());
       thread.start();
@@ -66,50 +66,51 @@ public class Main {
       Thread thread = new Thread(new RunInitTenant(userTenant));
       thread.start();
  */
-    MetricsService metricsService = new MetricsService();
-    ObjectMapper objectMapper = new ObjectMapper();
-    try (Jedis jedis = new Jedis("redis", 6379)) {
-      JedisPubSub pubSub = new JedisPubSub() {
-        @Override
-        public void onMessage(String channel, String message) {
-          try {
-            System.out.println("Received message from channel " + channel + ": " + message);
+        MetricsService metricsService = new MetricsService();
+        ObjectMapper objectMapper = new ObjectMapper();
+        try (Jedis jedis = new Jedis("redis", 6379)) {
+            JedisPubSub pubSub = new JedisPubSub() {
+                @Override
+                public void onMessage(String channel, String message) {
+                    try {
+                        System.out.println("Received message from channel " + channel + ": " + message);
 
-            MessageToParser messageToParser =
-                objectMapper.readValue(message, MessageToParser.class);
+                        MessageToParser messageToParser =
+                                objectMapper.readValue(message, MessageToParser.class);
 
-            if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
-              Runnable runnable = new RunGameParser(messageToParser);
-              System.out.println("ActionQueue.PARSEGAME Received message from channel " + channel + ": " + message);
-              metricsService.executeProcess(runnable,"backoffice.game-parse" );
+                        if (messageToParser.getActionQueue() == ActionQueue.PARSEGAME) {
+                            Runnable runnable = new RunGameParser(messageToParser);
+                            System.out.println("ActionQueue.PARSEGAME Received message from channel " + channel + ": " + message);
+                            metricsService.executeProcess(runnable, "backoffice.game-parse");
 
-            } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
+                        } else if (messageToParser.getActionQueue() == ActionQueue.PARSEPLAYER) {
 
-              Runnable runnable = new RunPlayerParser(messageToParser.getFolderToParse());
-              metricsService.executeProcess(runnable,"backoffice.player-parse" );
+                            Runnable runnable = new RunPlayerParser(messageToParser.getFolderToParse());
+                            metricsService.executeProcess(runnable, "backoffice.player-parse");
 
-            } else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
+                        } else if (messageToParser.getActionQueue() == ActionQueue.INIT_SYSTEM) {
 
-              Thread thread = new Thread(new RunInitSystem());
-              thread.start();
-            } else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
-              UserTenant userTenant = new UserTenant();
-              // TODO demo
-              userTenant.setTenantName("demo3");
-              userTenant.setPassword("demo3");
-              userTenant.setIsAdmin(false);
-              userTenant.setLogin("demo3");
-              Thread thread = new Thread(new RunInitTenant(userTenant));
-              thread.start();
-            }
-          } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+                            Thread thread = new Thread(new RunInitSystem());
+                            thread.start();
+                        } else if (messageToParser.getActionQueue() == ActionQueue.CREATE_TENANT_ENVIRONMENT) {
+                            UserTenant userTenant = new UserTenant();
+                            // TODO demo
+                            userTenant.setTenantName("demo3");
+                            userTenant.setPassword("demo3");
+                            userTenant.setIsAdmin(false);
+                            userTenant.setLogin("demo3");
+                            Thread thread = new Thread(new RunInitTenant(userTenant));
+                            thread.start();
+                        }
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
 
-          }
+                    }
+                }
+            };
+            jedis.subscribe(pubSub, Topic.TOPIC_TO_QUEUE);
         }
-      };
-      jedis.subscribe(pubSub, Topic.TOPIC_TO_QUEUE);
-    }
 
-}}
+    }
+}

@@ -11,12 +11,12 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("ut")
 public class BaseTest {
 
-  @Value("${profile.property.value}")
-  private String propertyString;
+    @Value("${profile.property.value}")
+    private String propertyString;
 
-  @Test
-  @DisplayName("checkProfileForTestUt")
-  void checkProfileForTest() {
-    Assertions.assertEquals("This the the application.yaml file unit test", propertyString);
-  }
+    @Test
+    @DisplayName("checkProfileForTestUt")
+    void checkProfileForTest() {
+        Assertions.assertEquals("This the the application.yaml file unit test", propertyString);
+    }
 }

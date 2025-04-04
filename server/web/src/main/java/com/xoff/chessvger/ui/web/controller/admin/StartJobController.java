@@ -14,26 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class StartJobController {
-@Autowired
-RedisMessageReceiver redisMessageReceiver;
+    @Autowired
+    RedisMessageReceiver redisMessageReceiver;
 
 
+    @Autowired
+    RedisMessagePublisher redisMessagePublisher;
 
-  @Autowired
-  RedisMessagePublisher redisMessagePublisher;
+    @GetMapping("/jobCreateEnv")
+    String jobCreateEnv() throws JsonProcessingException {
+        log.info("jobCreateEnv");
+        MessageToParser message = new MessageToParser();
+        message.setActionQueue(ActionQueue.CREATE_TENANT_ENVIRONMENT);
 
-  @GetMapping("/jobCreateEnv")
-  String jobCreateEnv() throws JsonProcessingException {
-    log.info("jobCreateEnv");
-    MessageToParser message=new MessageToParser();
-    message.setActionQueue(ActionQueue.CREATE_TENANT_ENVIRONMENT);
+        ObjectMapper objectMapper = new ObjectMapper();
 
-    ObjectMapper objectMapper=new ObjectMapper();
-
-    redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
-    return "ok";
-  }
-
+        redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
+        return "ok";
+    }
 
 
 }

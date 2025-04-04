@@ -1,6 +1,10 @@
 package com.xoff.chessvger.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.dao.GameOfAPlayerDao;
+import com.xoff.chessvger.dao.UtilDao;
+import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.model.PlayerGameCount;
 import com.xoff.chessvger.model.PlayerGameModel;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
@@ -12,17 +16,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import java.io.IOException;
 import java.util.List;
-import com.xoff.chessvger.model.CommonPlayer;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class GamePlayerService {
 
     private final JdbcTemplate jdbcTemplate;
-    private final  ApiService apiService;
+    private final ApiService apiService;
 
     private final RowMapper<PlayerGameModel> rowMapper = (rs, rowNum) -> {
         PlayerGameModel game = new PlayerGameModel();
@@ -30,18 +34,12 @@ public class GamePlayerService {
     };
 
     public long count() {
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM game_of_a_player", Long.class);
+
+        return jdbcTemplate.queryForObject(UtilDao.getCountQuery("game_of_a_player"), Long.class);
     }
 
     public Page<PlayerGameCount> getPlayersWithGameCount(Pageable pageable) throws IOException, InterruptedException {
-        String sql = """
-    SELECT id_player as id, COUNT(id_game) AS game_count
-    FROM main.game_of_a_player
-    GROUP BY id_player
-    HAVING COUNT(id_game) > 0
-    ORDER BY game_count DESC
-    LIMIT ? OFFSET ?
-    """;
+        String sql = GameOfAPlayerDao.SELECT_COMPLEXE;
         List<PlayerGameCount> players = jdbcTemplate.query(
                 sql,
                 playerGameCountRowMapper(),
@@ -56,36 +54,38 @@ public class GamePlayerService {
                 .toArray(String[]::new);
         // http://localhost:8080/apiadmin/players/fetchPlayers?ids=123&ids=456
         log.info("getPlayersWithGameCount ids: {}", ids);
-        String allPlayers=apiService.callExternalApi("http://localhost:8080/apiadmin/players/fetchPlayers",ids);
-        log.info("all player ="+allPlayers);
+        String allPlayers = apiService.callExternalApi("http://localhost:8080/apiadmin/players/fetchPlayers", ids);
+        log.info("all player =" + allPlayers);
 
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             ResponseList<CommonPlayer> response = mapper.readValue(
                     allPlayers,
-                    new TypeReference<ResponseList<CommonPlayer>>() {}
+                    new TypeReference<ResponseList<CommonPlayer>>() {
+                    }
             );
             System.out.println("Count : " + response.getCount());
-            response.getList().forEach(player->{
+            response.getList().forEach(player -> {
 
-                    for(PlayerGameCount playerGameCount : players) {
-                        if (playerGameCount.getId()== player.getId()){
-                            playerGameCount.setName(player.getName());
+                        for (PlayerGameCount playerGameCount : players) {
+                            if (playerGameCount.getId() == player.getId()) {
+                                playerGameCount.setName(player.getName());
+                            }
                         }
-                    }}
+                    }
             );
         } catch (Exception e) {
             e.printStackTrace();
         }
         // total : TODO
-        int total=5;
+        int total = 5;
         return new PageImpl<>(players, pageable, total);
     }
 
     private RowMapper<PlayerGameCount> playerGameCountRowMapper() {
         return (rs, rowNum) -> new PlayerGameCount(
-                rs.getLong("id"),"",
+                rs.getLong("id"), "",
                 rs.getInt("game_count")
         );
     }

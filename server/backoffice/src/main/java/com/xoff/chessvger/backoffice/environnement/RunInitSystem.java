@@ -4,40 +4,41 @@ import com.xoff.chessvger.dao.CommonDao;
 import com.xoff.chessvger.dao.ContractDao;
 import com.xoff.chessvger.dao.TenantDao;
 import com.xoff.chessvger.dao.UserDao;
+
 import java.sql.Connection;
 
 
 public class RunInitSystem implements Runnable {
 
 
-  @Override
-  public void run() {
+    @Override
+    public void run() {
 
-    try (Connection connection = CommonDao.getConnection()) {
-      // schema common: user, contract, player, feature flag
-      if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)) {
-
-
-        CommonDao.executeSqlFromFile(connection, "query/player_createtable.sql");
-        CommonDao.executeSqlFromFile(connection, "query/tenant_createtable.sql");
-        CommonDao.executeSqlFromFile(connection, "query/user_createtable.sql");
-
-        int tenantId = TenantDao.createTenant(connection, "admin");
-        UserDao.createUser(connection, "admin", "admin name", "admin", true, tenantId);
+        try (Connection connection = CommonDao.getConnection()) {
+            // schema common: user, contract, player, feature flag
+            if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)) {
 
 
-        CommonDao.executeSqlFromFile(connection, "query/contract_createtable.sql");
-        ContractDao.insertDefautContract(connection);
+                CommonDao.executeSqlFromFile(connection, "query/player_createtable.sql");
+                CommonDao.executeSqlFromFile(connection, "query/tenant_createtable.sql");
+                CommonDao.executeSqlFromFile(connection, "query/user_createtable.sql");
 
-        CommonDao.executeSqlFromFile(connection, "query/featureflag_createtable.sql");
-      }
-      // database pg for ad,in
-      TenantDao.createTenantEnvironnement("admin");
+                int tenantId = TenantDao.createTenant(connection, "admin");
+                UserDao.createUser(connection, "admin", "admin name", "admin", true, tenantId);
 
 
-    } catch (Exception e) {
-      System.out.println("Error RunInitSystem");
-      throw new RuntimeException(e);
+                CommonDao.executeSqlFromFile(connection, "query/contract_createtable.sql");
+                ContractDao.insertDefautContract(connection);
+
+                CommonDao.executeSqlFromFile(connection, "query/featureflag_createtable.sql");
+            }
+            // database pg for ad,in
+            TenantDao.createTenantEnvironnement("admin");
+
+
+        } catch (Exception e) {
+            System.out.println("Error RunInitSystem");
+            throw new RuntimeException(e);
+        }
     }
-  }
 }

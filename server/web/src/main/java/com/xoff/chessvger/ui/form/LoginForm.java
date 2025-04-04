@@ -8,6 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class LoginForm {
-  private String login;
-  private String password;
+    private String login;
+    private String password;
 }

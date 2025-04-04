@@ -5,53 +5,54 @@
 package com.xoff.chessvger.backoffice.player;
 
 import com.xoff.chessvger.dao.PlayerDao;
-import java.sql.SQLException;
-import java.util.List;
 import com.xoff.chessvger.model.CommonPlayer;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public class RunPlayerParser implements Runnable {
-  private final String folder;
+    private final String folder;
 
-  public RunPlayerParser(String folder) {
-    this.folder = folder;
-  }
-
-  @Override
-  public void run() {
-
-    manageFile(folder);
-  }
-
-
-  /**
-   * @param filedir ex "data/players_list_xml_foa.xml"
-   */
-  private void manageFile(String filedir) {
-
-    PlayerDao commonPlayerDao = new PlayerDao();
-    System.out.println("managerFile " + filedir);
-    PlayerParser playerParser = new PlayerParser();
-    long start = System.currentTimeMillis();
-    List<CommonPlayer> players = playerParser.parse(filedir);
-    long finish1 = System.currentTimeMillis();
-    long timeElapsed = (finish1 - start) / 1000;
-    System.out.println("after parse players done: " + players.size() + ":" + timeElapsed + " s");
-    long id = 1L;
-    for (CommonPlayer player : players) {
-
-      player.setId(id++);
-
-      try {
-        commonPlayerDao.insertCommonPlayer(player);
-      } catch (SQLException | ClassNotFoundException e) {
-        System.out.println("players insertion out: " + players.size());
-        throw new RuntimeException(e);
-      }
+    public RunPlayerParser(String folder) {
+        this.folder = folder;
     }
-    long finish2 = System.currentTimeMillis();
-    timeElapsed = (finish2 - finish1) / 1000;
-    System.out.println("END: players inserted: " + players.size() + ":" + timeElapsed + " s");
 
-  }
+    @Override
+    public void run() {
+
+        manageFile(folder);
+    }
+
+
+    /**
+     * @param filedir ex "data/players_list_xml_foa.xml"
+     */
+    private void manageFile(String filedir) {
+
+        PlayerDao commonPlayerDao = new PlayerDao();
+        System.out.println("managerFile " + filedir);
+        PlayerParser playerParser = new PlayerParser();
+        long start = System.currentTimeMillis();
+        List<CommonPlayer> players = playerParser.parse(filedir);
+        long finish1 = System.currentTimeMillis();
+        long timeElapsed = (finish1 - start) / 1000;
+        System.out.println("after parse players done: " + players.size() + ":" + timeElapsed + " s");
+        long id = 1L;
+        for (CommonPlayer player : players) {
+
+            player.setId(id++);
+
+            try {
+                commonPlayerDao.insertCommonPlayer(player);
+            } catch (SQLException | ClassNotFoundException e) {
+                System.out.println("players insertion out: " + players.size());
+                throw new RuntimeException(e);
+            }
+        }
+        long finish2 = System.currentTimeMillis();
+        timeElapsed = (finish2 - finish1) / 1000;
+        System.out.println("END: players inserted: " + players.size() + ":" + timeElapsed + " s");
+
+    }
 
 }

@@ -5,111 +5,105 @@
 package com.xoff.chessvger.backoffice.game;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.dao.BrowserDao;
-import com.xoff.chessvger.dao.CommonDao;
-import com.xoff.chessvger.dao.GameDao;
-import com.xoff.chessvger.dao.GameOfAPlayerDao;
-import com.xoff.chessvger.dao.MaterialDao;
-import com.xoff.chessvger.dao.PositionDao;
 import com.xoff.chessvger.backoffice.materialposition.MaterialPositionsUtil;
 import com.xoff.chessvger.chess.board.CoupleZobristMaterial;
+import com.xoff.chessvger.dao.*;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.topic.MessageFromParser;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.ResultAction;
 import com.xoff.chessvger.topic.Topic;
-
 import lombok.extern.slf4j.Slf4j;
+import redis.clients.jedis.Jedis;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import redis.clients.jedis.Jedis;
 
 @Slf4j
 public class RunGameParser implements Runnable {
 
-  private final MessageToParser messageToParser;
+    private final MessageToParser messageToParser;
 
-  public RunGameParser(MessageToParser messageToParser) {
-    this.messageToParser = messageToParser;
-  }
-
-
-  private static void manageFile(MessageToParser messageToParser) throws IOException, SQLException {
-    // TODO quelle bd? celle donnee par le nom du schema
-    log.info("games " + messageToParser);
-    GameDao commonGameDao = new GameDao();
-    Parser parser = new Parser();
-    long start = System.currentTimeMillis();
-    List<CommonGame> games = parser.parseDir(new File(messageToParser.getFolderToParse()));
-
-    long finish1 = System.currentTimeMillis();
-    long timeElapsed = (finish1 - start) / 1000;
-    log.info("after parse games : nb games to insert: " + games.size() + ":" + timeElapsed + " s");
-    log.info("after parse games done: " + messageToParser);
-
-      try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
-
-        long id = commonGameDao.count(connection, messageToParser.getSchema()) + 1;
-        for (CommonGame game : games) {
-
-          game.setId(id++);
-
-          commonGameDao.insertCommonGame(connection, messageToParser.getSchema(), game);
-
-          GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getWhitePlayer(), game.getWhiteFideId());
-          GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getBlackPlayer(), game.getBlackFideId());
-          List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
-          MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-          PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-
-        }
-        log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
-
-        BrowserDao.browseFirstMove(connection, messageToParser.getSchema(), games);
-        log.info("browseFirstMove done " );
-
-      } catch (SQLException e) {
-        log.error("runGame Parser", e);
-        
-      } catch (ClassNotFoundException e) {
-        throw new RuntimeException(e);
-      }
-      long finish2 = System.currentTimeMillis();
-      timeElapsed = (finish2 - finish1) / 1000;
-      log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
-      try (Jedis jedis = new Jedis("redis", 6379)) {
-        // TODO a externaliser
-        MessageFromParser messageFromParser = new MessageFromParser();
-        // TODO
-        // private long tenantId;
-        messageFromParser.setCorrelationId(messageToParser.getCorrelationId());
-        messageFromParser.setTenantId(messageFromParser.getTenantId());
-        messageFromParser.setResult(ResultAction.SUCCESS);
-        messageFromParser.setMessage(games.size() + ":" + timeElapsed + " s");
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        jedis.publish(Topic.TOPIC_FROM_QUEUE, objectMapper.writeValueAsString(messageFromParser));
-      }finally {
-        log.info(
-            "Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");
-      }
-  }
-
-  @Override
-  public void run() {
-
-    try {
-      manageFile(messageToParser);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+    public RunGameParser(MessageToParser messageToParser) {
+        this.messageToParser = messageToParser;
     }
-  }
+
+
+    private static void manageFile(MessageToParser messageToParser) throws IOException, SQLException {
+        // TODO quelle bd? celle donnee par le nom du schema
+        log.info("games " + messageToParser);
+        GameDao commonGameDao = new GameDao();
+        Parser parser = new Parser();
+        long start = System.currentTimeMillis();
+        List<CommonGame> games = parser.parseDir(new File(messageToParser.getFolderToParse()));
+
+        long finish1 = System.currentTimeMillis();
+        long timeElapsed = (finish1 - start) / 1000;
+        log.info("after parse games : nb games to insert: " + games.size() + ":" + timeElapsed + " s");
+        log.info("after parse games done: " + messageToParser);
+
+        try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
+
+            long id = commonGameDao.count(connection, messageToParser.getSchema()) + 1;
+            for (CommonGame game : games) {
+
+                game.setId(id++);
+
+                commonGameDao.insertCommonGame(connection, messageToParser.getSchema(), game);
+
+                GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getWhitePlayer(), game.getWhiteFideId());
+                GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getBlackPlayer(), game.getBlackFideId());
+                List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
+                MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+                PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+
+            }
+            log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
+
+            BrowserDao.browseFirstMove(connection, messageToParser.getSchema(), games);
+            log.info("browseFirstMove done ");
+
+        } catch (SQLException e) {
+            log.error("runGame Parser", e);
+
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        long finish2 = System.currentTimeMillis();
+        timeElapsed = (finish2 - finish1) / 1000;
+        log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
+        try (Jedis jedis = new Jedis("redis", 6379)) {
+            // TODO a externaliser
+            MessageFromParser messageFromParser = new MessageFromParser();
+            // TODO
+            // private long tenantId;
+            messageFromParser.setCorrelationId(messageToParser.getCorrelationId());
+            messageFromParser.setTenantId(messageFromParser.getTenantId());
+            messageFromParser.setResult(ResultAction.SUCCESS);
+            messageFromParser.setMessage(games.size() + ":" + timeElapsed + " s");
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            jedis.publish(Topic.TOPIC_FROM_QUEUE, objectMapper.writeValueAsString(messageFromParser));
+        } finally {
+            log.info(
+                    "Apres l envoi: db insert games done " + games.size() + ":" + timeElapsed + " s");
+        }
+    }
+
+    @Override
+    public void run() {
+
+        try {
+            manageFile(messageToParser);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

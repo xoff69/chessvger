@@ -8,14 +8,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    public Long count();
+    Long count();
+
     // TODO renommer findByID /?
-    public UserDTO getById(long id);
+    UserDTO getById(long id);
 
-    public List<UserDTO> findAll(Pageable pageable);
+    List<UserDTO> findAll(Pageable pageable);
 
-    public UserDTO getUserByUsername(String username);
-    public Optional<TenantEntity> getTenant(long tenantId);
-    public Optional<TenantEntity> getByUserId(long userId);
-    public UserDTO findByLoginAndPassword(String login, String password);
+    UserDTO getUserByUsername(String username);
+
+    Optional<TenantEntity> getTenant(long tenantId);
+
+    Optional<TenantEntity> getByUserId(long userId);
+
+    UserDTO findByLoginAndPassword(String login, String password);
 }

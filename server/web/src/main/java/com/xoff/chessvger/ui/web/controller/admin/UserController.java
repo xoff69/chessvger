@@ -1,12 +1,12 @@
 package com.xoff.chessvger.ui.web.controller.admin;
 
+import com.xoff.chessvger.config.JwtUtil;
 import com.xoff.chessvger.database.DataSourceContextHolder;
 import com.xoff.chessvger.database.DynamicDataSourceService;
 import com.xoff.chessvger.service.UserService;
-import com.xoff.chessvger.config.JwtUtil;
+import com.xoff.chessvger.ui.form.LoginForm;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
-import com.xoff.chessvger.ui.form.LoginForm;
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class UserController {
     @Autowired
     private DynamicDataSourceService dynamicDataSourceService;
 
-    private void setDatasource(){
+    private void setDatasource() {
         // FIXME  a pousser dans le controller
         dynamicDataSourceService.addNewDataSource("common",
                 "jdbc:postgresql://db_chessvger/chessvger",
                 "chessvger",
-                "chessvger","common");
+                "chessvger", "common");
         DataSourceContextHolder.setDataSource("common");
     }
 

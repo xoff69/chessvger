@@ -8,13 +8,13 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WebSocketController {
 
-  //@CrossOrigin(origins = "http://localhost:3000")
-  @MessageMapping("/app/hello") // Reçoit les messages du client
-  @SendTo("/topic/greetings") // Diffuse les messages à tous les abonnés
-  public String handleGreeting(String message) {
+    //@CrossOrigin(origins = "http://localhost:3000")
+    @MessageMapping("/app/hello") // Reçoit les messages du client
+    @SendTo("/topic/greetings") // Diffuse les messages à tous les abonnés
+    public String handleGreeting(String message) {
 
-    System.out.println("handleGreeting message: " + message);
+        System.out.println("handleGreeting message: " + message);
 
-    return "Bonjour, " + message + "!";
-  }
+        return "Bonjour, " + message + "!";
+    }
 }

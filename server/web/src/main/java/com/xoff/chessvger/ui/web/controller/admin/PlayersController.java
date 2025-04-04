@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.database.DataSourceContextHolder;
 import com.xoff.chessvger.database.DynamicDataSourceService;
+import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.service.IPlayerService;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
@@ -17,13 +18,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import com.xoff.chessvger.model.CommonPlayer;
+
 @Controller
 @Slf4j
 public class PlayersController {
@@ -38,12 +38,12 @@ public class PlayersController {
     @Autowired
     private DynamicDataSourceService dynamicDataSourceService;
 
-    private void setDatasource(){
+    private void setDatasource() {
         // FIXME  a pousser dans le controller
         dynamicDataSourceService.addNewDataSource("common",
                 "jdbc:postgresql://db_chessvger/chessvger",
                 "chessvger",
-                "chessvger","common");
+                "chessvger", "common");
         DataSourceContextHolder.setDataSource("common");
     }
 
@@ -55,7 +55,7 @@ public class PlayersController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<String> idList = Arrays.asList(ids);
+        String[] idList = ids;
         List<CommonPlayer> players = new ArrayList<>();
         setDatasource();
         for (String id : idList) {
@@ -69,7 +69,7 @@ public class PlayersController {
     }
 
     @GetMapping("/apiadmin/players/all")
-    public ResponseEntity<ResponseList<CommonPlayer>> all( @RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<ResponseList<CommonPlayer>> all(@RequestParam(defaultValue = "0") int page,
                                                           @RequestParam(defaultValue = "10") int size) {
 //TODO @RequestHeader("Authorization") String token,
         Pageable pageable = PageRequest.of(page, size);

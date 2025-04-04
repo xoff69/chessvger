@@ -5,7 +5,7 @@ import com.xoff.chessvger.util.Pageable;
 
 public class PageableBuilder {
 
-  public static Pageable buildPageable() {
-    return PageRequest.of(1, 100);
-  }
+    public static Pageable buildPageable() {
+        return PageRequest.of(1, 100);
+    }
 }

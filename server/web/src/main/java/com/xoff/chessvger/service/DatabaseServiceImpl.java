@@ -1,15 +1,15 @@
 package com.xoff.chessvger.service;
 
+import com.xoff.chessvger.dao.UtilDao;
 import com.xoff.chessvger.database.DatabaseHelperService;
-import com.xoff.chessvger.model.DatabaseModel;
-
-import java.util.List;
-
 import com.xoff.chessvger.database.DynamicDataSourceService;
+import com.xoff.chessvger.model.DatabaseModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -23,13 +23,13 @@ public class DatabaseServiceImpl implements IDatabaseService {
     private DatabaseHelperService databaseHelperService;
 
     public Long count() {
-        String query = "SELECT COUNT(*) FROM common.databases"; // Utilisation du nom de table "databases"
+        String query = UtilDao.getCountQuery("common.databases");
         return jdbcTemplate.queryForObject(query, Long.class);
     }
+
     public DatabaseModel findById(Long id) {
         try {
-
-            String query = "SELECT * FROM common.databases WHERE id = ?"; // Utilisation du nom de table "databases"
+            String query = UtilDao.findById("common.databases");
             return jdbcTemplate.queryForObject(query, new Object[]{id}, (rs, rowNum) -> {
                 DatabaseModel model = new DatabaseModel();
                 model.setId(rs.getLong("id"));
@@ -40,13 +40,15 @@ public class DatabaseServiceImpl implements IDatabaseService {
         } catch (Exception e) {
             log.error(e.getMessage());
             log.error(e.getStackTrace().toString());
-            databaseHelperService.trace(); throw new RuntimeException(e);
+            databaseHelperService.trace();
+            throw new RuntimeException(e);
         }
     }
+
     public List<DatabaseModel> findAll() {
         try {
 
-            String query = "SELECT * FROM common.databases";
+            String query = UtilDao.getAllQuery("common.databases");
             return jdbcTemplate.query(query, (rs, rowNum) -> {
                 DatabaseModel model = new DatabaseModel();
                 model.setId(rs.getLong("id"));

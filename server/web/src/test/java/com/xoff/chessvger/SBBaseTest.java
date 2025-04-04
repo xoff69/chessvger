@@ -14,14 +14,14 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("it")
 public class SBBaseTest {
 
-  @Value("${profile.property.value}")
-  private String propertyString;
+    @Value("${profile.property.value}")
+    private String propertyString;
 
-  @Test
-  @DisplayName("checkProfileForTestIt")
-  void checkProfileForTest() {
+    @Test
+    @DisplayName("checkProfileForTestIt")
+    void checkProfileForTest() {
 
 
-    Assertions.assertEquals("This the the application.yaml file it test", propertyString);
-  }
+        Assertions.assertEquals("This the the application.yaml file it test", propertyString);
+    }
 }

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 public class TestToolkitBuffer {
 
 
-  @Test
-  @DisplayName("testToolkit")
-  public void testToolkit() {
+    @Test
+    @DisplayName("testToolkit")
+    public void testToolkit() {
         /*
         DataBase db1 = DatabaseBuilder.buildDatabase("testToolkit");
         DataBase db2 = DatabaseBuilder.buildEmptyDatabase();
@@ -22,6 +22,6 @@ public class TestToolkitBuffer {
         DatabaseManager dm2 = new DatabaseManager(db2.getDbName());
 
         assertEquals(dm1.getGlobalGameManager().size(), dm2.getGlobalGameManager().size());*/
-    // TODO
-  }
+        // TODO
+    }
 }

@@ -1,17 +1,8 @@
 package com.xoff.chessvger.ui.web.controller;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.xoff.chessvger.ConstantsTest;
 import com.xoff.chessvger.chess.opening.Opening;
 import com.xoff.chessvger.common.GlobalManager;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -25,6 +16,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @Tag("IT")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -33,30 +34,30 @@ import org.springframework.web.util.UriComponentsBuilder;
 class OpeningControllerTest {
 
 
-  @Autowired
-  private ServerProperties serverProperties;
+    @Autowired
+    private ServerProperties serverProperties;
 
-  @Autowired
-  private MockMvc mockMvc;
-  @MockBean
-  private IOpeningService iOpeningService;
-
-
-  @Test
-  public void expect_result_forallaopenings() throws Exception {
-
-    List<Opening> openings = GlobalManager.getInstance().getOpeningManager().list();
-
-    when(iOpeningService.getAll()).thenReturn(openings);
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private IOpeningService iOpeningService;
 
 
-    String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/openings";
-    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
-    MvcResult mvcResult =
-        this.mockMvc.perform(get(builder.build().toUri())).andDo(print()).andExpect(status().isOk())
-            .andExpect(content().string(containsString("Lopez"))).andReturn();
+    @Test
+    public void expect_result_forallaopenings() throws Exception {
 
-    assertNotNull(mvcResult.getResponse().getContentAsString());
-  }
+        List<Opening> openings = GlobalManager.getInstance().getOpeningManager().list();
+
+        when(iOpeningService.getAll()).thenReturn(openings);
+
+
+        String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/openings";
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
+        MvcResult mvcResult =
+                this.mockMvc.perform(get(builder.build().toUri())).andDo(print()).andExpect(status().isOk())
+                        .andExpect(content().string(containsString("Lopez"))).andReturn();
+
+        assertNotNull(mvcResult.getResponse().getContentAsString());
+    }
 
 }

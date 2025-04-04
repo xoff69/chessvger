@@ -6,11 +6,11 @@ import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.IDatabaseManager;
 import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.common.ParamConstants;
-import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.config.RedisMessagePublisher;
+import com.xoff.chessvger.database.DatabaseHelperService;
+import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.model.DatabaseModel;
 import com.xoff.chessvger.model.TenantEntity;
-import com.xoff.chessvger.database.DatabaseHelperService;
 import com.xoff.chessvger.service.GameService;
 import com.xoff.chessvger.service.IDatabaseService;
 import com.xoff.chessvger.topic.ActionQueue;
@@ -68,7 +68,7 @@ public class GamesController {
     public ResponseEntity<CommonGame>
     findById(@RequestHeader("Authorization") String token, @RequestParam("id") Long id, @RequestParam("databaseId") Long databaseId) {
 
-        log.info("/api/games/findById:" + databaseId+"*"+id);
+        log.info("/api/games/findById:" + databaseId + "*" + id);
 
         databaseHelperService.setDatasource(token, "common");
         DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
@@ -115,6 +115,7 @@ public class GamesController {
             return ResponseEntity.badRequest().body("Token importPgn= " + token);
         }
     }
+
     // TODO
     public int uploadPgn(MultipartFile file, long bdId) {
 

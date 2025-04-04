@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class DBForm {
 
-  private long id;
+    private long id;
 
-  private String name;
-  private String description;
-  private int nbgames;
+    private String name;
+    private String description;
+    private int nbgames;
 
 }

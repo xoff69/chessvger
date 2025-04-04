@@ -19,14 +19,14 @@ public class DynamicDataSourceService {
     // Ajouter une nouvelle DataSource à la volée
     public void addNewDataSource(String key, String jdbcUrl, String username, String password, String schema) {
         DataSource newDataSource = createDataSource(jdbcUrl, username, password, schema);
-        log.info("addNewDataSource: key=" + key );
+        log.info("addNewDataSource: key=" + key);
         dynamicRoutingDataSource.addDataSource(key, newDataSource);
     }
 
     // Créer une datasource
     private DataSource createDataSource(String url, String username, String password, String schema) {
         HikariDataSource dataSource = new HikariDataSource();
-        log.info("createDataSource: " + url +" schema: " +schema);
+        log.info("createDataSource: " + url + " schema: " + schema);
         dataSource.setJdbcUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);

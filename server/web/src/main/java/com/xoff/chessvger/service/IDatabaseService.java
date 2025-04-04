@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface IDatabaseService {
 
-  List<DatabaseModel> findAll();
-  Long count();
-   DatabaseModel findById(Long id);
+    List<DatabaseModel> findAll();
+
+    Long count();
+
+    DatabaseModel findById(Long id);
 
 }

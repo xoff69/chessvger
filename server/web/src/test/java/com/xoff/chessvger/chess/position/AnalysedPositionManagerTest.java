@@ -1,7 +1,5 @@
 package com.xoff.chessvger.chess.position;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.xoff.chessvger.builder.DatabaseBuilder;
 import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.chess.database.DatabaseManager;
@@ -12,37 +10,39 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @Tag("IT")
 class AnalysedPositionManagerTest {
 
-  private static AnalyzedPosition analyzedPosition;
+    private static AnalyzedPosition analyzedPosition;
 
 
-  private static Database database;
-  private static DatabaseManager databaseManager;
+    private static Database database;
+    private static DatabaseManager databaseManager;
 
 
-  @BeforeAll
-  public static void beforeAll() {
-    database = DatabaseBuilder.buildDatabase("TestFaitDeJeu");
-    databaseManager = new DatabaseManager(database);
-    GlobalManager.getInstance().addDatabaseManager(databaseManager);
-    analyzedPosition = new AnalyzedPosition(10L, 1.0f, 10, "xxx");
+    @BeforeAll
+    public static void beforeAll() {
+        database = DatabaseBuilder.buildDatabase("TestFaitDeJeu");
+        databaseManager = new DatabaseManager(database);
+        GlobalManager.getInstance().addDatabaseManager(databaseManager);
+        analyzedPosition = new AnalyzedPosition(10L, 1.0f, 10, "xxx");
 
-  }
+    }
 
-  @AfterAll
-  public static void afterAll() {
-    databaseManager.finish();
-  }
+    @AfterAll
+    public static void afterAll() {
+        databaseManager.finish();
+    }
 
-  @Test
-  public void testAnalysedPositionManager() {
+    @Test
+    public void testAnalysedPositionManager() {
 
-    GlobalManager.getInstance().getApPositionManager().add(analyzedPosition);
+        GlobalManager.getInstance().getApPositionManager().add(analyzedPosition);
 
-    AnalyzedPosition a =
-        GlobalManager.getInstance().getApPositionManager().get(analyzedPosition.getZobrist());
-    assertEquals(a.getZobrist(), analyzedPosition.getZobrist());
-  }
+        AnalyzedPosition a =
+                GlobalManager.getInstance().getApPositionManager().get(analyzedPosition.getZobrist());
+        assertEquals(a.getZobrist(), analyzedPosition.getZobrist());
+    }
 }

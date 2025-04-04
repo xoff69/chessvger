@@ -1,7 +1,7 @@
 package com.xoff.chessvger.database;
 
-import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.config.JwtUtil;
+import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.service.UserService;
 import com.xoff.chessvger.ui.web.controller.tools.UserDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
+public class DatabaseHelperServiceImpl implements DatabaseHelperService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -26,26 +26,25 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
     @Autowired
     private UserService userService;
 
-    private void setDatasource(){
+    private void setDatasource() {
         // FIXME  a pousser dans le controller
         dynamicDataSourceService.addNewDataSource("common",
                 "jdbc:postgresql://db_chessvger/chessvger",
                 "chessvger",
-                "chessvger","common");
+                "chessvger", "common");
         DataSourceContextHolder.setDataSource("common");
     }
 
 
     // TODO mettre un tenantDto
-    public Optional<TenantEntity> getFromToken(String token){
+    public Optional<TenantEntity> getFromToken(String token) {
         try {
             log.info("getFromToken, token: " + token);
             setDatasource();
             String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
             UserDTO user = userService.getUserByUsername(username);
             return userService.getByUserId(user.getId());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             trace();
         }
@@ -53,7 +52,7 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
 
     }
 
-    public void setDatasource(String token, String schema){
+    public void setDatasource(String token, String schema) {
         // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main
         log.info("setDatasource, token: {}, schema: {}", token, schema);
         Optional<TenantEntity> opt = getFromToken(token);
@@ -68,12 +67,10 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
                     "chessvger", schema);
 
             DataSourceContextHolder.setDataSource(key);
-        }
-        else {
+        } else {
             log.info("setDatasource TENANT not found, token: {}, schema: {}", token, schema);
         }
     }
-
 
 
     public List<String> listTables(String schema) {
@@ -89,7 +86,7 @@ public class DatabaseHelperServiceImpl implements  DatabaseHelperService {
         return jdbcTemplate.queryForObject("SELECT current_schema()", String.class);
     }
 
-    public void trace(){
+    public void trace() {
         log.info("database {}", getCurrentDatabase());
         log.info("schema {}", getCurrentSchema());
         log.info("tables {}", listTables(getCurrentSchema()));

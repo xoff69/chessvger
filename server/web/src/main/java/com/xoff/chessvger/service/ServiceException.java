@@ -1,7 +1,7 @@
 package com.xoff.chessvger.service;
 
 public class ServiceException extends RuntimeException {
-  ServiceException(String message) {
-    super(message);
-  }
+    ServiceException(String message) {
+        super(message);
+    }
 }

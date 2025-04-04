@@ -11,29 +11,29 @@ import org.junit.jupiter.api.Tag;
 
 @Tag("IT")
 public class FavoriteTheoriqueInteretTest {
-  private static final int DELTA = 5;
-  private static Database database;
-  private static DatabaseManager databaseManager;
+    private static final int DELTA = 5;
+    private static Database database;
+    private static DatabaseManager databaseManager;
 
 
-  @BeforeAll
-  public static void beforeAll() {
-    database = DatabaseBuilder.buildDatabase("DataBaseManagerTest");
-    databaseManager = new DatabaseManager(database);
+    @BeforeAll
+    public static void beforeAll() {
+        database = DatabaseBuilder.buildDatabase("DataBaseManagerTest");
+        databaseManager = new DatabaseManager(database);
 
-    GlobalManager.getInstance().addDatabaseManager(databaseManager);
-  }
+        GlobalManager.getInstance().addDatabaseManager(databaseManager);
+    }
 
-  @AfterAll
-  public static void afterAll() {
-    databaseManager.finish();
-  }
+    @AfterAll
+    public static void afterAll() {
+        databaseManager.finish();
+    }
 
-  @BeforeEach
-  public void beforeEach() {
-    databaseManager.clear();
-    DatabaseBuilder.feedDatabase(databaseManager);
-  }
+    @BeforeEach
+    public void beforeEach() {
+        databaseManager.clear();
+        DatabaseBuilder.feedDatabase(databaseManager);
+    }
 /*
 
 @TODO
