@@ -1,5 +1,18 @@
 <template>
-  GamesPlayers
+   <v-data-table
+      :headers="headers"
+      :items="games"
+      :items-per-page="5"
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>player gane</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </template>
+    </v-data-table>
+    games : {{ count }}
 </template>
 
 <script>
@@ -19,7 +32,16 @@ export default {
            }
    },
    data() {
-     return {}
+     return {
+      games: [],
+      count:"",
+      headers: [
+      { title: "id", value: "id" ,sortable:true},
+      { title: "name", value: "name" ,sortable:true},
+      { title: "gameCount", value: "gameCount" ,sortable:true},
+      ],
+
+     }
    },
    methods: {
     handleRowClick(item,row) {
@@ -29,13 +51,14 @@ export default {
     },
     async fetchGames() {
       try {
-// TODO databaseId en dur
-console.log("fetchGames gamesplayers this.database.id", this.database.id);
+
+        console.log("fetchGames gamesplayers this.database.id", this.database.id);
        
         const response =  await sendGetRequest("http://localhost:8080/api/gamesplayer/all?databaseId="+this.database.id);
 
         this.games = response.data.list;
         this.count=response.data.count;
+        console.log("fetchGames gamesplayers ", this.games);
       } catch (error) {
         console.error("Erreur lors de la récupération des gamesplayers :", error);
       }},
