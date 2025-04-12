@@ -44,7 +44,7 @@ public class RunPlayerParser implements Runnable {
 
             try {
                 commonPlayerDao.insertCommonPlayer(player);
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException  e) {
                 System.out.println("players insertion out: " + players.size());
                 throw new RuntimeException(e);
             }

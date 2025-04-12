@@ -10,7 +10,7 @@ jwt:
   secret: Y8Rvca/uGFExf3/Bh+Y4h/Ijwwo31UiOwM3LAz4B5C8=
   expiration: 3600000
 server:
-  port : 8080
+  port: 8080
 spring:
 
   security:
