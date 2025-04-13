@@ -99,7 +99,7 @@ public class GamesController {
 
             MessageToParser messageGame = new MessageToParser();
             messageGame.setTenantId(tenantEntity.getId());
-            messageGame.setFolderToParse("./data/big");
+            messageGame.setFolderToParse("./data/twic1997"); // TODO repertoire pgn en dur
             String name = tenantEntity.getName();
             messageGame.setDatabaseName("chessvger_" + name + "_database");
             messageGame.setSchema(databaseModel.getName());

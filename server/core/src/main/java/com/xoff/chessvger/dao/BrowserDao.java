@@ -38,7 +38,7 @@ public class BrowserDao {
             System.out.println("Insert successful!");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           log.error(e.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class BrowserDao {
 
     public static void browseFirstMove(Connection connection, String schemaName, List<CommonGame> liste) throws SQLException {
 
-
+    log.info("browseFirstMove " + liste.size() + " " + schemaName);
         for (CommonGame g : liste) {
             String debutS = "";
 
