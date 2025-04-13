@@ -3,6 +3,7 @@ package com.xoff.chessvger.ui.web.controller.admin;
 import com.xoff.chessvger.config.JwtUtil;
 import com.xoff.chessvger.database.DataSourceContextHolder;
 import com.xoff.chessvger.database.DynamicDataSourceService;
+import com.xoff.chessvger.service.ServiceException;
 import com.xoff.chessvger.service.UserService;
 import com.xoff.chessvger.ui.form.LoginForm;
 import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
@@ -82,6 +83,9 @@ public class UserController {
 
         } catch (JwtException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        } catch (ServiceException e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 }
