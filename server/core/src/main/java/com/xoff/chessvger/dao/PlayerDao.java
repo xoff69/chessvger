@@ -33,7 +33,7 @@ public class PlayerDao {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     long id = rs.getLong("id");
-                    log.info("Found common player with name {} id {}", name, id);
+                    // log.info("Found common player with name {} id {}", name, id);
                     return id;
                 }
             }
@@ -44,7 +44,7 @@ public class PlayerDao {
         CommonPlayer commonPlayer = new CommonPlayer();
         commonPlayer.setName(name);
         commonPlayer.setId(id);
-        log.info("Insert player with name {} id {}", name, id);
+        // TODO sera a ameliorer log.info("Insert player with name {} id {}", name, id);
         insertCommonPlayer(commonPlayer);
         return id;
     }

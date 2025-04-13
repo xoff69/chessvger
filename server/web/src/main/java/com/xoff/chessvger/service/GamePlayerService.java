@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +56,7 @@ public class GamePlayerService {
         // http://localhost:8080/apiadmin/players/fetchPlayers?ids=123&ids=456
         log.info("getPlayersWithGameCount ids: {}", ids);
         String allPlayers = apiService.callExternalApi("http://localhost:8080/apiadmin/players/fetchPlayers", ids);
-        log.info("all player =" + allPlayers);
+        log.info("getPlayersWithGameCount  all player =" + allPlayers);
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -65,11 +66,12 @@ public class GamePlayerService {
                     new TypeReference<ResponseList<CommonPlayer>>() {
                     }
             );
-            System.out.println("Count : " + response.getCount());
+            log.info("Count : " + response.getCount());
             response.getList().forEach(player -> {
-
+                        log.info("map player " + player.getId());
                         for (PlayerGameCount playerGameCount : players) {
-                            if (playerGameCount.getId() == player.getId()) {
+                            if (Objects.equals(playerGameCount.getId(), player.getId())) {
+                                log.info("map player " + player.getName()+" "+player);
                                 playerGameCount.setName(player.getName());
                             }
                         }
