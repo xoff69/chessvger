@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         return mapToDTO(userEntity.get());
     }
 
-    public UserDTO getUserByUsername(String username) {
+    public UserDTO getUserByUsername(String username) throws ServiceException {
 
         Optional<UserEntity> optionalUserEntity = findByLogin(username);
         log.info("getUserByUsername, username: " + username + ", userEntity: " + optionalUserEntity);

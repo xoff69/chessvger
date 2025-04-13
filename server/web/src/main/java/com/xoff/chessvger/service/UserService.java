@@ -15,7 +15,7 @@ public interface UserService {
 
     List<UserDTO> findAll(Pageable pageable);
 
-    UserDTO getUserByUsername(String username);
+    UserDTO getUserByUsername(String username) throws ServiceException;
 
     Optional<TenantEntity> getTenant(long tenantId);
 

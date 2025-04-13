@@ -41,7 +41,7 @@ public class DatabaseServiceImpl implements IDatabaseService {
             log.error(e.getMessage());
             log.error(e.getStackTrace().toString());
             databaseHelperService.trace();
-            throw new RuntimeException(e);
+            return null;
         }
     }
 

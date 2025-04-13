@@ -1,10 +1,12 @@
 package com.xoff.chessvger.dao;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+@Slf4j
 public class TenantDao {
 
     private static final String INSERT_TENANT = "INSERT INTO common.tenants (name, date_created, date_updated)\n" +
@@ -50,9 +52,9 @@ public class TenantDao {
 
             }
         } catch (SQLException e) {
-            System.out.println(tenantName + " ::Error createTenantEnvironnement : " + e.getMessage());
+           log.error("createTenantEnvironnement: " + tenantName + " " + e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+           log.error("createTenantEnvironnement: " + tenantName + " " + e.getMessage());
         }
     }
 

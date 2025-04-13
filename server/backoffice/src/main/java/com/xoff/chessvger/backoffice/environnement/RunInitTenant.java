@@ -4,9 +4,10 @@ import com.xoff.chessvger.dao.CommonDao;
 import com.xoff.chessvger.dao.TenantDao;
 import com.xoff.chessvger.dao.UserDao;
 import com.xoff.chessvger.model.UserTenant;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
-
+@Slf4j
 public class RunInitTenant implements Runnable {
 
     private final UserTenant userTenant;
@@ -24,7 +25,7 @@ public class RunInitTenant implements Runnable {
                     userTenant.getPassword(), false, tenantId);
 
             // TODO ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
-            System.out.println("Tenant created");
+            log.info("Tenant created");
             TenantDao.createTenantEnvironnement(userTenant.getTenantName());
 
 // tenantDao initialise une nouvelle bd pg, et en plus on cree un schema dans cette nouvelle bd
@@ -33,8 +34,7 @@ public class RunInitTenant implements Runnable {
 
 
         } catch (Exception e) {
-            System.out.println("Error RunInitTenant");
-            throw new RuntimeException(e);
+            log.error("Error RunInitTenant",e);
         }
     }
 }

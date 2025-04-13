@@ -59,18 +59,21 @@ public class RunGameParser implements Runnable {
                 List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
                 MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
                 PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+                //log.info("insert game : " + game);
 
             }
-            log.info("db insert games done " + games.size() + ":" + timeElapsed + " s");
+            log.info("db insert games all done " + games.size() + ":" + timeElapsed + " s");
 
             BrowserDao.browseFirstMove(connection, messageToParser.getSchema(), games);
             log.info("browseFirstMove done ");
 
         } catch (SQLException e) {
-            log.error("runGame Parser", e);
+            log.error("runGame Parser  erreur", e);
+
 
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+
         }
         long finish2 = System.currentTimeMillis();
         timeElapsed = (finish2 - finish1) / 1000;
@@ -99,9 +102,9 @@ public class RunGameParser implements Runnable {
         try {
             manageFile(messageToParser);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("runGame Parser  erreur", e);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            log.error("runGame Parser  erreur", e);
         }
     }
 

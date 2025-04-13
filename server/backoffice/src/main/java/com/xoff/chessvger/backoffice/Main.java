@@ -12,9 +12,10 @@ import com.xoff.chessvger.model.UserTenant;
 import com.xoff.chessvger.topic.ActionQueue;
 import com.xoff.chessvger.topic.MessageToParser;
 import com.xoff.chessvger.topic.Topic;
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
-
+@Slf4j
 public class Main {
 
     // TODO check l existence des folders dans data
@@ -26,7 +27,7 @@ public class Main {
     }
 
     private static void checkEnvironment() {
-        System.out.println("Checking environment...");
+        log.info("Checking environment...");
         // TODO
         Thread thread = new Thread(new RunInitSystem());
         thread.start();
@@ -103,8 +104,7 @@ public class Main {
                             thread.start();
                         }
                     } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                        throw new RuntimeException(e);
+                        log.error("error parsing json", e);
 
                     }
                 }

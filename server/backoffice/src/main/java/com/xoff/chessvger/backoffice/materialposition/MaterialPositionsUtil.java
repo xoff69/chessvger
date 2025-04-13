@@ -6,14 +6,16 @@ import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.game.ItemGameTree;
 import com.xoff.chessvger.chess.game.OneGameTree;
 import com.xoff.chessvger.chess.move.ResultInterpretation;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 public class MaterialPositionsUtil {
 
     public static List<CoupleZobristMaterial> parseMoves2(String moves) {
 
+     //       log.info("> parseMoves2");
         List<CoupleZobristMaterial> result = new ArrayList<>();
         OneGameTree ogt = new OneGameTree(moves);
 
@@ -43,7 +45,7 @@ public class MaterialPositionsUtil {
             compteur++;
         }
         // FIXME game.setNbcoups(compteur);
-
+      //  log.info("fin  parseMoves2");
         return result;
     }
 }

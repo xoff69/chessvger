@@ -4,10 +4,11 @@ import com.xoff.chessvger.dao.CommonDao;
 import com.xoff.chessvger.dao.ContractDao;
 import com.xoff.chessvger.dao.TenantDao;
 import com.xoff.chessvger.dao.UserDao;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 
-
+@Slf4j
 public class RunInitSystem implements Runnable {
 
 
@@ -37,8 +38,7 @@ public class RunInitSystem implements Runnable {
 
 
         } catch (Exception e) {
-            System.out.println("Error RunInitSystem");
-            throw new RuntimeException(e);
+            log.error("Error RunInitSystem",e);
         }
     }
 }
