@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 @Slf4j
 public class GameOfStatDao {
     private static final String INSERT_SQL = "INSERT INTO  %s.game_of_stat (game_id,stat_id) VALUES (?,?)";
@@ -19,19 +20,15 @@ public class GameOfStatDao {
 
             insertEntityStmt =
                     connection.prepareStatement(sql);
-
             insertEntityStmt.setLong(1, gameId);
             insertEntityStmt.setLong(2, statId);
             insertEntityStmt.executeUpdate();
 
 
-            connection.commit();
             insertEntityStmt.close();
         } catch (SQLException e) {
-            if (connection != null) {
-                connection.rollback();
-            }
-           log.error(e.getMessage());
+
+            log.error(e.getMessage());
         }
     }
 }

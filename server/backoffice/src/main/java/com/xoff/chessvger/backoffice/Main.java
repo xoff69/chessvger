@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xoff.chessvger.backoffice.environnement.RunInitSystem;
 import com.xoff.chessvger.backoffice.environnement.RunInitTenant;
-import com.xoff.chessvger.backoffice.game.RunGameParser;
+import com.xoff.chessvger.backoffice.environnement.RunGameParser;
 import com.xoff.chessvger.backoffice.player.RunPlayerParser;
 import com.xoff.chessvger.backoffice.util.MetricsService;
 import com.xoff.chessvger.model.UserTenant;
@@ -42,7 +42,7 @@ public class Main {
             System.out.println("Local Main!" + args[0]);
             dbhost = "localhost";
         }
-        checkEnvironment();
+        // checkEnvironment();
     /*
     try {
      // Prometheus.start();

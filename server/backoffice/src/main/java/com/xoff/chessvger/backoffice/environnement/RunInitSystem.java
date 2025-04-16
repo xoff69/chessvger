@@ -19,7 +19,6 @@ public class RunInitSystem implements Runnable {
             // schema common: user, contract, player, feature flag
             if (CommonDao.createSchemaIfNotExists(connection, CommonDao.COMMON_SCHEMA)) {
 
-
                 CommonDao.executeSqlFromFile(connection, "query/player_createtable.sql");
                 CommonDao.executeSqlFromFile(connection, "query/tenant_createtable.sql");
                 CommonDao.executeSqlFromFile(connection, "query/user_createtable.sql");

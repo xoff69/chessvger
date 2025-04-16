@@ -3,6 +3,7 @@ package com.xoff.chessvger.backoffice.game;
 
 import com.xoff.chessvger.backoffice.util.DateConverter;
 import com.xoff.chessvger.model.CommonGame;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Slf4j
 public class Parser {
 
     public Parser() {
@@ -32,7 +33,7 @@ public class Parser {
         StringBuilder result = new StringBuilder();
         try {
             // FIXME on fait qu un fichier et pas tout le repertoire
-            System.out.println("pgn file: " + emplacement);
+            log.info("pgn file: " + emplacement);
             List<String> lines = Files.readAllLines(Paths.get(emplacement), StandardCharsets.ISO_8859_1);
             lines.forEach(ligne -> {
                 ligne = ligne.replace("\ufeff", ""); // ajout pour palier bug BOM
@@ -50,13 +51,13 @@ public class Parser {
                 result.append(ligne).append(" ");
             });
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
         return result.toString();
     }
 
     public List<CommonGame> parseData(String data, String fileName) {
-        System.out.println("parse data  " + fileName);
+        log.info("parse data  " + fileName);
         int etat = 0;
         int len = data.length();
         int compteur = 0;
@@ -155,7 +156,7 @@ public class Parser {
                         case "EventRounds":  // FIXME mettre tout ca en meta info
                             break;
                         default:
-                            System.out.println("Parser switch " + token + ":'" + value);
+                            log.info("Parser switch " + token + ":'" + value+ " "+fileName);
                     }
                     break;
                 //
@@ -225,16 +226,16 @@ public class Parser {
 
     public List<CommonGame> parseDir(File dir) {
         List<CommonGame> games = new ArrayList<>();
-        System.out.println("parseDir A :" + dir.getAbsolutePath());
+        log.info("parseDir A :" + dir.getAbsolutePath());
         File[] files = dir.listFiles();
         if (files == null) {
             return games;
         }
         int total = 0;
         for (File file : files) {
-            System.out.println("parseDir :" + file.getAbsolutePath());
+            log.info("parseDir :" + file.getAbsolutePath());
             if (file.isDirectory()) {
-                System.out.println("sous rep:" + file.getAbsolutePath());
+                log.info("sous rep:" + file.getAbsolutePath());
                 games.addAll(parseDir(file));
             } else {
 

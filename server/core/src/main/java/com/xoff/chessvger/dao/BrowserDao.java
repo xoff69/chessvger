@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -19,38 +20,69 @@ import java.util.Optional;
 public class BrowserDao {
 
     private static final String INSERT_SQL = "INSERT INTO %s.stat_browser "
-            + "(level, white_win, nul, black_win, last_game_date, elo_min) "
-            + "VALUES (?, ?, ?, ?, ?, ?)";
+            + "(level, white_win, nul, black_win, last_game_date, elo_min, moves_start) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
 
-    private static void insertStat(Connection connection, String schemaName, int level, int whiteWin, int nul, int blackWin, String lastGameDate, int eloMin) {
+    private static long insertStat(Connection connection, String schemaName, int level, int whiteWin, int nul, int blackWin, String lastGameDate, int eloMin, String movesStart) throws SQLException {
         String query = String.format(INSERT_SQL, schemaName);
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
+        long generatedId = -1;
 
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, level);
             stmt.setInt(2, whiteWin);
             stmt.setInt(3, nul);
             stmt.setInt(4, blackWin);
             stmt.setString(5, lastGameDate);
             stmt.setInt(6, eloMin);
+            stmt.setString(7, movesStart);
 
-            stmt.executeUpdate();
-            System.out.println("Insert successful!");
-
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    generatedId = rs.getLong("id");
+                    log.info("Insert successful! stat_browser - Generated ID: " + generatedId);
+                }
+            }
         } catch (SQLException e) {
-           log.error(e.getMessage());
+            log.error("Insert failed: " + e.getMessage());
+            throw e;
         }
+
+        return generatedId;
     }
 
-    private static Optional<StatBrowser> findByDebutS(String debut) {
-        log.warn("NOT IMPLEMENTED YET: findByDebutS");
 
-        return Optional.of(new StatBrowser()); // TODO
+    private static Optional<StatBrowser> findByDebutS(Connection connection, String schemaName, String movesStart) throws SQLException {
+        String query = String.format("SELECT id, level, white_win, nul, black_win, last_game_date, elo_min, moves_start FROM %s.stat_browser WHERE moves_start = ?", schemaName);
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, movesStart);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    StatBrowser stat = new StatBrowser();
+                    stat.setId(rs.getLong("id"));
+                    stat.setLevel(rs.getInt("level"));
+                    stat.setBlanc(rs.getInt("white_win"));
+                    stat.setNul(rs.getInt("nul"));
+                    stat.setNoir(rs.getInt("black_win"));
+                    stat.setLastGameDate(rs.getString("last_game_date"));
+                    stat.setEloMin(rs.getInt("elo_min"));
+                    stat.setMovesStart(rs.getString("moves_start"));
+                    return Optional.of(stat);
+                }
+            }
+        } catch (SQLException e) {
+            log.error("Query failed: " + e.getMessage());
+            throw e;
+        }
+
+        return Optional.empty();
     }
 
-    public static void browseFirstMove(Connection connection, String schemaName, List<CommonGame> liste) throws SQLException {
 
-    log.info("browseFirstMove " + liste.size() + " " + schemaName);
+    public static void createStatsForGames(Connection connection, String schemaName, List<CommonGame> liste) throws SQLException {
+
+        log.info("browseFirstMove " + liste.size() + " " + schemaName);
         for (CommonGame g : liste) {
             String debutS = "";
 
@@ -65,7 +97,7 @@ public class BrowserDao {
                 debutS = debutS + moves[i] + Constants.MAP_SEP;
 
                 // Récupération ou création de l'entrée StatBrowser
-                StatBrowser sb = findByDebutS(debutS)
+                StatBrowser sb = findByDebutS(connection,schemaName,debutS)
                         .orElse(new StatBrowser());
 
                 if (sb.getId() == 0) {
@@ -85,12 +117,10 @@ public class BrowserDao {
                         break;
                 }
 
-                // Mise à jour de la dernière date du jeu
                 if (DateUtils.getYear(String.valueOf(g.getDate())) > DateUtils.getYear(sb.getLastGameDate())) {
                     sb.setLastGameDate(String.valueOf(g.getDate()));
                 }
 
-                // Ajout des meilleurs joueurs
                 String blanc = g.getWhitePlayer();
                 if (PlayerDao.isWellKnowPlayer(blanc)) {
                     sb.addBestPlayer(blanc);
@@ -106,9 +136,9 @@ public class BrowserDao {
                 int eloNoir = g.getBlackElo() == 0 ? Integer.MAX_VALUE : g.getBlackElo();
                 sb.setEloMin(Math.min(Math.min(eloBlanc, eloNoir), sb.getEloMin()));
 
-                insertStat(connection, schemaName, sb.getLevel(), sb.getBlanc(), sb.getNul(), sb.getNoir(), sb.getLastGameDate(), sb.getEloMin());
+                long id=insertStat(connection, schemaName, sb.getLevel(), sb.getBlanc(), sb.getNul(), sb.getNoir(), sb.getLastGameDate(), sb.getEloMin(),debutS);
 
-                GameOfStatDao.insert(connection, schemaName, g.getId(), sb.getId());
+                GameOfStatDao.insert(connection, schemaName, g.getId(), id);
             }
         }
 
