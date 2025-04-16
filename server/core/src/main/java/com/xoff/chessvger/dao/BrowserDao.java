@@ -19,36 +19,64 @@ import java.util.Optional;
 @Slf4j
 public class BrowserDao {
 
-    private static final String INSERT_SQL = "INSERT INTO %s.stat_browser "
+    private static final String INSERT_SQL_NO_ID = "INSERT INTO %s.stat_browser "
             + "(level, white_win, nul, black_win, last_game_date, elo_min, moves_start) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING id";
+            + "VALUES (?, ?, ?, ?, ?, ?, ?) "
+            + "RETURNING id";
 
-    private static long insertStat(Connection connection, String schemaName, int level, int whiteWin, int nul, int blackWin, String lastGameDate, int eloMin, String movesStart) throws SQLException {
-        String query = String.format(INSERT_SQL, schemaName);
+    private static final String UPSERT_SQL_WITH_ID = "INSERT INTO %s.stat_browser "
+            + "(id, level, white_win, nul, black_win, last_game_date, elo_min, moves_start) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?) "
+            + "ON CONFLICT (id) DO UPDATE SET "
+            + "level = EXCLUDED.level, "
+            + "white_win = EXCLUDED.white_win, "
+            + "nul = EXCLUDED.nul, "
+            + "black_win = EXCLUDED.black_win, "
+            + "last_game_date = EXCLUDED.last_game_date, "
+            + "elo_min = EXCLUDED.elo_min, "
+            + "moves_start = EXCLUDED.moves_start "
+            + "RETURNING id";
+
+    private static long upsert(Connection connection, String schemaName, int level, int whiteWin, int nul, int blackWin, String lastGameDate, int eloMin, String movesStart, long statId) throws SQLException {
+        String query;
+        boolean insertWithoutId = statId == 0;
+
+        if (insertWithoutId) {
+            query = String.format(INSERT_SQL_NO_ID, schemaName);
+        } else {
+            query = String.format(UPSERT_SQL_WITH_ID, schemaName);
+        }
+
         long generatedId = -1;
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, level);
-            stmt.setInt(2, whiteWin);
-            stmt.setInt(3, nul);
-            stmt.setInt(4, blackWin);
-            stmt.setString(5, lastGameDate);
-            stmt.setInt(6, eloMin);
-            stmt.setString(7, movesStart);
+            int i = 1;
+            if (!insertWithoutId) {
+                stmt.setLong(i++, statId); // set id first
+            }
+
+            stmt.setInt(i++, level);
+            stmt.setInt(i++, whiteWin);
+            stmt.setInt(i++, nul);
+            stmt.setInt(i++, blackWin);
+            stmt.setString(i++, lastGameDate);
+            stmt.setInt(i++, eloMin);
+            stmt.setString(i++, movesStart);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     generatedId = rs.getLong("id");
-                    log.info("Insert successful! stat_browser - Generated ID: " + generatedId);
+                    log.info((insertWithoutId ? "Insert" : "Upsert") + " successful! stat_browser - ID: " + generatedId);
                 }
             }
         } catch (SQLException e) {
-            log.error("Insert failed: " + e.getMessage());
+            log.error("Upsert failed: " + e.getMessage());
             throw e;
         }
 
         return generatedId;
     }
+
 
 
     private static Optional<StatBrowser> findByDebutS(Connection connection, String schemaName, String movesStart) throws SQLException {
@@ -100,10 +128,6 @@ public class BrowserDao {
                 StatBrowser sb = findByDebutS(connection,schemaName,debutS)
                         .orElse(new StatBrowser());
 
-                if (sb.getId() == 0) {
-                    sb.setId(DbKeyManager.getInstance().getDbKeyGenerator().getNext());
-                }
-
                 // Mise à jour des statistiques en fonction des résultats
                 switch (g.getResult()) {
                     case Constants.RESULT_1_0:
@@ -136,7 +160,7 @@ public class BrowserDao {
                 int eloNoir = g.getBlackElo() == 0 ? Integer.MAX_VALUE : g.getBlackElo();
                 sb.setEloMin(Math.min(Math.min(eloBlanc, eloNoir), sb.getEloMin()));
 
-                long id=insertStat(connection, schemaName, sb.getLevel(), sb.getBlanc(), sb.getNul(), sb.getNoir(), sb.getLastGameDate(), sb.getEloMin(),debutS);
+                long id=upsert(connection, schemaName, sb.getLevel(), sb.getBlanc(), sb.getNul(), sb.getNoir(), sb.getLastGameDate(), sb.getEloMin(),debutS,sb.getId());
 
                 GameOfStatDao.insert(connection, schemaName, g.getId(), id);
             }
