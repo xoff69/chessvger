@@ -22,3 +22,5 @@ create table common.common_player
     w_title      varchar(255),
     primary key (id)
 );
+
+CREATE INDEX idx_common_player_lower_name ON common.common_player (LOWER(name));
