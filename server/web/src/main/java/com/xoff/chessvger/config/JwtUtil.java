@@ -17,10 +17,11 @@ import java.util.Map;
 @Slf4j
 public class JwtUtil {
 
+    private final static  String SECRET="Y8Rvca/uGFExf3/Bh+Y4h/Ijwwo31UiOwM3LAz4B5C8=";
     private final Key secretKey;
     private final long EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 30; // 30 jours
 
-    public JwtUtil(@Value("${jwt.secret:}") String secret) {
+    public JwtUtil(@Value(SECRET) String secret) {
         if (secret == null || secret.isEmpty()) {
             System.out.println("Clé JWT non définie. Génération d'une nouvelle clé...");
             this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -70,8 +71,8 @@ public class JwtUtil {
 
     // Méthode main pour tester
     public static void main(String[] args) {
-        JwtUtil jwtUtil = new JwtUtil("Y8Rvca/uGFExf3/Bh+Y4h/Ijwwo31UiOwM3LAz4B5C8=");
-        String token = jwtUtil.generateToken("john");
+        JwtUtil jwtUtil = new JwtUtil(SECRET);
+        String token = jwtUtil.generateToken("demo");
         System.out.println("Token généré : " + token);
         System.out.println("Validation du token : " + jwtUtil.validateToken(token));
         System.out.println("extraction user : " + jwtUtil.extractUsername(token));

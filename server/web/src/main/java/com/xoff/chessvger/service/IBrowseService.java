@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IBrowseService {
 
-    List<StatBrowserView> loadAll(long bdId);
+    List<StatBrowserView> browse(String previousMoves);
 }

@@ -66,7 +66,7 @@ public class PlayerDao {
     }
 
     public static boolean isWellKnowPlayer(String name) {
-        log.warn("NOT IMPLEMENTED YET: isWellKnowPlayer");
+        //log.warn("NOT IMPLEMENTED YET: isWellKnowPlayer");
         return true; // TODO
     }
 

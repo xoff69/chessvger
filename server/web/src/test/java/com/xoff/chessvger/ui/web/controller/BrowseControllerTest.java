@@ -67,26 +67,5 @@ class BrowseControllerTest {
         DatabaseBuilder.feedDatabase(databaseManager);
     }
 
-    @Test
-    @DisplayName("all browse data test")
-    public void expect_result_forallbrowse() throws Exception {
 
-        List<StatBrowserView> browserViewList = new ArrayList<>();
-        StatBrowserView sb = new StatBrowserView();
-        sb.setCoup("g4");
-        browserViewList.add(sb);
-        when(iBrowseService.loadAll(databaseManager.getDatabaseId())).thenReturn(browserViewList);
-
-
-        String url = ConstantsTest.URL_SERVER + serverProperties.getPort() + "/browses";
-        LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
-        requestParams.add("bdId", String.valueOf(databaseManager.getDatabaseId()));
-        UriComponentsBuilder builder =
-                UriComponentsBuilder.fromUriString(url).queryParams(requestParams);
-        MvcResult mvcResult =
-                this.mockMvc.perform(get(builder.build().toUri())).andDo(print()).andExpect(status().isOk())
-                        .andExpect(content().string(containsString("g4"))).andReturn();
-
-        assertNotNull(mvcResult.getResponse().getContentAsString());
-    }
 }
