@@ -22,6 +22,7 @@ public class StatBrowserView extends StatBrowser {
         setLastGameDate(parent.getLastGameDate());
         addBestPlayer(parent.getBestPlayer());
         setEloMin(parent.getEloMin());
+        setMovesStart(parent.getMovesStart());
         this.coup = coup;
     }
 

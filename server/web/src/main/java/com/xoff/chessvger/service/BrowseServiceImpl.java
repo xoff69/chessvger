@@ -25,19 +25,29 @@ import java.util.Optional;
 public class BrowseServiceImpl implements IBrowseService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    private static String getLastMove(String input) {
+        if (input == null || input.isEmpty()) return "";
 
+        // Supprime le dernier '#' s'il existe pour éviter un élément vide
+        if (input.endsWith("#")) {
+            input = input.substring(0, input.length() - 1);
+        }
+
+        String[] parts = input.split("#");
+        return parts[parts.length - 1];
+    }
     public List<StatBrowserView> browse(String previousMoves) {
         List<StatBrowserView> statBrowserViews = new ArrayList<>();
 
-        String query = """
+
+
+        if (previousMoves == null || previousMoves.isEmpty()) {
+
+            String query = """
             SELECT id, level, white_win, nul, black_win, last_game_date, elo_min, moves_start 
             FROM stat_browser 
             WHERE moves_start = ?
         """;
-
-        if (previousMoves == null || previousMoves.isEmpty()) {
-
-
             for (String s : Constants.ALL_FIRST_MOVE) {
                 List<StatBrowserView> buildw = jdbcTemplate.query(
                         query,
@@ -52,7 +62,7 @@ public class BrowseServiceImpl implements IBrowseService {
                             stat.setLastGameDate(rs.getString("last_game_date"));
                             stat.setEloMin(rs.getInt("elo_min"));
                             stat.setMovesStart(rs.getString("moves_start"));
-                            return new StatBrowserView(stat, s);
+                            return new StatBrowserView(stat, getLastMove(stat.getMovesStart() ));
                         }
                 );
 
@@ -60,9 +70,16 @@ public class BrowseServiceImpl implements IBrowseService {
             }
         }
         else{
+            int level=previousMoves.split("#").length;
+            String query = """
+            SELECT id, level, white_win, nul, black_win, last_game_date, elo_min, moves_start 
+            FROM stat_browser 
+            WHERE moves_start like ? and level=?
+        """;
+            log.info("cas like " + previousMoves + " " + (level+1));
             List<StatBrowserView> buildw = jdbcTemplate.query(
                     query,
-                    new Object[]{previousMoves },
+                    new Object[]{previousMoves+"%" ,level},
                     (rs, rowNum) -> {
                         StatBrowser stat = new StatBrowser();
                         stat.setId(rs.getLong("id"));
@@ -73,7 +90,8 @@ public class BrowseServiceImpl implements IBrowseService {
                         stat.setLastGameDate(rs.getString("last_game_date"));
                         stat.setEloMin(rs.getInt("elo_min"));
                         stat.setMovesStart(rs.getString("moves_start"));
-                        return new StatBrowserView(stat, previousMoves);
+
+                        return new StatBrowserView(stat, getLastMove(stat.getMovesStart() ));
                     }
             );
 
