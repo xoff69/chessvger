@@ -3,7 +3,6 @@ package com.xoff.chessvger.chess.stat;
 import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.QuickFilter;
-import com.xoff.chessvger.chess.game.ICommonGameManager;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.view.StatBrowserView;
@@ -15,63 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
-public class GlobalBrowserStatManager implements IGlobalBrowserStatManager {
-    private final HashMap<String, IBrowserStatManager> routeurTotal;
-    private final HashMap<String, IBrowserStatManager> routeurMem;
-
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "We want that")
-    private final DatabaseManager databaseManager;
+public class GlobalBrowserStatManager  {
 
 
     private QuickFilter saved;
 
-
-    public GlobalBrowserStatManager(DatabaseManager databaseManager) {
-        this.databaseManager = databaseManager;
-        routeurTotal = new HashMap();
-        routeurMem = new HashMap();
-        saved = new QuickFilter(new Position());
-    }
-
-    public void put(String first, IBrowserStatManager b) {
-        routeurTotal.put(first, b);
-    }
-
-
-    public IBrowserStatManager get(String first) {
-        return routeurTotal.get(first);
-    }
-
-
-    public void finish() {
-        for (String s : Constants.ALL_FIRST_MOVE) {
-            IBrowserStatManager bs = routeurTotal.get(s);
-            if (bs != null) {
-                routeurTotal.get(s).finish();
-            }
-            // log.info("browser stat " + s + "-" + bs);
-
-            IBrowserStatManager sb = routeurMem.get(s);
-            if (sb != null) {
-                routeurMem.get(s).finish();
-            }
-            //         log.info("browser stat  meme" + s + "-" + bs);
-
-        }
-    }
-
-
-    public void clear() {
-
-        for (String s : Constants.ALL_FIRST_MOVE) {
-            IBrowserStatManager sb = routeurMem.get(s);
-            if (sb != null) {
-                routeurMem.get(s).clear();
-            }
-        }
-        routeurMem.clear();
-    }
-
+/*
 
     public List<CommonGame> gameOfASB(QuickFilter qf) {
 
@@ -233,5 +181,5 @@ public class GlobalBrowserStatManager implements IGlobalBrowserStatManager {
         }
         log.info("nb stat =" + la.size());
         return la;
-    }
+    }*/
 }

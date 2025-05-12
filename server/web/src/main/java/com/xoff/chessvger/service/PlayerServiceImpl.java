@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +21,25 @@ public class PlayerServiceImpl implements IPlayerService {
 
     private final JdbcTemplate jdbcTemplate;
 
+    /**
+     * TODO
+     * @param name
+     * @return
+     */
+    private List<String> variantes(String name) {
+        List<String> resultat = new ArrayList();
+        //    if (name.contains("rj")) {
+        resultat.add(name.replace("rj", "ri"));
+        resultat.add(name.replace("ov", "of"));
+        resultat.add(name.replace("ge", "gue"));
+        resultat.add(name.replace("ck", "ch"));
+        resultat.add(name.replace("ikt", "ict"));
+        resultat.add(name.replace("ik", "ick"));
+        resultat.add(name.replace("gu", "gou"));
+        // }
+
+        return resultat;
+    }
     private final RowMapper<CommonPlayer> playerRowMapper = (rs, rowNum) -> {
         CommonPlayer player = new CommonPlayer();
         player.setId(rs.getLong("id"));

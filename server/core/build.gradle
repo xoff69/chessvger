@@ -24,8 +24,6 @@ dependencies {
     implementation 'commons-io:commons-io:2.16.1'
 // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
-
-    implementation 'org.mapdb:mapdb:3.1.0'
     testImplementation platform('org.junit:junit-bom:5.10.3')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'

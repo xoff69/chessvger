@@ -1,6 +1,5 @@
 package com.xoff.chessvger.ui.web.mapper;
 
-import com.xoff.chessvger.chess.database.Database;
 import com.xoff.chessvger.ui.web.form.DBForm;
 import com.xoff.chessvger.ui.web.view.DBView;
 

@@ -1,77 +1,15 @@
 package com.xoff.chessvger.chess.database;
 
-import com.xoff.chessvger.chess.board.*;
-import com.xoff.chessvger.chess.filter.Filter;
-import com.xoff.chessvger.chess.game.*;
-import com.xoff.chessvger.chess.history.HistoryManager;
-import com.xoff.chessvger.chess.history.IHistoryManager;
-import com.xoff.chessvger.chess.move.ResultInterpretation;
-import com.xoff.chessvger.chess.player.IPlayerOfDbManager;
-import com.xoff.chessvger.chess.player.IPlayerStatManager;
-import com.xoff.chessvger.chess.player.PlayerOfDbManager;
-import com.xoff.chessvger.chess.player.PlayerStatManager;
-import com.xoff.chessvger.chess.stat.GlobalBrowserStatManager;
-import com.xoff.chessvger.chess.stat.IBrowserStatManager;
-import com.xoff.chessvger.chess.stat.IGlobalBrowserStatManager;
-import com.xoff.chessvger.common.DbKeyManager;
-import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.common.ParamConstants;
-import com.xoff.chessvger.model.CommonGame;
-import com.xoff.chessvger.model.CommonPlayer;
-import com.xoff.chessvger.util.*;
-import com.xoff.chessvger.view.JoueurView;
-import com.xoff.chessvger.view.StatBrowserView;
-import com.xoff.chessvger.view.StatGame;
-import com.xoff.chessvger.view.StatJoueurView;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 @Slf4j
 @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
-public class DatabaseManager implements IDatabaseManager {
+public class DatabaseManager  {
 
+/*
 
-    private final Database database;
-    private IGlobalGameManager globalGameManager;
-    private IPositionManager positionManager;
-    private IMaterialManager materialManager;
-    private IGlobalBrowserStatManager globalBrowserStatManager;
-    private IPlayerStatManager playerStatManager;
-    private IGameStatManager gameStatManager;
-    private IGameWhereMapManager gameWhereMapManager;
-    private IGameOfAPlayerManager gameOfAPlayerManager;
-    private IHistoryManager historyManager;
-    private Parser parser;
-    private IPlayerOfDbManager playerOfDbManager;
-
-    private RejetUtil rejetUtil;
-
-    public DatabaseManager(Database database) {
-        this.database = database;
-        init(createName());
-    }
-
-    public static boolean exists(String name, String folder) {
-        return CVFileUtils.exists(name + "_" + Constants.CVDB_EXT, folder);
-
-    }
-
-    public static String getFolder(String dbname) {
-        return ParamConstants.DATA_FOLDER_DB + dbname + File.separator;
-    }
-
-    public long count() {
-        return database.getNbgames();
-    }
 
     public long duplicate(long userId) {
         // TODO
@@ -110,80 +48,7 @@ public class DatabaseManager implements IDatabaseManager {
         return newDatabase.getId();
     }
 
-    public long getDatabaseId() {
-        return database.getId();
-    }
 
-    public String getDatabaseName() {
-        return database.getName();
-    }
-
-    private void init(String dbName) {
-
-        CVFileUtils.createDir(getFolder(createName()));
-
-        parser = new Parser();
-        rejetUtil = new RejetUtil();
-        // il faut un routeur pour les ajouts et donc des maps
-        // on boucle sur les premiers coups possibles
-        // dailleurs on doit pouvoir modifier aussi le statBrowserDB
-        positionManager = new PositionManager(getFolder(dbName) + dbName);
-        materialManager = new MaterialManager(dbName);
-
-        globalBrowserStatManager = new GlobalBrowserStatManager(this);
-        gameOfAPlayerManager = new GameOfAPlayerManager(this);
-        playerStatManager = new PlayerStatManager();
-        gameStatManager = new GameStatManager();
-        historyManager = new HistoryManager(this);
-        gameWhereMapManager = new GameWhereMapManager(dbName);
-        globalGameManager = new GlobalGameManager(this);
-        playerOfDbManager = new PlayerOfDbManager(this);
-        ExecutorService taskExecutor = Executors.newFixedThreadPool(Constants.ALL_FIRST_MOVE.size());
-        for (String move : Constants.ALL_FIRST_MOVE) {
-
-            GameManagerRun runEntity = new GameManagerRun(dbName, move, this);
-            taskExecutor.execute(runEntity);
-        }
-
-        taskExecutor.shutdown();
-        try {
-            taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        } catch (InterruptedException ex) {
-            log.error(ex.getMessage());
-        }
-    }
-
-    public void finish() {
-        log.info("DATABASE MANAGER FINSUH >----------" + database.getName());
-
-        globalGameManager.finish();
-        globalBrowserStatManager.finish();
-        positionManager.finish();
-        materialManager.finish();
-        gameOfAPlayerManager.finish();
-        gameWhereMapManager.finish();
-        historyManager.finish();
-        playerOfDbManager.finish();
-        log.info("DATABASE MANAGER FINSUH <----------");
-
-    }
-
-
-    public void clear() {
-        log.info("Databasemanager.clear");
-        globalGameManager.clear();
-        globalBrowserStatManager.clear();
-        positionManager.clear();
-        materialManager.clear();
-        gameOfAPlayerManager.clear();
-        gameWhereMapManager.clear();
-        historyManager.clear();
-        playerOfDbManager.clear();
-    }
-
-    public String createName() {
-        return "DB_" + database.getId();
-    }
 
     public boolean parseMoves2(CommonGame game) {
 
@@ -239,22 +104,7 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
 
-    public int importePgn(String emplacement) {
 
-        //    String name = new File(emplacement).getName();
-        //   int tot = parser.parseData(parser.readPgnFile(emplacement), this, name);
-        int tot = parser.parseDir(new File(emplacement), this);
-        if (tot <= 0) {
-            log.error("erreur importePgn ");
-        }
-        log.info("before postUpdateGameAndStat");
-        int nbtotal = postUpdateGameAndStat();
-        log.info("after postUpdateGameAndStat");
-        database.setNbgames(nbtotal);
-        database.setLastUpdate(System.currentTimeMillis());
-        GlobalManager.getInstance().getDatabaseMap().add(database.getId(), database);
-        return tot;
-    }
 
     public List<CommonGame> search(Filter filter) {
 
@@ -336,11 +186,6 @@ public class DatabaseManager implements IDatabaseManager {
     }
 
 
-    public CommonGame getGameById(long id) {
-        String p = getGameWhereMapManager().get(id);
-        CommonGame g = getGlobalGameManager().get(p).get(id);
-        return g;
-    }
 
 
     public List<JoueurView> getPlayersWithGames(String param, Pageable paging) {
@@ -464,14 +309,7 @@ public class DatabaseManager implements IDatabaseManager {
                 break;
 
             case DUPLICATE:
-        /*
-        CommonGame cop = item.duplicate();
-        cop.setLastUpdate(System.currentTimeMillis());
-        cop.setId(DbKeyManager.getInstance().getDbKeyGenerator().getNext());
-        if (parseMoves2(cop)) {
-          gameManager.upsert(cop, operation);
-        }
-        */ //TODO
+
 
                 break;
             case DELETE:
@@ -516,11 +354,11 @@ public class DatabaseManager implements IDatabaseManager {
                 if (deleteDoublon && compteur > 0) {
                     List<CommonGame> sousList = allGames.subList(0, compteur);
                     for (CommonGame gameBefore : sousList) {
-            /*
+
             if (game.isDoublon(gameBefore)) {
               toRemove = true;
               break;
-            }*/ // TODO
+            } // TODO
                     }
                 }
 
@@ -547,103 +385,5 @@ public class DatabaseManager implements IDatabaseManager {
         return true;
     }
 
-
-    public void delete() {
-        log.info("delete:" + database.getId());
-        // FIXME GlobalManager.getInstance().addToDelete(database.getId());
-    }
-
-
-    public List<StatBrowserView> getBrowseData(List<String> movesAlreadyPlayed) {
-        List<StatBrowserView> all = new ArrayList();
-        // si pas de coups joues : on boucle
-        if (movesAlreadyPlayed.isEmpty()) {
-            for (String s : Constants.ALL_FIRST_MOVE) {
-                //log.info("getBrowseData:" + s+"  "+database().getId());
-                IBrowserStatManager bsm = GlobalManager.getInstance().getDatabaseManager(database.getId())
-                        .getGlobalBrowserStatManager().get(s);       // log.info("s="+s+" "+bsm);
-                //    log.info("getBrowseData:"+bsm.toString());
-                if (bsm == null) {
-                    log.error(database.getId() + "bsm null" + s);
-                    continue;
-                }
-                List<StatBrowserView> l = bsm.getBrowseData(this, movesAlreadyPlayed);
-                //   log.info(s+":getBrowseData:" + l.size());
-                if (l != null) {
-                    all.addAll(l);
-                }
-            }
-        } else {
-            all.addAll(GlobalManager.getInstance().getDatabaseManager(database.getId())
-                    .getGlobalBrowserStatManager().get(movesAlreadyPlayed.get(0))
-                    .getBrowseData(this, movesAlreadyPlayed));
-        }
-        //   log.info("getBRowseData : " + all.size());
-        return all;
-    }
-
-
-    public StatJoueurView getStatJoueur(CommonPlayer player) {
-        IPlayerStatManager psm =
-                GlobalManager.getInstance().getDatabaseManager(database.getId()).getPlayerStatManager();
-        return psm.getStatJoueur(this, player);
-    }
-
-
-    public StatGame getStatGame(List<CommonGame> list) {
-        IGameStatManager psm =
-                GlobalManager.getInstance().getDatabaseManager(database.getId()).getGameStatManager();
-        return psm.getStatGame(list);
-    }
-
-    @Override
-    public IGlobalGameManager getGlobalGameManager() {
-        return globalGameManager;
-    }
-
-    @Override
-    public IPositionManager getPositionManager() {
-        return positionManager;
-    }
-
-    @Override
-    public IMaterialManager getMaterialManager() {
-        return materialManager;
-    }
-
-    @Override
-    public IPlayerOfDbManager getPlayerOfDbManager() {
-        return playerOfDbManager;
-    }
-
-    @Override
-    public IGlobalBrowserStatManager getGlobalBrowserStatManager() {
-        return globalBrowserStatManager;
-    }
-
-    @Override
-    public IPlayerStatManager getPlayerStatManager() {
-        return playerStatManager;
-    }
-
-    @Override
-    public IGameStatManager getGameStatManager() {
-        return gameStatManager;
-    }
-
-    @Override
-    public IGameWhereMapManager getGameWhereMapManager() {
-        return gameWhereMapManager;
-    }
-
-    @Override
-    public IGameOfAPlayerManager getGameOfAPlayerManager() {
-        return gameOfAPlayerManager;
-    }
-
-    @Override
-    public IHistoryManager getHistoryManager() {
-        return historyManager;
-    }
-
+*/
 }

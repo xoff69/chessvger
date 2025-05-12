@@ -1,7 +1,5 @@
 package com.xoff.chessvger.util;
 
-import com.xoff.chessvger.common.DbKeyManager;
-import com.xoff.chessvger.common.ParamConstants;
 import com.xoff.chessvger.model.CommonGame;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -14,7 +12,8 @@ import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class RejetUtil {
-
+    // FIXME
+/*
 
     private OutputStreamWriter writer;
 
@@ -62,5 +61,5 @@ public class RejetUtil {
             log.error(ioe.getMessage());
         }
 
-    }
+    }*/
 }

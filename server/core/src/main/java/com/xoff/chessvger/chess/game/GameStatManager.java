@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @NoArgsConstructor
-public class GameStatManager implements IGameStatManager {
+public class GameStatManager  {
 
 
     public StatGame getStatGame(List<CommonGame> list) {

@@ -1,27 +1,22 @@
-package com.xoff.chessvger.chess.board;
+package com.xoff.chessvger.service;
 
 import com.xoff.chessvger.chess.filter.Filter;
-import com.xoff.chessvger.chess.position.MaterialMap;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.xoff.chessvger.util.MaterialUtil.*;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_CAVALIER_BLANC;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_CAVALIER_NOIR;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_DAME_BLANC;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_DAME_NOIR;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_FOU_BLANC;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_FOU_NOIR;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_TOUR_BLANC;
+import static com.xoff.chessvger.util.MaterialUtil.DEBUT_TOUR_NOIR;
+import static com.xoff.chessvger.util.MaterialUtil.encode;
 
-@Slf4j
-public class MaterialManager implements IMaterialManager {
-
-    private static final int NBMAP = 1;
-    private final MaterialMap[] materialMaps;
-
-    public MaterialManager(String dbname) {
-
-        materialMaps = new MaterialMap[NBMAP];
-        for (int i = 0; i < NBMAP; i++) {
-            materialMaps[i] = new MaterialMap(dbname, i);
-        }
-    }
+public class MaterialService {
 
     public List<Long> search(Filter filter) {
         long materialValue = 0L;
@@ -38,36 +33,7 @@ public class MaterialManager implements IMaterialManager {
         materialValue |= encode(materialValue, filter.getNbtournoir(), DEBUT_TOUR_NOIR);
         List<Long> all = new ArrayList<>();
 
-        for (int i = 0; i < NBMAP; i++) {
 
-            all.addAll(materialMaps[i].search(filter, materialValue));
-        }
         return all;
     }
-
-
-    public void clear() {
-        for (MaterialMap m : materialMaps) {
-            m.clear();
-        }
-    }
-
-
-    public void add(long key, long value) {
-
-        int index = Math.abs((int) key);
-
-        materialMaps[index % NBMAP].add(key, value);
-
-    }
-
-
-    public void finish() {
-//        log.info("commit");
-        for (MaterialMap m : materialMaps) {
-            m.commit();
-        }
-    }
-
-
 }

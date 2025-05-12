@@ -1,4 +1,4 @@
-package com.xoff.chessvger.common;
+package com.xoff.chessvger.util;
 
 import com.xoff.chessvger.EnvManager;
 

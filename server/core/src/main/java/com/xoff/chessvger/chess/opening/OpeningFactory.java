@@ -1,7 +1,7 @@
 package com.xoff.chessvger.chess.opening;
 
 
-import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.util.ParamConstants;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;

@@ -1,7 +1,6 @@
 package com.xoff.chessvger.util;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.common.ParamConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 
@@ -14,8 +13,8 @@ import java.util.zip.ZipInputStream;
 
 @Slf4j
 public class ZipUtil {
-
-
+// FIXME
+/*
     private static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
         File destFile = new File(destinationDir, FilenameUtils.getName(zipEntry.getName()));
 
@@ -49,10 +48,7 @@ public class ZipUtil {
                 }
             }
             tot += parser.parseDir(destDir, databaseManager);
-        /*
-        if (!newFile.delete()) {
-          log.info("deletion impossible " + destDir + ":" + zipEntry);
-        }*/
+/
             zipEntry = zis.getNextEntry();
         }
 
@@ -62,5 +58,5 @@ public class ZipUtil {
 
         return tot;
     }
-
+*/
 }

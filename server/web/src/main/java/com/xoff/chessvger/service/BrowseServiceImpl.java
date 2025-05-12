@@ -1,8 +1,5 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.chess.database.Database;
-import com.xoff.chessvger.chess.database.DatabaseManager;
-import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.model.StatBrowser;
 import com.xoff.chessvger.util.Constants;
 import com.xoff.chessvger.view.StatBrowserView;
@@ -12,12 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

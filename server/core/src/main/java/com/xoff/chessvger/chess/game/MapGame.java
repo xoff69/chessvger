@@ -1,9 +1,7 @@
 package com.xoff.chessvger.chess.game;
 
-import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.filter.Filter;
-import com.xoff.chessvger.common.AdbCommonKeyLong;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.util.*;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -17,64 +15,9 @@ import static com.xoff.chessvger.util.StringUtility.*;
 
 
 @Slf4j
-public class MapGame extends AdbCommonKeyLong<CommonGame> {
+public class MapGame {
 
-    private final IGameWhereMapManager gameWhereMapManager;
-
-    private List<CommonGame> games;
-
-
-    public MapGame(DatabaseManager databaseManager, String basename) {
-        super(DatabaseManager.getFolder(databaseManager.createName()) + basename + "gameMap" +
-                Constants.MAP_SFX);
-        // this.pm = pm;
-        this.gameWhereMapManager = databaseManager.getGameWhereMapManager();
-
-
-        //  log.info("MapGame:" + filename + ",map=" + getMapName() + ".init" + "-" + size());
-        games = new ArrayList<>();
-        load();
-    }
-
-    private static boolean isLeftIntoRight(String[] left, String[] right) {
-        int len = left.length;
-
-        if (len > right.length) {
-            return false;
-        }
-
-        for (int i = 0; i < len; i++) {
-            if (!left[i].equals(right[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void add(long key, CommonGame value, DBOperation operation) {
-        super.add(key, value);
-        gameWhereMapManager.add(key, value.getFirstMove());
-        switch (operation) {
-            case UPDATE -> {
-                games.remove(value);
-                games.add(value);
-            }
-            case AJOUT -> {
-                games.add(value);
-            }
-            case DUPLICATE -> {
-            }// TODO
-
-            case DELETE -> {
-            }// TODO
-
-            case UNDELETE -> {
-            }// TODO
-
-        }
-
-
-    }
+/*
 
     public List<CommonGame> getGameByStart(String[] previousMoves) {
         List<CommonGame> result = new ArrayList();
@@ -326,7 +269,7 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
                     if (game.getWhitePlayer().equals("Vedder,R")) {
                         log.info("vedder z  " + isToAdd + " " + game.getWhitePlayer());
                     }
-        /* FIXME : a remettre
+
         // favori
         boolean critereFav = false;
         char fav = filter.getFavori();
@@ -375,7 +318,7 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
                 break;
         }
         isToAdd = isToAdd && critereInteret;
-        */
+
                     boolean asDUS = false;
                     // nombre de jour
 // pour la condition last update
@@ -417,26 +360,6 @@ public class MapGame extends AdbCommonKeyLong<CommonGame> {
         return listResultat;
     }
 
-
-    public void update() {
-        load();
-    }
-
-    private void load() {
-        //log.info("debut load");
-        games.clear();
-        games = new ArrayList(list());
-
-        // log.info("fin load:" + games.size());
-    }
-
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "We want that")
-    public List<CommonGame> getGames() {
-        if (games.isEmpty()) {
-            load();
-        }
-        return games;
-    }
-
+*/
 
 }

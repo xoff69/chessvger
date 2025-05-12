@@ -1,7 +1,6 @@
 package com.xoff.chessvger.dao;
 
-import com.xoff.chessvger.common.DbKeyManager;
-import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.util.ParamConstants;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.model.StatBrowser;
 import com.xoff.chessvger.util.Constants;

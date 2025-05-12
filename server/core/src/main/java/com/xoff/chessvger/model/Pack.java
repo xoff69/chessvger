@@ -1,7 +1,5 @@
 package com.xoff.chessvger.model;
 
-import com.xoff.chessvger.chess.pack.PackDatabase;
-import com.xoff.chessvger.common.CommonModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class Pack extends CommonModel {
+public class Pack  {
     @Serial
     private static final long serialVersionUID = 5730267369063215547L;
 
@@ -23,19 +21,7 @@ public class Pack extends CommonModel {
     private long endDate;
     private double price;
 
-    private List<PackDatabase> packBds = new ArrayList<>();
 
-
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeLong(getId());
-        out.writeUTF(getName());
-
-    }
-
-    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
-        setId(in.readLong());
-        setName(in.readUTF());
-    }
 
 
 }

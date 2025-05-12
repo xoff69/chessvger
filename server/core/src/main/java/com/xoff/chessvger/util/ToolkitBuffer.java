@@ -1,6 +1,5 @@
 package com.xoff.chessvger.util;
 
-import com.xoff.chessvger.chess.database.DBOperation;
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.model.CommonGame;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -25,6 +24,7 @@ public class ToolkitBuffer {
      * ajoute tous les completes games a db 1) on change tous les id 2) on
      * ajoute
      */
+    /*
     public static void paste(DatabaseManager db) {
         if (list == null) {
             return;
@@ -34,6 +34,6 @@ public class ToolkitBuffer {
             db.upsert(cg, DBOperation.DUPLICATE);
         }
         log.info("fin du collage:" + list.size());
-    }
+    }*/
 
 }

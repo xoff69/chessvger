@@ -1,6 +1,5 @@
 package com.xoff.chessvger.chess.opening;
 
-import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.util.PgnUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -31,13 +30,15 @@ public class OpeningHelper {
 
     /**
      * renvoie les informations sur l'ouverture
+     * TODO
      */
     public Opening getInfoOpening(CommonGame game) {
 
 
         if (!StringUtils.isEmpty(game.getEco())) {
-            Opening op = GlobalManager.getInstance().getOpeningManager().findOpening(game.getEco());
-            return op;
+         //   Opening op = GlobalManager.getInstance().getOpeningManager().findOpening(game.getEco());
+          //  return op;
+            return null;
         } else {
             //-     log.info("game=" + game);
             String[] lm = PgnUtil.extractMovesFromString(game.getMoves());
@@ -54,7 +55,9 @@ public class OpeningHelper {
         if (moves.isEmpty() || moves.size() < 2) {
             return new Opening();
         }
+        // TODO
+return null;
 
-        return GlobalManager.getInstance().getOpeningManager().findOpening(moves);
+      //  return GlobalManager.getInstance().getOpeningManager().findOpening(moves);
     }
 }

@@ -2,10 +2,7 @@ package com.xoff.chessvger.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xoff.chessvger.chess.database.Database;
-import com.xoff.chessvger.chess.database.IDatabaseManager;
-import com.xoff.chessvger.common.GlobalManager;
-import com.xoff.chessvger.common.ParamConstants;
+import com.xoff.chessvger.util.ParamConstants;
 import com.xoff.chessvger.config.RedisMessagePublisher;
 import com.xoff.chessvger.database.DatabaseHelperService;
 import com.xoff.chessvger.model.CommonGame;
@@ -116,22 +113,7 @@ public class GamesController {
         }
     }
 
-    // TODO
-    public int uploadPgn(MultipartFile file, long bdId) {
 
-        GlobalManager.getInstance().getCallStatManager().appendStat("PGN_IMPORT");
-        //  TODO  File fileo = writeMultipartToDisk(multipartFile);
-        Database database = new Database();
-        IDatabaseManager dm = GlobalManager.getInstance().getDatabaseManager(bdId);
-
-        log.info("import PGN avant:" + database.getNbgames());
-        int l = dm.importePgn(ParamConstants.PATH_IMPORT);
-        log.info("import PGN apres:" + l);
-
-        dm.finish();
-        finishUpload();
-        return l;
-    }
 
     private static void finishUpload() {
         log.info(" finishUpload ");

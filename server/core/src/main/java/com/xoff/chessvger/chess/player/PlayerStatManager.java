@@ -2,7 +2,6 @@ package com.xoff.chessvger.chess.player;
 
 import com.xoff.chessvger.chess.database.DatabaseManager;
 import com.xoff.chessvger.chess.opening.Opening;
-import com.xoff.chessvger.common.GlobalManager;
 import com.xoff.chessvger.model.CommonGame;
 import com.xoff.chessvger.model.CommonPlayer;
 import com.xoff.chessvger.util.Constants;
@@ -16,13 +15,14 @@ import java.util.*;
 
 @Slf4j
 @NoArgsConstructor
-public class PlayerStatManager implements IPlayerStatManager {
+public class PlayerStatManager  {
 
 
     /**
      * determine ses stats avec les blancs, avec les noirs ses ouvertures
      * preferees sur l ensemble de ses parties
      */
+    /*
     public StatJoueurView getStatJoueur(DatabaseManager databaseManager, CommonPlayer player) {
 
         StatJoueurView statJoeurView = new StatJoueurView();
@@ -177,5 +177,5 @@ public class PlayerStatManager implements IPlayerStatManager {
 
     }
 
-
+*/
 }

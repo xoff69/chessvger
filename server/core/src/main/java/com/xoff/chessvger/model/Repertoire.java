@@ -1,6 +1,5 @@
 package com.xoff.chessvger.model;
 
-import com.xoff.chessvger.common.CommonModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,25 +10,13 @@ import java.io.Serial;
 
 @Data
 @NoArgsConstructor
-public class Repertoire extends CommonModel {
+public class Repertoire {
     @Serial
     private static final long serialVersionUID = 5424741731756895241L;
 
     private long userId;
     private long databaseId;
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.writeLong(getId());
-        out.writeLong(getUserId());
-        out.writeLong(getDatabaseId());
-
-    }
-
-    private void readObject(ObjectInputStream in) throws ClassNotFoundException, IOException {
-        setId(in.readLong());
-        setUserId(in.readLong());
-        setDatabaseId(in.readLong());
-    }
 
 
 }
