@@ -24,3 +24,4 @@ create table common.common_player
 );
 
 CREATE INDEX idx_common_player_lower_name ON common.common_player (LOWER(name));
+CREATE INDEX idx_common_player_name ON common.common_player ("name");

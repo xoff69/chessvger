@@ -15,8 +15,11 @@ import java.util.Set;
 public class MaterialDao {
 
 
-    private static final String INSERT_SQL = "INSERT INTO  %s.material_games (value,game_id) VALUES (?,?)";
-
+     private static final String INSERT_SQL =
+            "INSERT INTO %s.material_games (value, game_ids) " +
+                    "VALUES (?, ARRAY[?]::BIGINT[]) " +
+                    "ON CONFLICT (value) DO UPDATE " +
+                    "SET game_ids = %s.material_games.game_ids || EXCLUDED.game_ids";
 
     public static void insert(Connection connection, String schemaName, Long gameId, List<CoupleZobristMaterial> list)
             throws SQLException {
@@ -30,7 +33,8 @@ public class MaterialDao {
 
 
         PreparedStatement insertEntityStmt = null;
-        String sql = String.format(INSERT_SQL, schemaName);
+        String sql = String.format(INSERT_SQL, schemaName, schemaName);
+
         try {
 
             insertEntityStmt =

@@ -1,17 +1,4 @@
-create table %s.material_games
-(
-    value
-    bigint
-    not
-    null,
-    game_id
-    bigint
-    not
-    null,
-    primary
-    key
-(
-    value,
-    game_id
-));
-
+CREATE TABLE %s.material_games (
+                                   value     BIGINT PRIMARY KEY,
+                                   game_ids  BIGINT[] NOT NULL
+);

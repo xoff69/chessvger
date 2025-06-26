@@ -27,7 +27,7 @@ public class RunInitTenant implements Runnable {
             // TODO ContractDao.linkUserToContract(userTenant, ContractDao.getDefaultContract());
             log.info("Tenant created");
             TenantDao.createTenantEnvironnement(userTenant.getTenantName());
-
+log.info("createTenantEnvironnement Tenant created");
 // tenantDao initialise une nouvelle bd pg, et en plus on cree un schema dans cette nouvelle bd
             // et on fait une copie
             // TODO  TenantDao.duplicate(CommonDao.COMMON_SCHEMA, TenantDao.DEFAULT_DATABASE_NAME, schemaName,TenantDao.DEFAULT_DATABASE_NAME);

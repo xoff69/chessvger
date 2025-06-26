@@ -51,7 +51,7 @@ public class RunGameParser implements Runnable {
 
             long id = commonGameDao.count(connection, messageToParser.getSchema()) + 1;
             List <CommonGame>   gamesWork=new ArrayList<>();
-            int compteurDEBUG= 0;
+           
             for (CommonGame game : games) {
 
                 game.setId(id++);
@@ -63,13 +63,21 @@ public class RunGameParser implements Runnable {
                 List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
                 MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
                 PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-                //log.info("insert game : " + game);
-                compteurDEBUG++;
-                if (compteurDEBUG == 3) { //FIXME
-                    break;
-                }
+
 
             }
+            /*
+            faire le clean des doublons dans position et material @TODO
+            UPDATE %s.position_games
+            SET game_ids = (
+                    SELECT ARRAY(
+                    SELECT DISTINCT unnest_id
+                    FROM unnest(game_ids) AS unnest_id
+                    ORDER BY unnest_id
+            )
+)
+            WHERE value IN (1, 2, 3);
+            */
             log.info("db insert games all done " + games.size() + ":" + timeElapsed + " s");
             BrowserDao.createStatsForGames(connection, messageToParser.getSchema(), gamesWork);
             log.info("browseFirstMove done ");

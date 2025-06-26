@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,8 +40,12 @@ public class CommonDao {
     }
 
     public static void executeSqlFromFile(Connection connection, String filename, String schema) {
+        log.info("executeSqlFromFile: " + filename + " schema: " + schema);
         String queryFromFile = FileUtils.read(filename);
-        String sql = String.format(queryFromFile, schema);
+        long count = queryFromFile.chars().filter(c -> c == '%').count(); // nombre de %
+Object[] args = new Object[(int) count];
+Arrays.fill(args, schema);
+String sql = String.format(queryFromFile, args);
         CommonDao.executeQuery(connection, sql);
     }
 
