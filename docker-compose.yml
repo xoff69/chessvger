@@ -110,7 +110,7 @@ services:
       - chessvger_network
     ports:
       - "3002:3002"
-           
+       
 
 
   # dockfish:
@@ -121,3 +121,28 @@ services:
   #     - "8084:8080"
   #   networks:
   #   - chessvger_network
+
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    ports:
+      - "8123:8123"   # HTTP interface (ex: curl, browser)
+      - "9000:9000"   # Native protocol (clients/drivers)
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      - chessvger_network
+    environment:
+      CLICKHOUSE_DB: mydb
+      CLICKHOUSE_USER: user
+      CLICKHOUSE_PASSWORD: password
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+  
+
+volumes:
+    clickhouse_data:

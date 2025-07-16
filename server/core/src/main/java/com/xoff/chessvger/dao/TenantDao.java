@@ -2,10 +2,9 @@ package com.xoff.chessvger.dao;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Properties;
+
 @Slf4j
 public class TenantDao {
 
@@ -37,7 +36,9 @@ public class TenantDao {
             String sqlDatabaseName = "chessvger_" + tenantName + "_database";
             CommonDao.createDatabasePg(connection, sqlDatabaseName);
 
+
             try (Connection connectionTenant = CommonDao.getConnection(sqlDatabaseName)) {
+                Connection connectionClickHouse =CommonDao.getConnectionClickHouse();
                 // schema common
                 CommonDao.createSchemaIfNotExists(connectionTenant, CommonDao.COMMON_SCHEMA);
                 // puis un schema par bd
@@ -48,7 +49,7 @@ public class TenantDao {
 
                 String schemaName = "main";
                 CommonDao.createSchemaIfNotExists(connectionTenant, schemaName);
-                createChessvgerDatabase(connectionTenant, schemaName);
+                createChessvgerDatabase(connectionTenant, connectionClickHouse,schemaName);
 
             }
         } catch (SQLException e) {
@@ -61,7 +62,7 @@ public class TenantDao {
     /**
      * create dababase en subtable: games, ...
      */
-    private static void createChessvgerDatabase(Connection connection, String schemaNameString) {
+    private static void createChessvgerDatabase(Connection connection,Connection connectionClickHouse, String schemaNameString) {
 
 
         CommonDao.executeSqlFromFile(connection, "query/game_createtable.sql", schemaNameString);
@@ -78,6 +79,8 @@ public class TenantDao {
 
         CommonDao.executeSqlFromFile(connection, "query/history_create_table.sql", schemaNameString);
         CommonDao.executeSqlFromFile(connection, "query/gameofstat_create_table.sql", schemaNameString);
+
+        CommonDao.executeSqlFromFile(connectionClickHouse, "query/positions_games_clickhouse.sql", schemaNameString);
 
     }
 

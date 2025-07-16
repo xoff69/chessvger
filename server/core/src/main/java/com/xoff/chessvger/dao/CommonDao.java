@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 // TODO gestion des exceptions
 // TODO gestion des databases: comment on switche
@@ -37,6 +38,14 @@ public class CommonDao {
         // System.out.println("connexion DB :" + "jdbc:postgresql://" + Main.getDBHost() + "/chessvger");
 
 
+    }
+    static {
+        try {
+            Class.forName("com.clickhouse.jdbc.ClickHouseDriver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            log.error("connexion DB :" + e);
+        }
     }
 
     public static void executeSqlFromFile(Connection connection, String filename, String schema) {
@@ -146,5 +155,14 @@ String sql = String.format(queryFromFile, args);
             log.error("Erreur lors de la création de la base de données : " + e.getMessage());
         }
     }
+ public static Connection getConnectionClickHouse()throws SQLException{
+     String url = "jdbc:clickhouse://localhost:8123/default";
 
+     Properties props = new Properties();
+     props.setProperty("user", "user");
+     props.setProperty("password", "password");
+
+     Connection connectionClickHouse = DriverManager.getConnection(url, props);
+     return connectionClickHouse;
+ }
 }

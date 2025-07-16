@@ -12,4 +12,5 @@ public class MessageToParser {
     private ActionQueue actionQueue;
     private long tenantId;
     private long correlationId;
+    private long databaseId;
 }

@@ -18,7 +18,8 @@ dependencies {
 
     implementation 'org.slf4j:slf4j-api:1.7.36'          // Logging
     implementation 'org.slf4j:slf4j-simple:1.7.36'
-
+    // https://mvnrepository.com/artifact/com.clickhouse/clickhouse-jdbc
+    implementation("com.clickhouse:clickhouse-jdbc:0.8.2:shaded-all")
     // Simple logger
     implementation 'io.micrometer:micrometer-core:1.9.0'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.9.0'

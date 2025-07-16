@@ -48,7 +48,7 @@ public class RunGameParser implements Runnable {
         log.info("after parse games done: " + messageToParser);
 
         try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
-
+            Connection connectionClickHouse=CommonDao.getConnectionClickHouse();
             long id = commonGameDao.count(connection, messageToParser.getSchema()) + 1;
             List <CommonGame>   gamesWork=new ArrayList<>();
            
@@ -61,9 +61,9 @@ public class RunGameParser implements Runnable {
                 GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getWhitePlayer(), game.getWhiteFideId());
                 GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getBlackPlayer(), game.getBlackFideId());
                 List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
-                MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-                PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-
+                //MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+                //PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+                PositionClickHouseDao.insert(connectionClickHouse,messageToParser.getSchema(), messageToParser.getTenantId(),messageToParser.getDatabaseId(),game.getId(),  list);;
 
             }
             /*
