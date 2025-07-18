@@ -46,12 +46,12 @@ public class RunGameParser implements Runnable {
         long timeElapsed = (finish1 - start) / 1000;
         log.info("after parse games : nb games to insert: " + games.size() + ":" + timeElapsed + " s");
         log.info("after parse games done: " + messageToParser);
-
+long start2 = System.currentTimeMillis();
         try (Connection connection = CommonDao.getConnection(messageToParser.getDatabaseName())) {
             Connection connectionClickHouse=CommonDao.getConnectionClickHouse();
             long id = commonGameDao.count(connection, messageToParser.getSchema()) + 1;
             List <CommonGame>   gamesWork=new ArrayList<>();
-           
+            
             for (CommonGame game : games) {
 
                 game.setId(id++);
@@ -62,8 +62,9 @@ public class RunGameParser implements Runnable {
                 GameOfAPlayerDao.insert(connection, messageToParser.getSchema(), game.getId(), game.getBlackPlayer(), game.getBlackFideId());
                 List<CoupleZobristMaterial> list = MaterialPositionsUtil.parseMoves2(game.getMoves());
                 //MaterialDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-                //PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
-                PositionClickHouseDao.insert(connectionClickHouse,messageToParser.getSchema(), messageToParser.getTenantId(),messageToParser.getDatabaseId(),game.getId(),  list);;
+                PositionDao.insert(connection, messageToParser.getSchema(), game.getId(), list);
+                // PositionClickHouseDao.insert(connectionClickHouse,messageToParser.getSchema(), messageToParser.getTenantId(),messageToParser.getDatabaseId(),game.getId(),  list);;
+                //PositionClickHouseDao.insert2(connectionClickHouse,messageToParser.getSchema(), messageToParser.getTenantId(),messageToParser.getDatabaseId(),game.getId(),  list);;
 
             }
             /*
@@ -78,7 +79,9 @@ public class RunGameParser implements Runnable {
 )
             WHERE value IN (1, 2, 3);
             */
-            log.info("db insert games all done " + games.size() + ":" + timeElapsed + " s");
+           long finish2 = System.currentTimeMillis();
+        long timeElapsed = (finish2 - start2) / 1000;
+            log.info("phase 2 done " + games.size() + ":" + timeElapsed + " s");
             BrowserDao.createStatsForGames(connection, messageToParser.getSchema(), gamesWork);
             log.info("browseFirstMove done ");
 

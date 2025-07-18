@@ -156,7 +156,7 @@ String sql = String.format(queryFromFile, args);
         }
     }
  public static Connection getConnectionClickHouse()throws SQLException{
-     String url = "jdbc:clickhouse://localhost:8123/default";
+     String url = "jdbc:clickhouse://clickhouse:8123/default";
 
      Properties props = new Properties();
      props.setProperty("user", "user");

@@ -18,6 +18,7 @@
 
     <!-- Désactiver totalement les logs HikariConfig -->
     <logger name="com.zaxxer.hikari.HikariConfig" level="OFF" additivity="false" />
+    <logger name="com.zaxxer.hikari" level="OFF" additivity="false" />
 
     <!-- Root Logger -->
     <root level="DEBUG">

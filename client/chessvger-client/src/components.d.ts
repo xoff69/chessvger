@@ -17,7 +17,7 @@ declare module 'vue' {
     GameBrowse: typeof import('./components/GameBrowse.vue')['default']
     GamePlayers: typeof import('./components/GamePlayers.vue')['default']
     GamesList: typeof import('./components/GamesList.vue')['default']
-    HomePage: typeof import('./components/HomePage.vue')['default']
+    Homepage: typeof import('./components/Homepage.vue')['default']
     LandingPage: typeof import('./components/LandingPage.vue')['default']
     Login: typeof import('./components/Login.vue')['default']
     ModalSearchGame: typeof import('./components/ModalSearchGame.vue')['default']

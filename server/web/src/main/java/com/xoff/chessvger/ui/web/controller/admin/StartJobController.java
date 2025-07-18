@@ -32,6 +32,16 @@ public class StartJobController {
         redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
         return "ok";
     }
+@GetMapping("/jobInitSystem")
+    String jobInitSystem() throws JsonProcessingException {
+        log.info("jobInitSystem");
+        MessageToParser message = new MessageToParser();
+        message.setActionQueue(ActionQueue.INIT_SYSTEM);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        redisMessagePublisher.publish(objectMapper.writeValueAsString(message));
+        return "ok";
+    }
 
 }

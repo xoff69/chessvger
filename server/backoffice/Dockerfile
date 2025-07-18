@@ -1,6 +1,6 @@
 # docker build -t chessvger-backoffice . --no-cache
 # gradle clean build allBackOfficeFatJar
-FROM openjdk:23-jdk-slim
+FROM openjdk:24-jdk-slim
 
 WORKDIR /app
 COPY build/libs/. .

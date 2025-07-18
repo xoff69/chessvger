@@ -14,6 +14,34 @@ private static final String GET="SELECT\n" +
         "  groupArrayMerge(gameIds) AS allGames\n" +
         "FROM position_games_agg\n" +
         "GROUP BY positionId\n;";
+public static void insert2(Connection connection, String schemaName, long tenantId, long databaseId, Long gameId, List<CoupleZobristMaterial> list)
+        throws SQLException {
+
+    StringBuilder sqlBuilder = new StringBuilder("INSERT INTO ")
+            .append(schemaName).append(".position_games (tenantId, databaseId, positionId, gameIds) VALUES ");
+
+    for (int i = 0; i < list.size(); i++) {
+        CoupleZobristMaterial czm = list.get(i);
+        sqlBuilder.append("(")
+                  .append(tenantId).append(", ")
+                  .append(databaseId).append(", ")
+                  .append(czm.getZobrist()).append(", ")
+                  .append("[").append(gameId.intValue()).append("]")
+                  .append(")");
+        if (i < list.size() - 1) {
+            sqlBuilder.append(", ");
+        }
+    }
+
+    String sql = sqlBuilder.toString();
+
+    try (Statement stmt = connection.createStatement()) {
+        stmt.execute(sql);
+    } catch (SQLException e) {
+        log.error("error insert position", e);
+        throw e;
+    }
+}
 
     public static void insert(Connection connection, String schemaName, long tenantId, long databaseId, Long gameId, List<CoupleZobristMaterial> list)
         throws SQLException {
