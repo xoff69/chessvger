@@ -8,34 +8,34 @@ import lombok.Setter;
 @Setter
 public class TripletPgnAnalyse {
 
-  private boolean isWhatILookFor;
-  private int debut;
-  private int fin;
+    private boolean isWhatILookFor;
+    private int debut;
+    private int fin;
 
-  public TripletPgnAnalyse(int pos) {
-    isWhatILookFor = false;
-    debut = pos;
-    fin = pos;
-  }
+    public TripletPgnAnalyse(int pos) {
+        isWhatILookFor = false;
+        debut = pos;
+        fin = pos;
+    }
 
-  @Override
-  public String toString() {
-    String sb = isWhatILookFor + "," + debut + "," + fin;
+    @Override
+    public String toString() {
+        String sb = isWhatILookFor + "," + debut + "," + fin;
 
-    return sb;
-  }
+        return sb;
+    }
 
-  public void incrFin() {
-    fin++;
-  }
+    public void incrFin() {
+        fin++;
+    }
 
-  public void incrDebut() {
-    debut++;
-  }
+    public void incrDebut() {
+        debut++;
+    }
 
-  public void decrDebut() {
-    debut--;
-  }
+    public void decrDebut() {
+        debut--;
+    }
 
 
 }

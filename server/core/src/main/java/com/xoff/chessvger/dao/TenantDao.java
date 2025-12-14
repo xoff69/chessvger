@@ -1,0 +1,101 @@
+package com.xoff.chessvger.dao;
+
+import lombok.extern.slf4j.Slf4j;
+
+import java.sql.*;
+import java.util.Properties;
+
+@Slf4j
+public class TenantDao {
+
+    private static final String INSERT_TENANT = "INSERT INTO common.tenants (name, date_created, date_updated)\n" +
+            "VALUES\n" + "    (?, CURRENT_DATE, CURRENT_TIMESTAMP) ON CONFLICT (name) DO NOTHING  returning tenant_id";
+
+    public static int createTenant(Connection connection,
+                                   String name) throws Exception {
+
+        try (PreparedStatement stmt = connection.prepareStatement(INSERT_TENANT)) {
+            stmt.setString(1, name);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int generatedId = rs.getInt("tenant_id"); // Adaptez ici au nom du champ
+                    System.out.println("Tenant ID généré : " + generatedId);
+                    return generatedId;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error createTenant: " + name + " " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public static void createTenantEnvironnement(String tenantName) {
+
+        try (Connection connection = CommonDao.getConnection()) {
+            String sqlDatabaseName = "chessvger_" + tenantName + "_database";
+            CommonDao.createDatabasePg(connection, sqlDatabaseName);
+
+
+            try (Connection connectionTenant = CommonDao.getConnection(sqlDatabaseName)) {
+                Connection connectionClickHouse =CommonDao.getConnectionClickHouse();
+                // schema common
+                CommonDao.createSchemaIfNotExists(connectionTenant, CommonDao.COMMON_SCHEMA);
+                // puis un schema par bd
+                CommonDao.executeSqlFromFile(connectionTenant, "query/database_createtable.sql");
+                // creer la database admin
+                CommonDao.executeQuery(connectionTenant,
+                        "insert into common.databases(name,description) values('main','main database') ON CONFLICT (name) DO NOTHING");
+
+                String schemaName = "main";
+                CommonDao.createSchemaIfNotExists(connectionTenant, schemaName);
+                createChessvgerDatabase(connectionTenant, connectionClickHouse,schemaName);
+
+            }
+        } catch (SQLException e) {
+           log.error("createTenantEnvironnement: " + tenantName + " " + e.getMessage());
+        } catch (Exception e) {
+           log.error("createTenantEnvironnement: " + tenantName + " " + e.getMessage());
+        }
+    }
+
+    /**
+     * create dababase en subtable: games, ...
+     */
+    private static void createChessvgerDatabase(Connection connection,Connection connectionClickHouse, String schemaNameString) {
+
+
+        CommonDao.executeSqlFromFile(connection, "query/game_createtable.sql", schemaNameString);
+// stats
+        CommonDao.executeSqlFromFile(connection, "query/stat_browser_create_table.sql", schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/stat_browser_best_players_create_table.sql", schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/gameofaplayer_create_table.sql", schemaNameString);
+
+        CommonDao.executeSqlFromFile(connection, "query/materialgames_create_table.sql", schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/positiongames_create_table.sql", schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/favorite_create_table.sql", schemaNameString);
+
+        CommonDao.executeSqlFromFile(connection, "query/search_criteria_create_table.sql", schemaNameString);
+
+        CommonDao.executeSqlFromFile(connection, "query/history_create_table.sql", schemaNameString);
+        CommonDao.executeSqlFromFile(connection, "query/gameofstat_create_table.sql", schemaNameString);
+
+        CommonDao.executeSqlFromFile(connectionClickHouse, "query/positions_games_clickhouse.sql", schemaNameString);
+
+    }
+
+
+// utiliser db link pour faire cela
+  /*
+CREATE EXTENSION dblink; // base cible
+INSERT INTO target_table (col1, col2, col3)
+SELECT col1, col2, col3
+FROM dblink('host=host_source dbname=database_source user=user_source password=your_password',
+            'SELECT col1, col2, col3 FROM source_table')
+            AS source_table_alias(col1 TYPE, col2 TYPE, col3 TYPE);
+  */
+
+    public static void duplicate(String srcSchemaName, String srcDatabaseName, String destSchemaName, String desttDatabaseName) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+}

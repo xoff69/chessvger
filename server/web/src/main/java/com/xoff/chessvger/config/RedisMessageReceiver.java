@@ -8,21 +8,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class RedisMessageReceiver implements MessagePublisher {
 
-  @Autowired
-  private RedisTemplate<String, Object> redisTemplate;
-  @Autowired
-  private ChannelTopic topicFromQueue;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private ChannelTopic topicFromQueue;
 
-  public RedisMessageReceiver() {
-  }
+    public RedisMessageReceiver() {
+    }
 
-  public RedisMessageReceiver(
-      RedisTemplate<String, Object> redisTemplate, ChannelTopic topic) {
-    this.redisTemplate = redisTemplate;
-    this.topicFromQueue = topic;
-  }
+    public RedisMessageReceiver(
+            RedisTemplate<String, Object> redisTemplate, ChannelTopic topic) {
+        this.redisTemplate = redisTemplate;
+        this.topicFromQueue = topic;
+    }
 
-  public void publish(String message) {
-    redisTemplate.convertAndSend(topicFromQueue.getTopic(), message);
-  }
+    public void publish(String message) {
+        redisTemplate.convertAndSend(topicFromQueue.getTopic(), message);
+    }
 }

@@ -8,6 +8,6 @@ import lombok.Data;
 // FIXME pas ouf
 public class Pageable {
 
-  public int pageNumber;
-  public int pageSize;
+    public int pageNumber;
+    public int pageSize;
 }

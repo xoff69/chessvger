@@ -2,17 +2,17 @@
     <div>
       <h2>Login:tu n es pas connecte </h2>
       <form @submit.prevent="handleLogin">
-        <input v-model="email" type="email" placeholder="Email" required />
+        <input v-model="email"  placeholder="Email" required />
         <input v-model="password" type="password" placeholder="Password" required />
         <button type="submit">Login</button>
       </form>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     </div>
   </template>
-  
+
   <script>
   import { useAuthStore } from "../stores/authStore";
-  
+
   export default {
     data() {
       return {

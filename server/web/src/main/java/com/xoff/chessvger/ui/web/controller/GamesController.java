@@ -1,141 +1,142 @@
 package com.xoff.chessvger.ui.web.controller;
 
-import com.xoff.chessvger.repository.CommonGameEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xoff.chessvger.util.ParamConstants;
+import com.xoff.chessvger.config.RedisMessagePublisher;
+import com.xoff.chessvger.database.DatabaseHelperService;
+import com.xoff.chessvger.model.CommonGame;
+import com.xoff.chessvger.model.DatabaseModel;
+import com.xoff.chessvger.model.TenantEntity;
 import com.xoff.chessvger.service.GameService;
-import com.xoff.chessvger.ui.PageRequest;
-import com.xoff.chessvger.ui.service.IGameService;
-import com.xoff.chessvger.ui.web.form.FilterForm;
-import com.xoff.chessvger.ui.web.mapper.FilterMapper;
-import com.xoff.chessvger.ui.web.navigation.Navigation;
-import com.xoff.chessvger.util.Pageable;
-import com.xoff.chessvger.view.CoupleFenMoveId;
-import com.xoff.chessvger.view.CoupleLongView;
-import com.xoff.chessvger.view.GameView;
-import com.xoff.chessvger.view.PageView;
-import java.util.List;
+import com.xoff.chessvger.service.IDatabaseService;
+import com.xoff.chessvger.topic.ActionQueue;
+import com.xoff.chessvger.topic.MessageToParser;
+import com.xoff.chessvger.ui.web.controller.tools.ApiRequest;
+import com.xoff.chessvger.ui.web.controller.tools.ResponseList;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+import java.io.*;
+import java.util.Optional;
+
+@RestController
 @Slf4j
 public class GamesController {
-  @Autowired
-  Navigation navigation;
+    @Autowired
+    IDatabaseService iDatabaseService;
+
+    @Autowired
+    GameService gameService;
+
+    @Autowired
+    RedisMessagePublisher redisMessagePublisher;
+
+    @Autowired
+    DatabaseHelperService databaseHelperService;
+
+    @GetMapping("/api/games/all")
+    public ResponseEntity<ResponseList<CommonGame>> all(@RequestHeader("Authorization") String token,
+                                                        @RequestParam long databaseId, @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) {
+        log.info("/api/games/all:" + databaseId);
+
+        Pageable pageable = PageRequest.of(page, size);
+        // TODO verifier que le user a le droit de lire cette bd
+        // FIXME on fait deja le count dans le gameservice
+        // pas la peine de repondre un response list ?
+        databaseHelperService.setDatasource(token, "common");
+        DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
+        log.info("databaseid:" + databaseId + "databaseModel:" + databaseModel);
+        databaseHelperService.setDatasource(token, databaseModel.getName());
+        return new ResponseEntity<>(new ResponseList(gameService.findAll(pageable).stream().toList(), gameService.count()),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/api/games/findById")
+    public ResponseEntity<CommonGame>
+    findById(@RequestHeader("Authorization") String token, @RequestParam("id") Long id, @RequestParam("databaseId") Long databaseId) {
+
+        log.info("/api/games/findById:" + databaseId + "*" + id);
+
+        databaseHelperService.setDatasource(token, "common");
+        DatabaseModel databaseModel = iDatabaseService.findById(databaseId);
+
+        databaseHelperService.setDatasource(token, databaseModel.getName());
+        Optional<CommonGame> opt = gameService.findById(id);
+        if (opt.isPresent()) {
+            return new ResponseEntity<>(opt.get(), HttpStatus.OK);
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
-  @Autowired
-  FilterMapper filterMapper;
-
-  @Autowired
-  IGameService iGameService;
-
-  @Autowired
-  GameService gameService;
-
-  @GetMapping("/api/games/all2")
-  public ResponseEntity<List<CommonGameEntity>> all2(){
-    return new ResponseEntity<>(gameService.handleGameAction(),
-        HttpStatus.OK);
-  }
-
-  @PostMapping( path ="/searchGame", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody ResponseEntity<PageView> searchGame(@RequestBody FilterForm filterForm,
-                                                           @RequestParam(defaultValue = "0", name = "page")
-                                                           int page,
-                                                           @RequestParam(defaultValue = "10", name = "size")
-                                                           int size) {
-
-    log.info("search bdid = " + filterForm.getBdId());
-    log.info(filterForm.toString());
-    log.info("search bdid = " + filterForm.getBdId());
-    navigation.getBdFilters().put(filterForm.getBdId(), filterForm);
-    // TODO voir s il y a un filterForm
-    // TODO faire les verifs
-    // FIXME les pages: on fait quoi sur la pagination apres une recherche ?
-    //  toujours s appuyer sur le filterForm
-    //@FIXME
-    filterForm.setCasGeneral(true);
-    Pageable paging = PageRequest.of(page, size);
-
-    return ResponseEntity.ok(iGameService.managePage(paging, filterForm.getBdId(),
-        filterMapper.form2entity(filterForm)));
-  }
-  @GetMapping("/api/games/count")
-  public ResponseEntity<Long> count(){
-    return new ResponseEntity<>(iGameService.count(),
-        HttpStatus.OK);
-  }
-
-  @GetMapping("/api/games/all")
-  public ResponseEntity<List<CommonGameEntity>> all(){
-    return new ResponseEntity<>(iGameService.findAll(),
-        HttpStatus.OK);
-  }
-  @GetMapping("/games")
-  public ResponseEntity<PageView> getAllGames(@RequestParam(name = "bdId") long bdId,
-                                              @RequestParam(defaultValue = "1", name = "page")
-                                              int page,
-                                              @RequestParam(defaultValue = "10", name = "size")
-                                              int size) {
-
-    log.info("getAllGames taille =" + size + " " + page);
-    Pageable paging = PageRequest.of(page, size);
-    return ResponseEntity.ok(iGameService.managePage(paging, bdId));
-
-  }
+    @PostMapping("/api/games/import")
+    public ResponseEntity<String> importPgn(@RequestHeader("Authorization") String token, @RequestBody ApiRequest apiRequest)
+            throws JsonProcessingException {
+        log.info("importPgn request:" + apiRequest);
+        databaseHelperService.setDatasource(token, "common");
+        DatabaseModel databaseModel = iDatabaseService.findById(Long.valueOf(apiRequest.getDatabaseId()));
+        log.info("databaseid:" + apiRequest + "databaseModel:" + databaseModel);
 
 
-  @GetMapping("/gameOpen")
-  public String gameOpen(@RequestParam(name = "bdId") long bdId,
-                         @RequestParam(name = "gameId") long gameId) {
-    log.info(gameId+" -----------gameOpen open " + bdId);
-    iGameService.gameOpen(bdId, gameId);
+        Optional<TenantEntity> opt = databaseHelperService.getFromToken(token);
+        if (opt.isPresent()) {
+            TenantEntity tenantEntity = opt.get();
 
-    return "redirect:/";
-  }
+            MessageToParser messageGame = new MessageToParser();
+            messageGame.setTenantId(tenantEntity.getId());
+            messageGame.setFolderToParse("./data/2011"); // TODO repertoire pgn en dur
+            String name = tenantEntity.getName();
+            messageGame.setDatabaseName("chessvger_" + name + "_database");
+            messageGame.setDatabaseId(Long.valueOf(apiRequest.getDatabaseId()));
+            messageGame.setSchema(databaseModel.getName());
+            messageGame.setActionQueue(ActionQueue.PARSEGAME);
 
-  @GetMapping("/game")
-  public ResponseEntity<GameView> game(@RequestParam(name = "bdId") long bdId,
-                                       @RequestParam(name = "gameId") long gameId) {
-    log.info("appel game:::" + bdId + ":" + gameId);
+            ObjectMapper objectMapper = new ObjectMapper();
 
-    GameView gv = navigation.getCacheGameView().get(bdId + "_" + gameId);
-    gv.setGameId(gameId);
-    gv.setBdId(bdId);
-    gv.computeHtml();
-    return ResponseEntity.ok(gv);
-  }
-  @PatchMapping(value = "/game/flip/{bdId}/{gameId}")
-  public ResponseEntity<Boolean> gameFlip(@PathVariable(name = "bdId") Long bdId,
-                                                  @PathVariable(name = "gameId") Long gameId) {
+            redisMessagePublisher.publish(objectMapper.writeValueAsString(messageGame));
 
-       log.info("game flip");
-    return ResponseEntity.ok(iGameService.gameFlip(bdId, gameId));
-  }
-  @PatchMapping(value = "/game/close/{bdId}/{gameId}")
-  public ResponseEntity<CoupleLongView> gameClose(@PathVariable(name = "bdId") Long bdId,
-                                                  @PathVariable(name = "gameId") Long gameId) {
+            return ResponseEntity.ok("Requête traitée avec succès pour tenantEntity: " + tenantEntity.getId());
+        } else {
+            log.error("Token importPgn= {}", token);
+            return ResponseEntity.badRequest().body("Token importPgn= " + token);
+        }
+    }
 
-    log.info("game close");
-    return ResponseEntity.ok(iGameService.gameClose(bdId, gameId));
-  }
 
-  @PatchMapping(value = "/gameGetFenNavigation/{bdId}/{gameId}/{moveId}/{where}")
-  public ResponseEntity<CoupleFenMoveId> gameGetFenNavigation(
-      @PathVariable(name = "bdId") Long bdId, @PathVariable(name = "gameId") Long gameId,
-      @PathVariable(name = "moveId") int moveId, @PathVariable(name = "where") int where) {
-    log.info("gameGetFenNavigation close");
-    return ResponseEntity.ok(iGameService.gameGetFenNavigation(bdId, gameId, moveId, where));
-  }
+
+    private static void finishUpload() {
+        log.info(" finishUpload ");
+        try {
+            FileUtils.cleanDirectory(new File(FilenameUtils.getName(ParamConstants.PATH_IMPORT)));
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    private static final File writeMultipartToDisk(MultipartFile multipartFile) {
+        File fileo = new File(
+                FilenameUtils.getName(ParamConstants.PATH_IMPORT + multipartFile.getOriginalFilename()));
+
+        try (OutputStream os = new FileOutputStream(fileo)) {
+            os.write(multipartFile.getBytes());
+        } catch (FileNotFoundException e) {
+            log.error(e.getMessage());
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+        return fileo;
+    }
 }

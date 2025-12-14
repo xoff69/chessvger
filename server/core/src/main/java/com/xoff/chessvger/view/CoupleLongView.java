@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CoupleLongView {
-  long tabfirst;
-  long tabtoClose;
+    long tabfirst;
+    long tabtoClose;
 }

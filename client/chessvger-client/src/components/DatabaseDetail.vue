@@ -1,13 +1,13 @@
 <template>
 
 <v-card>
-      <v-tabs v-model="tab" bg-color="yellow">
+      <v-tabs v-model="activeTab" bg-color="yellow">
         <v-tab v-for="(t, index) in allTabs" :key="t.name"   @click="activeTab = index"
         >
           {{ t.name }}
-          <v-icon
+          <v-icon v-if="index>2"
           small
-          class="ml-2"
+          class="ml-2 red-background white--text"
           @click.stop="closeTab(index)"
         >
           mdi-close
@@ -17,13 +17,13 @@
       </v-tabs>
 
       <v-card-text>
-        <v-window v-model="tab">
+        <v-window v-model="activeTab">
           <v-window-item v-for="(t, index) in allTabs" :key="t.name">
 
-            <div v-if="tab === 0"> <GamesList :database="database" /></div>
-            <div v-if="tab === 1"> <GameBrowse :database="database"/></div>
-            <div v-if="tab === 2"> <GamePlayers :database="database"/></div>
-            <div v-if="tab ===3"> <Game :database="database"/></div>
+            <div v-show="activeTab === 0"> <GamesList :database="database"  @row-clicked="handleRowClickGame" /></div>
+            <div v-show="activeTab === 1"> <GameBrowse :database="database"/></div>
+            <div v-show="activeTab === 2"> <GamePlayers :database="database"/></div>
+            <div v-show="activeTab >=3"> <Game :database="database" :gameId="currentGameId" /></div>
           </v-window-item>
         </v-window>
       </v-card-text>
@@ -32,7 +32,7 @@
 
 </template>
 
-<script>
+<script lang="ts">
 import GamesList from "../components/GamesList.vue";
 import GameBrowse from "../components/GameBrowse.vue";
 import GamePlayers from "../components/GamePlayers.vue";
@@ -47,7 +47,8 @@ export default {
       database: {
                 type: Object,
                 required: true
-            }
+            },
+          
     },
     data() {
       return {
@@ -56,17 +57,38 @@ export default {
        allTabs : ref([
         { name: 'Games', visible: true },
         { name: 'Browse', visible: true },
-        { name: 'Players', visible: true },
-        { name: 'Game', visible: true },
+        { name: 'Players', visible: true }
       ]),
-      };
+      gameId: 0,  
+      tabGameIds: [] as { tabId: number; gameId: any }[],
+    };
     },
+    computed: {
+    currentGameId() {
+      const found = this.tabGameIds.find(t => t.tabId +3=== this.activeTab);
+      console.log("currentGameId="+found+" activeTab="+this.activeTab+" tabGameIds="+this.tabGameIds.length);
+      return found ? found.gameId : null;
+    },
+
+  },
     methods: {
+    handleRowClickGame(item,row) {
+      console.log("Ligne cliquée :", item.whitePlayer);
+      console.log("Ligne cliquée :", item.id);
+      this.gameId = item.id;
+      // to define the current game Id for each game tab
+      this.tabGameIds.push({ tabId: this.tabGameIds.length, gameId: item.id });
+      console.log("tabGameIds="+this.tabGameIds);
+
+      this.allTabs.push({ name: "game "+item.whitePlayer+"/"+item.blackPlayer, visible: true });
+      this.activeTab = this.allTabs.length - 1;
+    },
     closeTab(index) {
       console.log("close "+index);
-      this.allTabs.splice(index, 1); // Supprimer l'onglet
+      // TODO nettoyer tabGameIds
+      this.allTabs.splice(index, 1);
       if (this.activeTab >= this.allTabs.length) {
-        this.activeTab = this.allTabs.length - 1; // Ajuster l'onglet actif
+        this.activeTab = this.allTabs.length - 1;
       }
     },
   },
@@ -81,5 +103,10 @@ export default {
 .v-icon {
   cursor: pointer;
   color: red;
+}
+.red-background {
+  background-color: red;
+  border-radius: 50%; /* Fond rond */
+  padding: 4px; /* Ajuster selon la taille */
 }
 </style>

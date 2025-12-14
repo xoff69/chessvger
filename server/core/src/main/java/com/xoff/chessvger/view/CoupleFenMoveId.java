@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CoupleFenMoveId {
-  private String moveId;
-  private String fen;
+    private String moveId;
+    private String fen;
 }

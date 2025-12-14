@@ -6,43 +6,46 @@ import com.xoff.chessvger.chess.board.Position;
 import com.xoff.chessvger.chess.game.ItemGameTree;
 import com.xoff.chessvger.chess.game.OneGameTree;
 import com.xoff.chessvger.chess.move.ResultInterpretation;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Slf4j
 public class MaterialPositionsUtil {
 
-  public static List<CoupleZobristMaterial> parseMoves2(String moves) {
+    public static List<CoupleZobristMaterial> parseMoves2(String moves) {
 
-    List<CoupleZobristMaterial> result = new ArrayList<>();
-    OneGameTree ogt = new OneGameTree(moves);
+     //       log.info("> parseMoves2");
+        List<CoupleZobristMaterial> result = new ArrayList<>();
+        OneGameTree ogt = new OneGameTree(moves);
 
-    //TraceUtils.traceInFile("ogt="+ogt.toString());
-    Position position = new Position();
-    ItemGameTree courant = ogt.getParent();
-    int compteur = 0;
-    while (courant != null) {
+        //TraceUtils.traceInFile("ogt="+ogt.toString());
+        Position position = new Position();
+        ItemGameTree courant = ogt.getParent();
+        int compteur = 0;
+        while (courant != null) {
 
-      ResultInterpretation rer = BoardManager.play(position, courant.getCurrentMove());
-      //  TraceUtils.traceInFile("\n "+(compteur+1)+ " je joue : "+courant.getCurrentMove()+" "+position.toString());
+            ResultInterpretation rer = BoardManager.play(position, courant.getCurrentMove());
+            //  TraceUtils.traceInFile("\n "+(compteur+1)+ " je joue : "+courant.getCurrentMove()+" "+position.toString());
 
-      if (rer.isInvalide()) {
-        System.out.println(moves);
+            if (rer.isInvalide()) {
+                System.out.println(moves);
+                return result;
+            }
+            // tres important ce OU, en effet, ce n est qu a la fin du parsin des coups que l information est complete
+            // FIME
+            //game.setInformationsFaitDeJeu(game.getInformationsFaitDeJeu() | rer.getFaitsdejeu());
+            CoupleZobristMaterial czm = position.evaluateZobristAndMaterial();
+            // FIXME game.setLastPosition(czm.getZobrist());
+            CoupleZobristMaterial couple = new CoupleZobristMaterial(czm.getZobrist(), czm.getMaterial());
+            result.add(couple);
+
+
+            courant = courant.getNextMove();
+            compteur++;
+        }
+        // FIXME game.setNbcoups(compteur);
+      //  log.info("fin  parseMoves2");
         return result;
-      }
-      // tres important ce OU, en effet, ce n est qu a la fin du parsin des coups que l information est complete
-      // FIME
-      //game.setInformationsFaitDeJeu(game.getInformationsFaitDeJeu() | rer.getFaitsdejeu());
-      CoupleZobristMaterial czm = position.evaluateZobristAndMaterial();
-      // FIXME game.setLastPosition(czm.getZobrist());
-      CoupleZobristMaterial couple = new CoupleZobristMaterial(czm.getZobrist(), czm.getMaterial());
-      result.add(couple);
-
-
-      courant = courant.getNextMove();
-      compteur++;
     }
-    // FIXME game.setNbcoups(compteur);
-
-    return result;
-  }
 }

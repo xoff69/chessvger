@@ -1,37 +1,81 @@
 package com.xoff.chessvger.service;
 
-import com.xoff.chessvger.repository.CommonGameEntity;
-import com.xoff.chessvger.repository.DataSourceContextHolder;
-import com.xoff.chessvger.repository.DynamicDataSourceService;
-import com.xoff.chessvger.repository.GameRepository;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.xoff.chessvger.dao.UtilDao;
+import com.xoff.chessvger.model.CommonGame;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class GameService {
-  @Autowired
-  private  DynamicDataSourceService dynamicDataSourceService;
 
-  @Autowired
-  private GameRepository gameRepository;
+    private final JdbcTemplate jdbcTemplate;
 
-  public List<CommonGameEntity> handleGameAction() {
-    // Logique pour ajouter une nouvelle source de données
-    System.out.println("test repo dynamique");
-    // jdbc:postgresql://db_chessvger/chessvger_admin_database?currentSchema=main_admin
-    dynamicDataSourceService.addNewDataSource("newDb",
-        "jdbc:postgresql://db_chessvger/chessvger_admin_database",
-        "chessvger",
-        "chessvger","main_admin");
+    private final RowMapper<CommonGame> rowMapper = (rs, rowNum) -> {
+        CommonGame game = new CommonGame();
+        game.setId(rs.getLong("id"));
+        game.setEvent(rs.getString("event"));
+        game.setSite(rs.getString("site"));
+        game.setPartieAnalysee(rs.getBoolean("partie_analysee"));
+        game.setDate(rs.getDate("date"));
+        game.setEventDate(rs.getDate("event_date"));
+        game.setRound(rs.getString("round"));
+        game.setResult(rs.getString("result"));
+        game.setWhitePlayer(rs.getString("white_player"));
+        game.setBlackPlayer(rs.getString("black_player"));
+        game.setWhiteTitle(rs.getString("white_title"));
+        game.setBlackTitle(rs.getString("black_title"));
+        game.setWhiteElo(rs.getInt("white_elo"));
+        game.setBlackElo(rs.getInt("black_elo"));
+        game.setEco(rs.getString("eco"));
+        game.setOpening(rs.getString("opening"));
+        game.setWhiteFideId(rs.getLong("white_fide_id"));
+        game.setBlackFideId(rs.getLong("black_fide_id"));
+        game.setNbcoups(rs.getInt("nb_coups"));
+        game.setLastPosition(rs.getInt("last_position"));
+        game.setInformationsFaitDeJeu(rs.getLong("informations_fait_de_jeu"));
+        game.setLastUpdate(rs.getLong("last_update"));
+        game.setDeleted(rs.getBoolean("is_deleted"));
+        game.setFirstMove(rs.getString("first_move"));
+        game.setMoves(rs.getString("moves"));
+        game.setInteret(rs.getInt("interet"));
+        game.setTheorique(rs.getBoolean("theorique"));
+        game.setFavori(rs.getBoolean("favori"));
+        return game;
+    };
 
-    // Changer la source de données actuelle pour "newDb"
-    DataSourceContextHolder.setDataSource("newDb");
-    org.springframework.data.domain.Page<CommonGameEntity> page=gameRepository.findAll(
-        org.springframework.data.domain.Pageable.ofSize(5));
-    return  page.stream().toList();
-    // Vous pouvez maintenant exécuter des requêtes sur cette nouvelle base de données
-    // Par exemple, vous pouvez appeler un repository ou un EntityManager pour interagir avec la base de données "newDb".
-  }
+    public long count() {
+        return jdbcTemplate.queryForObject(UtilDao.getCountQuery("common_game"), Long.class);
+    }
 
+    public Optional<CommonGame> findById(Long id) {
+        List<CommonGame> games = jdbcTemplate.query(
+                UtilDao.findById("common_game"),
+                rowMapper,
+                id
+        );
+        return games.stream().findFirst();
+    }
+
+    public Page<CommonGame> findAll(Pageable pageable) {
+        log.info("findAll");
+        long total = count();
+        List<CommonGame> games = jdbcTemplate.query(
+                UtilDao.getAllPaginatedQuery("common_game"),
+                rowMapper,
+                pageable.getPageSize(),
+                pageable.getOffset()
+        );
+        return new PageImpl<>(games, pageable, total);
+    }
 }

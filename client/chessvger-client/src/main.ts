@@ -6,6 +6,7 @@ import 'vuetify/styles';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createPinia } from 'pinia';
 
+import axios from 'axios';
 // Configuration de Vuetify
 const vuetify = createVuetify({
   icons: {
@@ -18,7 +19,11 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
+
 app.use(router);
 app.use(createPinia());
 app.use(vuetify);
+
+
+
 app.mount('#app');

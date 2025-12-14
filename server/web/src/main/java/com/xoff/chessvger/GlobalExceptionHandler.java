@@ -13,12 +13,12 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-  @ExceptionHandler({NoHandlerFoundException.class})
-  public ResponseEntity<String> handleNoHandlerFoundException(NoHandlerFoundException ex,
-                                                              HttpServletRequest httpServletRequest) {
-    System.out.println("No handler found exception" + ex.getMessage());
-    log.info("No handler found exception" + ex.getMessage());
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
-        .body("No handler found exception" + ex.getMessage());
-  }
+    @ExceptionHandler({NoHandlerFoundException.class})
+    public ResponseEntity<String> handleNoHandlerFoundException(NoHandlerFoundException ex,
+                                                                HttpServletRequest httpServletRequest) {
+        System.out.println("No handler found exception" + ex.getMessage());
+        log.info("No handler found exception" + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON)
+                .body("No handler found exception" + ex.getMessage());
+    }
 }

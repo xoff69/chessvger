@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MessageSocket {
-  private String from;
-  private String text;
+    private String from;
+    private String text;
 }

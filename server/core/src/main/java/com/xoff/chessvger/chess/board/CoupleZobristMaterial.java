@@ -7,15 +7,15 @@ import lombok.Getter;
 public class CoupleZobristMaterial {
 
 
-  private final long zobrist;
+    private final long zobrist;
 
-  private final long material;
+    private final long material;
 
 
-  public CoupleZobristMaterial(long zobrist, long material) {
-    this.zobrist = zobrist;
-    this.material = material;
-  }
+    public CoupleZobristMaterial(long zobrist, long material) {
+        this.zobrist = zobrist;
+        this.material = material;
+    }
 
 
 }

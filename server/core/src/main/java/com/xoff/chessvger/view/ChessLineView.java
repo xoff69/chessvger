@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ChessLineView {
 
-  private String content;
+    private String content;
 
 
 }

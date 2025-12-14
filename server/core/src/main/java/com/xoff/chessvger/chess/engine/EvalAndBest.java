@@ -8,8 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor
 public class EvalAndBest {
 
-  private float eval = 0.0f;
-  private String bestmove = StringUtils.EMPTY;
+    private float eval = 0.0f;
+    private String bestmove = StringUtils.EMPTY;
 
 
 }
